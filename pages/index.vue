@@ -1,12 +1,4 @@
 <template>
-  <div>
-    <Tutorial />
-    <NuxtLink to="/sex">dsfgsdfg</NuxtLink>
-  </div>
+<div>
+</div>
 </template>
-
-<script>
-export default {
-  name: 'IndexPage',
-}
-</script>
