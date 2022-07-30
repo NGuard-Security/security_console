@@ -4,9 +4,3 @@
     <NuxtLink to="/sex">dsfgsdfg</NuxtLink>
   </div>
 </template>
-
-<script>
-export default {
-  name: 'IndexPage',
-}
-</script>
