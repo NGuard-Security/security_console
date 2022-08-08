@@ -1,13 +1,13 @@
 <template>
-<div class="flex flex-col w-full h-full" style="background: #0f1016">
-  <Navbar />
+  <div class="flex flex-col w-full h-full" style="background: #0f1016">
+    <Navbar />
 
-  <div class="flex w-full h-full">
-    <Sidebar />
+    <div class="flex w-full h-full">
+      <Sidebar />
 
-    <nuxt-child />
+      <nuxt-child />
+    </div>
   </div>
-</div>
 </template>
 
 <!--  반응형 + 앱과 연동  -->
@@ -122,7 +122,7 @@ main {
     }
 
     &:before {
-      content: "";
+      content: '';
       border-radius: 100px;
       position: absolute;
       top: 2px;
@@ -130,7 +130,7 @@ main {
       width: 28px;
       height: 28px;
       background: rgb(235, 235, 235);
-      transition: left 0.15s cubic-bezier(.17,.84,.44,1);
+      transition: left 0.15s cubic-bezier(0.17, 0.84, 0.44, 1);
     }
 
     position: relative;
@@ -139,7 +139,7 @@ main {
     height: 32px;
     border-radius: 100px;
     background: $ui-color;
-    transition: background 0.2s cubic-bezier(.17,.84,.44,1);
+    transition: background 0.2s cubic-bezier(0.17, 0.84, 0.44, 1);
   }
 
   ul {
@@ -149,7 +149,9 @@ main {
     flex-direction: column;
     gap: 0.3rem;
     overflow-y: scroll;
-    max-height: calc(0.8rem + calc(2.4rem * $ul-length) + calc(0.4rem * calc($ul-length - 1)));
+    max-height: calc(
+      0.8rem + calc(2.4rem * $ul-length) + calc(0.4rem * calc($ul-length - 1))
+    );
     width: 100%;
     margin-top: 10px;
     padding: 0.4rem 0;
@@ -180,10 +182,10 @@ main {
 </style>
 
 <script>
-import Navbar from '~/components/Header.vue';
-import Sidebar from '~/components/Sidebar.vue';
+import Navbar from '~/components/Header.vue'
+import Sidebar from '~/components/Sidebar.vue'
 export default {
-    name: "IndexPage",
-    components: { Navbar, Sidebar }
+  name: 'IndexPage',
+  components: { Navbar, Sidebar },
 }
 </script>
