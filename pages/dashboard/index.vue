@@ -9,7 +9,12 @@
     <form>
       <div>
         <label>봇 접두사</label>
-        <input type="text" id="prefix" class="w-20 h-9 px-2 bg-zinc-700 rounded-lg outline-none focus:ring focus:ring-blue-500" />
+        <input
+          class="input-s"
+          :value="input.prefix"
+          placeholder="!"
+          type="text"
+        />
       </div>
     </form>
     <div class="blank"></div>
@@ -20,18 +25,29 @@
         <label>공지 메시지 받기</label>
         <div
           @click="inputSwitch('bot_prefix')"
-          :class="{ switch_on : switchs.bot_prefix }"
+          :class="{ switch_on : switch_.bot_prefix }"
           class="switch"
         ></div>
       </div>
 
-      <div>
-        <select>
-          <option value="">직업선택</option>
-          <option value="학생">학생</option>
-          <option value="회사원">회사원</option>
-          <option value="기타">기타</option>
-        </select>
+      <div class="vert" v-if="switch_.bot_prefix">
+        <p>메시지를 받을 체널</p>
+        <input
+          class="input-l"
+          :value="input.channel"
+          placeholder="# 체널-이름"
+          type="text"
+        />
+        <ul>
+          <li value="직업선택"># 직업선택</li>
+          <li value="학생"># 학생</li>
+          <li value="회사원"># 회사원</li>
+          <li value="기타"># 기타</li>
+          <li value="기타"># 기타</li>
+          <li value="기타"># 기타</li>
+          <li value="기타"># 기타</li>
+          <li value="기타"># 기타</li>
+        </ul>
       </div>
     </form>
   </main>
@@ -42,14 +58,19 @@
 export default {
   data() {
     return {
-      switchs: {
+      input: {
+        prefix: "",
+        channel: ""
+
+      },
+      switch_: {
         bot_prefix: false,
       },
     }
   },
   methods: {
     inputSwitch: function (name) {
-      this.switchs[name] = !this.switchs[name];
+      this.switch_[name] = !this.switch_[name];
     }
   }
 }

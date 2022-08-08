@@ -1,15 +1,3 @@
-<!--
-position,
-display,
-width,
-height,
-margin,
-padding,
-border,
-font text,
-background,
--->
-
 <template>
 <div class="flex flex-col w-full h-full" style="background: #0f1016">
   <Navbar />
@@ -35,6 +23,10 @@ background,
 }
 
 main {
+  $ui-color: rgb(32, 34, 41);
+  $color-blue: rgb(22, 124, 241);
+  $color-green: rgb(38, 189, 106);
+
   color: #fff;
   padding: 2rem 6rem 0 6rem;
   width: 100%;
@@ -64,21 +56,29 @@ main {
   }
 
   p {
+    font-size: 16px;
     font-weight: 300;
     color: #999;
+    margin-bottom: 8px;
   }
 
   form {
-    border-left: 4px #333 solid;
+    border-left: 4px #999 solid;
     margin: 25px 0px;
     padding: 5px 22px;
     font-size: 20px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    gap: 15px;
+    gap: 18px;
 
     div {
+      &.vert {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      width: fit-content;
       display: flex;
       align-items: center;
     }
@@ -88,14 +88,37 @@ main {
     }
   }
 
+  input {
+    &:focus {
+      outline: 3px solid $color-blue !important;
+    }
+
+    &.input-s {
+      width: 5rem;
+    }
+
+    &.input-m {
+      width: 12rem;
+    }
+
+    &.input-l {
+      width: 30rem;
+    }
+
+    height: 2.25rem;
+    padding: 0px 0.8rem;
+    border-radius: 0.5rem;
+    outline: 0px solid transparent !important;
+    background: $ui-color;
+  }
+
   .switch {
     &.switch_on {
       &:before {
         left: 28px;
       }
 
-      background: rgb(38, 189, 106);
-      // background: #7bd3f7;
+      background: $color-green;
     }
 
     &:before {
@@ -115,15 +138,38 @@ main {
     width: 58px;
     height: 32px;
     border-radius: 100px;
-    background: rgb(32, 34, 41);
+    background: $ui-color;
     transition: background 0.2s cubic-bezier(.17,.84,.44,1);
   }
 
-  select {
-    width: 450px;
-    height: 40px;
-    border-radius: 10px;
-    background: rgb(32, 34, 41);
+  ul {
+    $ul-length: 5;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    overflow-y: scroll;
+    max-height: calc(0.8rem + calc(2.4rem * $ul-length) + calc(0.4rem * calc($ul-length - 1)));
+    width: 100%;
+    margin-top: 10px;
+    padding: 0.4rem 0;
+    border-radius: 0.5rem;
+    background: $ui-color;
+
+    li {
+      &:hover {
+        background: #fff1;
+      }
+
+      height: 2.4rem;
+      margin: 0 0.4rem;
+      padding-left: 1.2rem;
+      display: flex;
+      align-items: center;
+      border-radius: 0.5rem;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
   }
 
   .blank {
