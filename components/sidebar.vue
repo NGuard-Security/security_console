@@ -1,6 +1,6 @@
 <template>
-<div style="background: #151720"> <!-- ??? -->
-  <div class="flex flex-col shrink-0 w-72 h-full ml-40 p-5 select-none">    
+<div style="background: #151720">
+  <div class="flex flex-col shrink-0 w-72 h-full ml-44 p-5 select-none">    
     <div class="relative mb-6">
       <div
         @click="showMenu = true"
@@ -12,15 +12,20 @@
           alt="server logo"
           class="w-10 mr-3 rounded-lg"
         />
-        <span class="mr-auto text-gray-300">서버 이름</span>
+        <span class="mr-auto text-gray-300 text-ellipsis whitespace-nowrap overflow-hidden">메뉴동해물과백두산이마르고닳도록</span>
         <svg class="w-6 fill-gray-500" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m16.843 10.211c.108-.141.157-.3.157-.456 0-.389-.306-.755-.749-.755h-8.501c-.445 0-.75.367-.75.755 0 .157.05.316.159.457 1.203 1.554 3.252 4.199 4.258 5.498.142.184.36.29.592.29.23 0 .449-.107.591-.291 1.002-1.299 3.044-3.945 4.243-5.498z"/></svg>
       </div>
 
       <transition appear name="fade" mode="out-in">
-        <div v-if="showMenu" v-click-outside="onClickOutside" style="background: #15172033" class="absolute flex flex-col mt-3 w-full p-1 rounded-lg backdrop-blur-md text-white border border-slate-700/[.2] gap-1">
+        <div
+          v-if="showMenu"
+          v-click-outside="onClickOutside"
+          style="background: #15172033; max-height: 11.65rem;"
+          class="absolute flex flex-col mt-3 w-full p-1 rounded-lg backdrop-blur-md text-white border border-slate-700/[.2] gap-1 overflow-y-scroll whitespace-nowrap"
+        >
           <div class="dropdownMenu">
             <img src="~/assets/img/test.png" alt="server logo"/>
-            메뉴1
+            메뉴동해물과백두산이마르고닳도록
           </div>
           <div class="dropdownMenu">
             <img src="~/assets/img/test.png" alt="server logo"/>
@@ -29,6 +34,14 @@
           <div class="dropdownMenu">
             <img src="~/assets/img/test.png" alt="server logo"/>
             메뉴3
+          </div>
+          <div class="dropdownMenu">
+            <img src="~/assets/img/test.png" alt="server logo"/>
+            메뉴4
+          </div>
+          <div class="dropdownMenu">
+            <img src="~/assets/img/test.png" alt="server logo"/>
+            메뉴5
           </div>
         </div>
       </transition>
@@ -98,6 +111,9 @@ export default {
   data() {
     return {
       showMenu: false,
+      server: {
+        
+      }
     }
   },
   directives: {
@@ -142,8 +158,8 @@ export default {
   }
 
   img {
-    width: 26px;
-    height: 26px;
+    width: 1.6rem;
+    height: 1.6rem;
     margin-right: 10px;
     border-radius: 100px;
   }
@@ -151,6 +167,9 @@ export default {
   padding: 0.5rem;
   border-radius: 0.5rem;
   display: flex;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
 }
 
 .nuxt-link-exact-active {
