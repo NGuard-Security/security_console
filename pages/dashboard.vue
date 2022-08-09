@@ -33,9 +33,9 @@ main {
 
   h1 {
     font-weight: 600;
-    font-size: 2.25rem;
+    font-size: 1.95rem;
     line-height: 2.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -50,27 +50,27 @@ main {
 
   h2 {
     font-weight: 600;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     line-height: 2rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.3rem;
   }
 
   p {
-    font-size: 16px;
+    font-size: 0.9rem;
     font-weight: 300;
     color: #999;
-    margin-bottom: 8px;
+    margin-bottom: 5px;
   }
 
   form {
-    border-left: 4px #999 solid;
+    border-left: 3px #999 solid;
     margin: 25px 0px;
-    padding: 5px 22px;
-    font-size: 20px;
+    padding: 3px 22px;
+    font-size: 1.1rem;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    gap: 18px;
+    gap: 15px;
 
     div {
       &.vert {
@@ -90,11 +90,11 @@ main {
 
   input {
     &:focus {
-      outline: 3px solid $color-blue !important;
+      outline: 2px solid $color-blue !important;
     }
 
     &.input-s {
-      width: 5rem;
+      width: 4.2rem;
     }
 
     &.input-m {
@@ -105,7 +105,7 @@ main {
       width: 30rem;
     }
 
-    height: 2.25rem;
+    height: 2.1rem;
     padding: 0px 0.8rem;
     border-radius: 0.5rem;
     outline: 0px solid transparent !important;
@@ -115,7 +115,7 @@ main {
   .switch {
     &.switch_on {
       &:before {
-        left: 28px;
+        left: 26px;
       }
 
       background: $color-green;
@@ -127,16 +127,16 @@ main {
       position: absolute;
       top: 2px;
       left: 2px;
-      width: 28px;
-      height: 28px;
+      width: 26px;
+      height: 26px;
       background: rgb(235, 235, 235);
       transition: left 0.15s cubic-bezier(0.17, 0.84, 0.44, 1);
     }
 
     position: relative;
     display: inline-block;
-    width: 58px;
-    height: 32px;
+    width: 54px;
+    height: 30px;
     border-radius: 100px;
     background: $ui-color;
     transition: background 0.2s cubic-bezier(0.17, 0.84, 0.44, 1);
@@ -147,10 +147,10 @@ main {
 
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
+    gap: 0.2rem;
     overflow-y: scroll;
     max-height: calc(
-      0.8rem + calc(2.4rem * $ul-length) + calc(0.4rem * calc($ul-length - 1))
+      0.8rem + calc(2.2rem * $ul-length) + calc(0.2rem * calc($ul-length - 1))
     );
     width: 100%;
     margin-top: 10px;
@@ -163,7 +163,7 @@ main {
         background: #fff1;
       }
 
-      height: 2.4rem;
+      height: 2.2rem;
       margin: 0 0.4rem;
       padding-left: 1.2rem;
       display: flex;
@@ -176,7 +176,7 @@ main {
 
   .blank {
     display: block;
-    height: 40px;
+    height: 32px;
   }
 }
 </style>
