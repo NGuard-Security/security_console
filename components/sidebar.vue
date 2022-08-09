@@ -1,7 +1,7 @@
 <template>
   <div style="background: #151720">
-    <div class="flex flex-col shrink-0 w-72 h-full ml-44 p-5 select-none">
-      <div class="relative mb-6">
+    <div class="flex flex-col shrink-0 w-64 h-full p-4 select-none"> <!-- ml-36 -->
+      <div class="relative mb-5">
         <div
           @click="showMenu = true"
           :class="{ on: showMenu }"
@@ -13,7 +13,7 @@
             class="w-10 mr-3 rounded-lg"
           />
           <span
-            class="mr-auto text-gray-300 text-ellipsis whitespace-nowrap overflow-hidden"
+            class="mr-auto text-sm text-gray-300 text-ellipsis whitespace-nowrap overflow-hidden"
             >메뉴동해물과백두산이마르고닳도록</span
           >
           <svg
@@ -35,34 +35,34 @@
           <div
             v-if="showMenu"
             v-click-outside="onClickOutside"
-            style="background: #15172033; max-height: 11.65rem"
-            class="absolute flex flex-col mt-3 w-full p-1 rounded-lg backdrop-blur-md text-white border border-slate-700/[.2] gap-1 overflow-y-scroll whitespace-nowrap"
+            style="background: #15172033; max-height: calc(5.6rem + 4rem + 0.5rem + 0.375rem)"
+            class="absolute flex flex-col mt-3 w-full p-1 rounded-lg backdrop-blur-md text-white text-sm border border-slate-700/[.2] gap-0.5 overflow-y-scroll"
           >
             <div class="dropdownMenu">
               <img src="~/assets/img/test.png" alt="server logo" />
-              메뉴동해물과백두산이마르고닳도록
+              <span>메뉴동해물과백두산이마르고닳도록</span>
             </div>
             <div class="dropdownMenu">
               <img src="~/assets/img/test.png" alt="server logo" />
-              메뉴2
+              <span>메뉴2</span>
             </div>
             <div class="dropdownMenu">
               <img src="~/assets/img/test.png" alt="server logo" />
-              메뉴3
+              <span>메뉴3</span>
             </div>
             <div class="dropdownMenu">
               <img src="~/assets/img/test.png" alt="server logo" />
-              메뉴4
+              <span>메뉴4</span>
             </div>
             <div class="dropdownMenu">
               <img src="~/assets/img/test.png" alt="server logo" />
-              메뉴5
+              <span>메뉴5</span>
             </div>
           </div>
         </transition>
       </div>
 
-      <div class="flex flex-col text-gray-400 text-base gap-2">
+      <div class="flex flex-col text-gray-400 text-sm gap-1.5">
         <NuxtLink to="/dashboard" class="nav_item">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -281,17 +281,21 @@ export default {
   }
 
   img {
-    width: 1.6rem;
-    height: 1.6rem;
+    width: 1.4rem;
+    height: 1.4rem;
     margin-right: 10px;
     border-radius: 100px;
+  }
+
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   padding: 0.5rem;
   border-radius: 0.5rem;
   display: flex;
-  overflow: hidden;
-  text-overflow: ellipsis;
   flex-shrink: 0;
 }
 
@@ -331,7 +335,7 @@ export default {
     fill: rgb(156, 163, 175);
   }
 
-  padding: 8px 10px;
+  padding: 7px 10px;
   border-radius: 6px;
   display: flex;
   align-items: center;
