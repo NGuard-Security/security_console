@@ -11,6 +11,23 @@
     'Malgun Gothic', sans-serif;
 }
 
+*::-webkit-scrollbar {
+  width: 9px;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #959595;
+  background-clip: padding-box;
+  border-top: 12px;
+  border-bottom: 12px;
+  border-left: 3px;
+  border-right: 4px;
+  border-style: solid;
+  border-color: transparent;
+}
+*::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
 body {
   width: 100vw;
   height: 100vh;
