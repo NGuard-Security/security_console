@@ -194,7 +194,7 @@
           티켓 설정
         </NuxtLink>
         <hr class="mx-2.5 my-2 border-zinc-700" />
-        <NuxtLink to="/dashboard/ticket" class="nav_item">
+        <NuxtLink to="/dashboard/ticket" class="nav_item nav_item_premium">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -207,7 +207,7 @@
           </svg>
           티켓 설정
         </NuxtLink>
-        <NuxtLink to="/dashboard/ticket" class="nav_item">
+        <NuxtLink to="/dashboard/ticket" class="nav_item nav_item_premium">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -306,6 +306,22 @@ export default {
     }
 
     color: rgb(188, 193, 202);
+  }
+
+  &.nav_item_premium {
+    &:hover {
+      svg {
+        fill: rgb(207, 168, 37);
+      }
+
+      color: rgb(207, 168, 37);
+    }
+
+    svg {
+      fill: rgb(180, 149, 46);
+    }
+
+    color: rgb(180, 149, 46);
   }
 
   svg {
