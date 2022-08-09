@@ -58,11 +58,11 @@
         />
         <ul v-if="list.channel.show">
           <li
-            v-for="index in list.channel.list.length"
+            v-for="name in list.channel.list"
             @click="
-              setChannelInput('# ' + list.channel.list[index - 1]);
+              setChannelInput('# ' + name);
             "
-          ># {{list.channel.list[index - 1]}}</li>
+          ># {{name}}</li>
         </ul>
       </div>
     </form>
