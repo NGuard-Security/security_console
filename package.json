@@ -15,6 +15,7 @@
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/pwa": "^3.3.5",
     "core-js": "^3.19.3",
+    "lodash.escaperegexp": "^4.1.2",
     "nuxt": "^2.15.8",
     "v-click-outside": "^3.2.0",
     "vue": "^2.6.14",

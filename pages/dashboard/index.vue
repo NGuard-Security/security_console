@@ -53,7 +53,7 @@
             searchChannel($event.target.value.substr(2));
           "
           v-click-outside="onClickOutside"
-          placeholder="# 체널-이름"
+          placeholder="# 채널-이름"
           type="text"
         />
         <ul v-if="list.channel.show">
@@ -70,7 +70,8 @@
 </template>
 
 <script>
-import vClickOutside from 'v-click-outside'
+import vClickOutside from 'v-click-outside';
+var escapeRegExp = require('lodash.escaperegexp');
 
 const exampleValue = [
   '직업선택',
@@ -168,7 +169,10 @@ export default {
       });
     },
     onClickOutside() {
-      this.list.channel.show = false
+      this.list.channel.show = false;
+      if(this.input.channel == '# ') {
+        this.input.channel = '';
+      }
     },
   },
 }
