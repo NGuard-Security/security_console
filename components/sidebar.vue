@@ -1,6 +1,6 @@
 <template>
   <div style="background: #151720">
-    <div class="flex flex-col shrink-0 w-64 h-full p-4 select-none"> <!-- ml-36 -->
+    <div class="flex flex-col shrink-0 w-64 h-full ml-36 p-4 select-none">
       <div class="relative mb-5">
         <div
           @click="showMenu = true"
@@ -34,29 +34,17 @@
         <transition appear name="fade" mode="out-in">
           <div
             v-if="showMenu"
-            v-click-outside="onClickOutside"
+            v-click-outside="closeMenu"
             style="background: #15172033; max-height: calc(5.6rem + 4rem + 0.5rem + 0.375rem)"
             class="absolute flex flex-col mt-3 w-full p-1 rounded-lg backdrop-blur-md text-white text-sm border border-slate-700/[.2] gap-0.5 overflow-y-scroll"
           >
-            <div class="dropdownMenu">
-              <img src="~/assets/img/test.png" alt="server logo" />
-              <span>메뉴동해물과백두산이마르고닳도록</span>
-            </div>
-            <div class="dropdownMenu">
-              <img src="~/assets/img/test.png" alt="server logo" />
-              <span>메뉴2</span>
-            </div>
-            <div class="dropdownMenu">
-              <img src="~/assets/img/test.png" alt="server logo" />
-              <span>메뉴3</span>
-            </div>
-            <div class="dropdownMenu">
-              <img src="~/assets/img/test.png" alt="server logo" />
-              <span>메뉴4</span>
-            </div>
-            <div class="dropdownMenu">
-              <img src="~/assets/img/test.png" alt="server logo" />
-              <span>메뉴5</span>
+            <div
+              v-for="server in server"
+              @click="closeMenu"
+              class="dropdownMenu"
+            >
+              <img :src="require(`@/assets/img/${server.icon}`)" alt="server logo" />
+              <span>{{server.name}}</span>
             </div>
           </div>
         </transition>
@@ -226,24 +214,39 @@
 </template>
 
 <script>
-import vClickOutside from 'v-click-outside'
+import vClickOutside from 'v-click-outside';
+
+let exampleValue = [
+  {name: '메뉴2', icon: 'test.png'},
+  {name: '메뉴3', icon: 'test.png'},
+  {name: '메뉴4', icon: 'test.png'},
+  {name: '메뉴5', icon: 'test.png'},
+]
+
+// exampleValue.sort((a, b) => a.type.toLowerCase() < b.type.toLowerCase() ? -1 : 1);
+
+//언제나 현재 서버는 리스트의 첫번째에 들어가야 합니다.
+exampleValue.unshift({name: '메뉴동해물과백두산이마르고닳도록', icon: 'test.png'});
 
 export default {
   transition: 'fade',
 
+  created() {
+    this.server = exampleValue;
+  },
   data() {
     return {
       showMenu: false,
-      server: {},
+      server: [],
     }
   },
   directives: {
     clickOutside: vClickOutside.directive,
   },
   methods: {
-    onClickOutside() {
+    closeMenu() {
       if (this.showMenu === true) {
-        this.showMenu = !this.showMenu
+        this.showMenu = false;
       }
     },
   },
