@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-full" style="background: #0f1016">
+  <div class="flex flex-col w-full min-h-full" style="background: #0f1016">
     <Header />
 
     <div class="bottom_content flex w-full">
