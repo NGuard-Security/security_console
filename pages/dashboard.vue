@@ -1,28 +1,78 @@
 <template>
   <div class="flex flex-col w-full h-full" style="background: #0f1016">
-    <Navbar />
+    <Header />
 
-    <div class="flex w-full h-full">
-      <Sidebar />
+    <div class="bottom_content flex w-full h-full">
+      <Navbar />
 
       <nuxt-child />
     </div>
   </div>
 </template>
 
-<!--  반응형 + 앱과 연동  -->
+<style scoped lang="scss">
+  .page-enter-active,
+  .page-leave-active {
+    transition: opacity 0.2s;
+  }
+  .page-enter,
+  .page-leave-to {
+    opacity: 0;
+  }
+
+  @media (max-width: 660px) {
+    .bottom_content {
+      flex-direction: column;
+    }
+  }
+</style>
 
 <style lang="scss">
-.page-enter-active,
-.page-leave-active {
-  transition: opacity 0.2s;
-}
-.page-enter,
-.page-leave-to {
-  opacity: 0;
-}
-
 main {
+  @media (max-width: 1023px) {
+    padding: 2rem 4rem 0 3rem;
+  }
+
+  @media (max-width: 767px) {
+    padding: 1rem 2rem 0 2rem;
+
+    h1 {
+      font-size: 1.7rem !important;
+      gap: 8px !important;
+      margin-bottom: 1rem !important;
+
+      svg {
+        width: 22px !important;
+        height: 22px !important;
+      }
+    }
+
+    form {
+      margin: 15px 0 !important;
+      padding: 1px 0 1px 18px !important;
+
+      div.vert {
+        width: 100% !important;
+      }
+    }
+
+    input {
+      &.input-l {
+        max-width: 100% !important;
+      }
+    }
+
+    ul {
+      &.list-l {
+        max-width: 100% !important;
+      }
+    }
+
+    .blank {
+      height: 20px !important;
+    }
+  }
+
   $ui-color: rgb(32, 34, 41);
   $color-blue: rgb(22, 124, 241);
   $color-green: rgb(38, 189, 106);
@@ -60,12 +110,13 @@ main {
     font-weight: 300;
     color: #999;
     margin-bottom: 5px;
+    word-break: keep-all;
   }
 
   form {
     border-left: 3px #999 solid;
     margin: 25px 0px;
-    padding: 3px 22px;
+    padding: 3px 0 3px 22px;
     font-size: 1.1rem;
     display: flex;
     flex-direction: column;
@@ -74,6 +125,7 @@ main {
 
     div {
       &.vert {
+        width: 100%;
         flex-direction: column;
         align-items: flex-start;
       }
@@ -86,30 +138,6 @@ main {
     label {
       margin-right: 12px;
     }
-  }
-
-  input {
-    &:focus {
-      outline: 2px solid $color-blue !important;
-    }
-
-    &.input-s {
-      width: 4.2rem;
-    }
-
-    &.input-m {
-      width: 12rem;
-    }
-
-    &.input-l {
-      width: 30rem;
-    }
-
-    height: 2.1rem;
-    padding: 0px 0.8rem;
-    border-radius: 0.5rem;
-    outline: 0px solid transparent !important;
-    background: $ui-color;
   }
 
   .switch {
@@ -142,8 +170,45 @@ main {
     transition: background 0.2s cubic-bezier(0.17, 0.84, 0.44, 1);
   }
 
+  input {
+    &:focus {
+      outline: 2px solid $color-blue !important;
+    }
+
+    &.input-s {
+      max-width: 4.2rem;
+    }
+
+    &.input-m {
+      max-width: 12rem;
+    }
+
+    &.input-l {
+      max-width: 30rem;
+    }
+
+    width: 100%;
+    height: 2.1rem;
+    padding: 0px 0.8rem;
+    border-radius: 0.5rem;
+    outline: 0px solid transparent !important;
+    background: $ui-color;
+  }
+
   ul {
     $ul-length: 5;
+
+    &.list-s {
+      max-width: 4.2rem;
+    }
+
+    &.list-m {
+      max-width: 12rem;
+    }
+
+    &.list-l {
+      max-width: 30rem;
+    }
 
     display: flex;
     flex-direction: column;
@@ -182,10 +247,10 @@ main {
 </style>
 
 <script>
-import Navbar from '~/components/Header.vue'
-import Sidebar from '~/components/Sidebar.vue'
+import Header from '~/components/Header.vue';
+import Navbar from '~/components/Navbar.vue';
 export default {
   name: 'IndexPage',
-  components: { Navbar, Sidebar },
+  components: { Header, Navbar },
 }
 </script>

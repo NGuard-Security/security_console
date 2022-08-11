@@ -56,7 +56,7 @@
           placeholder="# 채널-이름"
           type="text"
         />
-        <ul v-if="list.channel.show">
+        <ul class="list-l" v-if="list.channel.show">
           <li
             v-for="name in list.channel.list"
             @click="

@@ -1,13 +1,13 @@
 <template>
-  <header class="w-full text-sm bg-black">
+  <header class="w-full text-sm bg-black z-30">
     <div
-      class="flex items-center justify-between max-w-screen-xl mx-auto p-4 text-gray-200"
+      class="flex items-center lg:justify-between max-w-screen-xl mx-auto p-4 text-gray-200"
     >
-      <div style="width: 122px; height: 40px">
+      <div style="width: 122px; height: 40px" class="mr-auto md:mr-0">
         <img src="~/assets/img/logo.png" alt="NGuard logo" class="h-10" />
       </div>
 
-      <div class="flex items-center gap-3">
+      <div class="hidden md:flex items-center gap-3 ml-6 mr-auto lg:mr-0">
         <NuxtLink to="/" class="nav_item">홈</NuxtLink>
         <NuxtLink to="/" class="nav_item">대시보드</NuxtLink>
         <NuxtLink to="/" class="nav_item">서포트 서버</NuxtLink>
@@ -19,14 +19,14 @@
         <div
           @click="showMenu = true"
           :class="{ on: showMenu }"
-          class="serverMenu nav_item flex items-center gap-1 hover:bg-zinc-900 cursor-pointer"
+          class="userBtn nav_item flex items-center gap-1 hover:bg-zinc-900 cursor-pointer"
         >
           <img
             src="~/assets/img/test.png"
             alt="user_logo"
             class="h-5 rounded-full"
           />
-          <span>라비 lavi#2253</span>
+          <span class="hidden lg:inline">라비 lavi#2253</span>
           <svg
             class="w-5 fill-gray-500"
             clip-rule="evenodd"
@@ -46,7 +46,7 @@
           <div
             v-if="showMenu"
             v-click-outside="onClickOutside"
-            class="absolute flex flex-col mt-5 w-full p-1.5 bg-black rounded-lg"
+            class="userMenu absolute flex flex-col left-0 mt-5 w-36 p-1.5 bg-black rounded-lg z-40"
           >
             <div class="dropdownMenu">메뉴1</div>
             <div class="dropdownMenu">메뉴2</div>
@@ -95,13 +95,19 @@ export default {
   opacity: 0;
 }
 
-.serverMenu {
+.userBtn {
   svg {
     transition: transform 0.2s ease;
   }
 
   &.on svg {
     transform: rotate(180deg);
+  }
+}
+
+.userMenu {
+  @media (max-width: 1024px) {
+    left: calc(-100% - 20px);
   }
 }
 
