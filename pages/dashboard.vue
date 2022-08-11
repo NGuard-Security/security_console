@@ -1,8 +1,8 @@
 <template>
-  <div class="flex flex-col w-full h-full" style="background: #0f1016">
+  <div class="flex flex-col w-full" style="background: #0f1016">
     <Header />
 
-    <div class="bottom_content flex w-full h-full">
+    <div class="bottom_content flex w-full">
       <Navbar />
 
       <nuxt-child />
@@ -30,11 +30,11 @@
 <style lang="scss">
 main {
   @media (max-width: 1023px) {
-    padding: 2rem 4rem 0 3rem;
+    padding: 2rem 4rem 2rem 3rem;
   }
 
   @media (max-width: 767px) {
-    padding: 1rem 2rem 0 2rem;
+    padding: 1rem 2rem 2rem 2rem;
 
     h1 {
       font-size: 1.7rem !important;
@@ -78,8 +78,9 @@ main {
   $color-green: rgb(38, 189, 106);
 
   color: #fff;
-  padding: 2rem 6rem 0 6rem;
+  padding: 2rem 6rem 2rem 6rem;
   width: 100%;
+  height: min-content;
 
   h1 {
     font-weight: 600;
