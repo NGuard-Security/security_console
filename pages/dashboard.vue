@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-full min-h-full" style="background: #0f1016">
+  <div class="w-full min-h-full" style="background: #0f1016">
     <Header />
 
     <div class="bottom_content flex w-full">
@@ -22,7 +22,7 @@
 
   @media (max-width: 660px) {
     .bottom_content {
-      flex-direction: column;
+      display: block;
     }
   }
 </style>
@@ -30,11 +30,15 @@
 <style lang="scss">
 main {
   @media (max-width: 1023px) {
-    padding: 2rem 4rem 2rem 3rem;
+    padding: calc(2rem + 72px) 4rem 2rem 3rem;
+  }
+
+  @media (max-width: 660px) {
+    padding: calc(1rem + 72px + 46px) 2rem 2rem 2rem !important;
   }
 
   @media (max-width: 767px) {
-    padding: 1rem 2rem 2rem 2rem;
+    padding: calc(1rem + 72px) 2rem 2rem 2rem;
 
     h1 {
       font-size: 1.7rem !important;
@@ -78,9 +82,10 @@ main {
   $color-green: rgb(38, 189, 106);
 
   color: #fff;
-  padding: 2rem 6rem 2rem 6rem;
+  padding: calc(2rem + 72px) 6rem 2rem 6rem;
   width: 100%;
-  height: min-content;
+  height: 100vh;
+  overflow-y: scroll;
 
   h1 {
     font-weight: 600;

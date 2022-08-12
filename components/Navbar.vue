@@ -4,57 +4,48 @@
       <div class="fixed top-0 left-0 w-full h-full bg-black/[0.5] z-10" v-if="showNav && isMobile">a</div>
     </transition>
 
-    <div style="background: #151720; min-height: calc(100vh - 72px)" class="relative w-full h-full z-20">
-      <div class="sidebar flex flex-col shrink-0 w-40 lg:w-64 md:w-56 h-full ml-0 lg:ml-36 p-2.5 md:p-4 select-none">
-        <div @click="showNav = !showNav" class="menuIcon">
-          <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m22 16.75c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75zm0-5c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75zm0-5c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75z" fill-rule="nonzero"/></svg>
-        </div>
-        <div class="serverSelect relative mb-5">
-          <div
-            @click="showMenu = true"
-            :class="{ on: showMenu }"
-            class="serverBtn flex items-center px-2 py-2 border border-slate-700/[.2] rounded-lg cursor-pointer"
-          >
-            <img
-              :src='require(`@/assets/img/${server[0].icon}`)'
-              alt="server logo"
-              class="w-10 mr-3 rounded-lg"
-            />
-            <span class="mr-auto text-sm text-gray-300 text-ellipsis whitespace-nowrap overflow-hidden">
-              {{server[0].name}}
-            </span>
-            <svg
-              class="w-6 ml-1 fill-gray-500"
-              clip-rule="evenodd"
-              fill-rule="evenodd"
-              stroke-linejoin="round"
-              stroke-miterlimit="2"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="m16.843 10.211c.108-.141.157-.3.157-.456 0-.389-.306-.755-.749-.755h-8.501c-.445 0-.75.367-.75.755 0 .157.05.316.159.457 1.203 1.554 3.252 4.199 4.258 5.498.142.184.36.29.592.29.23 0 .449-.107.591-.291 1.002-1.299 3.044-3.945 4.243-5.498z"
-              />
-            </svg>
+    <div style="background: #151720" class="navbarWrap fixed z-20">
+      <div class="navbar flex flex-col shrink-0 w-40 lg:w-64 md:w-56 ml-0 lg:ml-36 p-4 select-none">
+        <div class="navMob flex justify-between mb-5">
+          <div @click="showNav = !showNav" class="menuIcon cursor-pointer">
+            <svg v-if="!showNav" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m13 16.745c0-.414-.336-.75-.75-.75h-9.5c-.414 0-.75.336-.75.75s.336.75.75.75h9.5c.414 0 .75-.336.75-.75zm9-5c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75zm-4-5c0-.414-.336-.75-.75-.75h-14.5c-.414 0-.75.336-.75.75s.336.75.75.75h14.5c.414 0 .75-.336.75-.75z" fill-rule="nonzero"/></svg>
+            <svg v-else clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/></svg>
           </div>
-
-          <transition appear name="fade" mode="out-in">
+          <div class="serverSelect relative min-w-0">
             <div
-              v-if="showMenu"
-              v-click-outside="closeMenu"
-              style="background: #15172033; max-height: calc(5.6rem + 4rem + 0.5rem + 0.375rem)"
-              class="serverMenu absolute flex flex-col mt-3 w-full p-1 rounded-lg backdrop-blur-md text-white text-sm border border-slate-700/[.2] gap-0.5 overflow-y-scroll"
+              @click="showMenu = true"
+              :class="{ on: showMenu }"
+              class="serverBtn flex items-center px-2 py-2 border border-slate-700/[.2] rounded-lg cursor-pointer"
             >
-              <div
-                v-for="server in server"
-                @click="closeMenu"
-                class="dropdownMenu"
-              >
-                <img :src="require(`@/assets/img/${server.icon}`)" alt="server logo" />
-                <span>{{server.name}}</span>
-              </div>
+              <img
+                :src='require(`@/assets/img/${server[0].icon}`)'
+                alt="server logo"
+                class="w-10 mr-3 rounded-lg"
+              />
+              <span class="mr-auto text-sm text-gray-300 text-ellipsis whitespace-nowrap overflow-hidden">
+                {{server[0].name}}
+              </span>
+              <svg class="w-6 ml-1 fill-gray-500" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m16.843 10.211c.108-.141.157-.3.157-.456 0-.389-.306-.755-.749-.755h-8.501c-.445 0-.75.367-.75.755 0 .157.05.316.159.457 1.203 1.554 3.252 4.199 4.258 5.498.142.184.36.29.592.29.23 0 .449-.107.591-.291 1.002-1.299 3.044-3.945 4.243-5.498z"/></svg>
             </div>
-          </transition>
+
+            <transition appear name="fade" mode="out-in">
+              <div
+                v-if="showMenu"
+                v-click-outside="closeMenu"
+                style="background: #15172033; max-height: calc(5.6rem + 4rem + 0.5rem + 0.375rem)"
+                class="serverMenu absolute flex flex-col mt-3 w-full p-1 rounded-lg backdrop-blur-md text-white text-sm border border-slate-700/[.2] gap-0.5 overflow-y-scroll"
+              >
+                <div
+                  v-for="server in server"
+                  @click="closeMenu"
+                  class="dropdownMenu"
+                >
+                  <img :src="require(`@/assets/img/${server.icon}`)" alt="server logo" />
+                  <span>{{server.name}}</span>
+                </div>
+              </div>
+            </transition>
+          </div>
         </div>
 
         <transition appear name="nav" mode="out-in">
@@ -322,6 +313,19 @@ export default {
   transform: translateX(-100%);
 }
 
+.navbarWrap {
+  padding-top: 72px;
+  height: 100%;
+  position: static;
+
+  @media (max-width: 660px) {
+    width: 100%;
+    padding-top: 56px;
+    height: auto;
+    position: fixed;
+  }
+}
+
 .menuIcon {
   display: none;
   box-sizing: content-box;
@@ -331,18 +335,24 @@ export default {
   fill: #fff;
 }
 
-.sidebar {
+.navbar {
   position: relative;
 
-  @media (max-width: 1279px) and (min-width: 1023px) {
+  @media (max-width: 1279px) and (min-width: 1024px) {
     margin-left: 4rem !important;
   }
 
   @media (max-width: 660px) {
     width: 100%;
+    padding: 0.25rem 1rem;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+
+    .navMob {
+      width: 100%;
+      margin-bottom: 0px;
+    }
 
     .menuIcon {
       display: block;
@@ -350,6 +360,7 @@ export default {
 
     .serverSelect {
       margin-bottom: 0px !important;
+      min-width: 0px;
 
       .serverBtn {
         padding: 6px;
@@ -380,7 +391,7 @@ export default {
       top: 100%;
       padding: 8px;
       width: 200px;
-      height: calc(100vh - 66px - 72px);
+      height: 100vh;
     }
   }
 
@@ -438,6 +449,7 @@ export default {
   border-radius: 0.5rem;
   display: flex;
   flex-shrink: 0;
+  cursor: pointer;
 }
 
 .nuxt-link-exact-active {
