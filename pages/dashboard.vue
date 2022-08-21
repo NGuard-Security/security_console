@@ -77,11 +77,14 @@ main {
     }
   }
 
-  $ui-color: rgb(32, 34, 41);
-  $color-blue: rgb(22, 124, 241);
-  $color-green: rgb(38, 189, 106);
+  $color-ui: rgb(32, 34, 41);
+  $color-h1: #555;
+  $color-gray: #999;
+  $color-white: #fff;
+  $color-highlight: rgb(22, 124, 241);
+  $color-active: rgb(38, 189, 106);
 
-  color: #fff;
+  color: $color-white;
   padding: calc(2rem + 72px) 6rem 2rem 6rem;
   width: 100%;
   height: 100vh;
@@ -95,12 +98,12 @@ main {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: #555;
+    color: $color-h1;
 
     svg {
       width: 28px;
       height: 28px;
-      fill: #555;
+      fill: $color-h1;
     }
   }
 
@@ -114,13 +117,13 @@ main {
   p {
     font-size: 0.9rem;
     font-weight: 300;
-    color: #999;
+    color: $color-gray;
     margin-bottom: 5px;
     word-break: keep-all;
   }
 
   form {
-    border-left: 3px #999 solid;
+    border-left: 3px $color-gray solid;
     margin: 25px 0px;
     padding: 3px 0 3px 22px;
     font-size: 1.1rem;
@@ -152,7 +155,7 @@ main {
         left: 26px;
       }
 
-      background: $color-green;
+      background: $color-active;
     }
 
     &:before {
@@ -172,13 +175,13 @@ main {
     width: 54px;
     height: 30px;
     border-radius: 100px;
-    background: $ui-color;
+    background: $color-ui;
     transition: background 0.2s cubic-bezier(0.17, 0.84, 0.44, 1);
   }
 
   input {
     &:focus {
-      outline: 2px solid $color-blue !important;
+      outline: 2px solid $color-highlight !important;
     }
 
     &.input-s {
@@ -198,7 +201,7 @@ main {
     padding: 0px 0.8rem;
     border-radius: 0.5rem;
     outline: 0px solid transparent !important;
-    background: $ui-color;
+    background: $color-ui;
   }
 
   ul {
@@ -227,7 +230,7 @@ main {
     margin-top: 10px;
     padding: 0.4rem 0;
     border-radius: 0.5rem;
-    background: $ui-color;
+    background: $color-ui;
 
     li {
       &:hover {
