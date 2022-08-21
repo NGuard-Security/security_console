@@ -35,6 +35,14 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1792 1792" preserveAspectRatio="none"><path d="M1440 893q0-161-87-295l-754 753q137 89 297 89 111 0 211.5-43.5T1281 1280t116-174.5 43-212.5zm-999 299 755-754q-135-91-300-91-148 0-273 73T425 619t-73 274q0 162 89 299zm1223-299q0 157-61 300t-163.5 246-245 164-298.5 61-298.5-61-245-164T189 1193t-61-300 61-299.5T352.5 348t245-164T896 123t298.5 61 245 164T1603 593.5t61 299.5z"/></svg>
       </div>
     </div>
+
+    <div class="blank"></div>
+    <div class="blank"></div>
+
+    <h2>초대링크 이용 유저</h2>
+    <div style="width: 100%; height: 400px;">
+      <canvas id="myChart"></canvas>
+    </div>
   </main>
 </template>
 
@@ -68,7 +76,7 @@
     }
 
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
     gap: 14px;
 
     .card {
@@ -90,6 +98,7 @@
 
 <script>
 import vClickOutside from 'v-click-outside';
+import Chart from 'chart.js/auto';
 
 const exampleValue = [
   '직업선택',
@@ -105,6 +114,50 @@ const exampleValue = [
 export default {
   created() {
     this.list.channel.list = exampleValue;
+  },
+  mounted() {
+    const ctx = document.getElementById('myChart');
+    myChart;
+    const myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['1월', '2월', '3월', '4월', '5월', '6월'],
+        datasets: [{
+          data: [0, 0, 1, 3, 2, 3],
+          borderColor: 'rgb(22, 124, 241)',
+          backgroundColor: 'rgb(22, 124, 241)',
+          borderWidth: 3
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false
+          },
+        },
+        scales: {
+          x: {
+            grid: {
+              display: false
+            }
+          },
+          y: {
+            suggestedMin: -20,
+            suggestedMax: 20,
+
+            ticks: {
+              display: false
+            },
+
+            grid: {
+              color: '#222',
+              drawBorder: false
+            }
+          }
+        }
+      }
+    });
   },
   data() {
     return {
