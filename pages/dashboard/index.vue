@@ -1,100 +1,95 @@
 <template>
   <main>
     <h1>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <path
-          d="M20.822 18.096c-3.439-.794-6.64-1.49-5.09-4.418 4.72-8.912 1.251-13.678-3.732-13.678-5.082 0-8.464 4.949-3.732 13.678 1.597 2.945-1.725 3.641-5.09 4.418-3.073.71-3.188 2.236-3.178 4.904l.004 1h23.99l.004-.969c.012-2.688-.092-4.222-3.176-4.935z"
-        />
-      </svg>
-      일반 설정
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M2 0c-1.104 0-2 .896-2 2v15c0 1.104.896 2 2 2h20c1.104 0 2-.896 2-2v-15c0-1.104-.896-2-2-2h-20zm20 14h-20v-12h20v12zm-6.599 7c0 1.6 1.744 2.625 2.599 3h-12c.938-.333 2.599-1.317 2.599-3h6.802z"/></svg>
+      메인 대시보드
     </h1>
-    <h2>봇 접두사 설정</h2>
-    <p>명령어 앞에 붙는 접두사를 변경합니다. 기본값은 입니다.</p>
-    <form>
-      <div>
-        <label>봇 접두사</label>
-        <input
-          class="input-s"
-          :value="input.prefix"
-          @input="input.prefix = $event.target.value"
-          placeholder="!"
-          type="text"
-        />
-      </div>
-    </form>
-    <div class="blank"></div>
-    <h2>공지 수신 채널 설정</h2>
-    <p>
-      공지 메시지를 받을 채널을 선택합니다. 이 메시지는 여러 서버 점검 등 중요
-      알림이 포함됩니다.
-    </p>
-    <form>
-      <div>
-        <label>공지 메시지 받기</label>
-        <div
-          @click="inputSwitch('bot_prefix')"
-          :class="{ switch_on: switch_.bot_prefix }"
-          class="switch"
-        ></div>
-      </div>
 
-      <div class="vert" v-if="switch_.bot_prefix">
-        <p>메시지를 받을 체널</p>
-        <input
-          class="input-l"
-          :value="input.channel"
-          @click="
-            list.channel.show = true;
-            setChannelInput($event.target.value);
-            searchChannel($event.target.value.substr(2));
-          "
-          @input="
-            setChannelInput($event.target.value);
-            searchChannel($event.target.value.substr(2));
-          "
-          v-click-outside="onClickOutside"
-          placeholder="# 채널-이름"
-          type="text"
-        />
-        <ul class="list-l" v-if="list.channel.show">
-          <li
-            v-for="name in list.channel.list"
-            @click="
-              setChannelInput('# ' + name);
-            "
-          ># {{name}}</li>
-        </ul>
+    <div class="cards">
+      <div class="card">
+        <div class="card_content">
+          <p>멤버 수</p>
+          32명
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.822 18.096c-3.439-.794-6.64-1.49-5.09-4.418 4.72-8.912 1.251-13.678-3.732-13.678-5.082 0-8.464 4.949-3.732 13.678 1.597 2.945-1.725 3.641-5.09 4.418-3.073.71-3.188 2.236-3.178 4.904l.004 1h23.99l.004-.969c.012-2.688-.092-4.222-3.176-4.935z"/></svg>
       </div>
-    </form>
-    <h2>공지 수신 채널 설정</h2>
-    <h2>공지 수신 채널 설정</h2>
-    <h2>공지 수신 채널 설정</h2>
-    <h2>공지 수신 채널 설정</h2>
-    <h2>공지 수신 채널 설정</h2>
-    <h2>공지 수신 채널 설정</h2>
-    <h2>공지 수신 채널 설정</h2>
-    <h2>공지 수신 채널 설정</h2>
-    <h2>공지 수신 채널 설정</h2>
-    <h2>공지 수신 채널 설정</h2>
-    <h2>공지 수신 채널 설정</h2>
-    <h2>공지 수신 채널 설정</h2>
-    <h2>공지 수신 채널 설정</h2>
-    <h2>공지 수신 채널 설정</h2><h2>공지 수신 채널 설정</h2>
-    <h2>공지 수신 채널 설정</h2>
-    <h2>공지 수신 채널 설정</h2>
-    <h2>공지 수신 채널 설정</h2>
-    <h2>공지 수신 채널 설정</h2>
-    <h2>공지 수신 채널 설정</h2>
-    <h2>공지 수신 채널 설정</h2>
-    <h2>공지 수신 채널 설정</h2>
-    <h2>공지 수신 채널 설정</h2>
-    <h2>공지 수신 채널 설정</h2>
+      <div class="card">
+        <div class="card_content">
+          <p>봇 수</p>
+          1개
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" data-name="Layer 1" viewBox="0 0 24 24"><path d="M9,15a1,1,0,1,0,1,1A1,1,0,0,0,9,15ZM2,14a1,1,0,0,0-1,1v2a1,1,0,0,0,2,0V15A1,1,0,0,0,2,14Zm20,0a1,1,0,0,0-1,1v2a1,1,0,0,0,2,0V15A1,1,0,0,0,22,14ZM17,7H13V5.72A2,2,0,0,0,14,4a2,2,0,0,0-4,0,2,2,0,0,0,1,1.72V7H7a3,3,0,0,0-3,3v9a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V10A3,3,0,0,0,17,7ZM13.72,9l-.5,2H10.78l-.5-2ZM18,19a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V10A1,1,0,0,1,7,9H8.22L9,12.24A1,1,0,0,0,10,13h4a1,1,0,0,0,1-.76L15.78,9H17a1,1,0,0,1,1,1Zm-3-4a1,1,0,1,0,1,1A1,1,0,0,0,15,15Z"/></svg>
+      </div>
+      <div class="card">
+        <div class="card_content">
+          <p>새 멤버</p>
+          0명
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19.5 15c-2.483 0-4.5 2.015-4.5 4.5s2.017 4.5 4.5 4.5 4.5-2.015 4.5-4.5-2.017-4.5-4.5-4.5zm2.5 5h-2v2h-1v-2h-2v-1h2v-2h1v2h2v1zm-7.18 4h-14.815l-.005-1.241c0-2.52.199-3.975 3.178-4.663 3.365-.777 6.688-1.473 5.09-4.418-4.733-8.729-1.35-13.678 3.732-13.678 6.751 0 7.506 7.595 3.64 13.679-1.292 2.031-2.64 3.63-2.64 5.821 0 1.747.696 3.331 1.82 4.5z"/></svg>
+      </div>
+      <div class="card">
+        <div class="card_content">
+          <p>블랙리스트 수</p>
+          12명
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1792 1792" preserveAspectRatio="none"><path d="M1440 893q0-161-87-295l-754 753q137 89 297 89 111 0 211.5-43.5T1281 1280t116-174.5 43-212.5zm-999 299 755-754q-135-91-300-91-148 0-273 73T425 619t-73 274q0 162 89 299zm1223-299q0 157-61 300t-163.5 246-245 164-298.5 61-298.5-61-245-164T189 1193t-61-300 61-299.5T352.5 348t245-164T896 123t298.5 61 245 164T1603 593.5t61 299.5z"/></svg>
+      </div>
+    </div>
   </main>
 </template>
 
+<style lang="scss" scoped>
+  .cards {
+    @media (max-width: 1023px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media (max-width: 660px) {
+      grid-template-columns: 1fr;
+
+      .card {
+        padding: 10px 20px !important;
+
+        .card_content {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          p {
+            margin: 0 !important;
+          }
+        }
+
+        svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 14px;
+
+    .card {
+      background: rgb(32, 34, 41);
+      border-radius: 0.5rem;
+      width: 100%;
+      padding: 15px 20px;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      svg {
+        fill: #999;
+      }
+    }
+  }
+</style>
+
 <script>
 import vClickOutside from 'v-click-outside';
-var escapeRegExp = require('lodash.escaperegexp');
 
 const exampleValue = [
   '직업선택',
@@ -106,47 +101,6 @@ const exampleValue = [
   '기타',
   '기타'
 ].sort();
-
-// https://taegon.kim/archives/9919
-function ch2pattern(ch) {
-  const offset = 44032;
-
-  if (/[가-힣]/.test(ch)) {
-    const chCode = ch.charCodeAt(0) - offset;
-
-    if (chCode % 28 > 0) {
-      return ch;
-    }
-    const begin = Math.floor(chCode / 28) * 28 + offset;
-    const end = begin + 27;
-    return `[\\u${begin.toString(16)}-\\u${end.toString(16)}]`;
-  }
-
-  if (/[ㄱ-ㅎ]/.test(ch)) {
-    const con2syl = {
-      'ㄱ': '가'.charCodeAt(0),
-      'ㄲ': '까'.charCodeAt(0),
-      'ㄴ': '나'.charCodeAt(0),
-      'ㄷ': '다'.charCodeAt(0),
-      'ㄸ': '따'.charCodeAt(0),
-      'ㄹ': '라'.charCodeAt(0),
-      'ㅁ': '마'.charCodeAt(0),
-      'ㅂ': '바'.charCodeAt(0),
-      'ㅃ': '빠'.charCodeAt(0),
-      'ㅅ': '사'.charCodeAt(0),
-    };
-    const begin = con2syl[ch] || ( ( ch.charCodeAt(0) - 12613 ) * 588 + con2syl['ㅅ'] );
-    const end = begin + 587;
-    return `[${ch}\\u${begin.toString(16)}-\\u${end.toString(16)}]`;
-  }
-
-  return escapeRegExp(ch);
-}
-
-function createFuzzyMatcher(input) {
-  const pattern = input.split('').map(ch2pattern).join('.*?');
-  return new RegExp(pattern);
-}
 
 export default {
   created() {
