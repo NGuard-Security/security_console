@@ -2,7 +2,7 @@
   <div class="w-full min-h-full" style="background: #0f1016">
     <Header />
 
-    <div class="bottom_content flex w-full">
+    <div class="bottom_content flex w-full min-h-screen">
       <Navbar />
 
       <nuxt-child />
