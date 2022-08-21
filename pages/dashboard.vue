@@ -141,7 +141,7 @@ main {
         align-items: flex-start;
       }
 
-      width: fit-content;
+      width: inherit;
       display: flex;
       align-items: center;
     }
@@ -192,13 +192,14 @@ main {
     }
 
     &.input-m {
-      max-width: 12rem;
+      max-width: 24rem;
     }
 
     &.input-l {
-      max-width: 30rem;
+      max-width: 32rem;
     }
 
+    flex-shrink: 0;
     width: 100%;
     height: 2.1rem;
     padding: 0px 0.8rem;
@@ -219,7 +220,7 @@ main {
     }
 
     &.list-l {
-      max-width: 30rem;
+      max-width: 32rem;
     }
 
     display: flex;
@@ -248,6 +249,10 @@ main {
       border-radius: 0.5rem;
       flex-shrink: 0;
       cursor: pointer;
+
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 
