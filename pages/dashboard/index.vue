@@ -48,8 +48,8 @@
 
 <style lang="scss" scoped>
   .cards {
-    @media (max-width: 1023px) {
-      grid-template-columns: 1fr 1fr;
+    @media (max-width: 1500px) {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
 
     @media (max-width: 660px) {
