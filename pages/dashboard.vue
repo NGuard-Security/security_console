@@ -31,6 +31,7 @@
 main {
   @media (max-width: 1023px) {
     padding: calc(2rem + 72px) 4rem 2rem 3rem;
+    margin: 0;
   }
 
   @media (max-width: 660px) {
@@ -85,7 +86,8 @@ main {
   $color-active: rgb(38, 189, 106);
 
   color: $color-white;
-  padding: calc(2rem + 72px) 6rem 2rem 6rem;
+  padding: calc(2rem + 72px) 0 2rem 6rem;
+  margin-right: 10vw;
   width: 100%;
   height: 100vh;
   overflow-y: scroll;
@@ -146,6 +148,7 @@ main {
 
     label {
       margin-right: 12px;
+      flex-shrink: 0;
     }
   }
 
