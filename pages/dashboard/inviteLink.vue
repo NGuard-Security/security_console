@@ -43,23 +43,57 @@
           <label>https://nguard.xyz/invite/</label>
           <input
             class="input-m"
+            id="inviteLink_input"
             type="text"
+
+            :placeholder="[!isPermission ? '한디리에서 봇을 추천해주세요' : '']"
+            v-bind:readonly="!isPermission"
+
+            @click="clickInviteLink()"
           />
         </div>
       </div>
     </form>
+
+    <modal class="modal" name="permission">
+      <h3>서비스 안내</h3>
+      <div>
+        초대 링크를 커스텀하려면,<br/>
+        한디리에서 NGuard Security 봇을 추천해 주셔야 합니다.<br/>
+        <br/>
+        12시간 마다 추천 가능합니다.<br/>
+      </div>
+      <button>추천하기</button>
+      <button>닫기</button>
+    </modal>
   </main>
 </template>
+
+<style lang="scss">
+  #inviteLink_input {
+    cursor: pointer;
+  }
+
+  .modal .vm--modal {
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+</style>
 
 <script>
 import vClickOutside from 'v-click-outside';
 
+//한디리 추천 or 엔터프라이즈 클랜
+const isPermission = false;
+
 export default {
   data() {
     return {
+      isPermission,
       input: {
-        prefix: '',
-        method: 0,
+        method: 0
       },
       switch_: {
         invite: false,
@@ -88,6 +122,11 @@ export default {
     onClickOutside() {
       this.list.method.show = false;
     },
+    clickInviteLink() {
+      if(!isPermission) {
+        this.$modal.show('permission');
+      }
+    }
   },
 }
 </script>
