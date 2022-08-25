@@ -56,15 +56,16 @@ main {
       margin: 15px 0 !important;
       padding: 1px 0 1px 18px !important;
 
-      div.vert {
-        width: 100% !important;
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 5px;
       }
     }
 
     input {
-      &.input-l {
-        max-width: 100% !important;
-      }
+      max-width: 100% !important;
     }
 
     ul {
@@ -199,7 +200,7 @@ main {
       max-width: 32rem;
     }
 
-    flex-shrink: 0;
+    flex-shrink: 1;
     width: 100%;
     height: 2.1rem;
     padding: 0px 0.8rem;
