@@ -17,7 +17,7 @@
         ></div>
       </div>
 
-      <div class="vert">
+      <div class="vert" v-if="switch_.invite">
         <p>보안 초대 방식</p>
         <input
           class="input-l"
@@ -37,11 +37,14 @@
         </ul>
       </div>
 
-      <div class="vert">
+      <div class="vert" v-if="switch_.invite">
         <p>초대 링크 설정</p>
         <div>
           <label>https://nguard.xyz/invite/</label>
-          <input class="input-m" type="text"/>
+          <input
+            class="input-m"
+            type="text"
+          />
         </div>
       </div>
     </form>
