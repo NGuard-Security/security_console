@@ -5,7 +5,11 @@
       멤버 설정
     </h1>
 
-    <input placeholder="이름, 닉네임, ID 검색" class="mb-4 shrink-0" />
+    <input
+      placeholder="이름, 닉네임, ID 검색"
+      class="mb-4 shrink-0"
+      @input="searchMember($event.target.value)"
+    />
     <p class="mb-2">멤버 {{memberList.length}}명</p>
     <ul>
       <li v-for="member in memberList">
@@ -75,6 +79,8 @@ ul {
 </style>
 
 <script>
+import createFuzzyMatcher from '@/plugins/ch2pattern.js';
+
 const memberList = [
   { nickName: "라비", userName: "라비 lavi#2253", id: "3452897345567", icon: "", isBlackList: false },
   { nickName: "라비", userName: "라비 lavi#2253", id: "3452897345568", icon: "", isBlackList: true },
@@ -101,7 +107,23 @@ export default {
       //DB 처리 후
       const member = memberList.find(m => m.id === id);
       member.isBlackList = !member.isBlackList;
-    }
+    },
+    searchMember: function (value) {
+      this.memberList = [];
+
+      const matcher = createFuzzyMatcher(value);
+
+      memberList.forEach(member => {
+        if(
+          !matcher.test(member.nickName)
+          && !matcher.test(member.userName)
+          && !matcher.test(member.id)
+        ) {
+          return;
+        }
+        this.memberList.push(member);
+      });
+    },
   },
 }
 </script>
