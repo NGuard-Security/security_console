@@ -260,6 +260,16 @@ main {
     background: $color-ui;
   }
 
+  .select {
+    &::after {
+      //화살표
+    }
+  }
+  
+  .card {
+    
+  }
+
   .blank {
     display: block;
     height: 32px;
