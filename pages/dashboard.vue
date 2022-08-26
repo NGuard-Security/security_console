@@ -4,7 +4,7 @@
 
     <div class="bottom_content flex w-full min-h-screen">
       <Navbar />
-
+      
       <nuxt-child />
     </div>
   </div>
@@ -87,8 +87,7 @@ main {
   $color-active: rgb(38, 189, 106);
 
   color: $color-white;
-  padding: calc(2rem + 72px) 0 2rem 6rem;
-  margin-right: 10vw;
+  padding: calc(2rem + 72px) 10vw 2rem 6rem;
   width: 100%;
   height: 100vh;
   overflow-y: scroll;
@@ -121,7 +120,6 @@ main {
     font-size: 0.9rem;
     font-weight: 300;
     color: $color-gray;
-    margin-bottom: 5px;
     word-break: keep-all;
   }
 
@@ -134,6 +132,10 @@ main {
     flex-direction: column;
     justify-content: flex-start;
     gap: 15px;
+
+    p {
+      margin-bottom: 5px;
+    }
 
     div {
       &.vert {
