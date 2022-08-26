@@ -100,21 +100,7 @@
 import vClickOutside from 'v-click-outside';
 import Chart from 'chart.js/auto';
 
-const exampleValue = [
-  '직업선택',
-  '학생',
-  '회사원',
-  '기타',
-  '기타',
-  '기타',
-  '기타',
-  '기타'
-].sort();
-
 export default {
-  created() {
-    this.list.channel.list = exampleValue;
-  },
   mounted() {
     const ctx = document.getElementById('myChart');
     myChart;
@@ -159,51 +145,10 @@ export default {
       }
     });
   },
-  data() {
-    return {
-      input: {
-        prefix: '',
-        channel: '',
-      },
-      switch_: {
-        bot_prefix: false,
-      },
-      list: {
-        channel: {
-          show: false,
-          list: []
-        }
-      }
-    }
-  },
   directives: {
     clickOutside: vClickOutside.directive,
   },
   methods: {
-    inputSwitch: function (name) {
-      this.switch_[name] = !this.switch_[name];
-    },
-    setChannelInput: function (value) {
-      this.input.channel = '';
-      this.input.channel = '# ' + value.substr(2);
-    },
-    searchChannel: function (value) {
-      this.list.channel.list = [];
-
-      exampleValue.forEach(name => {
-        if(!createFuzzyMatcher(value).test(name)) {
-          return;
-        }
-
-        this.list.channel.list.push(name);
-      });
-    },
-    onClickOutside() {
-      this.list.channel.show = false;
-      if(this.input.channel == '# ') {
-        this.input.channel = '';
-      }
-    },
   },
 }
 </script>
