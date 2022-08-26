@@ -22,16 +22,17 @@
         <input
           class="input-l"
           id="role_input"
-          :value="list.role.list[input.role]"
+          :value="input.role"
           @click="list.role.show = true"
+          @input="searchRole($event.target.value)"
           v-click-outside="onClickOutside"
           type="text"
-          readonly
+          placeholder="역할이름"
         />
         <ul class="list-l" v-if="list.role.show">
           <li
-            v-for="(name, index) in list.role.list"
-            @click="setRoleInput(index)"
+            v-for="name in list.role.list"
+            @click="input.role = name"
           >
             {{name}}
           </li>
@@ -49,6 +50,7 @@
 
 <script>
 import vClickOutside from 'v-click-outside';
+import createFuzzyMatcher from '@/plugins/ch2pattern.js';
 
 const roleList = [
   "개발자",
@@ -63,7 +65,7 @@ export default {
   data() {
     return {
       input: {
-        role: 0,
+        role: '',
       },
       switch_: {
         confirm: false,
@@ -83,11 +85,17 @@ export default {
     inputSwitch: function (name) {
       this.switch_[name] = !this.switch_[name];
     },
-    setRoleInput: function (value) {
-      this.input.role = value;
-    },
     onClickOutside() {
       this.list.role.show = false;
+    },
+    searchRole: function (value) {
+      this.list.role.list = [];
+      roleList.forEach(name => {
+        if(!createFuzzyMatcher(value).test(name)) {
+          return;
+        }
+        this.list.role.list.push(name);
+      });
     },
   },
 }
