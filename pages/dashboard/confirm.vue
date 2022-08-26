@@ -89,6 +89,7 @@ export default {
       this.list.role.show = false;
     },
     searchRole: function (value) {
+      this.input.role = value;
       this.list.role.list = [];
       roleList.forEach(name => {
         if(!createFuzzyMatcher(value).test(name)) {
