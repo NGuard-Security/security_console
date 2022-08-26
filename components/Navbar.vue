@@ -71,20 +71,12 @@
               <svg width="24" height="24" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m11.998 2.005c5.517 0 9.997 4.48 9.997 9.997 0 5.518-4.48 9.998-9.997 9.998-5.518 0-9.998-4.48-9.998-9.998 0-5.517 4.48-9.997 9.998-9.997zm-5.049 10.386 3.851 3.43c.142.128.321.19.499.19.202 0 .405-.081.552-.242l5.953-6.509c.131-.143.196-.323.196-.502 0-.41-.331-.747-.748-.747-.204 0-.405.082-.554.243l-5.453 5.962-3.298-2.938c-.144-.127-.321-.19-.499-.19-.415 0-.748.335-.748.746 0 .205.084.409.249.557z" fill-rule="nonzero"/></svg>
               커맨드 인증
             </NuxtLink>
-            <!-- <hr class="mx-2.5 my-2 border-zinc-700" />
-            <NuxtLink to="/dashboard/ticket" class="nav_item nav_item_premium">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M12 0c-2.995 2.995-7.486 4-11 4 0 8.583 5.068 16.097 11 20 5.932-3.903 11-11.417 11-20-3.514 0-8.005-1.005-11-4z"
-                />
-              </svg>
-              티켓 설정
-            </NuxtLink> -->
+            <hr class="mx-2.5 my-2 border-zinc-700" />
+            <a href="https://nguard.xyz/upgrade/detail" target="_blank" class="nav_item nav_item_premium">
+              <img src="@/assets/img/logo2.webp" alt="NGuard logo" />
+              <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-2.995 2.995-7.486 4-11 4 0 8.583 5.068 16.097 11 20 5.932-3.903 11-11.417 11-20-3.514 0-8.005-1.005-11-4z"/></svg> -->
+              Enterprise 플랜
+            </a>
           </nav>
         </transition>
       </div>
@@ -354,7 +346,7 @@ export default {
     color: rgb(180, 149, 46);
   }
 
-  svg {
+  svg, img {
     display: inline-block;
     width: 18px;
     margin-right: 12px;

@@ -2,7 +2,7 @@
   <header class="fixed w-full text-sm bg-black z-30">
     <div class="headerContent flex items-center lg:justify-between max-w-screen-xl mx-auto p-4 text-gray-200">
       <div style="width: 122px; height: 40px" class="mr-auto md:mr-0">
-        <img src="~/assets/img/logo.png" alt="NGuard logo" class="h-10" />
+        <img src="~/assets/img/logo1.png" alt="NGuard logo" class="h-10" />
       </div>
 
       <transition appear name="nav" mode="out-in">
