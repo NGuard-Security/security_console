@@ -31,7 +31,7 @@
         <ul class="list-l" v-if="list.method.show">
           <li
             v-for="(name, index) in list.method.list"
-            @click="setMethodInput(index)"
+            @click="input.method = index"
           >
             {{name}}
           </li>
@@ -57,7 +57,6 @@
     </form>
 
     <modal class="modal" name="permission">
-      <h3>서비스 안내</h3>
       <div>
         초대 링크를 커스텀하려면,<br/>
         한디리에서 NGuard Security 봇을 추천해 주셔야 합니다.<br/>
@@ -117,9 +116,6 @@ export default {
   methods: {
     inputSwitch: function (name) {
       this.switch_[name] = !this.switch_[name];
-    },
-    setMethodInput: function (value) {
-      this.input.method = value;
     },
     onClickOutside() {
       this.list.method.show = false;
