@@ -21,6 +21,7 @@
         <p>인증 시 지급될 역할</p>
         <input
           class="input-l"
+          id="role_input"
           :value="list.role.list[input.role]"
           @click="list.role.show = true"
           v-click-outside="onClickOutside"
@@ -39,6 +40,12 @@
     </form>
   </main>
 </template>
+
+<style lang="scss" scoped>
+  #role_input {
+    cursor: pointer;
+  }
+</style>
 
 <script>
 import vClickOutside from 'v-click-outside';

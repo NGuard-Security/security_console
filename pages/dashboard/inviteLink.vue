@@ -21,6 +21,7 @@
         <p>보안 초대 방식</p>
         <input
           class="input-l"
+          id="method_input"
           :value="list.method.list[input.method]"
           @click="list.method.show = true"
           v-click-outside="onClickOutside"
@@ -70,7 +71,8 @@
 </template>
 
 <style lang="scss">
-  #inviteLink_input {
+  #inviteLink_input,
+  #method_input {
     cursor: pointer;
   }
 

@@ -176,6 +176,7 @@ main {
 
     position: relative;
     display: inline-block;
+    cursor: pointer;
     width: 54px;
     height: 30px;
     border-radius: 100px;
