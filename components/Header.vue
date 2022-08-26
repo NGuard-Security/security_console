@@ -39,7 +39,7 @@
             <div
               v-if="showMenu"
               v-click-outside="onClickOutside"
-              class="userMenu absolute flex flex-col left-0 mt-5 w-36 p-1.5 bg-black rounded-lg z-40"
+              class="userMenu absolute flex flex-col left-0 mt-5 w-36 p-1.5 bg-black/[.8] rounded-lg backdrop-blur-sm z-40"
             >
               <div class="dropdownMenu">메뉴1</div>
               <div class="dropdownMenu">메뉴2</div>
