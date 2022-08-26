@@ -17,7 +17,7 @@
         ></div>
       </div>
 
-      <div class="vert">
+      <div class="vert" v-if="switch_.confirm">
         <p>인증 시 지급될 역할</p>
         <input
           class="input-l"
@@ -50,7 +50,7 @@ const roleList = [
   "시민",
   "노예",
   "경고"
-]
+].sort()
 
 export default {
   data() {
