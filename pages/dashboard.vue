@@ -151,6 +151,54 @@ main {
       margin-right: 12px;
       flex-shrink: 0;
     }
+
+    ul {
+      $ul-length: 5;
+
+      &.list-s {
+        max-width: 4.2rem;
+      }
+
+      &.list-m {
+        max-width: 12rem;
+      }
+
+      &.list-l {
+        max-width: 32rem;
+      }
+
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      overflow-y: scroll;
+      max-height: calc(
+        0.8rem + calc(2.2rem * $ul-length) + calc(0.2rem * calc($ul-length - 1))
+      );
+      width: 100%;
+      margin-top: 10px;
+      padding: 0.4rem 0;
+      border-radius: 0.5rem;
+      background: $color-ui;
+
+      li {
+        &:hover {
+          background: #fff1;
+        }
+
+        height: 2.2rem;
+        margin: 0 0.4rem;
+        padding-left: 1.2rem;
+        display: flex;
+        align-items: center;
+        border-radius: 0.5rem;
+        flex-shrink: 0;
+        cursor: pointer;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
   }
 
   .switch {
@@ -208,54 +256,6 @@ main {
     border-radius: 0.5rem;
     outline: 0px solid transparent !important;
     background: $color-ui;
-  }
-
-  ul {
-    $ul-length: 5;
-
-    &.list-s {
-      max-width: 4.2rem;
-    }
-
-    &.list-m {
-      max-width: 12rem;
-    }
-
-    &.list-l {
-      max-width: 32rem;
-    }
-
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-    overflow-y: scroll;
-    max-height: calc(
-      0.8rem + calc(2.2rem * $ul-length) + calc(0.2rem * calc($ul-length - 1))
-    );
-    width: 100%;
-    margin-top: 10px;
-    padding: 0.4rem 0;
-    border-radius: 0.5rem;
-    background: $color-ui;
-
-    li {
-      &:hover {
-        background: #fff1;
-      }
-
-      height: 2.2rem;
-      margin: 0 0.4rem;
-      padding-left: 1.2rem;
-      display: flex;
-      align-items: center;
-      border-radius: 0.5rem;
-      flex-shrink: 0;
-      cursor: pointer;
-
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
   }
 
   .blank {
