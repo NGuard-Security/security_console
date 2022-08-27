@@ -79,12 +79,7 @@ main {
     }
   }
 
-  $color-ui: rgb(32, 34, 41);
-  $color-h1: #555;
-  $color-gray: #999;
-  $color-white: #fff;
-  $color-highlight: rgb(22, 124, 241);
-  $color-active: rgb(38, 189, 106);
+  //컬러 변수들은 @/assets/styles/_variables.scss에 있음.
 
   color: $color-white;
   padding: calc(2rem + 72px) 10vw 2rem 6rem;
