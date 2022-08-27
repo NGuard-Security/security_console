@@ -197,7 +197,7 @@ export default {
   width: 30px;
   height: 30px;
   padding: 8px;
-  fill: #fff;
+  fill: $color-white;
 }
 
 .navbar {
@@ -279,7 +279,7 @@ export default {
 
 .serverBtn {
   &:hover {
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: $color-white-transparent;
   }
 
   svg {
@@ -294,7 +294,7 @@ export default {
 
 .dropdownMenu {
   &:hover {
-    background: #fff1;
+    background: $color-white-transparent;
   }
 
   img {
@@ -318,39 +318,39 @@ export default {
 }
 
 .nuxt-link-exact-active {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: $color-white-transparent;
 }
 
 .nav_item {
   &:hover {
     svg {
-      fill: rgb(188, 193, 202);
+      fill: $color-nav-active;
     }
 
-    color: rgb(188, 193, 202);
+    color: $color-nav-active;
   }
 
   &.nav_item_premium {
     &:hover {
       svg {
-        fill: rgb(207, 168, 37);
+        fill: $color-nav-premium-active;
       }
 
-      color: rgb(207, 168, 37);
+      color: $color-nav-premium-active;
     }
 
     svg {
-      fill: rgb(180, 149, 46);
+      fill: $color-nav-premium;
     }
 
-    color: rgb(180, 149, 46);
+    color: $color-nav-premium;
   }
 
   svg, img {
     display: inline-block;
     width: 18px;
     margin-right: 12px;
-    fill: rgb(156, 163, 175);
+    fill: $color-nav;
   }
 
   @media (max-width: 1024px) {

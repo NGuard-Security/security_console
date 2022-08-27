@@ -80,7 +80,7 @@
     gap: 14px;
 
     .card {
-      background: rgb(32, 34, 41);
+      background: $color-ui;
       border-radius: 0.5rem;
       width: 100%;
       padding: 15px 20px;
@@ -90,7 +90,7 @@
       justify-content: space-between;
 
       svg {
-        fill: #999;
+        fill: $color-gray;
       }
     }
   }

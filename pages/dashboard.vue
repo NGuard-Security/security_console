@@ -179,7 +179,7 @@ main {
 
       li {
         &:hover {
-          background: #fff1;
+          background: $color-white-transparent;
         }
 
         height: 2.2rem;
@@ -204,7 +204,7 @@ main {
         left: 26px;
       }
 
-      background: $color-active;
+      background: $color-switch-active;
     }
 
     &:before {
@@ -215,7 +215,7 @@ main {
       left: 2px;
       width: 26px;
       height: 26px;
-      background: rgb(235, 235, 235);
+      background: $color-fakeWhite;
       transition: left 0.15s cubic-bezier(0.17, 0.84, 0.44, 1);
     }
 

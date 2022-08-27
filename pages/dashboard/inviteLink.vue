@@ -85,7 +85,7 @@
   }
 
   .modal .vm--modal {
-    background-color: #151720;
+    background-color: $color-bg;
     box-shadow: 0 10px 60px -2px rgba(14, 18, 36, 0.4);
     display: flex;
     flex-direction: column;
@@ -97,7 +97,7 @@
 
     a {
       padding: 10px;
-      background: #0f1016;
+      background: $color-navbar;
       border-radius: 10px;
       width: 100%;
       display: flex;
@@ -106,14 +106,14 @@
       cursor: pointer;
 
       &:hover {
-        background: #0b0b0f;
+        background: darken($color-navbar, 3%);
       }
 
       &.btn-plan {
         background: $color-highlight;
 
         &:hover {
-          background: darken($color-highlight, 5%);
+          background: darken($color-highlight, 7%);
         }
       }
     }

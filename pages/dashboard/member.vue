@@ -39,13 +39,6 @@
 </template>
 
 <style lang="scss" scoped>
-$color-ui: rgb(32, 34, 41);
-$color-h1: #555;
-$color-gray: #999;
-$color-white: #fff;
-$color-highlight: rgb(22, 124, 241);
-$color-active: rgb(38, 189, 106);
-
 main {
   max-width: 70rem;
   display: flex;

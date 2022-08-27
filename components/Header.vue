@@ -173,10 +173,10 @@ export default {
 }
 
 .nav_item:hover {
-  background: rgba(255, 255, 255, 0.125);
+  background: $color-white-transparent;
 }
 
 .dropdownMenu:hover {
-  background: #fff1;
+  background: $color-white-transparent;
 }
 </style>

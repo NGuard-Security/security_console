@@ -1,6 +1,18 @@
+$color-bg: rgb(21, 23, 32);
+$color-navbar: rgb(15, 16, 22);
 $color-ui: rgb(32, 34, 41);
-$color-h1: #555;
-$color-gray: #999;
-$color-white: #fff;
+$color-h1: rgb(85, 85, 85);
+$color-gray: rgb(153, 153, 153);
+$color-fakeWhite: rgb(235, 235, 235);
+$color-white: rgb(255, 255, 255);
+
+$color-white-transparent: rgba(255, 255, 255, 0.082);
+$color-black-transparent: rgba(0, 0, 0, 0.067);
+
 $color-highlight: rgb(22, 124, 241);
-$color-active: rgb(38, 189, 106);
+$color-switch-active: rgb(38, 189, 106);
+
+$color-nav: rgb(156, 163, 175);
+$color-nav-active: rgb(188, 193, 202);
+$color-nav-premium: rgb(180, 149, 46);
+$color-nav-premium-active: rgb(207, 168, 37);
