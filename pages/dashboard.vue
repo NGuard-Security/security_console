@@ -257,6 +257,7 @@ main {
     border-radius: 0.5rem;
     outline: 0px solid transparent !important;
     background: $color-ui;
+    cursor: pointer;
   }
 
   .select {

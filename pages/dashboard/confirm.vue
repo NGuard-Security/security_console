@@ -42,12 +42,6 @@
   </main>
 </template>
 
-<style lang="scss" scoped>
-  #role_input {
-    cursor: pointer;
-  }
-</style>
-
 <script>
 import vClickOutside from 'v-click-outside';
 import createFuzzyMatcher from '@/plugins/ch2pattern.js';

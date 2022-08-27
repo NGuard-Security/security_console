@@ -79,11 +79,6 @@
 </template>
 
 <style lang="scss">
-  #inviteLink_input,
-  #method_input {
-    cursor: pointer;
-  }
-
   .modal .vm--modal {
     background-color: $color-navbar;
     box-shadow: 0 10px 60px -2px rgba(14, 18, 36, 0.4);
