@@ -67,11 +67,11 @@
         Exterprise 플랜에 가입하시거나,<br/>
         한디리에서 NGuard Security 봇을 추천해 주셔야 합니다.<br/>
         <br/>
-        12시간 마다 추천 가능합니다.
+        12시간 마다 다시 추천 가능합니다.
       </div>
       <div class="flex items-center justify-around gap-2">
-        <a class="btn-plan">플랜</a>
-        <a>추천하기</a>
+        <a href="https://nguard.xyz/upgrade/detail" target="_blank" class="btn-plan">플랜</a>
+        <a href="https://koreanbots.dev/bots/937636597040570388/vote" target="_blank">추천하기</a>
         <a @click="$modal.hide('permission')">취소</a>
       </div>
     </modal>
