@@ -1,13 +1,9 @@
 <template>
-  <div class="w-full min-h-full" style="background: #0f1016">
-    <Header />
-
-    <div class="bottom_content flex w-full min-h-screen">
+  <div class="dashboard-wrap bottom_content flex w-full min-h-screen">
       <Navbar />
       
       <nuxt-child />
     </div>
-  </div>
 </template>
 
 <style scoped lang="scss">
@@ -24,6 +20,10 @@
     .bottom_content {
       display: block;
     }
+  }
+
+  .dashboard-wrap {
+    background: $color-bg;
   }
 </style>
 
@@ -343,10 +343,9 @@ main {
 </style>
 
 <script>
-import Header from '~/components/Header.vue';
 import Navbar from '~/components/Navbar.vue';
 export default {
   name: 'IndexPage',
-  components: { Header, Navbar },
+  components: { Navbar },
 }
 </script>
