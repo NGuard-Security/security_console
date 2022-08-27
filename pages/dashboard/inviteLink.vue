@@ -47,7 +47,7 @@
             id="inviteLink_input"
             type="text"
 
-            :placeholder="[!isPermission ? '한디리에서 봇을 추천해주세요' : '']"
+            :placeholder="[!isPermission ? '한디리에서 봇을 추천해주세요' : '초대 링크']"
             v-bind:readonly="!isPermission"
 
             @click="clickInviteLink()"
