@@ -55,19 +55,15 @@
     @media (max-width: 660px) {
       grid-template-columns: 1fr;
 
-      .card {
-        padding: 10px 20px !important;
+      .card .card_content {
+        display: flex;
+        align-items: center;
+        gap: 10px;
 
-        .card_content {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-
-          p {
-            margin: 0 !important;
-          }
+        p {
+          margin: 0 !important;
         }
-
+        
         svg {
           width: 20px;
           height: 20px;
@@ -78,21 +74,6 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 14px;
-
-    .card {
-      background: $color-ui;
-      border-radius: 0.5rem;
-      width: 100%;
-      padding: 15px 20px;
-      font-size: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      svg {
-        fill: $color-gray;
-      }
-    }
   }
 </style>
 

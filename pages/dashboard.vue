@@ -36,6 +36,10 @@ main {
 
   @media (max-width: 660px) {
     padding: calc(1rem + 72px + 46px) 2rem 2rem 2rem !important;
+  
+    .card {
+      padding: 10px 20px !important;
+    }
   }
 
   @media (max-width: 767px) {
@@ -260,9 +264,20 @@ main {
       //화살표
     }
   }
-  
+
   .card {
-    
+    background: $color-ui;
+    border-radius: 0.5rem;
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    svg {
+      fill: $color-gray;
+    }
   }
 
   .blank {
