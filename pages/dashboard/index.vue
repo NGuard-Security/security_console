@@ -5,7 +5,7 @@
       메인 대시보드
     </h1>
 
-    <div class="cards">
+    <div class="cards grid grid-cols-4 gap-3">
       <div class="card">
         <div class="card_content">
           <p>멤버 수</p>
@@ -70,10 +70,6 @@
         }
       }
     }
-
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
   }
 </style>
 
