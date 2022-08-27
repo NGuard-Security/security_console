@@ -56,15 +56,24 @@
       </div>
     </form>
 
-    <modal class="modal" name="permission">
-      <div>
-        초대 링크를 커스텀하려면,<br/>
+    <modal
+      class="modal"
+      name="permission"
+      width="500"
+    >
+      <h2>Exterprise 플랜에 가입해주세요</h2>
+      <div class="text-gray-400 pb-6">
+        초대 링크를 커스텀하려면<br/>
+        Exterprise 플랜에 가입하시거나,<br/>
         한디리에서 NGuard Security 봇을 추천해 주셔야 합니다.<br/>
         <br/>
-        12시간 마다 추천 가능합니다.<br/>
+        12시간 마다 추천 가능합니다.
       </div>
-      <button>추천하기</button>
-      <button>닫기</button>
+      <div class="flex items-center justify-around gap-2">
+        <a class="btn-plan">플랜</a>
+        <a>추천하기</a>
+        <a @click="$modal.hide('permission')">취소</a>
+      </div>
     </modal>
   </main>
 </template>
@@ -76,10 +85,38 @@
   }
 
   .modal .vm--modal {
-    background-color: #000;
+    background-color: #151720;
+    box-shadow: 0 10px 60px -2px rgba(14, 18, 36, 0.4);
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    // width: 500px !important;
+    height: fit-content !important;
+    padding: 30px;
+    line-height: 2rem;
+    border-radius: 12px;
+
+    a {
+      padding: 10px;
+      background: #0f1016;
+      border-radius: 10px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+
+      &:hover {
+        background: #0b0b0f;
+      }
+
+      &.btn-plan {
+        background: $color-highlight;
+
+        &:hover {
+          background: darken($color-highlight, 5%);
+        }
+      }
+    }
   }
 </style>
 
