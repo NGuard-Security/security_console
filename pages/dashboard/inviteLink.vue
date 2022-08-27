@@ -19,19 +19,25 @@
 
       <div class="vert" v-if="switch_.invite">
         <p>보안 초대 방식</p>
-        <input
-          class="input-l"
-          id="method_input"
-          :value="list.method.list[input.method]"
-          @click="list.method.show = true"
+        <div
+          class="select select-l"
+          :class="{ 'active' : select.method.isActive }"
+          @click="
+            list.method.show = true;
+            select.method.isActive = true;
+          "
           v-click-outside="onClickOutside"
-          type="text"
-          readonly
-        />
+        >
+          {{list.method.list[select.method.index]}}
+        </div>
+
         <ul class="list-l" v-if="list.method.show">
           <li
             v-for="(name, index) in list.method.list"
-            @click="input.method = index"
+            @click="
+              select.method.index = index;
+              select.method.isActive = false;
+            "
           >
             {{name}}
           </li>
@@ -125,8 +131,11 @@ export default {
   data() {
     return {
       isPermission,
-      input: {
-        method: 0
+      select: {
+        method: {
+          index: 0,
+          isActive: false
+        },
       },
       switch_: {
         invite: false,
@@ -151,6 +160,7 @@ export default {
     },
     onClickOutside() {
       this.list.method.show = false;
+      this.select.method.isActive = false;
     },
     clickInviteLink() {
       if(!isPermission) {

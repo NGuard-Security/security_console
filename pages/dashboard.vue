@@ -241,11 +241,9 @@ main {
     &.input-s {
       max-width: 4.2rem;
     }
-
     &.input-m {
       max-width: 24rem;
     }
-
     &.input-l {
       max-width: 32rem;
     }
@@ -261,9 +259,52 @@ main {
   }
 
   .select {
-    &::after {
-      //화살표
+    &.active {
+      outline: 2px solid $color-highlight !important;
+
+      &:after {
+        transform: rotate(180deg);
+      }
     }
+
+    &:after {
+      content: url("data:image/svg+xml,%3Csvg fill='%236b7280' clip-rule='evenodd' fill-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m16.843 10.211c.108-.141.157-.3.157-.456 0-.389-.306-.755-.749-.755h-8.501c-.445 0-.75.367-.75.755 0 .157.05.316.159.457 1.203 1.554 3.252 4.199 4.258 5.498.142.184.36.29.592.29.23 0 .449-.107.591-.291 1.002-1.299 3.044-3.945 4.243-5.498z'/%3E%3C/svg%3E%0A");
+      
+      position: absolute;
+      top: 7px;
+      right: 7px;
+
+      width: 20px;
+      height: 20px;
+      transition: transform 0.2s ease;
+    }
+
+    &.select-s {
+      max-width: 4.2rem;
+    }
+    &.select-m {
+      max-width: 24rem;
+    }
+    &.select-l {
+      max-width: 32rem;
+    }
+
+    position: relative;
+    flex-direction: row !important;
+    display: flex;
+    align-items: center !important;
+    justify-content: flex-start;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex-shrink: 1;
+    width: 100%;
+    height: 2.1rem;
+    padding: 0px 0.8rem;
+    border-radius: 0.5rem;
+    outline: 0px solid transparent !important;
+    background: $color-ui;
+    cursor: pointer;
   }
 
   .card {
