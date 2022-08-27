@@ -87,8 +87,8 @@ export default {
         labels: ['1월', '2월', '3월', '4월', '5월', '6월'],
         datasets: [{
           data: [0, 0, 1, 3, 2, 3],
-          borderColor: 'rgb(22, 124, 241)',
-          backgroundColor: 'rgb(22, 124, 241)',
+          borderColor: 'rgb(33, 100, 226)',
+          backgroundColor: 'rgb(33, 100, 226)',
           borderWidth: 3
         }]
       },
