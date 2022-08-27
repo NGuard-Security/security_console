@@ -75,7 +75,7 @@
         <br/>
         12시간 마다 다시 추천 가능합니다.
       </div>
-      <div class="flex items-center justify-around gap-2">
+      <div class="btns flex items-center justify-around gap-2">
         <a href="https://nguard.xyz/upgrade/detail" target="_blank" class="btn-plan">플랜</a>
         <a href="https://koreanbots.dev/bots/937636597040570388/vote" target="_blank">추천하기</a>
         <a @click="$modal.hide('permission')">취소</a>
@@ -85,16 +85,17 @@
 </template>
 
 <style lang="scss">
+  @media (max-width: 767px) {
+    .btns {
+      flex-direction: column;
+    }
+  }
+
   .modal .vm--modal {
-    background-color: $color-navbar;
-    box-shadow: 0 10px 60px -2px rgba(14, 18, 36, 0.4);
     display: flex;
     flex-direction: column;
-    // width: 500px !important;
-    height: fit-content !important;
     padding: 30px;
     line-height: 2rem;
-    border-radius: 12px;
 
     a {
       padding: 10px;

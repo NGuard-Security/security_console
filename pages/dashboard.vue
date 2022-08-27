@@ -78,6 +78,12 @@ main {
       }
     }
 
+    .modal .vm--modal {
+      width: 100% !important;
+      left: 0 !important;
+      border-radius: 0px !important;
+    }
+
     .blank {
       height: 20px !important;
     }
@@ -320,6 +326,13 @@ main {
     svg {
       fill: $color-gray;
     }
+  }
+
+  .modal .vm--modal {
+    background-color: $color-navbar;
+    box-shadow: 0 10px 60px -2px rgba(14, 18, 36, 0.4);
+    height: fit-content !important;
+    border-radius: 12px;
   }
 
   .blank {
