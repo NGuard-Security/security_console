@@ -87,6 +87,7 @@ export default {
     },
     onClickOutside() {
       this.list.role.show = false;
+      this.list.role.list = roleList;
     },
     searchRole: function (value) {
       this.input.role = value;
