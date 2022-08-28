@@ -96,7 +96,7 @@ const serverList = [
 export default {
   data() {
     return {
-      serverList : serverList,
+      serverList : serverList.sort((a, b) => a.isInvited ? -1 : 1),
     }
   },
   methods: {
