@@ -185,7 +185,7 @@ export default {
 
   @media (max-width: 660px) {
     width: 100%;
-    padding-top: 56px;
+    padding-top: 77.6px;
     height: auto;
     position: fixed;
   }
