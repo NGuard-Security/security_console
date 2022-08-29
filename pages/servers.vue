@@ -55,12 +55,20 @@
       width: 260px;
 
       h3 {
+        @media (max-width: 660px) {
+          font-size: 1.25rem !important;
+        }
+
         display: -webkit-box;
         -webkit-box-orient: vertical;
-        -webkit-line-clamp: 3;
+        -webkit-line-clamp: 2;
       }
 
       a {
+        @media (max-width: 660px) {
+          font-size: 1.1rem !important;
+        }
+
         background: $color-bg;
         padding: 8px 10px;
         border-radius: 6px;
