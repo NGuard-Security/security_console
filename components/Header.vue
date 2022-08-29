@@ -131,7 +131,7 @@ export default {
 
 @media (max-width: 660px) {
   .headerContent {
-    padding: 0.8rem 1.5rem;
+    padding: 0.8rem 1rem;
   }
 
   .logoImg {
@@ -188,9 +188,12 @@ export default {
 }
 
 @media (max-width: 660px) { //<모바일시> '헤더'와 '유저'의 (메뉴)의 패딩 통일
-  .headerNav .nav_item,
-  .userMenu .dropdownMenu {
+  .headerNav .nav_item {
     padding: 1.5rem 0 1.5rem 4rem !important;
+  }
+
+  .userMenu .dropdownMenu {
+    padding: 1.2rem 0 1.2rem 1.5rem !important;
   }
 }
 

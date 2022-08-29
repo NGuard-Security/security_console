@@ -35,10 +35,61 @@ main {
   }
 
   @media (max-width: 660px) {
-    padding: calc(1.2rem + 77.6px + 72px) 1rem 2rem 1rem !important;
+    padding: calc(1.1rem + 77.6px + 68.8px) 1rem 2rem 1rem !important;
   
     .card {
       padding: 10px 20px !important;
+    }
+
+    h2 {
+      font-size: 1.5rem !important;
+      margin-bottom: 0.1rem !important;
+    }
+
+    label {
+      font-size: 1.3rem !important;
+    }
+
+    p {
+      font-size: 1rem !important;
+    }
+
+    input,
+    .select {
+      height: 3rem !important;
+      font-size: 1.3rem;
+
+      &:after {
+        width: 2rem !important;
+        height: 2rem !important;
+      }
+    }
+
+    .switch {
+      &.switch_on {
+        &:before {
+          left: 30px !important;
+        }
+      }
+
+      &:before {
+        top: 2px !important;
+        left: 2px !important;
+        width: 36px !important;
+        height: 36px !important;
+      }
+
+      width: 70px !important;
+      height: 40px !important;
+    }
+
+    ul {
+      font-size: 1.3rem;
+      // padding: 0.6rem 0 !important;
+
+      li {
+        padding: 0.4rem 0 0.4rem 1.2rem !important;
+      }
     }
   }
 
@@ -46,9 +97,9 @@ main {
     padding: calc(1rem + 72px) 2rem 2rem 2rem;
 
     h1 {
-      font-size: 1.7rem !important;
+      font-size: 1.8rem !important;
       gap: 8px !important;
-      margin-bottom: 1rem !important;
+      margin-bottom: 0.8rem !important;
 
       svg {
         width: 22px !important;
@@ -68,7 +119,7 @@ main {
       }
     }
 
-    input {
+    input  {
       max-width: 100% !important;
     }
 
@@ -199,6 +250,7 @@ main {
         align-items: center;
         border-radius: 0.5rem;
         flex-shrink: 0;
+        box-sizing: content-box;
         cursor: pointer;
 
         overflow: hidden;

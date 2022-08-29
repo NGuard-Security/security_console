@@ -6,7 +6,7 @@
 
     <div style="background: #151720" class="navbarWrap fixed z-20">
       <div class="navbar flex flex-col shrink-0 w-40 lg:w-64 md:w-56 ml-0 lg:ml-36 p-4 select-none">
-        <div class="navMob flex justify-between mb-5">
+        <div class="navMob flex items-center justify-between mb-5">
           <div @click="showNav = !showNav" class="menuIcon cursor-pointer">
             <svg v-if="!showNav" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m13 16.745c0-.414-.336-.75-.75-.75h-9.5c-.414 0-.75.336-.75.75s.336.75.75.75h9.5c.414 0 .75-.336.75-.75zm9-5c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75zm-4-5c0-.414-.336-.75-.75-.75h-14.5c-.414 0-.75.336-.75.75s.336.75.75.75h14.5c.414 0 .75-.336.75-.75z" fill-rule="nonzero"/></svg>
             <svg v-else clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/></svg>
@@ -32,7 +32,6 @@
               <div
                 v-if="showMenu"
                 v-click-outside="closeMenu"
-                style="background: #15172033; max-height: calc(5.6rem + 4rem + 0.5rem + 0.375rem)"
                 class="serverMenu absolute flex flex-col mt-3 w-full p-1 rounded-lg backdrop-blur-md text-white text-sm border border-slate-700/[.2] gap-0.5 overflow-y-scroll"
               >
                 <div
@@ -209,7 +208,7 @@ export default {
 
   @media (max-width: 660px) {
     width: 100%;
-    padding: 0.5rem 1rem;
+    padding: 0.4rem 1rem;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -228,6 +227,7 @@ export default {
     .serverSelect {
       margin-bottom: 0px !important;
       min-width: 0px;
+      height: 50px;
 
       .serverBtn {
         padding: 6px;
@@ -235,6 +235,7 @@ export default {
         height: 100%;
 
         img {
+          width: auto;
           height: 100%;
         }
 
@@ -246,9 +247,17 @@ export default {
       .serverMenu {
         position: absolute;
         width: calc(100vw - 0.625rem * 2);
+
+        max-height: calc((60.8px + 0.125rem) * 5 + 0.5rem);
+
         right: 0px;
         margin-top: 1.5rem;
         font-size: 1rem;
+
+        .dropdownMenu {
+          padding: 1.2rem 0 1.2rem 1.5rem !important;
+          font-size: 18px;
+        }
       }
     }
 
@@ -294,6 +303,11 @@ export default {
   }
   &.on svg {
     transform: rotate(180deg);
+  }
+
+  .serverMenu {
+    background: #15172033;
+    max-height: calc(5.6rem + 4rem + 0.5rem + 0.375rem);
   }
 
   transition: background 0.05s cubic-bezier(0.17, 0.84, 0.44, 1);

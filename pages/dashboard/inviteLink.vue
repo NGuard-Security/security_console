@@ -91,31 +91,41 @@
     }
   }
 
-  .modal .vm--modal {
-    display: flex;
-    flex-direction: column;
-    padding: 30px;
-    line-height: 2rem;
+  .modal {
+    .vm--overlay {
+      background: rgba(0, 0, 0, 0.7) !important;
+    }
 
-    a {
-      padding: 10px;
-      background: $color-bg;
-      border-radius: 10px;
-      width: 100%;
+    .vm--modal {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
+      flex-direction: column;
+      padding: 30px;
+      line-height: 2rem;
 
-      &:hover {
-        background: darken($color-bg, 3%);
-      }
+      a {
+        @media (max-width: 660px) {
+          font-size: 18px !important;
+        }
 
-      &.btn-plan {
-        background: $color-highlight;
+        padding: 10px;
+        background: $color-bg;
+        border-radius: 10px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
 
         &:hover {
-          background: darken($color-highlight, 7%);
+          background: darken($color-bg, 3%);
+        }
+
+        &.btn-plan {
+          background: $color-highlight;
+
+          &:hover {
+            background: darken($color-highlight, 7%);
+          }
         }
       }
     }
