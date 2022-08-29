@@ -209,7 +209,7 @@ export default {
 
   @media (max-width: 660px) {
     width: 100%;
-    padding: 0.25rem 1rem;
+    padding: 0.5rem 1rem;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -221,6 +221,8 @@ export default {
 
     .menuIcon {
       display: block;
+      width: 2.5rem !important;
+      height: 2.5rem !important;
     }
 
     .serverSelect {
@@ -229,15 +231,15 @@ export default {
 
       .serverBtn {
         padding: 6px;
-        max-width: 200px;
+        max-width: 300px;
+        height: 100%;
 
         img {
-          width: 30px;
-          height: 30px;
+          height: 100%;
         }
 
         span {
-          font-size: 1rem;
+          font-size: 1.2rem;
         }
       }
 
@@ -255,8 +257,13 @@ export default {
       left: 0px;
       top: 100%;
       padding: 8px;
-      width: 200px;
+      width: 220px;
       height: 100vh;
+      font-size: 1.05rem;
+
+      a {
+        padding: 14px;
+      }
     }
   }
 

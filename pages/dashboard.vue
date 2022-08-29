@@ -35,7 +35,7 @@ main {
   }
 
   @media (max-width: 660px) {
-    padding: calc(1rem + 77.6px + 46px) 2rem 2rem 2rem !important;
+    padding: calc(1.2rem + 77.6px + 72px) 2rem 2rem 2rem !important;
   
     .card {
       padding: 10px 20px !important;
