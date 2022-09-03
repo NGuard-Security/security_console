@@ -352,7 +352,7 @@ main {
     display: flex;
     align-items: center !important;
     justify-content: flex-start;
-    overflow-x: hidden;
+    overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     flex-shrink: 1;
