@@ -9,7 +9,7 @@
 <style scoped lang="scss">
   .page-enter-active,
   .page-leave-active {
-    transition: opacity 0.1s;
+    transition: opacity 0.3s;
   }
   .page-enter,
   .page-leave-to {
@@ -35,7 +35,7 @@ main {
   }
 
   @media (max-width: 660px) {
-    padding: calc(1.1rem + 77.6px + 68.8px) 1rem 2rem 1rem !important;
+    padding: calc(1.1rem + 77.6px + 68.8px) 2.5rem 2rem 2.5rem !important;
   
     .card {
       padding: 10px 20px !important;
