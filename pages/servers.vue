@@ -1,19 +1,23 @@
 <template>
-  <div class="servers-wrap flex items-center justify-center flex-col w-full h-full min-h-screen px-10">
+  <div class="overflow-x-hidden servers-wrap flex items-center justify-center flex-col w-full h-full min-h-screen px-10">
     <h1 class="w-fit text-3xl font-bold mx-auto mb-14">서버 선택</h1>
+    <h3 id="ratelimit" class="hidden w-fit text-xl text-white text-center font-bold mx-auto mb-14">
+      사이트에 접속자가 많아 내부 오류가 발생했습니다.<br /><br />잠시 후 다시 시도해 주세요.
+    </h3>
+    <h3 v-if="serverList.length <= 0" class="w-fit text-xl text-white font-bold mx-auto mb-14">Loading...</h3>
 
     <div class="servers grid gap-8 mb-20">
       <div v-for="server in serverList" class="server flex flex-col gap-1 p-3 text-white items-center rounded-xl mx-auto">
         <div class="flex justify-between w-full gap-4 mb-3">
-          <img src="@/assets/img/test.png" class="w-14 rounded-xl shrink-0" />
+          <img :src="'https://cdn.discordapp.com/icons/'+server.id+'/'+server.icon+'.png?size=128'" class="w-14 rounded-xl shrink-0" />
 
           <h3 class="w-full h-fit my-auto font-bold leading-6 overflow-hidden text-ellipsis">
             {{server.name}}
           </h3>
         </div>
 
-        <a href="dashboard" v-if="server.isInvited" class="btn-manage">관리</a>
-        <a href="dashboard" v-else>초대하기</a>
+        <NuxtLink :to="'/dashboard?id='+server.id" v-if="server.isInvited" class="btn-manage">관리</NuxtLink>
+        <a :href="'https://nguard.xyz/bot/invite?id='+server.id" v-else>초대하기</a>
       </div>
     </div>
   </div>
@@ -92,22 +96,34 @@
 </style>
 
 <script>
-const serverList = [
-  {name: "서버1", icon: "", isInvited: true},
-  {name: "NGuard Securities Management Team", icon: "", isInvited: false},
-  {name: "서버3", icon: "", isInvited: false},
-  {name: "서버4", icon: "", isInvited: false},
-  {name: "서버5", icon: "", isInvited: true},
-  {name: "서버6", icon: "", isInvited: false},
-]
+// const serverList = [
+//   {name: "서버1", icon: "", isInvited: true},
+//   {name: "NGuard Securities Management Team", icon: "", isInvited: false},
+//   {name: "서버3", icon: "", isInvited: false},
+//   {name: "서버4", icon: "", isInvited: false},
+//   {name: "서버5", icon: "", isInvited: true},
+//   {name: "서버6", icon: "", isInvited: false},
+// ]
 
 export default {
   data() {
     return {
-      serverList : serverList.sort((a, b) => a.isInvited ? -1 : 1),
+      serverList: []
     }
   },
-  methods: {
+  async mounted() {
+    try {
+      const serverList = (await this.$axios.$get('http://127.0.0.1:4000/discord/servers', {
+        headers: {
+          'access_token': localStorage.getItem('access_token')
+        }
+      })).data
+
+      this.serverList = serverList.sort((a, b) => a.isInvited ? -1 : 1)
+    } catch (e) {
+      document.querySelector('#loading').classList.add('hidden')
+      document.querySelector('#ratelimit').classList.remove('hidden')
+    }
   },
 }
 </script>

@@ -11,11 +11,10 @@
           v-click-outside="closeNav"
           class="headerNav absolute md:static flex flex-col md:flex-row items-center md:gap-3 top-full left-0 w-full md:w-auto m-0 md:ml-6 mr-auto lg:mr-0 py-2 md:p-0 bg-black"
         >
-        <NuxtLink to="/" class="nav_item">홈</NuxtLink>
-        <NuxtLink to="/" class="nav_item">대시보드</NuxtLink>
-        <NuxtLink to="/" class="nav_item">서포트 서버</NuxtLink>
-        <NuxtLink to="/" class="nav_item">엔터프라이즈 플랜</NuxtLink>
-        <NuxtLink to="/" class="nav_item">고객 민원 / 문의</NuxtLink>
+        <a href="https://nguard.xyz" class="nav_item">홈</a>
+        <NuxtLink to="/servers" class="nav_item">대시보드</NuxtLink>
+        <a href="https://nguard.xyz/invite/nguard" class="nav_item">서포트 서버</a>
+        <a href="https://nguard.xyz/upgrade/detail" class="nav_item">엔터프라이즈 플랜</a>
       </div>
       </transition>
 
