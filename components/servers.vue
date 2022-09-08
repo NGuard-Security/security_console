@@ -26,7 +26,7 @@
             </div>
 
             <NuxtLink :to="'/dashboard?id='+server.id" v-if="server.isInvited" class="btn-manage">관리</NuxtLink>
-            <a :href="'https://nguard.xyz/bot/invite?id='+server.id" @click="openInvite" v-else>초대하기</a>
+            <a :href="'https://nguard.xyz/bot/invite?id='+server.id" v-else>초대하기</a>
           </div>
         </div>
       </transition>
@@ -196,15 +196,5 @@ export default {
       this.connState = 2;
     }
   },
-  methods: {
-    openInvite(e) {
-      e.preventDefault()
-      window.open(
-        e.target.href,
-        'Invite',
-        'width=562px, height=972px, top=30px, left=675px, resizable=no',
-      )
-    }
-  }
 }
 </script>

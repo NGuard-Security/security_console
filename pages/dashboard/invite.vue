@@ -1,0 +1,196 @@
+<template>
+  <main>
+      <h1>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path
+                  d="M6.188 8.719c.439-.439.926-.801 1.444-1.087 2.887-1.591 6.589-.745 8.445 2.069l-2.246 2.245c-.644-1.469-2.243-2.305-3.834-1.949-.599.134-1.168.433-1.633.898l-4.304 4.306c-1.307 1.307-1.307 3.433 0 4.74 1.307 1.307 3.433 1.307 4.74 0l1.327-1.327c1.207.479 2.501.67 3.779.575l-2.929 2.929c-2.511 2.511-6.582 2.511-9.093 0s-2.511-6.582 0-9.093l4.304-4.306zm6.836-6.836l-2.929 2.929c1.277-.096 2.572.096 3.779.574l1.326-1.326c1.307-1.307 3.433-1.307 4.74 0 1.307 1.307 1.307 3.433 0 4.74l-4.305 4.305c-1.311 1.311-3.44 1.3-4.74 0-.303-.303-.564-.68-.727-1.051l-2.246 2.245c.236.358.481.667.796.982.812.812 1.846 1.417 3.036 1.704 1.542.371 3.194.166 4.613-.617.518-.286 1.005-.648 1.444-1.087l4.304-4.305c2.512-2.511 2.512-6.582.001-9.093-2.511-2.51-6.581-2.51-9.092 0z"
+              />
+          </svg>
+          초대링크 설정
+      </h1>
+      <transition name="contents">
+          <div v-if="connState == 1">
+              <h2>보안 초대링크</h2>
+              <p>추가적인 보안을 적용한 초대링크를 제공합니다.</p>
+              <form>
+                  <div>
+                      <label>보안 초대링크</label>
+                      <div @click="inputSwitch('invite')" :class="{ switch_on: switch_.invite }" class="switch"></div>
+                  </div>
+
+                  <div class="vert" v-if="switch_.invite">
+                      <p>보안 초대 방식</p>
+                      <div
+                          class="select select-l"
+                          :class="{ 'active' : select.method.isActive }"
+                          @click="
+      list.method.show = true;
+      select.method.isActive = true;
+    "
+                          v-click-outside="onClickOutside"
+                      >
+                          {{list.method.list[select.method.index]}}
+                      </div>
+
+                      <ul class="list-l" v-if="list.method.show">
+                          <li
+                              v-for="(name, index) in list.method.list"
+                              @click="
+        select.method.index = index;
+        select.method.isActive = false;
+      "
+                          >
+                              {{name}}
+                          </li>
+                      </ul>
+                  </div>
+
+                  <div class="vert" v-if="switch_.invite">
+                      <p>초대 링크 설정</p>
+                      <div>
+                          <label>https://nguard.xyz/invite/</label>
+                          <input class="input-m" id="inviteLink_input" type="text" :placeholder="[!isPermission ? '한디리에서 봇을 추천해주세요' : '초대 링크']" v-bind:readonly="!isPermission" @click="clickInviteLink()" />
+                      </div>
+                  </div>
+              </form>
+
+              <modal class="modal" name="permission" width="500">
+                  <h2>한디리에서 봇을 추천해주세요</h2>
+                  <div class="text-gray-400 pb-6">
+                      초대 링크를 커스텀하려면<br />
+                      한디리에서 NGuard Security 봇을 추천해 주시거나,<br />
+                      Enterprise 플랜에 가입하셔야 합니다.<br />
+                      <br />
+                      한디리 추천은 12시간 마다 다시 추천 가능합니다.
+                  </div>
+                  <div class="btns flex items-center justify-around gap-2">
+                      <a href="https://koreanbots.dev/bots/937636597040570388/vote" target="_blank" class="btn-vote">추천하기</a>
+                      <a href="https://nguard.xyz/upgrade/detail" target="_blank">Enterprise 플랜</a>
+                      <a @click="$modal.hide('permission')">취소</a>
+                  </div>
+              </modal>
+          </div>
+      </transition>
+
+      <div class="absolute left-0 top-0 w-full flex justify-center">
+          <!-- 스피너 -->
+          <transition name="spiner">
+              <div v-if="connState == 0" style="height: 500px;" class="flex items-center justify-center flex-col absolute container mx-auto sm:px-4">
+                  <h3 class="pb-8 text-2xl font-semibold">불러오는 중</h3>
+                  <div class="spinner"></div>
+              </div>
+          </transition>
+
+          <!-- 응답 지연 -->
+          <transition name="connErr">
+              <div v-if="connState == 2" id="ratelimit">
+                  <div class="text-center">
+                      <h4 class="text-xl pt-5 text-white">현재 응답이 지연되고 있습니다.</h4>
+                      <h4 class="text-xl pt-5 text-white">잠시 후 다시 시도해 주세요.</h4>
+                  </div>
+              </div>
+          </transition>
+      </div>
+  </main>
+</template>
+
+<style lang="scss">
+  @media (max-width: 767px) {
+      .btns {
+          flex-direction: column;
+      }
+  }
+
+  .modal {
+      .vm--overlay {
+          background: rgba(0, 0, 0, 0.7) !important;
+      }
+
+      .vm--modal {
+          display: flex;
+          flex-direction: column;
+          padding: 30px;
+          line-height: 2rem;
+
+          a {
+              @media (max-width: 660px) {
+                  font-size: 18px !important;
+              }
+
+              padding: 10px;
+              background: $color-bg;
+              border-radius: 10px;
+              width: 100%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              cursor: pointer;
+
+              &:hover {
+                  background: darken($color-bg, 3%);
+              }
+
+              &.btn-vote {
+                  background: $color-highlight;
+
+                  &:hover {
+                      background: darken($color-highlight, 7%);
+                  }
+              }
+          }
+      }
+  }
+</style>
+
+<script>
+  import vClickOutside from "v-click-outside";
+
+  //한디리 추천 or 엔터프라이즈 클랜
+  const isPermission = false;
+
+  export default {
+      data() {
+          return {
+              connState: 0, //0: 연결중, 1: 성공, 2: 응답 지연
+              isPermission,
+              select: {
+                  method: {
+                      index: 0,
+                      isActive: false,
+                  },
+              },
+              switch_: {
+                  invite: false,
+              },
+              list: {
+                  method: {
+                      show: false,
+                      list: ["ReCaptcha (권장)", "ReCaptcha + 다중 인증 (보안 최상)"],
+                  },
+              },
+          };
+      },
+      mounted() {
+          setTimeout(() => {
+              this.connState = 1;
+          }, 2500);
+      },
+      directives: {
+          clickOutside: vClickOutside.directive,
+      },
+      methods: {
+          inputSwitch: function (name) {
+              this.switch_[name] = !this.switch_[name];
+          },
+          onClickOutside() {
+              this.list.method.show = false;
+              this.select.method.isActive = false;
+          },
+          clickInviteLink() {
+              if (!isPermission) {
+                  this.$modal.show("permission");
+              }
+          },
+      },
+  };
+</script>
