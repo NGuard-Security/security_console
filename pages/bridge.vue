@@ -85,7 +85,7 @@ export default {
   },
   async mounted() {
     try {
-      const bridgeData = (await this.$axios.$get('http://127.0.0.1:4000/dashboard/bridge?id='+this.$route.query.id, { // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
+      const bridgeData = (await this.$axios.$get('http://127.0.0.1:4000/util/bridge?id='+this.$route.query.id, { // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
         headers: {
           'access_token': localStorage.getItem('access_token')
         }

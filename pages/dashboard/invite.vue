@@ -24,9 +24,9 @@
                           class="select select-l"
                           :class="{ 'active' : select.method.isActive }"
                           @click="
-      list.method.show = true;
-      select.method.isActive = true;
-    "
+                            list.method.show = true;
+                            select.method.isActive = true;
+                          "
                           v-click-outside="onClickOutside"
                       >
                           {{list.method.list[select.method.index]}}
@@ -36,9 +36,9 @@
                           <li
                               v-for="(name, index) in list.method.list"
                               @click="
-        select.method.index = index;
-        select.method.isActive = false;
-      "
+                                select.method.index = index;
+                                select.method.isActive = false;
+                              "
                           >
                               {{name}}
                           </li>
@@ -49,14 +49,18 @@
                       <p>초대 링크 설정</p>
                       <div>
                           <label>https://nguard.xyz/invite/</label>
-                          <input class="input-m" id="inviteLink_input" type="text" :placeholder="[!isPermission ? '한디리에서 봇을 추천해주세요' : '초대 링크']" v-bind:readonly="!isPermission" @click="clickInviteLink()" />
+                          <input class="input-m" id="inviteLink_input" type="text" :placeholder="[!isPermission ? '한디리에서 봇을 추천해주세요' : '초대 링크']" v-model="select.link" v-bind:readonly="!isPermission" @click="clickInviteLink()" />
                       </div>
                   </div>
               </form>
 
+              <button class="btn-save" @click="saveSettings()">
+                저장하기
+              </button>
+
               <modal class="modal" name="permission" width="500">
                   <h2>한디리에서 봇을 추천해주세요</h2>
-                  <div class="text-gray-400 pb-6">
+                  <div class="text-gray-400 pt-5 pb-8">
                       초대 링크를 커스텀하려면<br />
                       한디리에서 NGuard Security 봇을 추천해 주시거나,<br />
                       Enterprise 플랜에 가입하셔야 합니다.<br />
@@ -66,13 +70,23 @@
                   <div class="btns flex items-center justify-around gap-2">
                       <a href="https://koreanbots.dev/bots/937636597040570388/vote" target="_blank" class="btn-vote">추천하기</a>
                       <a href="https://nguard.xyz/upgrade/detail" target="_blank">Enterprise 플랜</a>
-                      <a @click="$modal.hide('permission')">취소</a>
+                      <a @click="checkVote()">확인</a>
                   </div>
+              </modal>
+
+              <modal class="modal" name="success" width="500">
+                <h2>성공적으로 저장했습니다!</h2>
+                <div class="text-gray-400 pt-5 pb-8">
+                    ⚠️ 새로고침하여 제대로 저장되었는지 확인해 주시기 바랍니다.<br />
+                    혹여나 저장되지 않은 경우 하단 채널톡으로 문의 주시기 바랍니다.<br /><br />
+                    ℹ️ 이 창은 5초 후 자동으로 닫힙니다.
+                </div>
+                <div class="btns flex items-center justify-around gap-2"></div>
               </modal>
           </div>
       </transition>
 
-      <div class="absolute left-0 top-0 w-full flex justify-center">
+      <div v-if="connState != 1" class="absolute left-0 top-0 items-center h-screen w-full flex justify-center">
           <!-- 스피너 -->
           <transition name="spiner">
               <div v-if="connState == 0" style="height: 500px;" class="flex items-center justify-center flex-col absolute container mx-auto sm:px-4">
@@ -90,6 +104,16 @@
                   </div>
               </div>
           </transition>
+
+          <!-- 초대 필요 -->
+          <transition name="inviteErr">
+            <div v-if="connState == 3" id="invite">
+                <div class="text-center">
+                <h4 class="text-xl pt-5 text-white">봇 초대 화면이 팝업으로 오픈되었습니다.</h4>
+                <h4 class="text-xl pt-5 text-white">팝업이 열리지 않는다면, 팝업 차단을 해제해 주세요.</h4>
+                </div>
+            </div>
+          </transition>
       </div>
   </main>
 </template>
@@ -99,6 +123,26 @@
       .btns {
           flex-direction: column;
       }
+  }
+
+  .btn-save {
+    @media (max-width: 660px) {
+        font-size: 18px !important;
+    }
+
+    margin-top: 20px;
+    padding: 10px;
+    background: $color-highlight;
+    border-radius: 10px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    &:hover {
+        background: darken($color-highlight, 7%);
+    }
   }
 
   .modal {
@@ -145,19 +189,17 @@
 <script>
   import vClickOutside from "v-click-outside";
 
-  //한디리 추천 or 엔터프라이즈 클랜
-  const isPermission = false;
-
   export default {
       data() {
           return {
-              connState: 0, //0: 연결중, 1: 성공, 2: 응답 지연
-              isPermission,
+              connState: 0, //0: 연결중, 1: 성공, 2: 응답 지연, 3: 초대 필요
+              isPermission: false,
               select: {
                   method: {
-                      index: 0,
-                      isActive: false,
+                    index: 0,
+                    isActive: false,
                   },
+                  link: ""
               },
               switch_: {
                   invite: false,
@@ -170,15 +212,50 @@
               },
           };
       },
-      mounted() {
-          setTimeout(() => {
-              this.connState = 1;
-          }, 2500);
+      async mounted() {
+        try {
+            const settings = (
+                await this.$axios.$get("http://127.0.0.1:4000/dashboard/invite?id=" + this.$route.query.id, {
+                    // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
+                    headers: {
+                        access_token: localStorage.getItem("access_token"),
+                    },
+                })
+            ).data;
+
+            // this.settings = memberList;
+
+            this.isPermission = settings.koreanbots.data.voted
+
+            if (settings.settings) {
+                if (settings.settings.status != 0) {
+                    this.switch_.invite = Boolean(settings.settings.status)
+                    this.select.method.index = settings.settings.settings - 2
+                    this.select.link = settings.settings.link ? settings.settings.link : this.generateRandom()
+                } else {
+                    this.switch_.invite = false
+                    this.select.method.index = 0
+                    this.select.link = this.generateRandom()
+                }
+            } else {
+                this.switch_.invite = false
+                this.select.method.index = 0
+                this.select.link = this.generateRandom()
+            }
+
+            this.connState = 1;
+        } catch (e) {
+            console.log(e)
+            this.connState = 2;
+        }
       },
       directives: {
           clickOutside: vClickOutside.directive,
       },
       methods: {
+          generateRandom() {
+            return Math.random().toString(32).substr(2, 8)
+          },
           inputSwitch: function (name) {
               this.switch_[name] = !this.switch_[name];
           },
@@ -187,10 +264,35 @@
               this.select.method.isActive = false;
           },
           clickInviteLink() {
-              if (!isPermission) {
+              if (!this.isPermission) {
                   this.$modal.show("permission");
               }
           },
+          checkVote() {
+            this.connState = 0
+            location.reload()
+          },
+          async saveSettings() {
+            try {
+                await this.$axios.$post("http://127.0.0.1:4000/dashboard/invite?id=" + this.$route.query.id, {
+                    settings: this.select.method.index + 2,
+                    status: this.switch_.invite,
+                    link: this.select.link,
+                }, {
+                    // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
+                    headers: {
+                        access_token: localStorage.getItem("access_token"),
+                    },
+                })
+
+                this.$modal.show("success");
+                setTimeout(() => {
+                    this.$modal.hide("success");
+                }, 5000);
+            } catch (e) {
+                this.connState = 2;
+            }
+          }
       },
   };
 </script>
