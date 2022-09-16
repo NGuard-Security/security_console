@@ -145,41 +145,14 @@ main {
   overflow-y: scroll;
   position: relative;
 
-  .spiner-enter-active,
-  .spiner-leave-active,
   .contents-enter-active,
-  .contents-leave-active,
-  .connErr-enter-active,
-  .connErr-leave-active {
+  .contents-leave-active {
     transition: opacity 0.3s;
   }
 
-  .spiner-enter,
-  .spiner-leave-to,
   .contents-enter,
-  .contents-leave-to,
-  .connErr-enter,
-  .connErr-leave-to {
+  .contents-leave-to {
     opacity: 0;
-  }
-
-  .spinner {
-      color: #fff;
-      display: inline-block;
-      width: 2rem;
-      height: 2rem;
-      vertical-align: -0.125em;
-      border: 0.25em solid;
-      border-right: 0.25em solid transparent;
-      border-radius: 50%;
-      -webkit-animation: spinner .75s linear infinite;
-      animation: spinner .75s linear infinite;
-    }
-  
-  @keyframes spinner {
-    to {
-      transform: rotate(1turn)
-    }
   }
 
   h1 {

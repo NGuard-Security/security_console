@@ -66,35 +66,7 @@
           </div>
       </transition>
 
-      <div v-if="connState != 1" class="absolute left-0 top-0 items-center h-screen w-full flex justify-center">
-          <!-- 스피너 -->
-          <transition name="spiner">
-              <div v-if="connState == 0" style="height: 500px;" class="flex items-center justify-center flex-col absolute container mx-auto sm:px-4">
-                  <h3 class="pb-8 text-2xl font-semibold">불러오는 중</h3>
-                  <div class="spinner"></div>
-              </div>
-          </transition>
-
-          <!-- 응답 지연 -->
-          <transition name="connErr">
-              <div v-if="connState == 2">
-                  <div class="text-center">
-                      <h4 class="text-xl pt-5 text-white">현재 응답이 지연되고 있습니다.</h4>
-                      <h4 class="text-xl pt-5 text-white">잠시 후 다시 시도해 주세요.</h4>
-                  </div>
-              </div>
-          </transition>
-
-          <!-- 초대 필요 -->
-          <transition name="inviteErr">
-            <div v-if="connState == 3" id="invite">
-                <div class="text-center">
-                <h4 class="text-xl pt-5 text-white">봇 초대 화면이 팝업으로 오픈되었습니다.</h4>
-                <h4 class="text-xl pt-5 text-white">팝업이 열리지 않는다면, 팝업 차단을 해제해 주세요.</h4>
-                </div>
-            </div>
-          </transition>
-      </div>
+      <Spiner :type=2 :state=connState />
   </main>
 </template>
 
@@ -128,6 +100,7 @@
 <script>
   import vClickOutside from "v-click-outside";
   import Chart from "chart.js/auto";
+  import Spiner from "../../components/Spiner.vue";
 
   export default {
     data() {
@@ -214,5 +187,6 @@
         clickOutside: vClickOutside.directive,
     },
     methods: {},
+    components: { Spiner }
 };
 </script>
