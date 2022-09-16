@@ -74,7 +74,7 @@
   export default {
       data() {
           return {
-              connState: 0, //0: 연결중, 1: 성공, 2: 응답 지연, 3: 초대 필요
+              connState: 1, //0: 연결중, 1: 성공, 2: 응답 지연, 3: 초대 필요
               input: {
                   role: "",
               },
@@ -88,11 +88,6 @@
                   },
               },
           };
-      },
-      mounted() {
-          setTimeout(() => {
-              this.connState = 1;
-          }, 2500);
       },
       directives: {
           clickOutside: vClickOutside.directive,
