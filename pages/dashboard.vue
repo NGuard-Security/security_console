@@ -431,5 +431,11 @@ main {
 <script>
 export default {
   name: 'IndexPage',
+  mounted() {
+    if (!localStorage.getItem('access_token')) {
+        this.$router.push('/auth/login')
+        return
+    }
+  },
 }
 </script>

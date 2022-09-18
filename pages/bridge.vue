@@ -5,9 +5,10 @@
     <div class="relative w-full flex justify-center mb-20">
       <!-- 스피너 -->
       <transition name="spiner">
-        <div v-if="connState == 0" id="loading" class="absolute mx-auto">
+        <div id="loading" class="absolute mx-auto">
           <div class="text-center">
             <div class="spinner"></div>
+            <h4 class="text-base pt-5" style="color: rgb(153, 153, 153)">서버 목록을 가져오고 있습니다...</h4>
           </div>
         </div>
       </transition>

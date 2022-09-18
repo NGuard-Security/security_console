@@ -25,11 +25,11 @@
           class="userBtn nav_item flex items-center gap-1 hover:bg-zinc-900 cursor-pointer"
         >
           <img
-            src="~/assets/img/test.png"
+            :src="user.icon"
             alt="user_logo"
             class="h-5 rounded-full"
           />
-          <span class="hidden lg:inline">라비 lavi#2253</span>
+          <span class="hidden lg:inline">{{ user.name }}</span>
           <svg class="w-5 fill-gray-500" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m16.843 10.211c.108-.141.157-.3.157-.456 0-.389-.306-.755-.749-.755h-8.501c-.445 0-.75.367-.75.755 0 .157.05.316.159.457 1.203 1.554 3.252 4.199 4.258 5.498.142.184.36.29.592.29.23 0 .449-.107.591-.291 1.002-1.299 3.044-3.945 4.243-5.498z"/> </svg>
         </div>
 
@@ -39,16 +39,16 @@
             v-click-outside="onClickOutside"
             class="userMenu absolute flex flex-col left-0 mt-5 w-36 p-1.5 bg-black/[.8] rounded-lg backdrop-blur-sm z-40"
           >
-            <div class="dropdownMenu">메뉴1</div>
+            <!-- <div class="dropdownMenu">메뉴1</div>
             <div class="dropdownMenu">메뉴2</div>
             <div class="dropdownMenu">메뉴3</div>
-            <hr class="mx-2.5 my-2 border-zinc-800" />
-            <div class="dropdownMenu text-red-700">로그아웃</div>
+            <hr class="mx-2.5 my-2 border-zinc-800" /> -->
+            <NuxtLink to="/auth/logout" class="dropdownMenu text-red-700">로그아웃</NuxtLink>
           </div>
         </transition>
       </div>
 
-      <NuxtLink v-else to="/" class="nav_item">로그인</NuxtLink>
+      <NuxtLink v-else to="/auth/login" class="nav_item">로그인</NuxtLink>
       
       <div @click="showNav = !showNav" class="menuBtn md:hidden w-7 h-7 p-1.5 box-content fill-white cursor-pointer">
         <svg v-if="!showNav" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m22 16.75c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75zm0-5c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75zm0-5c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75z" fill-rule="nonzero"/></svg>
@@ -64,7 +64,7 @@ import vClickOutside from 'v-click-outside'
 export default {
   transition: 'fade',
 
-  mounted() {
+  async mounted() {
     window.addEventListener('resize', this.windowResize);
 
     if(window.innerWidth > 768) {
@@ -74,12 +74,32 @@ export default {
       this.showNav = false;
       this.isMobile = true;
     }
+
+    if (!this.$route.path == "/auth/callback") {
+        try {
+        if (localStorage.getItem('access_token')) {
+          this.user = (await this.$axios.$get('http://127.0.0.1:4000/auth/profile', { // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
+            headers: {
+              'Authorization': "Bearer " + localStorage.getItem('access_token')
+            }
+          })).data
+        }
+      } catch (e) {
+        if (e.response.status == 429) {
+          location.reload()
+        }
+      }
+    }
   },
   data() {
     return {
       showMenu: false,
       showNav: false,
-      isMobile: false
+      isMobile: false,
+      user: {
+        name: '라비 lavi#2253',
+        icon: '~/assets/img/test.png'
+      },
     }
   },
   directives: {

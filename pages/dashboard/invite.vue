@@ -76,12 +76,21 @@
 
               <modal class="modal" name="success" width="500">
                 <h2>성공적으로 저장했습니다!</h2>
-                <div class="text-gray-400 pt-5 pb-8">
+                <div class="text-gray-400 pt-5">
+                    <span v-if="switch_.invite">
+                        이 서버의 초대링크는 <a :href="'https://nguard.xyz/invite/'+select.link" target="_blank">https://nguard.xyz/invite/{{ select.link }}</a> 입니다.
+                    </span>
+                    <span v-else>
+                        이 서버의 초대링크가 삭제되었습니다.
+                    </span>
+
+                    <br /><br />
+
                     ⚠️ 새로고침하여 제대로 저장되었는지 확인해 주시기 바랍니다.<br />
                     혹여나 저장되지 않은 경우 하단 채널톡으로 문의 주시기 바랍니다.<br /><br />
-                    ℹ️ 이 창은 5초 후 자동으로 닫힙니다.
+                    ℹ️ 이 창은 3초 후 자동으로 닫힙니다.
                 </div>
-                <div class="btns flex items-center justify-around gap-2"></div>
+                <div class="btns"></div>
               </modal>
           </div>
       </transition>
@@ -95,11 +104,11 @@
               </div>
           </transition>
 
-          <!-- 응답 지연 -->
+          <!-- 응답 지연 (429) -->
           <transition name="connErr">
               <div v-if="connState == 2" id="ratelimit">
                   <div class="text-center">
-                      <h4 class="text-xl pt-5 text-white">현재 응답이 지연되고 있습니다.</h4>
+                      <h4 class="text-xl pt-5 text-white">Rate limit이 발생했습니다.</h4>
                       <h4 class="text-xl pt-5 text-white">잠시 후 다시 시도해 주세요.</h4>
                   </div>
               </div>
@@ -155,8 +164,8 @@
           flex-direction: column;
           padding: 30px;
           line-height: 2rem;
-
-          a {
+          
+          .btns a {
               @media (max-width: 660px) {
                   font-size: 18px !important;
               }
@@ -223,8 +232,6 @@
                 })
             ).data;
 
-            // this.settings = memberList;
-
             this.isPermission = settings.koreanbots.data.voted
 
             if (settings.settings) {
@@ -288,7 +295,7 @@
                 this.$modal.show("success");
                 setTimeout(() => {
                     this.$modal.hide("success");
-                }, 5000);
+                }, 3000);
             } catch (e) {
                 this.connState = 2;
             }

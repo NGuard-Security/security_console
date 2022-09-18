@@ -44,7 +44,7 @@
           <transition name="connErr">
               <div v-if="connState == 2" id="ratelimit">
                   <div class="text-center">
-                      <h4 class="text-xl pt-5 text-white">현재 응답이 지연되고 있습니다.</h4>
+                      <h4 class="text-xl pt-5 text-white">Rate limit이 발생했습니다.</h4>
                       <h4 class="text-xl pt-5 text-white">잠시 후 다시 시도해 주세요.</h4>
                   </div>
               </div>
@@ -141,27 +141,12 @@
 <script>
   import createFuzzyMatcher from "@/plugins/ch2pattern.js";
 
-//   const memberList = [
-//       { nickName: "라비", userName: "라비 lavi#2253", id: "3452897345567", icon: "", isBlackList: false },
-//       { nickName: "라비", userName: "라비 lavi#2253", id: "3452897345568", icon: "", isBlackList: true },
-//       { nickName: "라비", userName: "라비 lavi#2253", id: "3452897345569", icon: "", isBlackList: true },
-//       { nickName: "라비", userName: "라비 lavi#2253", id: "3452897345570", icon: "", isBlackList: false },
-//       { nickName: "라비", userName: "라비 lavi#2253", id: "3452897345571", icon: "", isBlackList: false },
-//       { nickName: "라비", userName: "라비 lavi#2253", id: "3452897345572", icon: "", isBlackList: false },
-//       { nickName: "라비", userName: "라비 lavi#2253", id: "3452897345573", icon: "", isBlackList: false },
-//       { nickName: "라비", userName: "라비 lavi#2253", id: "3452897345574", icon: "", isBlackList: false },
-//       { nickName: "라비", userName: "라비 lavi#2253", id: "3452897345575", icon: "", isBlackList: false },
-//       { nickName: "라비", userName: "라비 lavi#2253", id: "3452897345576", icon: "", isBlackList: false },
-//       { nickName: "라비", userName: "라비 lavi#2253", id: "3452897345577", icon: "", isBlackList: false },
-//       { nickName: "라비", userName: "라비 lavi#2253", id: "3452897345578", icon: "", isBlackList: false },
-//   ];
-
   export default {
       data() {
           return {
               connState: 0, //0: 연결중, 1: 성공, 2: 응답 지연, 3: 초대 필요
 
-              members: [], // Readonly
+              members: [], // Read-only
               memberList: [], // Read/Write
 
               processBlackList: {} // 블랙리스트 모달 props

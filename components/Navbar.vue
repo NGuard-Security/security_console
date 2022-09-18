@@ -107,22 +107,7 @@
 <script>
 import vClickOutside from 'v-click-outside';
 
-// let exampleValue = [
-//   {name: '메뉴2', icon: 'test.png'},
-//   {name: '메뉴3', icon: 'test.png'},
-//   {name: '메뉴4', icon: 'test.png'},
-//   {name: '메뉴5', icon: 'test.png'},
-// ]
-
-// exampleValue.sort((a, b) => a.type.toLowerCase() < b.type.toLowerCase() ? -1 : 1);
-
-//언제나 현재 서버는 리스트의 첫번째에 들어가야 합니다.
-// exampleValue.unshift({name: '메뉴동해물과백두산이마르고닳도록', icon: 'test.png'});
-
 export default {
-  // created() {
-  //   this.server = exampleValue;
-  // },
   async mounted() {
     window.addEventListener('resize', this.windowResize);
 

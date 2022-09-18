@@ -77,9 +77,9 @@
 
           <!-- 응답 지연 -->
           <transition name="connErr">
-              <div v-if="connState == 2">
+              <div v-if="connState == 2" id="ratelimit">
                   <div class="text-center">
-                      <h4 class="text-xl pt-5 text-white">현재 응답이 지연되고 있습니다.</h4>
+                      <h4 class="text-xl pt-5 text-white">Rate limit이 발생했습니다.</h4>
                       <h4 class="text-xl pt-5 text-white">잠시 후 다시 시도해 주세요.</h4>
                   </div>
               </div>
