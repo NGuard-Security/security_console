@@ -2,7 +2,7 @@
   <div class="overflow-x-hidden servers-wrap flex items-center justify-center flex-col w-full h-full min-h-screen px-10">
     <h1 class="w-fit text-3xl font-bold mx-auto mb-14">서버를 선택하세요</h1>
 
-    <div class="relative w-full flex justify-center mb-20">
+    <div style="min-height: 100px" class="relative w-full flex justify-center mb-20">
       <Spiner :type=1 :state=connState />
       
       <transition name="serverList">

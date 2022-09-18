@@ -93,6 +93,7 @@
 
   .state {
     width: 100%;
+    height: 100px;
     position: absolute;
     display: flex;
     align-items: center;
