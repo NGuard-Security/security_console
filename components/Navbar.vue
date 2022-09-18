@@ -126,8 +126,10 @@ export default {
         }
       })).data
     } catch (e) {
-      if (e.response.status == 429) {
-        location.reload()
+      if (e.response) {
+        if (e.response.status == 429) {
+          location.reload()
+        }
       }
     }
 	},

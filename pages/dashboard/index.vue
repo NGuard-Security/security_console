@@ -66,35 +66,7 @@
           </div>
       </transition>
 
-      <div v-if="connState != 1" class="absolute left-0 top-0 items-center h-screen w-full flex justify-center">
-          <!-- 스피너 -->
-          <transition name="spiner">
-              <div v-if="connState == 0" style="height: 500px;" class="flex items-center justify-center flex-col absolute container mx-auto sm:px-4">
-                  <h3 class="pb-8 text-2xl font-semibold">불러오는 중</h3>
-                  <div class="spinner"></div>
-              </div>
-          </transition>
-
-          <!-- 응답 지연 -->
-          <transition name="connErr">
-              <div v-if="connState == 2" id="ratelimit">
-                  <div class="text-center">
-                      <h4 class="text-xl pt-5 text-white">Rate limit이 발생했습니다.</h4>
-                      <h4 class="text-xl pt-5 text-white">잠시 후 다시 시도해 주세요.</h4>
-                  </div>
-              </div>
-          </transition>
-
-          <!-- 초대 필요 -->
-          <transition name="inviteErr">
-            <div v-if="connState == 3" id="invite">
-                <div class="text-center">
-                <h4 class="text-xl pt-5 text-white">봇 초대 화면이 팝업으로 오픈되었습니다.</h4>
-                <h4 class="text-xl pt-5 text-white">팝업이 열리지 않는다면, 팝업 차단을 해제해 주세요.</h4>
-                </div>
-            </div>
-          </transition>
-      </div>
+      <Spiner :type=2 :state=connState />
   </main>
 </template>
 
@@ -128,97 +100,93 @@
 <script>
   import vClickOutside from "v-click-outside";
   import Chart from "chart.js/auto";
+  import Spiner from "../../components/Spiner.vue";
 
   export default {
-      data() {
-          return {
-              connState: 0, //0: 연결중, 1: 성공, 2: 응답 지연, 3: 초대 필요
-              guild: {},
-              summary: {
-                  bot: 0,
-                  user: 0,
-                  new_user: 0,
-                  black_user: 0,
-                  chart_data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-              },
-          };
-      },
-      async mounted() {
-          try {
-              const data = (
-                  await this.$axios.$get("http://127.0.0.1:4000/dashboard/summary?id=" + this.$route.query.id, {
-                      // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
-                      headers: {
-                          access_token: localStorage.getItem("access_token"),
-                      },
-                  })
-              ).data;
-
-              this.summary = data;
-
-              this.connState = 1;
-          } catch (e) {
-              if (e.response.data.message == "Missing Access") {
-                window.open(
-                    'https://nguard.xyz/bot/invite?id='+this.$route.query.id,
-                    'Invite',
-                    'width=562px, height=972px, top=30px, left=675px, resizable=no',
-                )
-                this.connState = 3;
-              } else {
+    data() {
+        return {
+            connState: 0, //0: 연결중, 1: 성공, 2: 응답 지연, 3: 초대 필요
+            guild: {},
+            summary: {
+                bot: 0,
+                user: 0,
+                new_user: 0,
+                black_user: 0,
+                chart_data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            },
+        };
+    },
+    async mounted() {
+        try {
+            const data = (await this.$axios.$get("http://127.0.0.1:4000/dashboard/summary?id=" + this.$route.query.id, {
+                // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
+                headers: {
+                    access_token: localStorage.getItem("access_token"),
+                },
+            })).data;
+            this.summary = data;
+            this.connState = 1;
+        }
+        catch (e) {
+            if(e.response) {
+                if (e.response.data.message == "Missing Access") {
+                    window.open("https://nguard.xyz/bot/invite?id=" + this.$route.query.id, "Invite", "width=562px, height=972px, top=30px, left=675px, resizable=no");
+                    this.connState = 3;
+                } else {
+                    this.connState = 2;
+                }
+            } else {
                 this.connState = 2;
-              }
-          }
-
-          setTimeout(() => {
-              let ctx = document.getElementById("myChart");
-              const myChart = new Chart(ctx, {
-                  type: "line",
-                  data: {
-                      labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
-                      datasets: [
-                          {
-                              data: this.summary.chart_data,
-                              borderColor: "rgb(33, 100, 226)",
-                              backgroundColor: "rgb(33, 100, 226)",
-                              borderWidth: 3,
-                          },
-                      ],
-                  },
-                  options: {
-                      maintainAspectRatio: false,
-                      plugins: {
-                          legend: {
-                              display: false,
-                          },
-                      },
-                      scales: {
-                          x: {
-                              grid: {
-                                  display: false,
-                              },
-                          },
-                          y: {
-                              suggestedMin: -20,
-                              suggestedMax: 20,
-
-                              ticks: {
-                                  display: false,
-                              },
-
-                              grid: {
-                                  color: "#222",
-                                  drawBorder: false,
-                              },
-                          },
-                      },
-                  },
-              });
-          }, 10);
-      },
-      directives: {
-          clickOutside: vClickOutside.directive,
-      },
-      methods: {},
-  };
+            }
+        }
+        setTimeout(() => {
+            let ctx = document.getElementById("myChart");
+            const myChart = new Chart(ctx, {
+                type: "line",
+                data: {
+                    labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
+                    datasets: [
+                        {
+                            data: this.summary.chart_data,
+                            borderColor: "rgb(33, 100, 226)",
+                            backgroundColor: "rgb(33, 100, 226)",
+                            borderWidth: 3,
+                        },
+                    ],
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false,
+                        },
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false,
+                            },
+                        },
+                        y: {
+                            suggestedMin: -20,
+                            suggestedMax: 20,
+                            ticks: {
+                                display: false,
+                            },
+                            grid: {
+                                color: "#222",
+                                drawBorder: false,
+                            },
+                        },
+                    },
+                },
+            });
+        }, 10);
+    },
+    directives: {
+        clickOutside: vClickOutside.directive,
+    },
+    methods: {},
+    components: { Spiner }
+};
 </script>
