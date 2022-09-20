@@ -14,7 +14,7 @@
         <a href="https://nguard.xyz" class="nav_item">홈</a>
         <NuxtLink to="/servers" class="nav_item">대시보드</NuxtLink>
         <a href="https://nguard.xyz/invite/nguard" class="nav_item">서포트 서버</a>
-        <a href="https://nguard.xyz/upgrade/detail" class="nav_item">엔터프라이즈 플랜</a>
+        <a href="https://nguard.xyz/upgrade" class="nav_item">NGuard 유료 플랜</a>
       </div>
       </transition>
 

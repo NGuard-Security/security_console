@@ -12,7 +12,7 @@
           <p class="text-base pt-5" style="color: rgb(153, 153, 153)">서버 목록을 가져오고 있습니다...</p>
         </div>
       
-        <div v-if="type == 2" class="state">
+        <div v-if="type == 2" style="height: 500px;" class="state">
           <h3 class="pb-8 text-2xl font-semibold">불러오는 중</h3>
           <div class="spinner2"></div>
         </div>

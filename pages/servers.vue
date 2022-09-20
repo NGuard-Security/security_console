@@ -48,13 +48,13 @@
 
   .servers-wrap {
     @media (max-width: 767px) {
-      padding-top: calc(2rem + 72px);
+      padding-top: calc(2rem + 100px);
     }
     @media (max-width: 1028px) {
       display: block;
     }
 
-    padding-top: calc(3rem + 72px);
+    padding-top: calc(3rem + 100px);
     padding-bottom: 3rem;
 
     h1 {
