@@ -241,16 +241,16 @@
         window.addEventListener("resize", this.myEventHandler);
         this.resizeAlerts();
 
-        // try {
-        //     const data = (await this.$axios.$get("http://127.0.0.1:4000/dashboard/summary?id=" + this.$route.query.id, {
-        //         // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
-        //         headers: {
-        //             access_token: localStorage.getItem("access_token"),
-        //         },
-        //     })).data;
-            // this.summary = data;
+        try {
+            const data = (await this.$axios.$get("http://127.0.0.1:4000/dashboard/summary?id=" + this.$route.query.id, {
+                // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
+                headers: {
+                    access_token: localStorage.getItem("access_token"),
+                },
+            })).data;
+            this.summary = data;
 
-            // this.summary = data;
+            this.summary = data;
             this.connState = 1;
 
             const example = [
@@ -267,19 +267,19 @@
                 if(a.kind == 'warning') return 0;
                 if(a.kind == 'alert') return 1;
             });
-        // }
-        // catch (e) {
-        //     if(e.response) {
-        //         if (e.response.data.message == "Missing Access") {
-        //             window.open("https://nguard.xyz/bot/invite?id=" + this.$route.query.id, "Invite", "width=562px, height=972px, top=30px, left=675px, resizable=no");
-        //             this.connState = 3;
-        //         } else {
-        //             this.connState = 2;
-        //         }
-        //     } else {
-        //         this.connState = 2;
-        //     }
-        // }
+        }
+        catch (e) {
+            if(e.response) {
+                if (e.response.data.message == "Missing Access") {
+                    window.open("https://nguard.xyz/bot/invite?id=" + this.$route.query.id, "Invite", "width=562px, height=972px, top=30px, left=675px, resizable=no");
+                    this.connState = 3;
+                } else {
+                    this.connState = 2;
+                }
+            } else {
+                this.connState = 2;
+            }
+        }
         setTimeout(() => {
             let ctx = document.getElementById("myChart");
             const myChart = new Chart(ctx, {
