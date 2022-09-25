@@ -155,7 +155,7 @@ main {
     opacity: 0;
   }
 
-  h1 {
+  > h1 {
     font-weight: 600;
     font-size: 1.95rem;
     line-height: 2.5rem;
@@ -176,10 +176,11 @@ main {
     font-weight: 600;
     font-size: 1.4rem;
     line-height: 2rem;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.4rem;
+    margin-left: 0.7rem;
   }
 
-  p {
+  > p {
     font-size: 0.9rem;
     font-weight: 300;
     color: $color-gray;
@@ -200,7 +201,7 @@ main {
       margin-bottom: 5px;
     }
 
-    div {
+    > div {
       &.vert {
         width: 100%;
         flex-direction: column;
@@ -381,6 +382,13 @@ main {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    p {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: $color-gray;
+      word-break: keep-all;
+    }
 
     svg {
       fill: $color-gray;
