@@ -3,7 +3,7 @@
     <h1 class="w-fit text-3xl font-bold mx-auto mb-14">서버를 선택하세요</h1>
 
     <div style="min-height: 100px" class="relative w-full flex justify-center mb-20">
-      <Spiner :type=1 :state=connState />
+      <Spiner_List :type=1 :state=connState />
       
       <transition name="serverList">
         <div v-if="connState == 1" class="servers grid gap-8">
@@ -120,6 +120,7 @@
 
 <script>
 import Spiner from '~/components/Spiner.vue';
+import Spiner_List from '~/components/Spiner_List.vue';
 // const serverList = [
 //   {name: "서버1", icon: "", isInvited: true},
 //   {name: "NGuard Securities Management Team", icon: "", isInvited: false},
@@ -137,17 +138,22 @@ export default {
         };
     },
     async mounted() {
-        try {
-            const serverList = (await this.$axios.$get('http://127.0.0.1:4000/dashboard/servers', { // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
-                headers: {
-                    "access_token": localStorage.getItem("access_token")
-                }
-            })).data;
-            this.serverList = serverList.sort((a, b) => a.isInvited ? -1 : 1);
-            this.connState = 1;
-        }
-        catch (e) {
-            this.connState = 2;
+        if (localStorage.getItem('access_token')) {
+            try {
+                const serverList = (await this.$axios.$get('http://127.0.0.1:4000/dashboard/servers', { // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
+                    headers: {
+                        "access_token": localStorage.getItem("access_token")
+                    }
+                })).data;
+                this.serverList = serverList.sort((a, b) => a.isInvited ? -1 : 1);
+                this.connState = 1;
+            } catch (e) {
+                this.connState = 2;
+            }
+            return
+        } else {
+            this.$router.push('/auth/login')
+            return
         }
     },
     methods: {
@@ -156,6 +162,6 @@ export default {
             window.open(e.target.href, "Invite", "width=562px, height=972px, top=30px, left=675px, resizable=no");
         }
     },
-    components: { Spiner }
+    components: { Spiner, Spiner_List }
 }
 </script>

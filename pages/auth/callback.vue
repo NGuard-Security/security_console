@@ -1,7 +1,7 @@
 <template>
     <main>
         <div class="overflow-x-hidden servers-wrap flex items-center justify-center flex-col w-full h-full min-h-screen px-10">
-            <h1 class="w-fit text-3xl font-bold mx-auto mb-14 text-white">불러오는 중</h1>
+            <h1 class="w-fit text-3xl font-bold mx-auto mb-14 text-white">로그인</h1>
         
             <div class="relative w-full flex justify-center mb-20">
                 <!-- 스피너 -->
@@ -50,13 +50,13 @@
             localStorage.setItem('access_token', login.access_token)
 
             setTimeout(() => {
-                this.$router.push('/servers')
+                location.href = '/servers'
             }, 1000);
         } catch (e) {
             if (e.response.status == 400) {
                 this.$router.push('/auth/login')
             } else {
-                alert(e.response.data.error.error_description)
+                alert(e.response.data.error.error_description || e)
                 this.$router.push('/auth/login')
             }
         }

@@ -126,9 +126,8 @@
             })).data;
             this.summary = data;
             this.connState = 1;
-        }
-        catch (e) {
-            if(e.response) {
+        } catch (e) {
+            if (e.response) {
                 if (e.response.data.message == "Missing Access") {
                     window.open("https://nguard.xyz/bot/invite?id=" + this.$route.query.id, "Invite", "width=562px, height=972px, top=30px, left=675px, resizable=no");
                     this.connState = 3;

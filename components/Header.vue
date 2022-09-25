@@ -18,11 +18,11 @@
       </div>
       </transition>
 
-      <div v-if="true" class="userBtn-wrap relative">
+      <div v-if="this.user.id" class="userBtn-wrap relative">
         <div
           @click="showMenu = true"
           :class="{ on: showMenu }"
-          class="userBtn nav_item flex items-center gap-1 hover:bg-zinc-900 cursor-pointer"
+          class="userBtn nav_item flex items-center gap-2 hover:bg-zinc-900 cursor-pointer"
         >
           <img
             :src="user.icon"
@@ -75,18 +75,27 @@ export default {
       this.isMobile = true;
     }
 
-    if (!this.$route.path == "/auth/callback") {
-        try {
+    if (this.$route.path != "/auth/callback") {
+      try {
         if (localStorage.getItem('access_token')) {
-          this.user = (await this.$axios.$get('http://127.0.0.1:4000/auth/profile', { // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
+          this.user = await this.$axios.$get('https://discord.com/api/v10/users/@me', {
             headers: {
               'Authorization': "Bearer " + localStorage.getItem('access_token')
             }
-          })).data
+          })
+
+          this.user.icon = this.user.avatar ? `https://cdn.discordapp.com/avatars/${this.user.id}/${this.user.avatar}.png` : `https://cdn.discordapp.com/embed/avatars/${this.user.discriminator % 5}.png`
+          this.user.name = this.user.username + '#' + this.user.discriminator
         }
       } catch (e) {
-        if (e.response.status == 429) {
-          location.reload()
+        if (e.response) {
+          if (e.response.status == 429) {
+            location.reload()
+          } else {
+            alert(e.response)
+          }
+        } else {
+            alert(e)
         }
       }
     }
@@ -96,10 +105,11 @@ export default {
       showMenu: false,
       showNav: false,
       isMobile: false,
-      user: {
-        name: '라비 lavi#2253',
-        icon: '~/assets/img/test.png'
-      },
+      // user: {
+      //   name: '라비 lavi#2253',
+      //   icon: '~/assets/img/test.png'
+      // },
+      user: {},
     }
   },
   directives: {

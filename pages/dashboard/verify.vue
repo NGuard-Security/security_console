@@ -49,7 +49,16 @@
                     <br /><br />
 
                     ⚠️ 새로고침하여 제대로 저장되었는지 확인해 주시기 바랍니다.<br />
-                    혹여나 저장되지 않은 경우 하단 채널톡으로 문의 주시기 바랍니다.<br /><br />
+                    혹여나 저장되지 않은 경우 채널톡으로 문의 주시기 바랍니다.<br /><br />
+                    ℹ️ 이 창은 3초 후 자동으로 닫힙니다.
+                </div>
+                <div class="btns"></div>
+              </modal>
+
+              <modal class="modal" name="fail" width="500">
+                <h2>저장 중 오류가 발생했습니다.</h2>
+                <div class="text-gray-400 pt-5">
+                    ⚠️ 계속 오류가 발생하는 경우, 채널톡으로 문의 주시기 바랍니다.<br /><br />
                     ℹ️ 이 창은 3초 후 자동으로 닫힙니다.
                 </div>
                 <div class="btns"></div>
@@ -107,8 +116,16 @@
 
             this.connState = 1;
         } catch (e) {
-            console.log(e)
-            this.connState = 2;
+            if (e.response) {
+                if (e.response.data.message == "Missing Access") {
+                    window.open("https://nguard.xyz/bot/invite?id=" + this.$route.query.id, "Invite", "width=562px, height=972px, top=30px, left=675px, resizable=no");
+                    this.connState = 3;
+                } else {
+                    this.connState = 2;
+                }
+            } else {
+                this.connState = 2;
+            }
         }
       },
       directives: {
@@ -138,7 +155,10 @@
                     this.$modal.hide("success");
                 }, 3000);
             } catch (e) {
-                this.connState = 2;
+                this.$modal.show("fail");
+                setTimeout(() => {
+                    this.$modal.hide("fail");
+                }, 3000);
             }
           }
       },
