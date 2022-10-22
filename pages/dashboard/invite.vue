@@ -47,7 +47,7 @@
 
                   <div class="vert" v-if="switch_.invite">
                       <p>초대 링크 설정</p>
-                      <div>
+                      <div class="flex items-center">
                           <label>https://nguard.xyz/invite/</label>
                           <input class="input-m" id="inviteLink_input" type="text" :placeholder="[!isPermission ? '한디리에서 봇을 추천해주세요' : '초대 링크']" v-model="select.link" v-bind:readonly="!isPermission" @click="clickInviteLink()" />
                       </div>
