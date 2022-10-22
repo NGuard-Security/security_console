@@ -57,40 +57,42 @@
 
         <div class="blank"></div>
 
-        <h2>알림 목록</h2>
-        <div class="alertCenter p-4 rounded-lg">
-            <div :style="{height: alertCenterHeight}" class="cards grid grid-cols-1 lg:grid-cols-2 gap-2 overflow-hidden">
-                <div v-for="item in (!alerts.isOpened ? alerts.contents.slice(0, 4) : alerts.contents)" class="card alert" :class="'card_' + [item.kind]">
-                    <div class="card_content alert_content">
-                        <div
-                            class="alert_title flex items-center mb-3 text-xl"
-                            :class="'title_' + [item.kind]"
-                        >
-                            <svg v-if="item.kind == 'alert'" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.002 2.005c5.518 0 9.998 4.48 9.998 9.997 0 5.518-4.48 9.998-9.998 9.998-5.517 0-9.997-4.48-9.997-9.998 0-5.517 4.48-9.997 9.997-9.997zm0 8c-.414 0-.75.336-.75.75v5.5c0 .414.336.75.75.75s.75-.336.75-.75v-5.5c0-.414-.336-.75-.75-.75zm-.002-3c-.552 0-1 .448-1 1s.448 1 1 1 1-.448 1-1-.448-1-1-1z" fill-rule="nonzero"/></svg>
-                            <svg v-if="item.kind == 'success'" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.002 2.005c5.518 0 9.998 4.48 9.998 9.997 0 5.518-4.48 9.998-9.998 9.998-5.517 0-9.997-4.48-9.997-9.998 0-5.517 4.48-9.997 9.997-9.997zm0 8c-.414 0-.75.336-.75.75v5.5c0 .414.336.75.75.75s.75-.336.75-.75v-5.5c0-.414-.336-.75-.75-.75zm-.002-3c-.552 0-1 .448-1 1s.448 1 1 1 1-.448 1-1-.448-1-1-1z" fill-rule="nonzero"/></svg>
-                            <svg v-if="item.kind == 'warning'" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m2.095 19.886 9.248-16.5c.133-.237.384-.384.657-.384.272 0 .524.147.656.384l9.248 16.5c.064.115.096.241.096.367 0 .385-.309.749-.752.749h-18.496c-.44 0-.752-.36-.752-.749 0-.126.031-.252.095-.367zm9.907-6.881c-.414 0-.75.336-.75.75v3.5c0 .414.336.75.75.75s.75-.336.75-.75v-3.5c0-.414-.336-.75-.75-.75zm-.002-3c-.552 0-1 .448-1 1s.448 1 1 1 1-.448 1-1-.448-1-1-1z" fill-rule="nonzero"/></svg>
-                            <svg v-if="item.kind == 'danger'" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m2.095 19.886 9.248-16.5c.133-.237.384-.384.657-.384.272 0 .524.147.656.384l9.248 16.5c.064.115.096.241.096.367 0 .385-.309.749-.752.749h-18.496c-.44 0-.752-.36-.752-.749 0-.126.031-.252.095-.367zm9.907-6.881c-.414 0-.75.336-.75.75v3.5c0 .414.336.75.75.75s.75-.336.75-.75v-3.5c0-.414-.336-.75-.75-.75zm-.002-3c-.552 0-1 .448-1 1s.448 1 1 1 1-.448 1-1-.448-1-1-1z" fill-rule="nonzero"/></svg>
-                            <svg v-if="item.kind == 'emerg'" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m2.095 19.886 9.248-16.5c.133-.237.384-.384.657-.384.272 0 .524.147.656.384l9.248 16.5c.064.115.096.241.096.367 0 .385-.309.749-.752.749h-18.496c-.44 0-.752-.36-.752-.749 0-.126.031-.252.095-.367zm9.907-6.881c-.414 0-.75.336-.75.75v3.5c0 .414.336.75.75.75s.75-.336.75-.75v-3.5c0-.414-.336-.75-.75-.75zm-.002-3c-.552 0-1 .448-1 1s.448 1 1 1 1-.448 1-1-.448-1-1-1z" fill-rule="nonzero"/></svg>
+        <div v-if="alerts.contents.length > 0">
+            <h2>알림 목록</h2>
+            <div class="alertCenter p-4 rounded-lg">
+                <div :style="{height: alertCenterHeight}" class="cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 overflow-hidden">
+                    <div v-for="item in (!alerts.isOpened ? alerts.contents.slice(0, 4) : alerts.contents)" class="card alert" :class="'card_' + [item.kind]">
+                        <div class="card_content alert_content">
+                            <div
+                                class="alert_title flex items-center mb-3 text-xl"
+                                :class="'title_' + [item.kind]"
+                            >
+                                <svg v-if="item.kind == 'alert'" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.002 2.005c5.518 0 9.998 4.48 9.998 9.997 0 5.518-4.48 9.998-9.998 9.998-5.517 0-9.997-4.48-9.997-9.998 0-5.517 4.48-9.997 9.997-9.997zm0 8c-.414 0-.75.336-.75.75v5.5c0 .414.336.75.75.75s.75-.336.75-.75v-5.5c0-.414-.336-.75-.75-.75zm-.002-3c-.552 0-1 .448-1 1s.448 1 1 1 1-.448 1-1-.448-1-1-1z" fill-rule="nonzero"/></svg>
+                                <svg v-if="item.kind == 'success'" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12.002 2.005c5.518 0 9.998 4.48 9.998 9.997 0 5.518-4.48 9.998-9.998 9.998-5.517 0-9.997-4.48-9.997-9.998 0-5.517 4.48-9.997 9.997-9.997zm0 8c-.414 0-.75.336-.75.75v5.5c0 .414.336.75.75.75s.75-.336.75-.75v-5.5c0-.414-.336-.75-.75-.75zm-.002-3c-.552 0-1 .448-1 1s.448 1 1 1 1-.448 1-1-.448-1-1-1z" fill-rule="nonzero"/></svg>
+                                <svg v-if="item.kind == 'warning'" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m2.095 19.886 9.248-16.5c.133-.237.384-.384.657-.384.272 0 .524.147.656.384l9.248 16.5c.064.115.096.241.096.367 0 .385-.309.749-.752.749h-18.496c-.44 0-.752-.36-.752-.749 0-.126.031-.252.095-.367zm9.907-6.881c-.414 0-.75.336-.75.75v3.5c0 .414.336.75.75.75s.75-.336.75-.75v-3.5c0-.414-.336-.75-.75-.75zm-.002-3c-.552 0-1 .448-1 1s.448 1 1 1 1-.448 1-1-.448-1-1-1z" fill-rule="nonzero"/></svg>
+                                <svg v-if="item.kind == 'danger'" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m2.095 19.886 9.248-16.5c.133-.237.384-.384.657-.384.272 0 .524.147.656.384l9.248 16.5c.064.115.096.241.096.367 0 .385-.309.749-.752.749h-18.496c-.44 0-.752-.36-.752-.749 0-.126.031-.252.095-.367zm9.907-6.881c-.414 0-.75.336-.75.75v3.5c0 .414.336.75.75.75s.75-.336.75-.75v-3.5c0-.414-.336-.75-.75-.75zm-.002-3c-.552 0-1 .448-1 1s.448 1 1 1 1-.448 1-1-.448-1-1-1z" fill-rule="nonzero"/></svg>
+                                <svg v-if="item.kind == 'emerg'" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m2.095 19.886 9.248-16.5c.133-.237.384-.384.657-.384.272 0 .524.147.656.384l9.248 16.5c.064.115.096.241.096.367 0 .385-.309.749-.752.749h-18.496c-.44 0-.752-.36-.752-.749 0-.126.031-.252.095-.367zm9.907-6.881c-.414 0-.75.336-.75.75v3.5c0 .414.336.75.75.75s.75-.336.75-.75v-3.5c0-.414-.336-.75-.75-.75zm-.002-3c-.552 0-1 .448-1 1s.448 1 1 1 1-.448 1-1-.448-1-1-1z" fill-rule="nonzero"/></svg>
 
-                            <h4>{{item.title}}</h4>
+                                <h4>{{item.title}}</h4>
+                            </div>
+                            <span>{{item.content}}</span>
+
+                            <a class="alert_btn" :href="item.button.href" target="_blank" v-if="item.button.href.includes('http:') || item.button.href.includes('https:') || item.button.href.includes('mailto:') || item.button.href.includes('tel:') || item.button.href.includes('sms:')">{{ item.button.text }}</a>
+                            <NuxtLink class="alert_btn" :to="item.button.href" v-else>{{ item.button.text }}</NuxtLink>
                         </div>
-                        <span>{{item.content}}</span>
-
-                        <a class="alert_btn" :href="item.button.href" target="_blank" v-if="item.button.href.includes('http:') || item.button.href.includes('https:') || item.button.href.includes('mailto:') || item.button.href.includes('tel:') || item.button.href.includes('sms:')">{{ item.button.text }}</a>
-                        <NuxtLink class="alert_btn" :to="item.button.href" v-else>{{ item.button.text }}</NuxtLink>
                     </div>
                 </div>
-            </div>
 
-            <button
-                v-if="alerts.contents.length > 5"
-                class="foldBtn flex items-center justify-center mt-4 py-2 w-full rounded-lg"
-                @click="setAlertsIsOpened()"
-            >
-                <svg v-if="!alerts.isOpened" class="w-6" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m16.843 10.211c.108-.141.157-.3.157-.456 0-.389-.306-.755-.749-.755h-8.501c-.445 0-.75.367-.75.755 0 .157.05.316.159.457 1.203 1.554 3.252 4.199 4.258 5.498.142.184.36.29.592.29.23 0 .449-.107.591-.291 1.002-1.299 3.044-3.945 4.243-5.498z"/></svg>
-                <svg v-else class="w-6" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m16.843 13.789c.108.141.157.3.157.456 0 .389-.306.755-.749.755h-8.501c-.445 0-.75-.367-.75-.755 0-.157.05-.316.159-.457 1.203-1.554 3.252-4.199 4.258-5.498.142-.184.36-.29.592-.29.23 0 .449.107.591.291 1.002 1.299 3.044 3.945 4.243 5.498z"/></svg>
-                더보기
-            </button>
+                <button
+                    v-if="alerts.contents.length > 1"
+                    class="foldBtn flex items-center justify-center mt-4 py-2 w-full rounded-lg"
+                    @click="setAlertsIsOpened()"
+                >
+                    <svg v-if="!alerts.isOpened" class="w-6" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m16.843 10.211c.108-.141.157-.3.157-.456 0-.389-.306-.755-.749-.755h-8.501c-.445 0-.75.367-.75.755 0 .157.05.316.159.457 1.203 1.554 3.252 4.199 4.258 5.498.142.184.36.29.592.29.23 0 .449-.107.591-.291 1.002-1.299 3.044-3.945 4.243-5.498z"/></svg>
+                    <svg v-else class="w-6" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m16.843 13.789c.108.141.157.3.157.456 0 .389-.306.755-.749.755h-8.501c-.445 0-.75-.367-.75-.755 0-.157.05-.316.159-.457 1.203-1.554 3.252-4.199 4.258-5.498.142-.184.36-.29.592-.29.23 0 .449.107.591.291 1.002 1.299 3.044 3.945 4.243 5.498z"/></svg>
+                    더보기
+                </button>
+            </div>
         </div>
 
         <div class="blank"></div>
@@ -259,7 +261,7 @@
 <script>
   import vClickOutside from "v-click-outside";
   import Chart from "chart.js/auto";
-  import Spiner from "../../components/Spiner.vue";
+  import { io } from "socket.io-client";
 
   export default {
     data() {
@@ -275,13 +277,103 @@
             },
             alerts: {
                 isOpened: false,
-                contents: []
+                contents: [],
+                interval: null,
             },
-            alertCenterHeight: 'auto'
+            alertCenterHeight: 'auto',
+            socket: null,
         };
     },
     async mounted() {
         window.addEventListener("resize", this.myEventHandler);
+
+        const socket = io("http://127.0.0.1:4000");
+        this.socket = socket
+
+        socket.on("connect", () => {
+            console.log(`connect ${socket.id}`);
+
+            socket.send(JSON.stringify({
+                action: "get_alerts",
+                guild: this.$route.query.id,
+                token: localStorage.getItem("access_token")
+            }));
+        });
+
+        socket.on("disconnect", reason => {
+            console.log(`disconnect ${socket.id} due to ${reason}`);
+        });
+
+        socket.addEventListener("message", async data => {
+            const packet = JSON.parse(data);
+
+            if (packet.action == "alerts") {
+                const alerts = []
+
+                packet.alerts.forEach(alert => {
+                    alerts.push(alert);
+                })
+
+                for (let i in packet.alarms) { 
+                    if (packet.alarms[i].due < new Date().getTime()) { 
+                        packet.alarms.splice(i, 1); 
+                        i--;
+                    }
+                }
+
+                this.alerts.contents = alerts.sort((a, b) => {
+                    if(a.kind == 'emerg') return -1;
+                    if(a.kind == 'danger') return 0;
+                    if(a.kind == 'warning') return 1;
+                    if(a.kind == 'success') return 2;
+                    if(a.kind == 'alert') return 3;
+                });
+
+                console.log(alerts.map(alert => alert.id))
+                console.log(JSON.stringify({
+                        action: "check_alerts",
+                        guild: this.$route.query.id,
+                        token: localStorage.getItem("access_token"),
+                        already: alerts.map(alert => alert.id)
+                    }))
+
+                this.alerts.interval = setInterval(() => {
+                    socket.send(JSON.stringify({
+                        action: "check_alerts",
+                        guild: this.$route.query.id,
+                        token: localStorage.getItem("access_token"),
+                        already: alerts.map(alert => alert.id)
+                    }));
+                }, 1000);
+            } else if (packet.action == "new_alerts") {
+                if (packet.alerts.length != 0) {
+                    const alerts = this.alerts.contents
+
+                    packet.alerts.forEach(alert => {
+                        alerts.push(alert);
+                    })
+
+                    for (let i in alerts) { 
+                        if (alerts[i].due < new Date().getTime()) { 
+                            alerts.splice(i, 1); 
+                            i--;
+                        }
+                    }
+
+                    this.alerts.contents = alerts.sort((a, b) => {
+                        if(a.kind == 'emerg') return -1;
+                        if(a.kind == 'danger') return 0;
+                        if(a.kind == 'warning') return 1;
+                        if(a.kind == 'success') return 2;
+                        if(a.kind == 'alert') return 3;
+                    });
+
+                    new Audio('/audio/alarm.mp3').play();
+                }
+
+                this.myEventHandler()
+            }
+        });
 
         try {
             const data = (await this.$axios.$get("http://127.0.0.1:4000/dashboard/summary?id=" + this.$route.query.id, {
@@ -290,28 +382,57 @@
                     access_token: localStorage.getItem("access_token"),
                 },
             })).data;
+
             this.summary = data;
 
             this.connState = 1;
 
-            const example = [
-                { kind: 'emerg', title: "보안 위협이 차단되었습니다.", content: "중복 접속을 확인하여 접속을 차단했습니다.", button: { "text": "자세히 보기", "href": "/dashboard/invite?id="+this.$route.query.id } },
-                { kind: 'danger', title: "보안에 취약한 인증방식을 사용하고 있습니다.", content: "조치하기를 눌러 설정을 변경해 주세요.", button: { "text": "조치하기", "href": "https://google.com" } },
-                { kind: 'warning', title: "Google 인증이 지원 중단됩니다.", content: "자세한 내용은 공지사항을 참고해 주세요.", button: { "text": "공지사항 보기", "href": "https://google.com" } },
-                { kind: 'success', title: "예시 타이틀", content: "예시 내용", button: { "text": "와 쌘즈", "href": "https://google.com" } },
-                { kind: 'alert', title: "예시 타이틀", content: "예시 내용", button: { "text": "Xin chao!", "href": "https://google.com" } },
-                { kind: 'alert', title: "예시 타이틀", content: "예시 내용", button: { "text": "minsu_kim@bishanoi.net", "href": "mailto:minsu_kim@bishanoi.net" } }
-            ]
+            setTimeout(() => {
+                let ctx = document.getElementById("myChart");
+                const myChart = new Chart(ctx, {
+                    type: "line",
+                    data: {
+                        labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
+                        datasets: [
+                            {
+                                data: this.summary.chart_data,
+                                borderColor: "rgb(33, 100, 226)",
+                                backgroundColor: "rgb(33, 100, 226)",
+                                borderWidth: 3,
+                            },
+                        ],
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false,
+                            },
+                        },
+                        scales: {
+                            x: {
+                                grid: {
+                                    display: false,
+                                },
+                            },
+                            y: {
+                                suggestedMin: -20,
+                                suggestedMax: 20,
+                                ticks: {
+                                    display: false,
+                                },
+                                grid: {
+                                    color: "#222",
+                                    drawBorder: false,
+                                },
+                            },
+                        },
+                    },
+                });
 
-            this.alerts.contents = example.sort((a, b) => {
-                if(a.kind == 'emerg') return -1;
-                if(a.kind == 'danger') return 0;
-                if(a.kind == 'warning') return 1;
-                if(a.kind == 'success') return 2;
-                if(a.kind == 'alert') return 3;
-            });
-        }
-        catch (e) {
+                this.resizeAlerts();
+            }, 10);
+        } catch (e) {
             if(e.response) {
                 if (e.response.data.message == "Missing Access") {
                     window.open("https://nguard.xyz/bot/invite?id=" + this.$route.query.id, "Invite", "width=562px, height=972px, top=30px, left=675px, resizable=no");
@@ -323,54 +444,29 @@
                 this.connState = 2;
             }
         }
-        setTimeout(() => {
-            let ctx = document.getElementById("myChart");
-            const myChart = new Chart(ctx, {
-                type: "line",
-                data: {
-                    labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
-                    datasets: [
-                        {
-                            data: this.summary.chart_data,
-                            borderColor: "rgb(33, 100, 226)",
-                            backgroundColor: "rgb(33, 100, 226)",
-                            borderWidth: 3,
-                        },
-                    ],
-                },
-                options: {
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false,
-                        },
-                    },
-                    scales: {
-                        x: {
-                            grid: {
-                                display: false,
-                            },
-                        },
-                        y: {
-                            suggestedMin: -20,
-                            suggestedMax: 20,
-                            ticks: {
-                                display: false,
-                            },
-                            grid: {
-                                color: "#222",
-                                drawBorder: false,
-                            },
-                        },
-                    },
-                },
-            });
+            // const example = [
+            //     { kind: 'emerg', title: "보안 위협이 차단되었습니다.", content: "중복 접속을 확인하여 접속을 차단했습니다.", button: { "text": "자세히 보기", "href": "/dashboard/invite?id="+this.$route.query.id } },
+            //     { kind: 'danger', title: "인증 방식이 보안에 취약합니다!", content: "조치하기를 눌러 설정을 변경해 주세요.", button: { "text": "조치하기", "href": "https://google.com" } },
+            //     { kind: 'warning', title: "Google 인증이 지원 중단됩니다.", content: "자세한 내용은 공지사항을 참고해 주세요.", button: { "text": "공지사항 보기", "href": "https://google.com" } },
+            //     { kind: 'success', title: "예시 타이틀", content: "예시 내용", button: { "text": "와 쌘즈", "href": "https://google.com" } },
+            //     { kind: 'alert', title: "예시 타이틀", content: "예시 내용", button: { "text": "Xin chao!", "href": "https://google.com" } },
+            //     { kind: 'alert', title: "예시 타이틀", content: "예시 내용", button: { "text": "minsu_kim@bishanoi.net", "href": "mailto:minsu_kim@bishanoi.net" } }
+            // ]
 
-            this.resizeAlerts();
-        }, 10);
+            // this.alerts.contents = example.sort((a, b) => {
+            //     if(a.kind == 'emerg') return -1;
+            //     if(a.kind == 'danger') return 0;
+            //     if(a.kind == 'warning') return 1;
+            //     if(a.kind == 'success') return 2;
+            //     if(a.kind == 'alert') return 3;
+            // });
     },
     destroyed() {
         window.removeEventListener("resize", this.myEventHandler);
+
+        this.socket.disconnect()
+        clearInterval(this.alerts.interval);
+        this.alerts.interval = null;
     },
     directives: {
         clickOutside: vClickOutside.directive,
@@ -383,17 +479,18 @@
             return (window.innerWidth <= 660)
         },
         resizeAlerts() {
-            if(!this.alerts.isOpened) {
-                this.alertCenterHeight = document.querySelectorAll('.card.alert')[0].offsetHeight + 'px';
-            } else {
-                this.alertCenterHeight = 'auto'
-            }
+            try {
+                if (!this.alerts.isOpened) {
+                    this.alertCenterHeight = document.querySelectorAll('.card.alert')[0].offsetHeight + 'px';
+                } else {
+                    this.alertCenterHeight = 'auto'
+                }
+            } catch (e) {}
         },
         setAlertsIsOpened() {
             this.alerts.isOpened = !this.alerts.isOpened;
             this.resizeAlerts();
         }
-    },
-    components: { Spiner }
+    }
 };
 </script>

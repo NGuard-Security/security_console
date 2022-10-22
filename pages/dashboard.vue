@@ -177,7 +177,6 @@ main {
     font-size: 1.4rem;
     line-height: 2rem;
     margin-bottom: 0.4rem;
-    margin-left: 0.7rem;
   }
 
   > p {

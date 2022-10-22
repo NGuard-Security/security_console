@@ -119,8 +119,6 @@
 </style>
 
 <script>
-import Spiner from '~/components/Spiner.vue';
-import Spiner_List from '~/components/Spiner_List.vue';
 // const serverList = [
 //   {name: "서버1", icon: "", isInvited: true},
 //   {name: "NGuard Securities Management Team", icon: "", isInvited: false},
@@ -161,7 +159,6 @@ export default {
             e.preventDefault();
             window.open(e.target.href, "Invite", "width=562px, height=972px, top=30px, left=675px, resizable=no");
         }
-    },
-    components: { Spiner, Spiner_List }
+    }
 }
 </script>
