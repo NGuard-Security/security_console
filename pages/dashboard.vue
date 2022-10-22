@@ -52,8 +52,8 @@ main {
 
     input,
     .select {
-      height: 3rem !important;
-      font-size: 1.3rem;
+      height: 2.5rem !important;
+      font-size: 1.1rem;
 
       &:after {
         width: 2rem !important;
@@ -84,7 +84,15 @@ main {
       // padding: 0.6rem 0 !important;
 
       li {
-        padding: 0.4rem 0 0.4rem 1.2rem !important;
+        padding: 0.4rem !important;
+
+        span {
+          font-size: 1rem !important;
+        }
+
+        p {
+          font-size: 0.9rem !important;
+        }
       }
     }
   }
@@ -93,7 +101,7 @@ main {
     padding: calc(1rem + 72px) 2rem 2rem 2rem;
 
     h1 {
-      font-size: 1.8rem !important;
+      font-size: 1.6rem !important;
       gap: 8px !important;
       margin-bottom: 0.8rem !important;
 

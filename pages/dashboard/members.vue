@@ -13,12 +13,12 @@
               <input placeholder="이름, 닉네임, ID 검색" class="mb-4 shrink-0" @input="searchMember($event.target.value)" />
               <p class="mb-2">멤버 {{memberList.length}}명</p>
               <ul class="flex flex-col gap-4 h-full overflow-y-scroll">
-                  <li v-for="member in memberList" class="flex items-center shrink-0 rounded-lg px-7 py-4 text-ellipsis whitespace-nowrap overflow-hidden box-content">
+                  <li v-for="member in memberList" class="flex items-center shrink-0 rounded-lg px-3 py-3 text-ellipsis whitespace-nowrap overflow-hidden box-content">
                       <!-- <img src="~/assets/img/test.png" alt="user_logo" class="h-8 mr-2 rounded-lg" /> -->
                       <img :src="member.icon + '?size=128'" alt="user_logo" class="h-8 mr-2 rounded-lg" />
 
-                      <span class="mr-1 text-lg">{{member.nickName}}</span>
-                      <p>{{member.userName}}</p>
+                      <span class="mr-1 text-lg min-w-0 overflow-hidden text-ellipsis">{{member.nickName}}</span>
+                      <p class="min-w-0 mr-4 overflow-hidden text-ellipsis text-gray-400">{{member.userName}}</p>
 
                       <button v-if="!member.isBlackList" class="text-sm p-1.5 rounded-lg bg-zinc-900 ml-auto" @click="sureBlackList(member.id, member.nickName)">
                           블랙리스트 등록
