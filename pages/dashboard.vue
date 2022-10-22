@@ -84,7 +84,7 @@ main {
       // padding: 0.6rem 0 !important;
 
       li {
-        padding: 0.4rem 0 0.4rem 1.2rem !important;
+        padding: 0.4rem !important;
       }
     }
   }
