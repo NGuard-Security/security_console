@@ -125,52 +125,40 @@
   export default {
       data() {
           return {
-              connState: 1, //0: 연결중, 1: 성공, 2: 응답 지연, 3: 초대 필요
+              connState: 0, //0: 연결중, 1: 성공, 2: 응답 지연, 3: 초대 필요
 
-              members: [
-                {userName: "asgdflkuhsdfghjklsdfgsd", nickName: "asgdflkuhsdfghjklsdfgsd"},
-                {userName: "asgdflkuhsdfghjklsdfgsd", nickName: "asgdflkuhsdfghjklsdfgsd"}
-              ], // Read-only
-              memberList: [
-                {userName: "asgdflkuhsdfghjklsdfgsd", nickName: "asgdflkuhsdfghjklsdfgsd"},
-                {userName: "asgdflkuhsdfghjklsdfgsd", nickName: "asgdflkuhsdfghjklsdfgsd"}
-              ], // Read/Write
-
-              // <img src="~/assets/img/test.png" alt="user_logo" class="h-8 mr-2 rounded-lg" /> -->
-              //         <img :src="member.icon + '?size=128'" alt="user_logo" class="h-8 mr-2 rounded-lg" />
-
-              //         <span class="mr-1 text-lg">{{member.nickName}}</span>
-              //         <p>{{member.userName}}</p>
+              members: [], // Read-only
+              memberList: [], // Read/Write
 
               processBlackList: {} // 블랙리스트 모달 props
           };
       },
       async mounted() {
         try {
-              // const memberList = (
-              //     await this.$axios.$get("http://127.0.0.1:4000/dashboard/members?id=" + this.$route.query.id, {
-              //         // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
-              //         headers: {
-              //             access_token: localStorage.getItem("access_token"),
-              //         },
-              //     })
-              // ).data;
+              const memberList = (
+                  await this.$axios.$get("http://127.0.0.1:4000/dashboard/members?id=" + this.$route.query.id, {
+                      // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
+                      headers: {
+                          access_token: localStorage.getItem("access_token"),
+                      },
+                  })
+              ).data;
 
-              // this.members = memberList;
-              // this.memberList = memberList;
+              this.members = memberList;
+              this.memberList = memberList;
 
               this.connState = 1;
           } catch (e) {
-            // if (e.response) {
-            //     if (e.response.data.message == "Missing Access") {
-            //         window.open("https://nguard.xyz/bot/invite?id=" + this.$route.query.id, "Invite", "width=562px, height=972px, top=30px, left=675px, resizable=no");
-            //         this.connState = 3;
-            //     } else {
-            //         this.connState = 2;
-            //     }
-            // } else {
-            //     this.connState = 2;
-            // }
+            if (e.response) {
+                if (e.response.data.message == "Missing Access") {
+                    window.open("https://nguard.xyz/bot/invite?id=" + this.$route.query.id, "Invite", "width=562px, height=972px, top=30px, left=675px, resizable=no");
+                    this.connState = 3;
+                } else {
+                    this.connState = 2;
+                }
+            } else {
+                this.connState = 2;
+            }
           }
       },
       methods: {
