@@ -1,26 +1,26 @@
 <template>
   <div class="dashboard-wrap bottom_content flex w-full min-h-screen">
-      <Navbar />
-      
-      <nuxt-child />
-    </div>
+    <Navbar />
+
+    <nuxt-child />
+  </div>
 </template>
 
 <style scoped lang="scss">
-  .page-enter-active,
-  .page-leave-active {
-    transition: opacity 0.3s;
-  }
-  .page-enter,
-  .page-leave-to {
-    opacity: 0;
-  }
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.3s;
+}
+.page-enter,
+.page-leave-to {
+  opacity: 0;
+}
 
-  @media (max-width: 660px) {
-    .bottom_content {
-      display: block;
-    }
+@media (max-width: 660px) {
+  .bottom_content {
+    display: block;
   }
+}
 </style>
 
 <style lang="scss">
@@ -32,7 +32,7 @@ main {
 
   @media (max-width: 660px) {
     padding: calc(1.1rem + 77.6px + 68.8px) 2.5rem 2rem 2.5rem !important;
-  
+
     .card {
       padding: 10px 20px !important;
     }
@@ -123,7 +123,7 @@ main {
       }
     }
 
-    input  {
+    input {
       max-width: 100% !important;
     }
 
@@ -245,7 +245,8 @@ main {
       gap: 0.2rem;
       overflow-y: scroll;
       max-height: calc(
-        0.8rem + calc(2.2rem * $ul-length) + calc(0.2rem * calc($ul-length - 1))
+        0.8rem + calc(2.2rem * $ul-length) +
+          calc(0.2rem * calc($ul-length - 1))
       );
       width: 100%;
       margin-top: 10px;
@@ -342,7 +343,7 @@ main {
 
     &:after {
       content: url("data:image/svg+xml,%3Csvg fill='%236b7280' clip-rule='evenodd' fill-rule='evenodd' stroke-linejoin='round' stroke-miterlimit='2' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m16.843 10.211c.108-.141.157-.3.157-.456 0-.389-.306-.755-.749-.755h-8.501c-.445 0-.75.367-.75.755 0 .157.05.316.159.457 1.203 1.554 3.252 4.199 4.258 5.498.142.184.36.29.592.29.23 0 .449-.107.591-.291 1.002-1.299 3.044-3.945 4.243-5.498z'/%3E%3C/svg%3E%0A");
-      
+
       position: absolute;
       top: 7px;
       right: 7px;
@@ -421,8 +422,8 @@ export default {
   name: 'IndexPage',
   mounted() {
     if (!localStorage.getItem('access_token')) {
-        this.$router.push('/auth/login')
-        return
+      this.$router.push('/auth/login')
+      return
     }
   },
 }

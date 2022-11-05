@@ -1,8 +1,14 @@
 <template>
   <header class="fixed w-full text-sm bg-black z-30">
-    <div class="headerContent flex items-center lg:justify-between max-w-screen-xl mx-auto p-4 text-gray-200">
+    <div
+      class="headerContent flex items-center lg:justify-between max-w-screen-xl mx-auto p-4 text-gray-200"
+    >
       <div style="height: 40px" class="logoImg mr-auto md:mr-0">
-        <img src="~/assets/img/logo1.png" alt="NGuard logo" class="h-full" />
+        <img
+          src="~/assets/img/logo1.png"
+          alt="NGuard logo"
+          class="h-full"
+        />
       </div>
 
       <transition appear name="nav" mode="out-in">
@@ -11,11 +17,15 @@
           v-click-outside="closeNav"
           class="headerNav absolute md:static flex flex-col md:flex-row items-center md:gap-3 top-full left-0 w-full md:w-auto m-0 md:ml-6 mr-auto lg:mr-0 py-2 md:p-0 bg-black"
         >
-        <a href="https://nguard.xyz" class="nav_item">홈</a>
-        <NuxtLink to="/servers" class="nav_item">대시보드</NuxtLink>
-        <a href="https://nguard.xyz/invite/nguard" class="nav_item">서포트 서버</a>
-        <a href="https://nguard.xyz/upgrade" class="nav_item">NGuard 유료 플랜</a>
-      </div>
+          <a href="https://nguard.xyz" class="nav_item">홈</a>
+          <NuxtLink to="/servers" class="nav_item">대시보드</NuxtLink>
+          <a href="https://nguard.xyz/invite/nguard" class="nav_item"
+            >서포트 서버</a
+          >
+          <a href="https://nguard.xyz/upgrade" class="nav_item"
+            >NGuard 유료 플랜</a
+          >
+        </div>
       </transition>
 
       <div v-if="this.user.id" class="userBtn-wrap relative">
@@ -30,7 +40,19 @@
             class="h-5 rounded-full"
           />
           <span class="hidden lg:inline">{{ user.name }}</span>
-          <svg class="w-5 fill-gray-500" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m16.843 10.211c.108-.141.157-.3.157-.456 0-.389-.306-.755-.749-.755h-8.501c-.445 0-.75.367-.75.755 0 .157.05.316.159.457 1.203 1.554 3.252 4.199 4.258 5.498.142.184.36.29.592.29.23 0 .449-.107.591-.291 1.002-1.299 3.044-3.945 4.243-5.498z"/> </svg>
+          <svg
+            class="w-5 fill-gray-500"
+            clip-rule="evenodd"
+            fill-rule="evenodd"
+            stroke-linejoin="round"
+            stroke-miterlimit="2"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="m16.843 10.211c.108-.141.157-.3.157-.456 0-.389-.306-.755-.749-.755h-8.501c-.445 0-.75.367-.75.755 0 .157.05.316.159.457 1.203 1.554 3.252 4.199 4.258 5.498.142.184.36.29.592.29.23 0 .449-.107.591-.291 1.002-1.299 3.044-3.945 4.243-5.498z"
+            />
+          </svg>
         </div>
 
         <transition appear name="fade" mode="out-in">
@@ -43,16 +65,50 @@
             <div class="dropdownMenu">메뉴2</div>
             <div class="dropdownMenu">메뉴3</div>
             <hr class="mx-2.5 my-2 border-zinc-800" /> -->
-            <NuxtLink to="/auth/logout" class="dropdownMenu text-red-700">로그아웃</NuxtLink>
+            <NuxtLink
+              to="/auth/logout"
+              class="dropdownMenu text-red-700"
+              >로그아웃</NuxtLink
+            >
           </div>
         </transition>
       </div>
 
-      <NuxtLink v-else to="/auth/login" class="nav_item">로그인</NuxtLink>
-      
-      <div @click="showNav = !showNav" class="menuBtn md:hidden w-7 h-7 p-1.5 box-content fill-white cursor-pointer">
-        <svg v-if="!showNav" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m22 16.75c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75zm0-5c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75zm0-5c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75z" fill-rule="nonzero"/></svg>
-        <svg v-else clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"/></svg>
+      <NuxtLink v-else to="/auth/login" class="nav_item"
+        >로그인</NuxtLink
+      >
+
+      <div
+        @click="showNav = !showNav"
+        class="menuBtn md:hidden w-7 h-7 p-1.5 box-content fill-white cursor-pointer"
+      >
+        <svg
+          v-if="!showNav"
+          clip-rule="evenodd"
+          fill-rule="evenodd"
+          stroke-linejoin="round"
+          stroke-miterlimit="2"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="m22 16.75c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75zm0-5c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75zm0-5c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75z"
+            fill-rule="nonzero"
+          />
+        </svg>
+        <svg
+          v-else
+          clip-rule="evenodd"
+          fill-rule="evenodd"
+          stroke-linejoin="round"
+          stroke-miterlimit="2"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="m12 10.93 5.719-5.72c.146-.146.339-.219.531-.219.404 0 .75.324.75.749 0 .193-.073.385-.219.532l-5.72 5.719 5.719 5.719c.147.147.22.339.22.531 0 .427-.349.75-.75.75-.192 0-.385-.073-.531-.219l-5.719-5.719-5.719 5.719c-.146.146-.339.219-.531.219-.401 0-.75-.323-.75-.75 0-.192.073-.384.22-.531l5.719-5.719-5.72-5.719c-.146-.147-.219-.339-.219-.532 0-.425.346-.749.75-.749.192 0 .385.073.531.219z"
+          />
+        </svg>
       </div>
     </div>
   </header>
@@ -65,27 +121,36 @@ export default {
   transition: 'fade',
 
   async mounted() {
-    window.addEventListener('resize', this.windowResize);
+    window.addEventListener('resize', this.windowResize)
 
-    if(window.innerWidth > 768) {
-      this.showNav = true;
-      this.isMobile = false;
+    if (window.innerWidth > 768) {
+      this.showNav = true
+      this.isMobile = false
     } else {
-      this.showNav = false;
-      this.isMobile = true;
+      this.showNav = false
+      this.isMobile = true
     }
 
-    if (this.$route.path != "/auth/callback") {
+    if (this.$route.path != '/auth/callback') {
       try {
         if (localStorage.getItem('access_token')) {
-          this.user = await this.$axios.$get('https://discord.com/api/v10/users/@me', {
-            headers: {
-              'Authorization': "Bearer " + localStorage.getItem('access_token')
-            }
-          })
+          this.user = await this.$axios.$get(
+            'https://discord.com/api/v10/users/@me',
+            {
+              headers: {
+                Authorization:
+                  'Bearer ' + localStorage.getItem('access_token'),
+              },
+            },
+          )
 
-          this.user.icon = this.user.avatar ? `https://cdn.discordapp.com/avatars/${this.user.id}/${this.user.avatar}.png` : `https://cdn.discordapp.com/embed/avatars/${this.user.discriminator % 5}.png`
-          this.user.name = this.user.username + '#' + this.user.discriminator
+          this.user.icon = this.user.avatar
+            ? `https://cdn.discordapp.com/avatars/${this.user.id}/${this.user.avatar}.png`
+            : `https://cdn.discordapp.com/embed/avatars/${
+                this.user.discriminator % 5
+              }.png`
+          this.user.name =
+            this.user.username + '#' + this.user.discriminator
         }
       } catch (e) {
         if (e.response) {
@@ -95,7 +160,7 @@ export default {
             alert(e.response)
           }
         } else {
-            alert(e)
+          alert(e)
         }
       }
     }
@@ -123,18 +188,18 @@ export default {
     },
     closeNav() {
       if (this.isMobile) {
-        this.showNav = false;
+        this.showNav = false
       }
     },
     windowResize() {
-      if(window.innerWidth > 768) {
-        this.showNav = true;
-        this.isMobile = false;
+      if (window.innerWidth > 768) {
+        this.showNav = true
+        this.isMobile = false
       } else {
-        this.showNav = false;
-        this.isMobile = true;
+        this.showNav = false
+        this.isMobile = true
       }
-    }
+    },
   },
 }
 </script>
@@ -193,7 +258,7 @@ export default {
 
 @media (max-width: 660px) {
   .userBtn-wrap {
-      position: static;
+    position: static;
   }
 
   .userMenu {
@@ -216,7 +281,8 @@ export default {
   }
 }
 
-@media (max-width: 660px) { //<모바일시> '헤더'와 '유저'의 (메뉴)의 패딩 통일
+@media (max-width: 660px) {
+  //<모바일시> '헤더'와 '유저'의 (메뉴)의 패딩 통일
   .headerNav .nav_item {
     padding: 1.5rem 0 1.5rem 4rem !important;
   }
@@ -227,8 +293,10 @@ export default {
 }
 
 .nav_item,
-.dropdownMenu { //'헤더'와 '유저 드롭다운'의 (메뉴 아이템)의 호버시 배경 모양을 같게
-  @media (max-width: 660px) { //<모바일시> '헤더'와 '유저 드롭다운'의 (메뉴 아이템)의 폰트 크기 같게
+.dropdownMenu {
+  //'헤더'와 '유저 드롭다운'의 (메뉴 아이템)의 호버시 배경 모양을 같게
+  @media (max-width: 660px) {
+    //<모바일시> '헤더'와 '유저 드롭다운'의 (메뉴 아이템)의 폰트 크기 같게
     font-size: 18px;
   }
 

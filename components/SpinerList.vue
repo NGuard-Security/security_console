@@ -8,16 +8,18 @@
   >
     <transition name="spiner">
       <div v-if="state == 0" class="state_wrap">
-        <div style="height: 500px" class="state">
-          <h3 class="pb-8 text-2xl font-semibold">불러오는 중</h3>
-          <div class="spinner2"></div>
+        <div class="state">
+          <div class="spinner1"></div>
+          <p class="text-base pt-5" style="color: rgb(153, 153, 153)">
+            서버 목록을 가져오고 있습니다...
+          </p>
         </div>
       </div>
     </transition>
 
     <transition name="connErr">
       <div v-if="state == 2" class="state_wrap">
-        <div class="state" style="height: 500px">
+        <div class="state">
           <h4>현재 응답이 지연되고 있습니다.</h4>
           <h4>잠시 후 다시 시도해 주세요.</h4>
         </div>
@@ -26,7 +28,7 @@
 
     <transition name="inviteErr">
       <div v-if="state == 3" class="state_wrap">
-        <div class="state" style="height: 500px">
+        <div class="state">
           <h4>봇 초대 화면이 팝업으로 오픈되었습니다.</h4>
           <h4>팝업이 열리지 않는다면, 팝업 차단을 해제해 주세요.</h4>
         </div>
