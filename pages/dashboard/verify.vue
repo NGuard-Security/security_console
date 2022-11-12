@@ -64,20 +64,14 @@
           <h2>성공적으로 저장했습니다!</h2>
           <div class="text-gray-400 pt-5">
             <span v-if="switch_.confirm">
-              새로운 유저가 <code>/verify</code> 명령어로 인증하면,<br />
-              <code>{{ input.role.name }}</code> 역할이 지급됩니다.
+              새로운 유저가 <code>/verify</code> 명령어로 인증할 수 있습니다.
             </span>
             <span v-else>
-              새로운 유저는 더 이상 <code>/verify</code> 명령어로
-              인증할 수 없습니다.
+              새로운 유저는 더 이상 <code>/verify</code> 명령어로 인증할 수 없습니다.
             </span>
 
             <br /><br />
 
-            ⚠️ 새로고침하여 제대로 저장되었는지 확인해 주시기
-            바랍니다.<br />
-            혹여나 저장되지 않은 경우 채널톡으로 문의 주시기
-            바랍니다.<br /><br />
             ℹ️ 이 창은 3초 후 자동으로 닫힙니다.
           </div>
           <div class="btns"></div>
@@ -86,8 +80,7 @@
         <modal class="modal" name="fail" width="500">
           <h2>저장 중 오류가 발생했습니다.</h2>
           <div class="text-gray-400 pt-5">
-            ⚠️ 계속 오류가 발생하는 경우, 채널톡으로 문의 주시기
-            바랍니다.<br /><br />
+            ⚠️ 계속 오류가 발생하는 경우, 채널톡으로 문의 주시기 바랍니다.<br /><br />
             ℹ️ 이 창은 3초 후 자동으로 닫힙니다.
           </div>
           <div class="btns"></div>
@@ -125,7 +118,7 @@ export default {
     try {
       const settings = (
         await this.$axios.$get(
-          'http://127.0.0.1:4000/dashboard/verify?id=' +
+          'http://192.168.1.9:4000/dashboard/verify?id=' +
             this.$route.query.id,
           {
             // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
@@ -181,7 +174,7 @@ export default {
     async saveSettings() {
       try {
         await this.$axios.$post(
-          'http://127.0.0.1:4000/dashboard/verify?id=' +
+          'http://192.168.1.9:4000/dashboard/verify?id=' +
             this.$route.query.id,
           {
             status: this.switch_.confirm,

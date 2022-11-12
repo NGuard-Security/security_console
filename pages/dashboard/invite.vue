@@ -84,8 +84,7 @@
           <div class="text-gray-400 pt-5 pb-8">
             초대 링크를 커스텀하려면<br />
             한디리에서 NGuard Security 봇을 추천해 주시거나,<br />
-            Enterprise 플랜에 가입하셔야 합니다.<br />
-            <br />
+            유료 플랜에 가입하셔야 합니다.<br /><br />
             한디리 추천은 12시간 마다 다시 추천 가능합니다.
           </div>
           <div class="btns flex items-center justify-around gap-2">
@@ -98,7 +97,7 @@
             <a
               href="https://nguard.xyz/upgrade/detail"
               target="_blank"
-              >Enterprise 플랜</a
+              >유료 플랜</a
             >
             <a @click="checkVote()">확인</a>
           </div>
@@ -107,23 +106,11 @@
         <modal class="modal" name="success" width="500">
           <h2>성공적으로 저장했습니다!</h2>
           <div class="text-gray-400 pt-5">
-            <span v-if="switch_.invite">
-              초대링크는
-              <a
-                :href="'https://nguard.xyz/invite/' + select.link"
-                target="_blank"
-                >https://nguard.xyz/invite/{{ select.link }}</a
-              >
-              입니다.
-            </span>
+            <span v-if="switch_.invite"> 초대링크가 적용되었습니다. </span>
             <span v-else> 초대링크가 삭제되었습니다. </span>
 
             <br /><br />
 
-            ⚠️ 새로고침하여 제대로 저장되었는지 확인해 주시기
-            바랍니다.<br />
-            혹여나 저장되지 않은 경우 채널톡으로 문의 주시기
-            바랍니다.<br /><br />
             ℹ️ 이 창은 3초 후 자동으로 닫힙니다.
           </div>
           <div class="btns"></div>
@@ -132,8 +119,7 @@
         <modal class="modal" name="fail" width="500">
           <h2>저장 중 오류가 발생했습니다.</h2>
           <div class="text-gray-400 pt-5">
-            ⚠️ 계속 오류가 발생하는 경우, 채널톡으로 문의 주시기
-            바랍니다.<br /><br />
+            ⚠️ 계속 오류가 발생하는 경우, 채널톡으로 문의 주시기 바랍니다.<br /><br />
             ℹ️ 이 창은 3초 후 자동으로 닫힙니다.
           </div>
           <div class="btns"></div>
@@ -246,7 +232,7 @@ export default {
     try {
       const settings = (
         await this.$axios.$get(
-          'http://127.0.0.1:4000/dashboard/invite?id=' +
+          'http://192.168.1.9:4000/dashboard/invite?id=' +
             this.$route.query.id,
           {
             // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
@@ -322,7 +308,7 @@ export default {
     async saveSettings() {
       try {
         await this.$axios.$post(
-          'http://127.0.0.1:4000/dashboard/invite?id=' +
+          'http://192.168.1.9:4000/dashboard/invite?id=' +
             this.$route.query.id,
           {
             settings: this.select.method.index + 2,

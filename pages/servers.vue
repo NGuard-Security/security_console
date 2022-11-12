@@ -171,7 +171,7 @@ export default {
       try {
         const serverList = (
           await this.$axios.$get(
-            'http://127.0.0.1:4000/dashboard/servers',
+            'http://192.168.1.9:4000/dashboard/servers',
             {
               // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
               headers: {

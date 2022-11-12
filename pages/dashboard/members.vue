@@ -71,7 +71,7 @@
       width="500"
     >
       <h2>
-        정말 {{ processBlackList.nickName }}님을 블랙리스트에
+        {{ processBlackList.nickName }}님을 블랙리스트에
         등록하시겠어요?
       </h2>
       <div class="text-gray-400 pt-5 pb-8">
@@ -80,7 +80,7 @@
         일정 기간이 지나면 등록을 취소 할 수 없습니다.<br />
       </div>
       <div class="btns flex items-center justify-around gap-2">
-        <a @click="setBlackList()" class="btn-vote">등록하기</a>
+        <a @click="setBlackList()" class="btn-vote">확인</a>
         <a @click="$modal.hide('sureBlackList')">취소</a>
       </div>
     </modal>
@@ -91,15 +91,15 @@
       width="500"
     >
       <h2>
-        정말 {{ processBlackList.nickName }}님을 블랙리스트 등록
-        해제하시겠어요?
+        {{ processBlackList.nickName }}님을 블랙리스트에서
+        삭제하시겠어요?
       </h2>
       <div class="text-gray-400 pt-5 pb-8">
         ⚠️ 블랙리스트 해제 즉시 해당 유저는 모든 기능을 이용할 수
         있습니다.
       </div>
       <div class="btns flex items-center justify-around gap-2">
-        <a @click="setBlackList()" class="btn-vote">해제하기</a>
+        <a @click="setBlackList()" class="btn-vote">확인</a>
         <a @click="$modal.hide('sureRemoveBlackList')">취소</a>
       </div>
     </modal>
@@ -186,7 +186,7 @@ export default {
     try {
       const memberList = (
         await this.$axios.$get(
-          'http://127.0.0.1:4000/dashboard/members?id=' +
+          'http://192.168.1.9:4000/dashboard/members?id=' +
             this.$route.query.id,
           {
             // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
@@ -239,7 +239,7 @@ export default {
         this.connState = 0
 
         await this.$axios.$post(
-          'http://127.0.0.1:4000/dashboard/members?id=' +
+          'http://192.168.1.9:4000/dashboard/members?id=' +
             this.$route.query.id,
           {
             member: String(id),

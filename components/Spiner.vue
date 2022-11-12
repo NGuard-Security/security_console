@@ -27,7 +27,7 @@
     <transition name="inviteErr">
       <div v-if="state == 3" class="state_wrap">
         <div class="state" style="height: 500px">
-          <h4>봇 초대 화면이 팝업으로 오픈되었습니다.</h4>
+          <h4>팝업창에서 봇을 초대해 주세요.</h4>
           <h4>팝업이 열리지 않는다면, 팝업 차단을 해제해 주세요.</h4>
         </div>
       </div>
@@ -98,7 +98,7 @@
 }
 
 h4 {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   line-height: 1.75rem;
   padding-top: 1.25rem;
   color: $color-white;

@@ -435,7 +435,7 @@ export default {
     window.addEventListener('resize', this.myEventHandler)
 
     const packet = await this.$axios.$get(
-      'http://127.0.0.1:4000/dashboard/push?guild=' +
+      'http://192.168.1.9:4000/dashboard/push?guild=' +
         this.$route.query.id,
       {
         headers: {
@@ -454,7 +454,7 @@ export default {
 
     this.alerts.interval = setInterval(async () => {
       const ipacket = await this.$axios.$post(
-        'http://127.0.0.1:4000/dashboard/push/check?guild=' +
+        'http://192.168.1.9:4000/dashboard/push/check?guild=' +
           this.$route.query.id,
         {
           already: packet.map(alert => alert.id),
@@ -499,7 +499,7 @@ export default {
     try {
       const data = (
         await this.$axios.$get(
-          'http://127.0.0.1:4000/dashboard/summary?id=' +
+          'http://192.168.1.9:4000/dashboard/summary?id=' +
             this.$route.query.id,
           {
             // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
@@ -581,6 +581,10 @@ export default {
             'Invite',
             'width=562px, height=972px, top=30px, left=675px, resizable=no',
           )
+          window.ReactNativeWebView.postMessage({
+            'type': 'popup',
+            'url': 'https://nguard.xyz/bot/invite?id=' + this.$route.query.id
+          })
           this.connState = 3
         } else {
           this.connState = 2
