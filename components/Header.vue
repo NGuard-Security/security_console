@@ -2,7 +2,7 @@
   <header class="fixed w-full text-sm bg-black z-30">
     <div class="headerContent flex items-center lg:justify-between max-w-screen-xl mx-auto p-4 text-gray-200">
       <div style="height: 40px" class="logoImg mr-auto md:mr-0">
-        <a href="https://nguard.xyz" class="nav_item">
+        <a href="https://nguard.xyz">
           <img src="~/assets/img/logo1.png" alt="NGuard logo" class="h-full" />
         </a>
       </div>
