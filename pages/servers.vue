@@ -3,13 +3,11 @@
     class="overflow-x-hidden servers-wrap flex items-center justify-center flex-col w-full h-full min-h-screen px-10"
   >
     <h1 class="w-fit text-3xl font-bold mx-auto mb-14">
-      서버를 선택하세요
+      <!-- 서버를 선택하세요 -->
+      {{ $t('servers.selectServer') }}
     </h1>
 
-    <div
-      style="min-height: 100px"
-      class="relative w-full flex justify-center mb-20"
-    >
+    <div style="min-height: 100px" class="relative w-full flex justify-center mb-20">
       <SpinerList :type="1" :state="connState" />
 
       <transition name="serverList">
@@ -20,35 +18,27 @@
           >
             <div class="flex justify-between w-full gap-4 mb-3">
               <img
-                :src="
-                  'https://cdn.discordapp.com/icons/' +
-                  server.id +
-                  '/' +
-                  server.icon +
-                  '.png?size=128'
-                "
+                :src="'https://cdn.discordapp.com/icons/' + server.id + '/' + server.icon + '.png?size=128'"
                 class="w-14 rounded-xl shrink-0"
               />
 
-              <h3
-                class="w-full h-fit my-auto font-bold leading-6 overflow-hidden text-ellipsis"
-              >
+              <h3 class="w-full h-fit my-auto font-bold leading-6 overflow-hidden text-ellipsis">
                 {{ server.name }}
               </h3>
             </div>
 
             <NuxtLink
-              :to="'/dashboard?id=' + server.id"
+              :to="'/' + $i18n.locale + '/dashboard?id=' + server.id"
               v-if="server.isInvited"
               class="btn-manage"
-              >관리</NuxtLink
             >
-            <a
-              :href="'https://nguard.xyz/bot/invite?id=' + server.id"
-              @click="openInvite"
-              v-else
-              >초대하기</a
-            >
+              <!-- 관리 -->
+              {{ $t('servers.manageButton') }}
+            </NuxtLink>
+            <a :href="'https://nguard.xyz/bot/invite?id=' + server.id" @click="openInvite" v-else>
+              <!-- 초대하기 -->
+              {{ $t('servers.inviteButton') }}
+            </a>
           </div>
         </div>
       </transition>
@@ -170,19 +160,14 @@ export default {
     if (localStorage.getItem('access_token')) {
       try {
         const serverList = (
-          await this.$axios.$get(
-            'http://192.168.1.9:4000/dashboard/servers',
-            {
-              // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
-              headers: {
-                access_token: localStorage.getItem('access_token'),
-              },
+          await this.$axios.$get('http://192.168.1.9:4000/dashboard/servers', {
+            // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
+            headers: {
+              access_token: localStorage.getItem('access_token'),
             },
-          )
+          })
         ).data
-        this.serverList = serverList.sort((a, b) =>
-          a.isInvited ? -1 : 1,
-        )
+        this.serverList = serverList.sort((a, b) => (a.isInvited ? -1 : 1))
         this.connState = 1
       } catch (e) {
         this.connState = 2
@@ -196,11 +181,7 @@ export default {
   methods: {
     openInvite(e) {
       e.preventDefault()
-      window.open(
-        e.target.href,
-        'Invite',
-        'width=562px, height=972px, top=30px, left=675px, resizable=no',
-      )
+      window.open(e.target.href, 'Invite', 'width=562px, height=972px, top=30px, left=675px, resizable=no')
     },
   },
 }

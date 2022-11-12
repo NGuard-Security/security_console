@@ -3,15 +3,14 @@
     state: 로딩중: 0, 응답지연: 2, 초대 필요: 3
   -->
 
-  <div
-    class="absolute left-0 top-5 items-center w-full flex justify-center"
-  >
+  <div class="absolute left-0 top-5 items-center w-full flex justify-center">
     <transition name="spiner">
       <div v-if="state == 0" class="state_wrap">
         <div class="state">
           <div class="spinner1"></div>
           <p class="text-base pt-5" style="color: rgb(153, 153, 153)">
-            서버 목록을 가져오고 있습니다...
+            <!-- 서버 목록을 가져오고 있습니다... -->
+            {{ $t('servers.loadingServer') }}
           </p>
         </div>
       </div>
@@ -20,17 +19,14 @@
     <transition name="connErr">
       <div v-if="state == 2" class="state_wrap">
         <div class="state">
-          <h4>현재 응답이 지연되고 있습니다.</h4>
-          <h4>잠시 후 다시 시도해 주세요.</h4>
-        </div>
-      </div>
-    </transition>
-
-    <transition name="inviteErr">
-      <div v-if="state == 3" class="state_wrap">
-        <div class="state">
-          <h4>팝업창에서 봇을 초대해 주세요.</h4>
-          <h4>팝업이 열리지 않는다면, 팝업 차단을 해제해 주세요.</h4>
+          <h4>
+            <!-- 현재 응답이 지연되고 있습니다. -->
+            {{ $t('common.ratelimit') }}
+          </h4>
+          <h4>
+            <!-- 잠시 후 다시 시도해 주세요. -->
+            {{ $t('common.tryagain') }}
+          </h4>
         </div>
       </div>
     </transition>

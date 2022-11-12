@@ -16,10 +16,10 @@
 export default {
   mounted() {
     if (localStorage.getItem('access_token')) {
-      this.$router.push('/servers')
+      this.$router.push('/' + this.$i18n.locale + '/servers')
       return
     } else {
-      this.$router.push('/auth/login')
+      this.$router.push('/' + this.$i18n.locale + '/auth/login')
       return
     }
   },

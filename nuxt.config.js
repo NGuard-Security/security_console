@@ -11,9 +11,7 @@ export default {
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' },
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-    ],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -40,6 +38,30 @@ export default {
     '@nuxtjs/pwa',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/style-resources',
+
+    [
+      'nuxt-i18n',
+      {
+        locales: [
+          { code: 'ko', iso: 'ko-KR', file: 'ko/index.js' },
+          { code: 'en', iso: 'en-US', file: 'en/index.js' },
+          { code: 'ja', iso: 'ja-JP', file: 'ja/index.js' },
+          { code: 'vi', iso: 'vi-VN', file: 'vi/index.js' },
+        ],
+        langDir: 'locales/',
+        lazy: true,
+        defaultLocale: 'ko',
+        strategy: 'prefix_and_default',
+        vuex: {
+          moduleName: 'i18n',
+          syncLocale: true,
+          syncMessages: true,
+          syncRouteParams: true,
+        },
+      },
+    ],
+
+    'nuxt-google-sheets-parser',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

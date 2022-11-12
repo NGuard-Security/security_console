@@ -1,14 +1,8 @@
 <template>
   <header class="fixed w-full text-sm bg-black z-30">
-    <div
-      class="headerContent flex items-center lg:justify-between max-w-screen-xl mx-auto p-4 text-gray-200"
-    >
+    <div class="headerContent flex items-center lg:justify-between max-w-screen-xl mx-auto p-4 text-gray-200">
       <div style="height: 40px" class="logoImg mr-auto md:mr-0">
-        <img
-          src="~/assets/img/logo1.png"
-          alt="NGuard logo"
-          class="h-full"
-        />
+        <img src="~/assets/img/logo1.png" alt="NGuard logo" class="h-full" />
       </div>
 
       <transition appear name="nav" mode="out-in">
@@ -17,14 +11,22 @@
           v-click-outside="closeNav"
           class="headerNav absolute md:static flex flex-col md:flex-row items-center md:gap-3 top-full left-0 w-full md:w-auto m-0 md:ml-6 mr-auto lg:mr-0 py-2 md:p-0 bg-black"
         >
-          <a href="https://nguard.xyz" class="nav_item">홈</a>
-          <NuxtLink to="/servers" class="nav_item">대시보드</NuxtLink>
-          <a href="https://nguard.xyz/invite/nguard" class="nav_item"
-            >서포트 서버</a
-          >
-          <a href="https://nguard.xyz/upgrade" class="nav_item"
-            >NGuard 유료 플랜</a
-          >
+          <a href="https://nguard.xyz" class="nav_item">
+            <!-- 홈 -->
+            {{ $t('navbar.home') }}
+          </a>
+          <NuxtLink :to="'/' + $i18n.locale + '/servers'" class="nav_item">
+            <!-- 대시보드 -->
+            {{ $t('navbar.dashboard') }}
+          </NuxtLink>
+          <a href="https://nguard.xyz/invite/nguard" class="nav_item">
+            <!-- 서포트 서버 -->
+            {{ $t('navbar.support') }}
+          </a>
+          <a href="https://nguard.xyz/upgrade" class="nav_item">
+            <!-- NGuard 유료 플랜 -->
+            {{ $t('navbar.upgrade') }}
+          </a>
         </div>
       </transition>
 
@@ -34,11 +36,7 @@
           :class="{ on: showMenu }"
           class="userBtn nav_item flex items-center gap-2 hover:bg-zinc-900 cursor-pointer"
         >
-          <img
-            :src="user.icon"
-            alt="user_logo"
-            class="h-5 rounded-full"
-          />
+          <img :src="user.icon" alt="user_logo" class="h-5 rounded-full" />
           <span class="hidden lg:inline">{{ user.name }}</span>
           <svg
             class="w-5 fill-gray-500"
@@ -65,23 +63,20 @@
             <div class="dropdownMenu">메뉴2</div>
             <div class="dropdownMenu">메뉴3</div>
             <hr class="mx-2.5 my-2 border-zinc-800" /> -->
-            <NuxtLink
-              to="/auth/logout"
-              class="dropdownMenu text-red-700"
-              >로그아웃</NuxtLink
-            >
+            <NuxtLink :to="'/' + $i18n.locale + '/auth/logout'" class="dropdownMenu text-red-700">
+              <!-- 로그아웃 -->
+              {{ $t('navbar.logout') }}
+            </NuxtLink>
           </div>
         </transition>
       </div>
 
-      <NuxtLink v-else to="/auth/login" class="nav_item"
-        >로그인</NuxtLink
-      >
+      <NuxtLink v-else :to="'/' + $i18n.locale + '/auth/login'" class="nav_item">
+        <!-- 로그인 -->
+        {{ $t('navbar.login') }}
+      </NuxtLink>
 
-      <div
-        @click="showNav = !showNav"
-        class="menuBtn md:hidden w-7 h-7 p-1.5 box-content fill-white cursor-pointer"
-      >
+      <div @click="showNav = !showNav" class="menuBtn md:hidden w-7 h-7 p-1.5 box-content fill-white cursor-pointer">
         <svg
           v-if="!showNav"
           clip-rule="evenodd"
@@ -134,23 +129,16 @@ export default {
     if (this.$route.path != '/auth/callback') {
       try {
         if (localStorage.getItem('access_token')) {
-          this.user = await this.$axios.$get(
-            'https://discord.com/api/v10/users/@me',
-            {
-              headers: {
-                Authorization:
-                  'Bearer ' + localStorage.getItem('access_token'),
-              },
+          this.user = await this.$axios.$get('https://discord.com/api/v10/users/@me', {
+            headers: {
+              Authorization: 'Bearer ' + localStorage.getItem('access_token'),
             },
-          )
+          })
 
           this.user.icon = this.user.avatar
             ? `https://cdn.discordapp.com/avatars/${this.user.id}/${this.user.avatar}.png`
-            : `https://cdn.discordapp.com/embed/avatars/${
-                this.user.discriminator % 5
-              }.png`
-          this.user.name =
-            this.user.username + '#' + this.user.discriminator
+            : `https://cdn.discordapp.com/embed/avatars/${this.user.discriminator % 5}.png`
+          this.user.name = this.user.username + '#' + this.user.discriminator
         }
       } catch (e) {
         if (e.response) {

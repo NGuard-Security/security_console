@@ -1,30 +1,27 @@
 <template>
-  <main>
-    <div
-      class="overflow-x-hidden servers-wrap flex items-center justify-center flex-col w-full h-full min-h-screen px-10"
-    >
-      <h1 class="w-fit text-3xl font-bold mx-auto mb-14 text-white">
-        로그인
-      </h1>
+  <div
+    class="overflow-x-hidden servers-wrap flex items-center justify-center flex-col w-full h-full min-h-screen px-10"
+  >
+    <h1 class="w-fit text-3xl font-bold mx-auto mb-14 text-white">
+      <!-- 로그인 -->
+      {{ $t('common.auth.login.title') }}
+    </h1>
 
-      <div class="relative w-full flex justify-center mb-20">
-        <!-- 스피너 -->
-        <transition name="spiner">
-          <div id="loading" class="absolute mx-auto">
-            <div class="text-center">
-              <div class="spinner"></div>
-              <h4
-                class="text-base pt-5"
-                style="color: rgb(153, 153, 153)"
-              >
-                로그인 정보를 불러오는 중입니다...
-              </h4>
-            </div>
+    <div class="relative w-full flex justify-center mb-20">
+      <!-- 스피너 -->
+      <transition name="spiner">
+        <div id="loading" class="absolute mx-auto">
+          <div class="text-center">
+            <div class="spinner"></div>
+            <h4 class="text-base pt-5" style="color: rgb(153, 153, 153)">
+              <!-- 로그인 정보를 불러오는 중입니다... -->
+              {{ $t('common.auth.login.loading') }}
+            </h4>
           </div>
-        </transition>
-      </div>
+        </div>
+      </transition>
     </div>
-  </main>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -52,13 +49,10 @@
 export default {
   async mounted() {
     try {
-      const login = await this.$axios.$post(
-        'http://192.168.1.9:4000/auth/callback',
-        {
-          // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
-          code: this.$route.query.code,
-        },
-      )
+      const login = await this.$axios.$post('http://192.168.1.9:4000/auth/callback', {
+        // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
+        code: this.$route.query.code,
+      })
 
       localStorage.setItem('access_token', login.access_token)
 

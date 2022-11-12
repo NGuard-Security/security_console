@@ -3,7 +3,8 @@
     class="overflow-x-hidden servers-wrap flex items-center justify-center flex-col w-full h-full min-h-screen px-10"
   >
     <h1 class="w-fit text-3xl font-bold mx-auto mb-14 text-white">
-      로그아웃
+      <!-- 로그아웃 -->
+      {{ $t('common.auth.logout.title') }}
     </h1>
 
     <div class="relative w-full flex justify-center mb-20">
@@ -12,11 +13,9 @@
         <div id="loading" class="absolute mx-auto">
           <div class="text-center">
             <div class="spinner"></div>
-            <h4
-              class="text-base pt-5"
-              style="color: rgb(153, 153, 153)"
-            >
-              로그아웃 중입니다...
+            <h4 class="text-base pt-5" style="color: rgb(153, 153, 153)">
+              <!-- 로그아웃 중입니다... -->
+              {{ $t('common.auth.logout.loading') }}
             </h4>
           </div>
         </div>

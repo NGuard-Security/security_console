@@ -244,10 +244,7 @@ main {
       flex-direction: column;
       gap: 0.2rem;
       overflow-y: scroll;
-      max-height: calc(
-        0.8rem + calc(2.2rem * $ul-length) +
-          calc(0.2rem * calc($ul-length - 1))
-      );
+      max-height: calc(0.8rem + calc(2.2rem * $ul-length) + calc(0.2rem * calc($ul-length - 1)));
       width: 100%;
       margin-top: 10px;
       padding: 0.4rem 0;
