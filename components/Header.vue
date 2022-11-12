@@ -61,14 +61,49 @@
             v-click-outside="onClickOutside"
             class="userMenu absolute flex flex-col left-0 mt-5 w-36 p-1.5 bg-black/[.8] rounded-lg backdrop-blur-sm z-40"
           >
-            <!-- <div class="dropdownMenu">메뉴1</div>
-            <div class="dropdownMenu">메뉴2</div>
-            <div class="dropdownMenu">메뉴3</div>
-            <hr class="mx-2.5 my-2 border-zinc-800" /> -->
-            <NuxtLink :to="'/' + $i18n.locale + '/auth/logout'" class="dropdownMenu text-red-700">
+            <NuxtLink :to="'/' + $i18n.locale + '/auth/logout'" class="dropdownMenu text-red-500 font-semibold">
               <!-- 로그아웃 -->
               {{ $t('navbar.logout') }}
             </NuxtLink>
+
+            <hr class="mx-2.5 my-2 border-zinc-800" />
+
+            <NuxtLink
+              :to="'/ko' + $route.fullPath.replace('/' + $i18n.locale, '')"
+              class="dropdownMenu ko"
+              v-if="$i18n.locale != 'ko'"
+            >
+              한국어
+            </NuxtLink>
+
+            <NuxtLink
+              :to="'/en' + $route.fullPath.replace('/' + $i18n.locale, '')"
+              class="dropdownMenu en"
+              v-if="$i18n.locale != 'en'"
+            >
+              English
+            </NuxtLink>
+
+            <NuxtLink
+              :to="'/ja' + $route.fullPath.replace('/' + $i18n.locale, '')"
+              class="dropdownMenu ja"
+              v-if="$i18n.locale != 'ja'"
+            >
+              日本語
+            </NuxtLink>
+
+            <NuxtLink
+              :to="'/vi' + $route.fullPath.replace('/' + $i18n.locale, '')"
+              class="dropdownMenu vi"
+              v-if="$i18n.locale != 'vi'"
+            >
+              Tiếng Việt
+            </NuxtLink>
+
+            <!-- <hr class="mx-2.5 my-2 border-zinc-800" />
+            <div class="dropdownMenu">메뉴1</div>
+            <div class="dropdownMenu">메뉴2</div>
+            <div class="dropdownMenu">메뉴3</div> -->
           </div>
         </transition>
       </div>
