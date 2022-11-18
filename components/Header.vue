@@ -108,11 +108,6 @@
         </transition>
       </div>
 
-      <NuxtLink v-else :to="'/' + $i18n.locale + '/auth/login'" class="nav_item">
-        <!-- 로그인 -->
-        {{ $t('navbar.login') }}
-      </NuxtLink>
-
       <div @click="showNav = !showNav" class="menuBtn md:hidden w-7 h-7 p-1.5 box-content fill-white cursor-pointer">
         <svg
           v-if="!showNav"
@@ -250,11 +245,11 @@ export default {
 
 @media (max-width: 660px) {
   .headerContent {
-    padding: 0.8rem 1rem;
+    padding: 0.8rem 1.2rem 0.8rem 2rem;
   }
 
   .logoImg {
-    height: 44px !important;
+    height: 36px !important;
   }
 
   .menuBtn {
