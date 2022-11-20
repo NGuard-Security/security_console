@@ -6,7 +6,7 @@
 
     <div style="background: #151720" class="navbarWrap fixed z-20">
       <div class="navbar flex flex-col shrink-0 w-40 lg:w-64 md:w-56 ml-0 lg:ml-36 p-4 select-none">
-        <div class="navMob flex items-center justify-between mb-5">
+        <div class="navMob flex items-center justify-between mb-5 pl-2">
           <div @click="showNav = !showNav" class="menuIcon cursor-pointer shrink-0">
             <svg
               v-if="!showNav"
@@ -192,7 +192,7 @@ export default {
 
     try {
       this.server = (
-        await this.$axios.$get('http://192.168.1.9:4000/dashboard/servers?id=' + this.$route.query.id, {
+        await this.$axios.$get('http://25.34.66.22:4000/dashboard/servers?id=' + this.$route.query.id, {
           // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
           headers: {
             access_token: localStorage.getItem('access_token'),

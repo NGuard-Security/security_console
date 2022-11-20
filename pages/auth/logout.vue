@@ -72,7 +72,21 @@ export default {
       localStorage.removeItem('access_token')
 
       setTimeout(() => {
-        location.replace('https://nguard.xyz/')
+        if (window.ReactNativeWebView) {
+          window.ReactNativeWebView.postMessage(
+            JSON.stringify({
+              type: 'alert',
+              title: '안내',
+              message: '로그아웃 되었습니다.',
+              action: 'quitApp',
+            }),
+          )
+
+          location.replace('/auth/login')
+        } else {
+          alert('로그아웃 되었습니다.')
+          location.replace('https://nguard.xyz/')
+        }
       }, 1000)
     } else {
       this.$router.push('/auth/login')

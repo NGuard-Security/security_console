@@ -160,7 +160,7 @@ export default {
     if (localStorage.getItem('access_token')) {
       try {
         const serverList = (
-          await this.$axios.$get('http://192.168.1.9:4000/dashboard/servers', {
+          await this.$axios.$get('http://25.34.66.22:4000/dashboard/servers', {
             // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
             headers: {
               access_token: localStorage.getItem('access_token'),
