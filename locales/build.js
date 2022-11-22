@@ -3,10 +3,12 @@ const lodash = require('lodash')
 const PublicGoogleSheetsParser = require('public-google-sheets-parser')
 const { color } = require('../functions/console')
 
+console.log(process.env.NODE_ENV)
+
 try {
-  // https://docs.google.com/spreadsheets/d/1kPMMdpqMIufb1rQRoX3-RHM8gofN5_1ZsciAbcowR_Y/edit?usp=sharing
+  // https://docs.google.com/spreadsheets/d/1SHdSfnQsP1RMNW1emxeexZKSJ3AXppQhH71MnHf42rw/edit?usp=sharing
   const parser = new PublicGoogleSheetsParser()
-  const sheetId = '1kPMMdpqMIufb1rQRoX3-RHM8gofN5_1ZsciAbcowR_Y'
+  const sheetId = '1SHdSfnQsP1RMNW1emxeexZKSJ3AXppQhH71MnHf42rw'
   const sheetName = 'dictionary'
 
   const targetLanguages = ['ko', 'en', 'ja', 'vi']
