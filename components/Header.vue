@@ -10,7 +10,6 @@
       <transition appear name="nav" mode="out-in">
         <div
           v-if="showNav"
-          v-click-outside="closeNav"
           class="headerNav absolute md:static flex flex-col md:flex-row items-center md:gap-3 top-full left-0 w-full md:w-auto m-0 md:ml-6 mr-auto lg:mr-0 py-2 md:p-0 bg-black"
         >
           <a href="https://nguard.xyz" class="nav_item">
@@ -58,7 +57,7 @@
         <transition appear name="fade" mode="out-in">
           <div
             v-if="showMenu"
-            v-click-outside="onClickOutside"
+            v-click-outside="this.showMenu = false"
             class="userMenu absolute flex flex-col left-0 mt-5 w-36 p-1.5 bg-black/[.8] rounded-lg backdrop-blur-sm z-40"
           >
             <NuxtLink :to="'/' + $i18n.locale + '/auth/logout'" class="dropdownMenu text-red-500 font-semibold">
@@ -108,7 +107,11 @@
         </transition>
       </div>
 
-      <div @click="showNav = !showNav" class="menuBtn md:hidden w-7 h-7 p-1.5 box-content fill-white cursor-pointer">
+      <div
+        @click="showNav = !showNav"
+        v-click-outside="closeNav"
+        class="menuBtn md:hidden w-7 h-7 p-1.5 box-content fill-white cursor-pointer"
+      >
         <svg
           v-if="!showNav"
           clip-rule="evenodd"
@@ -208,11 +211,6 @@ export default {
     clickOutside: vClickOutside.directive,
   },
   methods: {
-    onClickOutside() {
-      if (this.showMenu === true) {
-        this.showMenu = false
-      }
-    },
     closeNav() {
       if (this.isMobile) {
         this.showNav = false

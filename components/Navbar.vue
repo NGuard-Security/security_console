@@ -7,7 +7,7 @@
     <div style="background: #151720" class="navbarWrap fixed z-20">
       <div class="navbar flex flex-col shrink-0 w-40 lg:w-64 md:w-56 ml-0 lg:ml-36 p-4 select-none">
         <div class="navMob flex items-center justify-between mb-5 pl-2">
-          <div @click="showNav = !showNav" class="menuIcon cursor-pointer shrink-0">
+          <div v-click-outside="closeNav" @click="showNav = !showNav" class="menuIcon cursor-pointer shrink-0">
             <svg
               v-if="!showNav"
               clip-rule="evenodd"
@@ -36,10 +36,10 @@
               />
             </svg>
           </div>
-          <div class="serverSelect relative min-w-0 w-full">
+          <div v-click-outside="clickServerMenu" class="serverSelect relative min-w-0 w-full">
             <div
-              @click="showMenu = true"
-              :class="{ on: showMenu }"
+              @click="showServerMenu = !showServerMenu"
+              :class="{ on: showServerMenu }"
               class="serverBtn flex items-center px-2 py-2 w-full border border-slate-700/[.2] rounded-lg cursor-pointer"
             >
               <img
@@ -74,8 +74,7 @@
 
             <transition appear name="fade" mode="out-in">
               <div
-                v-if="showMenu"
-                v-click-outside="closeMenu"
+                v-if="showServerMenu"
                 class="serverMenu absolute flex flex-col mt-3 w-full p-1 rounded-lg backdrop-blur-md text-white text-sm border border-slate-700/[.2] gap-0.5 overflow-y-scroll"
               >
                 <div v-for="server in server">
@@ -110,7 +109,6 @@
         <transition appear name="nav" mode="out-in">
           <nav
             v-if="showNav"
-            v-click-outside="closeNav"
             style="background: #151720"
             class="flex flex-col text-gray-400 text-sm gap-1 lg:gap-1.5"
           >
@@ -212,7 +210,7 @@ export default {
   },
   data() {
     return {
-      showMenu: false,
+      showServerMenu: false,
       server: [{ name: this.$t('sidebar.loading'), icon: 'test.png' }],
       showNav: true,
       isMobile: false,
@@ -222,8 +220,8 @@ export default {
     clickOutside: vClickOutside.directive,
   },
   methods: {
-    closeMenu() {
-      this.showMenu = false
+    clickServerMenu() {
+      this.showServerMenu = false
     },
     closeNav() {
       if (this.isMobile) {
