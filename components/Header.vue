@@ -177,11 +177,17 @@ export default {
           if (e.response.status == 429) {
             location.reload()
           } else {
-            alert(e.response)
+            console.log(e.response.data)
+            console.log(e.response.status)
+            console.log(e.response.headers)
           }
+        } else if (e.request) {
+          console.log(e.request)
         } else {
-          alert(e)
+          console.log(e.message)
         }
+
+        alert('통신 중 오류가 발생하였습니다. 채널톡으로 문의해 주세요.')
       }
     }
   },
