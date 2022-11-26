@@ -175,12 +175,13 @@ export default {
       } catch (e) {
         if (e.response) {
           if (e.response.status == 429) {
-            location.reload()
-          } else {
-            console.log(e.response.data)
-            console.log(e.response.status)
-            console.log(e.response.headers)
+            location.reload();
+            return;
           }
+
+          console.log(e.response.data)
+          console.log(e.response.status)
+          console.log(e.response.headers)
         } else if (e.request) {
           console.log(e.request)
         } else {
