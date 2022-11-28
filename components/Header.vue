@@ -1,12 +1,15 @@
 <template>
   <header class="fixed w-full text-sm bg-black z-30">
     <div class="headerContent flex items-center lg:justify-between max-w-screen-xl mx-auto p-4 text-gray-200">
+      
+      <!-- 왼쪽 로고 -->
       <div style="height: 40px" class="logoImg mr-auto md:mr-0">
         <a href="https://nguard.xyz">
           <img src="~/assets/img/logo1.png" alt="NGuard logo" class="h-full" />
         </a>
       </div>
 
+      <!-- 중앙 네비게이션 -->
       <transition appear name="nav" mode="out-in">
         <div
           v-if="showNav"
@@ -31,7 +34,15 @@
         </div>
       </transition>
 
-      <div v-if="this.user.id" class="userBtn-wrap relative">
+      <!-- 오른쪽 유저 요소 -->
+      <!-- 로그인 버튼 -->
+      <NuxtLink v-if="!this.user.id" to="/auth/login" class="nav_item">
+        로그인
+      </NuxtLink >
+
+      <!-- 유저 요소 -->
+      <div v-else class="userBtn-wrap relative">
+        <!-- 유저 버튼 -->
         <div
           @click="showMenu = true"
           :class="{ on: showMenu }"
@@ -54,6 +65,7 @@
           </svg>
         </div>
 
+        <!-- 유저 메뉴 -->
         <transition appear name="fade" mode="out-in">
           <div
             v-if="showMenu"
@@ -67,6 +79,7 @@
 
             <hr class="mx-2.5 my-2 border-zinc-800" />
 
+            <!-- 언어 선택 -->
             <NuxtLink
               :to="'/ko' + $route.fullPath.replace('/' + $i18n.locale, '')"
               class="dropdownMenu ko"
@@ -107,6 +120,7 @@
         </transition>
       </div>
 
+      <!-- 모바일 메뉴 버튼 -->
       <div
         @click="showNav = !showNav"
         v-click-outside="closeNav"
