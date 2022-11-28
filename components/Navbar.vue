@@ -4,7 +4,8 @@
       <div
         v-if="showNav && isMobile"
         @click="closeNav"
-        class="fixed top-0 left-0 w-full h-full bg-black/[0.5] z-10"></div>
+        class="fixed top-0 left-0 w-full h-full bg-black/[0.5] z-10"
+      ></div>
     </transition>
 
     <div style="background: #151720" class="navbarWrap fixed z-20">
