@@ -1,7 +1,7 @@
 const fs = require('node:fs')
 const lodash = require('lodash')
 const PublicGoogleSheetsParser = require('public-google-sheets-parser')
-const { color } = require('../functions/console').default
+const { color } = require('../functions/console')
 
 console.log(process.env.NODE_ENV)
 

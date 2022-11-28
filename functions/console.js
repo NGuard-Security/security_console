@@ -44,4 +44,4 @@ function color(color, ...string) {
   }
 }
 
-module.exports = color
+module.exports = { color }
