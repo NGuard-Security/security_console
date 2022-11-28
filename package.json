@@ -5,11 +5,9 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development \"yarn lint && yarn dict && nuxt\"",
     "dev:host": "cross-env NODE_ENV=development \"yarn lint && yarn dict && nuxt --hostname 0.0.0.0\"",
-    
     "build": "cross-env NODE_ENV=production \"yarn lint && yarn dict && nuxt build\"",
     "start": "cross-env NODE_ENV=production \"yarn lint && yarn dict && nuxt start\"",
     "generate": "cross-env NODE_ENV=production \"yarn lint && yarn dict && nuxt generate\"",
-
     "dict": "node locales/build.js",
     "lint:prettier": "prettier --check .",
     "lint": "yarn lintfix && yarn lint:prettier",
