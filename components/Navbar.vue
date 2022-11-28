@@ -199,7 +199,7 @@ export default {
         })
       ).data
     } catch (e) {
-      catchNetworkError(e);
+      catchNetworkError(e)
     }
   },
   destroyed() {

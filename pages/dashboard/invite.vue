@@ -285,8 +285,8 @@ export default {
         }
       }
 
-      catchNetworkError(e);
-      this.connState = 2;
+      catchNetworkError(e)
+      this.connState = 2
     }
   },
   directives: {

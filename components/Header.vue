@@ -1,7 +1,6 @@
 <template>
   <header class="fixed w-full text-sm bg-black z-30">
     <div class="headerContent flex items-center lg:justify-between max-w-screen-xl mx-auto p-4 text-gray-200">
-      
       <!-- 왼쪽 로고 -->
       <div style="height: 40px" class="logoImg mr-auto md:mr-0">
         <a href="https://nguard.xyz">
@@ -36,9 +35,7 @@
 
       <!-- 오른쪽 유저 요소 -->
       <!-- 로그인 버튼 -->
-      <NuxtLink v-if="!this.user.id" to="/auth/login" class="nav_item">
-        로그인
-      </NuxtLink >
+      <NuxtLink v-if="!this.user.id" to="/auth/login" class="nav_item"> 로그인 </NuxtLink>
 
       <!-- 유저 요소 -->
       <div v-else class="userBtn-wrap relative">
@@ -198,7 +195,7 @@ export default {
           }
         }
 
-        catchNetworkError(e);
+        catchNetworkError(e)
         alert('통신 중 오류가 발생하였습니다. 채널톡으로 문의해 주세요.')
       }
     }

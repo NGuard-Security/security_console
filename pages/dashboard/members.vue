@@ -168,7 +168,7 @@ li {
 </style>
 
 <script>
-import createFuzzyMatcher from "@/plugins/ch2pattern.js"
+import createFuzzyMatcher from '@/plugins/ch2pattern.js'
 import catchNetworkError from '@/plugins/catchNetworkError.js'
 
 export default {
@@ -204,8 +204,8 @@ export default {
         }
       }
 
-      catchNetworkError(e);
-      this.connState = 2;
+      catchNetworkError(e)
+      this.connState = 2
     }
   },
   methods: {

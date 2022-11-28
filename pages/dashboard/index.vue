@@ -549,7 +549,7 @@ export default {
         })
       ).data
 
-      setTimeout(initChart(), 10);
+      setTimeout(initChart(), 10)
 
       this.connState = 1
     } catch (e) {
@@ -558,9 +558,9 @@ export default {
           this.$router.push(`/${this.$i18n.locale}/servers`)
         }
       }
-      
-      catchNetworkError(e);
-      this.connState = 2;
+
+      catchNetworkError(e)
+      this.connState = 2
     }
     // const example = [
     //     { kind: 'emerg', title: "보안 위협이 차단되었습니다.", content: "중복 접속을 확인하여 접속을 차단했습니다.", button: { "text": "자세히 보기", "href": "/dashboard/invite?id="+this.$route.query.id } },
