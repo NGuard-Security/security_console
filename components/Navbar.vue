@@ -1,13 +1,16 @@
 <template>
   <div>
     <transition appear name="bg" mode="out-in">
-      <div class="fixed top-0 left-0 w-full h-full bg-black/[0.5] z-10" v-if="showNav && isMobile">a</div>
+      <div
+        v-if="showNav && isMobile"
+        @click="closeNav"
+        class="fixed top-0 left-0 w-full h-full bg-black/[0.5] z-10"></div>
     </transition>
 
     <div style="background: #151720" class="navbarWrap fixed z-20">
       <div class="navbar flex flex-col shrink-0 w-40 lg:w-64 md:w-56 ml-0 lg:ml-36 p-4 select-none">
         <div class="navMob flex items-center justify-between mb-5 pl-2">
-          <div v-click-outside="closeNav" @click="showNav = !showNav" class="menuIcon cursor-pointer shrink-0">
+          <div @click="showNav = !showNav" class="menuIcon cursor-pointer shrink-0">
             <svg
               v-if="!showNav"
               clip-rule="evenodd"
@@ -36,7 +39,7 @@
               />
             </svg>
           </div>
-          <div v-click-outside="clickServerMenu" class="serverSelect relative min-w-0 w-full">
+          <div v-click-outside="clickServerMenu" class="serverSelect relative min-w-0 w-full" @click="closeNav">
             <div
               @click="showServerMenu = !showServerMenu"
               :class="{ on: showServerMenu }"
@@ -107,11 +110,7 @@
         </div>
 
         <transition appear name="nav" mode="out-in">
-          <nav
-            v-if="showNav"
-            style="background: #151720"
-            class="flex flex-col text-gray-400 text-sm gap-1 lg:gap-1.5"
-          >
+          <nav v-if="showNav" style="background: #151720" class="flex flex-col text-gray-400 text-sm gap-1 lg:gap-1.5">
             <NuxtLink :to="'/' + $i18n.locale + '/dashboard?id=' + this.$route.query.id" class="nav_item">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <path
