@@ -44,4 +44,4 @@ function color(color, ...string) {
   }
 }
 
-export default { color }
+module.exports = color
