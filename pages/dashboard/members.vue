@@ -168,7 +168,8 @@ li {
 </style>
 
 <script>
-import createFuzzyMatcher from '@/plugins/ch2pattern.js'
+import createFuzzyMatcher from "@/plugins/ch2pattern.js"
+import catchNetworkError from '@/plugins/catchNetworkError.js'
 
 export default {
   data() {
@@ -200,12 +201,11 @@ export default {
       if (e.response) {
         if (e.response.data.message == 'Missing Access') {
           this.$router.push(`/${this.$i18n.locale}/servers`)
-        } else {
-          this.connState = 2
         }
-      } else {
-        this.connState = 2
       }
+
+      catchNetworkError(e);
+      this.connState = 2;
     }
   },
   methods: {

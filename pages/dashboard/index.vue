@@ -410,6 +410,7 @@
 <script>
 import vClickOutside from 'v-click-outside'
 import Chart from 'chart.js/auto'
+import catchNetworkError from '@/plugins/catchNetworkError'
 
 export default {
   data() {
@@ -433,67 +434,113 @@ export default {
     }
   },
   async mounted() {
-    window.addEventListener('resize', this.myEventHandler)
-
-    const packet = await this.$axios.$get('http://25.34.66.22:4000/dashboard/push?guild=' + this.$route.query.id, {
-      headers: {
-        access_token: localStorage.getItem('access_token'),
-      },
-    })
-
-    this.alerts.contents = packet.sort((a, b) => {
-      if (a.kind == 'emerg') return -1
-      if (a.kind == 'danger') return 0
-      if (a.kind == 'warning') return 1
-      if (a.kind == 'success') return 2
-      if (a.kind == 'alert') return 3
-    })
-
-    this.alerts.interval = setInterval(async () => {
-      const ipacket = await this.$axios.$post(
-        'http://25.34.66.22:4000/dashboard/push/check?guild=' + this.$route.query.id,
-        {
-          already: packet.map(alert => alert.id),
+    function initChart() {
+      let ctx = document.getElementById('myChart')
+      const myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+          datasets: [
+            {
+              data: this.summary.chart_data,
+              borderColor: 'rgb(33, 100, 226)',
+              backgroundColor: 'rgb(33, 100, 226)',
+              borderWidth: 3,
+            },
+          ],
         },
-        {
-          headers: {
-            access_token: localStorage.getItem('access_token'),
+        options: {
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false,
+            },
+          },
+          scales: {
+            x: {
+              grid: {
+                display: false,
+              },
+            },
+            y: {
+              suggestedMin: -20,
+              suggestedMax: 20,
+              ticks: {
+                display: false,
+              },
+              grid: {
+                color: '#222',
+                drawBorder: false,
+              },
+            },
           },
         },
-      )
+      })
 
-      if (ipacket.length != 0) {
-        this.alerts.contents = this.alerts.contents.concat(ipacket)
+      this.resizeAlerts()
+    }
 
-        const alerts = this.alerts.contents
-
-        packet.alerts.forEach(alert => {
-          alerts.push(alert)
-        })
-
-        for (let i in alerts) {
-          if (alerts[i].due < new Date().getTime()) {
-            alerts.splice(i, 1)
-            i--
-          }
-        }
-
-        this.alerts.contents = alerts.sort((a, b) => {
-          if (a.kind == 'emerg') return -1
-          if (a.kind == 'danger') return 0
-          if (a.kind == 'warning') return 1
-          if (a.kind == 'success') return 2
-          if (a.kind == 'alert') return 3
-        })
-
-        new Audio('/audio/alarm.mp3').play()
-      }
-
-      this.myEventHandler()
-    }, 10000)
+    window.addEventListener('resize', this.myEventHandler)
 
     try {
-      const data = (
+      const packet = await this.$axios.$get('http://25.34.66.22:4000/dashboard/push?guild=' + this.$route.query.id, {
+        headers: {
+          access_token: localStorage.getItem('access_token'),
+        },
+      })
+
+      this.alerts.contents = packet.sort((a, b) => {
+        if (a.kind == 'emerg') return -1
+        if (a.kind == 'danger') return 0
+        if (a.kind == 'warning') return 1
+        if (a.kind == 'success') return 2
+        if (a.kind == 'alert') return 3
+      })
+
+      this.alerts.interval = setInterval(async () => {
+        const ipacket = await this.$axios.$post(
+          'http://25.34.66.22:4000/dashboard/push/check?guild=' + this.$route.query.id,
+          {
+            already: packet.map(alert => alert.id),
+          },
+          {
+            headers: {
+              access_token: localStorage.getItem('access_token'),
+            },
+          },
+        )
+
+        if (ipacket.length != 0) {
+          this.alerts.contents = this.alerts.contents.concat(ipacket)
+
+          const alerts = this.alerts.contents
+
+          packet.alerts.forEach(alert => {
+            alerts.push(alert)
+          })
+
+          for (let i in alerts) {
+            if (alerts[i].due < new Date().getTime()) {
+              alerts.splice(i, 1)
+              i--
+            }
+          }
+
+          this.alerts.contents = alerts.sort((a, b) => {
+            if (a.kind == 'emerg') return -1
+            if (a.kind == 'danger') return 0
+            if (a.kind == 'warning') return 1
+            if (a.kind == 'success') return 2
+            if (a.kind == 'alert') return 3
+          })
+
+          new Audio('/audio/alarm.mp3').play()
+        }
+
+        this.myEventHandler()
+      }, 10000)
+
+      this.summary = (
         await this.$axios.$get('http://25.34.66.22:4000/dashboard/summary?id=' + this.$route.query.id, {
           // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
           headers: {
@@ -502,65 +549,18 @@ export default {
         })
       ).data
 
-      this.summary = data
+      setTimeout(initChart(), 10);
 
       this.connState = 1
-
-      setTimeout(() => {
-        let ctx = document.getElementById('myChart')
-        const myChart = new Chart(ctx, {
-          type: 'line',
-          data: {
-            labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-            datasets: [
-              {
-                data: this.summary.chart_data,
-                borderColor: 'rgb(33, 100, 226)',
-                backgroundColor: 'rgb(33, 100, 226)',
-                borderWidth: 3,
-              },
-            ],
-          },
-          options: {
-            maintainAspectRatio: false,
-            plugins: {
-              legend: {
-                display: false,
-              },
-            },
-            scales: {
-              x: {
-                grid: {
-                  display: false,
-                },
-              },
-              y: {
-                suggestedMin: -20,
-                suggestedMax: 20,
-                ticks: {
-                  display: false,
-                },
-                grid: {
-                  color: '#222',
-                  drawBorder: false,
-                },
-              },
-            },
-          },
-        })
-
-        this.resizeAlerts()
-      }, 10)
     } catch (e) {
       if (e.response) {
         if (e.response.data.message == 'Missing Access') {
           this.$router.push(`/${this.$i18n.locale}/servers`)
-        } else {
-          this.connState = 2
         }
-      } else {
-        this.connState = 2
       }
+      
+      catchNetworkError(e);
+      this.connState = 2;
     }
     // const example = [
     //     { kind: 'emerg', title: "보안 위협이 차단되었습니다.", content: "중복 접속을 확인하여 접속을 차단했습니다.", button: { "text": "자세히 보기", "href": "/dashboard/invite?id="+this.$route.query.id } },

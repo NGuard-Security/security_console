@@ -174,6 +174,7 @@
 
 <script>
 import vClickOutside from 'v-click-outside'
+import catchNetworkError from '@/plugins/catchNetworkError.js'
 
 export default {
   async mounted() {
@@ -197,11 +198,7 @@ export default {
         })
       ).data
     } catch (e) {
-      if (e.response) {
-        if (e.response.status == 429) {
-          location.reload()
-        }
-      }
+      catchNetworkError(e);
     }
   },
   destroyed() {
