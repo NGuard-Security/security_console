@@ -48,6 +48,11 @@
 <script>
 export default {
   async mounted() {
+    if (!this.$i8n.locale) {
+      this.$router.push(`/${this.$18n.locale}/auth/callback?${this.$route.query}`)
+      return
+    }
+
     try {
       const login = await this.$axios.$post('http://25.34.66.22:4000/auth/callback', {
         // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
@@ -61,10 +66,10 @@ export default {
       }, 1000)
     } catch (e) {
       if (e.response.status == 400) {
-        this.$router.push('/auth/login')
+        this.$router.push(`/${this.$i18n.locale}/auth/login`)
       } else {
         alert(e.response.data.error.error_description || e)
-        this.$router.push('/auth/login')
+        this.$router.push(`/${this.$i18n.locale}/auth/login`)
       }
     }
   },

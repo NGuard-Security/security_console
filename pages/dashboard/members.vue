@@ -25,8 +25,8 @@
             v-for="member in memberList"
             class="flex items-center shrink-0 rounded-lg px-3 py-3 text-ellipsis whitespace-nowrap overflow-hidden box-content"
           >
-            <!-- <img src="~/assets/img/test.png" alt="user_logo" class="h-8 mr-2 rounded-lg" /> -->
-            <img :src="member.icon + '?size=128'" alt="user_logo" class="h-8 mr-2 rounded-lg" />
+            <!-- <nuxt-img src="img/test.png" alt="user_logo" class="h-8 mr-2 rounded-lg" /> -->
+            <nuxt-img :src="member.icon + '?size=128'" alt="user_logo" class="h-8 mr-2 rounded-lg" />
 
             <span class="mr-1 text-lg min-w-0 overflow-hidden text-ellipsis">{{ member.nickName }}</span>
             <p class="min-w-0 mr-4 overflow-hidden text-ellipsis text-gray-400">

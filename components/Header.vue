@@ -4,7 +4,7 @@
       <!-- 왼쪽 로고 -->
       <div style="height: 40px" class="logoImg mr-auto md:mr-0">
         <a href="https://nguard.xyz">
-          <img src="~/assets/img/logo1.png" alt="NGuard logo" class="h-full" />
+          <nuxt-img src="/img/logo1.png" alt="NGuard logo" class="h-full" />
         </a>
       </div>
 
@@ -35,7 +35,9 @@
 
       <!-- 오른쪽 유저 요소 -->
       <!-- 로그인 버튼 -->
-      <NuxtLink v-if="!this.user.id" to="/auth/login" class="nav_item"> 로그인 </NuxtLink>
+      <NuxtLink v-if="!this.user.id" :to="'/' + $i18n.locale + '/auth/login'" class="nav_item">
+        {{ $t('navbar.login') }}
+      </NuxtLink>
 
       <!-- 유저 요소 -->
       <div v-else class="userBtn-wrap relative">
@@ -45,7 +47,7 @@
           :class="{ on: showMenu }"
           class="userBtn nav_item flex items-center gap-2 hover:bg-zinc-900 cursor-pointer"
         >
-          <img :src="user.icon" alt="user_logo" class="h-5 rounded-full" />
+          <nuxt-img :src="user.icon" alt="user_logo" class="h-5 rounded-full" />
           <span class="hidden lg:inline">{{ user.name }}</span>
           <svg
             class="w-5 fill-gray-500"
@@ -207,7 +209,7 @@ export default {
       isMobile: false,
       // user: {
       //   name: '라비 lavi#2253',
-      //   icon: '~/assets/img/test.png'
+      //   icon: 'img/test.png'
       // },
       user: {},
     }

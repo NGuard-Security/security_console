@@ -39,6 +39,8 @@ export default {
     '@nuxtjs/tailwindcss',
     '@nuxtjs/style-resources',
 
+    '@nuxt/image',
+
     [
       'nuxt-i18n',
       {

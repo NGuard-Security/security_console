@@ -71,14 +71,14 @@ export default {
     if (localStorage.getItem('access_token')) {
       history.go(-1)
     } else {
-      const login =
-        'https://discord.com/api/oauth2/authorize' +
-        '?client_id=937636597040570388' +
-        '&redirect_uri=http://25.34.66.22:3000/auth/callback' +
-        '&response_type=code' +
-        '&scope=identify guilds guilds.join email'
-
-      location.replace(login)
+      // const login =
+      //   'https://discord.com/api/oauth2/authorize' +
+      //   '?client_id=937636597040570388' +
+      //   '&redirect_uri=http://25.34.66.22:3000/auth/callback' +
+      //   '&response_type=code' +
+      //   '&scope=identify guilds guilds.join email'
+      //   '&state=' + this.$i18n.locale
+      // location.replace(login)
     }
   },
 }

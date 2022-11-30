@@ -17,7 +17,7 @@
             class="server flex flex-col gap-1 p-3 text-white items-center rounded-xl mx-auto"
           >
             <div class="flex justify-between w-full gap-4 mb-3">
-              <img
+              <nuxt-img
                 :src="'https://cdn.discordapp.com/icons/' + server.id + '/' + server.icon + '.png?size=128'"
                 class="w-14 rounded-xl shrink-0"
               />
@@ -174,7 +174,7 @@ export default {
       }
       return
     } else {
-      this.$router.push('/auth/login')
+      this.$router.push(`/${this.$i18n.locale}/auth/login`)
       return
     }
   },

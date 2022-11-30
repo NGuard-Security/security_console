@@ -245,7 +245,7 @@
 
         <h2>
           <!-- 초대링크 이용 유저 그래프 -->
-          {{ $t('summary.graph') }}
+          {{ $t('summary.graph.title') }}
         </h2>
         <div style="width: 100%; height: 400px">
           <canvas id="myChart"></canvas>
@@ -436,10 +436,24 @@ export default {
   async mounted() {
     function initChart() {
       let ctx = document.getElementById('myChart')
-      const myChart = new Chart(ctx, {
+
+      new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+          labels: [
+            $t('summary.graph.jan'),
+            $t('summary.graph.feb'),
+            $t('summary.graph.mar'),
+            $t('summary.graph.apr'),
+            $t('summary.graph.may'),
+            $t('summary.graph.jun'),
+            $t('summary.graph.jul'),
+            $t('summary.graph.aug'),
+            $t('summary.graph.sep'),
+            $t('summary.graph.oct'),
+            $t('summary.graph.nov'),
+            $t('summary.graph.dev'),
+          ],
           datasets: [
             {
               data: this.summary.chart_data,

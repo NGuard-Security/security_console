@@ -76,20 +76,20 @@ export default {
           window.ReactNativeWebView.postMessage(
             JSON.stringify({
               type: 'alert',
-              title: '안내',
-              message: '로그아웃 되었습니다.',
+              title: $t('common.alert'),
+              message: $t('common.auth.logout.success'),
               action: 'quitApp',
             }),
           )
 
-          location.replace('/auth/login')
+          location.replace(`/${this.$i18n.locale}/auth/login`)
         } else {
-          alert('로그아웃 되었습니다.')
+          alert($t('common.auth.logout.success'))
           location.replace('https://nguard.xyz/')
         }
       }, 1000)
     } else {
-      this.$router.push('/auth/login')
+      this.$router.push(`/${this.$i18n.locale}/auth/login`)
     }
   },
 }
