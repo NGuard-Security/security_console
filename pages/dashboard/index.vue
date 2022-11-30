@@ -497,7 +497,7 @@ export default {
     window.addEventListener('resize', this.myEventHandler)
 
     try {
-      const packet = await this.$axios.$get('http://25.34.66.22:4000/dashboard/push?guild=' + this.$route.query.id, {
+      const packet = await this.$axios.$get('/dashboard/push?guild=' + this.$route.query.id, {
         headers: {
           access_token: localStorage.getItem('access_token'),
         },
@@ -513,7 +513,7 @@ export default {
 
       this.alerts.interval = setInterval(async () => {
         const ipacket = await this.$axios.$post(
-          'http://25.34.66.22:4000/dashboard/push/check?guild=' + this.$route.query.id,
+          '/dashboard/push/check?guild=' + this.$route.query.id,
           {
             already: packet.map(alert => alert.id),
           },
@@ -555,8 +555,7 @@ export default {
       }, 10000)
 
       this.summary = (
-        await this.$axios.$get('http://25.34.66.22:4000/dashboard/summary?id=' + this.$route.query.id, {
-          // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
+        await this.$axios.$get('/dashboard/summary?id=' + this.$route.query.id, {
           headers: {
             access_token: localStorage.getItem('access_token'),
           },

@@ -76,8 +76,8 @@ export default {
           window.ReactNativeWebView.postMessage(
             JSON.stringify({
               type: 'alert',
-              title: $t('common.alert'),
-              message: $t('common.auth.logout.success'),
+              title: this.$t('common.alert'),
+              message: this.$t('common.auth.logout.success'),
               action: 'quitApp',
             }),
           )

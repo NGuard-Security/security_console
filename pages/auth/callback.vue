@@ -48,28 +48,27 @@
 <script>
 export default {
   async mounted() {
-    if (!this.$i8n.locale) {
-      this.$router.push(`/${this.$18n.locale}/auth/callback?${this.$route.query}`)
+    if (!['ko', 'en', 'ja', 'vi'].includes(location.pathname.split('/')[1])) {
+      this.$router.push(`/${this.$route.query.state}/auth/callback?code=${this.$route.query.code}`)
       return
-    }
+    } else {
+      try {
+        const login = await this.$axios.$post('/auth/callback', {
+          code: this.$route.query.code,
+        })
 
-    try {
-      const login = await this.$axios.$post('http://25.34.66.22:4000/auth/callback', {
-        // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
-        code: this.$route.query.code,
-      })
+        localStorage.setItem('access_token', login.access_token)
 
-      localStorage.setItem('access_token', login.access_token)
-
-      setTimeout(() => {
-        location.replace('/servers')
-      }, 1000)
-    } catch (e) {
-      if (e.response.status == 400) {
-        this.$router.push(`/${this.$i18n.locale}/auth/login`)
-      } else {
-        alert(e.response.data.error.error_description || e)
-        this.$router.push(`/${this.$i18n.locale}/auth/login`)
+        setTimeout(() => {
+          location.replace(`/${this.$i18n.locale}/servers`)
+        }, 1000)
+      } catch (e) {
+        if (e.response.status == 400) {
+          this.$router.push(`/${this.$i18n.locale}/auth/login`)
+        } else {
+          alert(e.response.data.error.error_description || e)
+          this.$router.push(`/${this.$i18n.locale}/auth/login`)
+        }
       }
     }
   },

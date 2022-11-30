@@ -185,8 +185,7 @@ export default {
   async mounted() {
     try {
       const memberList = (
-        await this.$axios.$get('http://25.34.66.22:4000/dashboard/members?id=' + this.$route.query.id, {
-          // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
+        await this.$axios.$get('/dashboard/members?id=' + this.$route.query.id, {
           headers: {
             access_token: localStorage.getItem('access_token'),
           },
