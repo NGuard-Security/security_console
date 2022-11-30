@@ -335,6 +335,7 @@
           width: 1.5rem;
           fill: $color-success;
         }
+
         h4 {
           color: $color-success-text;
         }
@@ -411,6 +412,7 @@
 import vClickOutside from 'v-click-outside'
 import Chart from 'chart.js/auto'
 import catchNetworkError from '@/plugins/catchNetworkError'
+import { io } from 'socket.io-client'
 
 export default {
   data() {
@@ -480,88 +482,8 @@ export default {
       this.resizeAlerts()
     }
 
-    window.addEventListener('resize', this.myEventHandler)
+    window.addEventListener('resize', this.resizeAlerts)
 
-    try {
-      const packet = await this.$axios.$get('http://25.34.66.22:4000/dashboard/push?guild=' + this.$route.query.id, {
-        headers: {
-          access_token: localStorage.getItem('access_token'),
-        },
-      })
-
-      this.alerts.contents = packet.sort((a, b) => {
-        if (a.kind == 'emerg') return -1
-        if (a.kind == 'danger') return 0
-        if (a.kind == 'warning') return 1
-        if (a.kind == 'success') return 2
-        if (a.kind == 'alert') return 3
-      })
-
-      this.alerts.interval = setInterval(async () => {
-        const ipacket = await this.$axios.$post(
-          'http://25.34.66.22:4000/dashboard/push/check?guild=' + this.$route.query.id,
-          {
-            already: packet.map(alert => alert.id),
-          },
-          {
-            headers: {
-              access_token: localStorage.getItem('access_token'),
-            },
-          },
-        )
-
-        if (ipacket.length != 0) {
-          this.alerts.contents = this.alerts.contents.concat(ipacket)
-
-          const alerts = this.alerts.contents
-
-          packet.alerts.forEach(alert => {
-            alerts.push(alert)
-          })
-
-          for (let i in alerts) {
-            if (alerts[i].due < new Date().getTime()) {
-              alerts.splice(i, 1)
-              i--
-            }
-          }
-
-          this.alerts.contents = alerts.sort((a, b) => {
-            if (a.kind == 'emerg') return -1
-            if (a.kind == 'danger') return 0
-            if (a.kind == 'warning') return 1
-            if (a.kind == 'success') return 2
-            if (a.kind == 'alert') return 3
-          })
-
-          new Audio('/audio/alarm.mp3').play()
-        }
-
-        this.myEventHandler()
-      }, 10000)
-
-      this.summary = (
-        await this.$axios.$get('http://25.34.66.22:4000/dashboard/summary?id=' + this.$route.query.id, {
-          // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
-          headers: {
-            access_token: localStorage.getItem('access_token'),
-          },
-        })
-      ).data
-
-      setTimeout(initChart(), 10)
-
-      this.connState = 1
-    } catch (e) {
-      if (e.response) {
-        if (e.response.data.message == 'Missing Access') {
-          this.$router.push(`/${this.$i18n.locale}/servers`)
-        }
-      }
-
-      catchNetworkError(e)
-      this.connState = 2
-    }
     // const example = [
     //     { kind: 'emerg', title: "보안 위협이 차단되었습니다.", content: "중복 접속을 확인하여 접속을 차단했습니다.", button: { "text": "자세히 보기", "href": "/dashboard/invite?id="+this.$route.query.id } },
     //     { kind: 'danger', title: "인증 방식이 보안에 취약합니다!", content: "조치하기를 눌러 설정을 변경해 주세요.", button: { "text": "조치하기", "href": "https://google.com" } },
@@ -578,9 +500,85 @@ export default {
     //     if(a.kind == 'success') return 2;
     //     if(a.kind == 'alert') return 3;
     // });
+
+    try {
+      const socket = io('http://localhost:4000/')
+
+      socket.on('push:load', pushs => {
+        this.alerts.contents = pushs
+      })
+
+      socket.on('push:check', pushs => {
+        if (pushs.length == 0) {
+          return
+        }
+
+        let alerts = this.alerts.contents.concat(pushs)
+
+        for (let i in alerts) {
+          if (alerts[i].due < new Date().getTime()) {
+            alerts.splice(i, 1)
+            i--
+          }
+        }
+
+        this.alerts.contents = alerts.sort(a => {
+          if (a.kind == 'emerg') return -1
+          if (a.kind == 'danger') return 0
+          if (a.kind == 'warning') return 1
+          if (a.kind == 'success') return 2
+          if (a.kind == 'alert') return 3
+        })
+
+        this.resizeAlerts()
+      })
+
+      socket.on('push:error', e => {
+        console.log(e)
+        alert('통신 중 오류가 발생하였습니다. 채널톡으로 문의해 주세요.')
+      })
+
+      socket.emit('push:load', {
+        guild: this.$route.query.id,
+        access_token: localStorage.getItem('access_token'),
+      })
+
+      this.alerts.interval = setInterval(() => {
+        socket.emit('push:check', {
+          guild: this.$route.query.id,
+          access_token: localStorage.getItem('access_token'),
+          already: this.alerts.contents.map(alert => alert.id),
+        })
+
+        //사용자 입력 없을시 소리 재생 안함
+        // new Audio('/audio/alarm.mp3').play()
+      }, 2000)
+
+      this.summary = (
+        await this.$axios.$get('http://127.0.0.1:4000/dashboard/summary?id=' + this.$route.query.id, {
+          // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
+          headers: {
+            access_token: localStorage.getItem('access_token'),
+          },
+        })
+      ).data
+
+      setTimeout(initChart(), 10)
+
+      this.connState = 1
+    } catch (e) {
+      // if (e.response) {
+      //   if (e.response.data.message == 'Missing Access') {
+      //     this.$router.push(`/${this.$i18n.locale}/servers`)
+      //   }
+      // }
+
+      // catchNetworkError(e)
+      // this.connState = 2
+    }
   },
   destroyed() {
-    window.removeEventListener('resize', this.myEventHandler)
+    window.removeEventListener('resize', this.resizeAlerts)
 
     clearInterval(this.alerts.interval)
     this.alerts.interval = null
@@ -589,9 +587,6 @@ export default {
     clickOutside: vClickOutside.directive,
   },
   methods: {
-    myEventHandler(e) {
-      this.resizeAlerts()
-    },
     isMobile() {
       return window.innerWidth <= 660
     },

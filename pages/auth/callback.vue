@@ -49,13 +49,11 @@
 export default {
   async mounted() {
     try {
-      const login = await this.$axios.$post('http://25.34.66.22:4000/auth/callback', {
+      const login = await this.$axios.$post('http://127.0.0.1:4000/auth/callback', {
         // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
         code: this.$route.query.code,
       })
-
       localStorage.setItem('access_token', login.access_token)
-
       setTimeout(() => {
         location.replace('/servers')
       }, 1000)

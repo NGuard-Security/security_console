@@ -74,7 +74,7 @@ export default {
       const login =
         'https://discord.com/api/oauth2/authorize' +
         '?client_id=937636597040570388' +
-        '&redirect_uri=http://25.34.66.22:3000/auth/callback' +
+        '&redirect_uri=http://127.0.0.1:3000/auth/callback' +
         '&response_type=code' +
         '&scope=identify guilds guilds.join email'
 
