@@ -419,7 +419,7 @@ export default {
   name: 'IndexPage',
   mounted() {
     if (!localStorage.getItem('access_token')) {
-      this.$router.push('/auth/login')
+      this.$router.push(`/${this.$i18n.locale}/auth/login`)
       return
     }
   },

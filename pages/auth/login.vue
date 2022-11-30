@@ -66,6 +66,8 @@
 </style>
 
 <script>
+import { authEndpoint } from '@/config.json'
+
 export default {
   async mounted() {
     if (localStorage.getItem('access_token')) {
@@ -74,11 +76,17 @@ export default {
       const login =
         'https://discord.com/api/oauth2/authorize' +
         '?client_id=937636597040570388' +
-        '&redirect_uri=http://25.34.66.22:3000/auth/callback' +
+        '&redirect_uri=' +
+        authEndpoint +
+        '/auth/callback' +
         '&response_type=code' +
-        '&scope=identify guilds guilds.join email'
+        '&scope=identify guilds guilds.join email' +
+        '&state=' +
+        this.$i18n.locale
 
-      location.replace(login)
+      setTimeout(() => {
+        location.replace(login)
+      }, 1500)
     }
   },
 }

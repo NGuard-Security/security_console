@@ -46,18 +46,13 @@
               :class="{ on: showServerMenu }"
               class="serverBtn flex items-center px-2 py-2 w-full border border-slate-700/[.2] rounded-lg cursor-pointer"
             >
-              <img
+              <nuxt-img
                 v-if="server[0].id"
                 :src="'https://cdn.discordapp.com/icons/' + server[0].id + '/' + server[0].icon + '.png?size=128'"
                 alt="server logo"
                 class="w-8 mr-2 rounded-lg"
               />
-              <img
-                v-else
-                :src="require(`@/assets/img/${server[0].icon}`)"
-                alt="server logo"
-                class="w-8 mr-2 rounded-lg"
-              />
+              <nuxt-img v-else :src="`img/${server[0].icon}`" alt="server logo" class="w-8 mr-2 rounded-lg" />
               <span class="mr-auto text-sm text-gray-300 text-ellipsis whitespace-nowrap overflow-hidden">
                 {{ server[0].name }}
               </span>
@@ -87,21 +82,21 @@
                     class="dropdownMenu"
                     v-if="!server.now"
                   >
-                    <img
+                    <nuxt-img
                       v-if="server.id"
                       :src="'https://cdn.discordapp.com/icons/' + server.id + '/' + server.icon + '.png?size=128'"
                       alt="server logo"
                     />
-                    <img v-else :src="require(`@/assets/img/${server.icon}`)" alt="server logo" />
+                    <nuxt-img v-else :src="`img/${server.icon}`" alt="server logo" />
                     <span>{{ server.name }}</span>
                   </NuxtLink>
                   <NuxtLink :to="'/' + $i18n.locale + '/dashboard?id=' + server.id" class="dropdownMenu" v-else>
-                    <img
+                    <nuxt-img
                       v-if="server.id"
                       :src="'https://cdn.discordapp.com/icons/' + server.id + '/' + server.icon + '.png?size=128'"
                       alt="server logo"
                     />
-                    <img v-else :src="require(`@/assets/img/${server.icon}`)" alt="server logo" />
+                    <nuxt-img v-else :src="`img/${server.icon}`" alt="server logo" />
                     <span>{{ server.name }}</span>
                   </NuxtLink>
                 </div>
@@ -160,7 +155,7 @@
             </NuxtLink>
             <hr class="mx-2.5 my-2 border-zinc-700" />
             <a href="https://nguard.xyz/upgrade" target="_blank" class="nav_item nav_item_premium">
-              <img src="@/assets/img/logo2.webp" alt="NGuard logo" />
+              <nuxt-img src="img/logo2.webp" alt="NGuard logo" />
               <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-2.995 2.995-7.486 4-11 4 0 8.583 5.068 16.097 11 20 5.932-3.903 11-11.417 11-20-3.514 0-8.005-1.005-11-4z"/></svg> -->
               <!-- NGuard 유료 플랜 -->
               {{ $t('navbar.upgrade') }}
@@ -191,7 +186,7 @@ export default {
 
     try {
       this.server = (
-        await this.$axios.$get('http://25.34.66.22:4000/dashboard/servers?id=' + this.$route.query.id, {
+        await this.$axios.$get('/dashboard/servers?id=' + this.$route.query.id, {
           // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
           headers: {
             access_token: localStorage.getItem('access_token'),
