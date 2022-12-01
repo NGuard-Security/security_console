@@ -245,7 +245,7 @@
 
         <h2>
           <!-- 초대링크 이용 유저 그래프 -->
-          {{ $t('summary.graph') }}
+          {{ $t('summary.graph.title') }}
         </h2>
         <div style="width: 100%; height: 400px">
           <canvas id="myChart"></canvas>
@@ -438,10 +438,24 @@ export default {
   async mounted() {
     function initChart() {
       let ctx = document.getElementById('myChart')
-      const myChart = new Chart(ctx, {
+
+      new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+          labels: [
+            "1월",
+            "2월",
+            "3월",
+            "4월",
+            "5월",
+            "6월",
+            "7월",
+            "8월",
+            "9월",
+            "10월",
+            "11월",
+            "12월"
+          ],
           datasets: [
             {
               data: this.summary.chart_data,
@@ -502,7 +516,7 @@ export default {
     // });
 
     try {
-      const socket = io('http://localhost:4000/')
+      const socket = io('http://127.0.0.1:4000/') // in-development, should be 127.0.0.1. do not localhost.
 
       socket.on('push:load', pushs => {
         this.alerts.contents = pushs
@@ -555,8 +569,7 @@ export default {
       }, 2000)
 
       this.summary = (
-        await this.$axios.$get('http://127.0.0.1:4000/dashboard/summary?id=' + this.$route.query.id, {
-          // Production: API 서버 주소로 바꾸기 (eg. https://api.nguard.xyz/~~~ )
+        await this.$axios.$get('/dashboard/summary?id=' + this.$route.query.id, {
           headers: {
             access_token: localStorage.getItem('access_token'),
           },
@@ -567,14 +580,17 @@ export default {
 
       this.connState = 1
     } catch (e) {
-      // if (e.response) {
-      //   if (e.response.data.message == 'Missing Access') {
-      //     this.$router.push(`/${this.$i18n.locale}/servers`)
-      //   }
-      // }
+      console.log("🚀 > mounted > e", e);
+      
+      if (e.response) {
+        if (e.response.data.message == 'Missing Access') {
+          alert('로그인 세션이 만료되었습니다.')
+          this.$router.push(`/${this.$i18n.locale}/servers`)
+        }
+      }
 
-      // catchNetworkError(e)
-      // this.connState = 2
+      catchNetworkError(e)
+      this.connState = 2
     }
   },
   destroyed() {

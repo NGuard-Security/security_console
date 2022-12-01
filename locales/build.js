@@ -3,8 +3,6 @@ const lodash = require('lodash')
 const PublicGoogleSheetsParser = require('public-google-sheets-parser')
 const { color } = require('../functions/console')
 
-console.log(process.env.NODE_ENV)
-
 try {
   // https://docs.google.com/spreadsheets/d/1SHdSfnQsP1RMNW1emxeexZKSJ3AXppQhH71MnHf42rw/edit?usp=sharing
   const parser = new PublicGoogleSheetsParser()
