@@ -247,8 +247,8 @@
           <!-- 초대링크 이용 유저 그래프 -->
           {{ $t('summary.graph.title') }}
         </h2>
-        <div style="width: 100%; height: 400px">
-          <canvas id="myChart"></canvas>
+        <div class="userGraph w-full p-4 rounded-lg">
+          <canvas ref="myChart"></canvas>
         </div>
       </div>
     </transition>
@@ -406,6 +406,11 @@
     }
   }
 }
+
+.userGraph {
+  height: 400px;
+  background-color: $color-wrap;
+}
 </style>
 
 <script>
@@ -436,26 +441,115 @@ export default {
     }
   },
   async mounted() {
-    function initChart() {
-      let ctx = document.getElementById('myChart')
+    window.addEventListener('resize', this.resizeAlerts)
+
+    const socket = io('http://127.0.0.1:4000/')
+
+    socket.on('push:load', pushs => {
+      this.alerts.contents = pushs
+    })
+
+    socket.on('push:check', pushs => {
+      let alerts = [].concat(this.alerts.contents, pushs)
+
+      for (let i=0; i < alerts.length; i++) {
+        if (Number(alerts[i].due) < new Date().getTime()) {
+          alerts.splice(i, 1)
+          i--
+        }
+      }
+
+      this.alerts.contents = alerts.sort(a => {
+        if (a.kind == 'emerg') return -1
+        if (a.kind == 'danger') return 0
+        if (a.kind == 'warning') return 1
+        if (a.kind == 'success') return 2
+        if (a.kind == 'alert') return 3
+      })
+      
+      this.resizeAlerts()
+    })
+
+    socket.on('push:error', e => {
+      console.log(e)
+      alert('통신 중 오류가 발생하였습니다. 채널톡으로 문의해 주세요.')
+    })
+
+    socket.emit('push:load', {
+      guild: this.$route.query.id,
+      access_token: localStorage.getItem('access_token'),
+    })
+
+    this.alerts.interval = setInterval(() => {
+      socket.emit('push:check', {
+        guild: this.$route.query.id,
+        access_token: localStorage.getItem('access_token'),
+        already: this.alerts.contents.map(alert => alert.id),
+      })
+
+      new Audio('/audio/alarm.mp3').play()
+    }, 5000)
+
+    try {
+      this.summary = (
+        await this.$axios.$get('/dashboard/summary?id=' + this.$route.query.id, {
+          headers: {
+            access_token: localStorage.getItem('access_token'),
+          },
+        })
+      ).data
+
+      setTimeout(() => {
+        this.initChart()
+        this.resizeAlerts()
+      }, 100)
+
+      this.connState = 1
+    } catch (e) {
+      if (e.response) {
+        if (e.response.data.message == 'Missing Access') {
+          this.$router.push(`/${this.$i18n.locale}/servers`)
+        }
+      }
+
+      catchNetworkError(e)
+      this.connState = 2
+    }
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.resizeAlerts)
+
+    clearInterval(this.alerts.interval)
+    this.alerts.interval = null
+  },
+  directives: {
+    clickOutside: vClickOutside.directive,
+  },
+  methods: {
+    isMobile() {
+      return window.innerWidth <= 660
+    },
+    resizeAlerts() {
+      try {
+        if (!this.alerts.isOpened) {
+          this.alertCenterHeight = document.querySelectorAll('.card.alert')[0].offsetHeight + 'px'
+        } else {
+          this.alertCenterHeight = 'auto'
+        }
+      } catch (e) {}
+    },
+    setAlertsIsOpened() {
+      this.alerts.isOpened = !this.alerts.isOpened
+      this.resizeAlerts()
+    },
+    initChart() {
+      // let ctx = document.getElementById('myChart').getContext('2d')
+      let ctx = this.$refs.myChart.getContext('2d')
 
       new Chart(ctx, {
         type: 'line',
         data: {
-          labels: [
-            "1월",
-            "2월",
-            "3월",
-            "4월",
-            "5월",
-            "6월",
-            "7월",
-            "8월",
-            "9월",
-            "10월",
-            "11월",
-            "12월"
-          ],
+          labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
           datasets: [
             {
               data: this.summary.chart_data,
@@ -492,133 +586,7 @@ export default {
           },
         },
       })
-
-      this.resizeAlerts()
     }
-
-    window.addEventListener('resize', this.resizeAlerts)
-
-    // const example = [
-    //     { kind: 'emerg', title: "보안 위협이 차단되었습니다.", content: "중복 접속을 확인하여 접속을 차단했습니다.", button: { "text": "자세히 보기", "href": "/dashboard/invite?id="+this.$route.query.id } },
-    //     { kind: 'danger', title: "인증 방식이 보안에 취약합니다!", content: "조치하기를 눌러 설정을 변경해 주세요.", button: { "text": "조치하기", "href": "https://google.com" } },
-    //     { kind: 'warning', title: "Google 인증이 지원 중단됩니다.", content: "자세한 내용은 공지사항을 참고해 주세요.", button: { "text": "공지사항 보기", "href": "https://google.com" } },
-    //     { kind: 'success', title: "예시 타이틀", content: "예시 내용", button: { "text": "와 쌘즈", "href": "https://google.com" } },
-    //     { kind: 'alert', title: "예시 타이틀", content: "예시 내용", button: { "text": "Xin chao!", "href": "https://google.com" } },
-    //     { kind: 'alert', title: "예시 타이틀", content: "예시 내용", button: { "text": "minsu_kim@bishanoi.net", "href": "mailto:minsu_kim@bishanoi.net" } }
-    // ]
-
-    // this.alerts.contents = example.sort((a, b) => {
-    //     if(a.kind == 'emerg') return -1;
-    //     if(a.kind == 'danger') return 0;
-    //     if(a.kind == 'warning') return 1;
-    //     if(a.kind == 'success') return 2;
-    //     if(a.kind == 'alert') return 3;
-    // });
-
-    try {
-      const socket = io('http://127.0.0.1:4000/') // in-development, should be 127.0.0.1. do not localhost.
-
-      socket.on('push:load', pushs => {
-        this.alerts.contents = pushs
-      })
-
-      socket.on('push:check', pushs => {
-        if (pushs.length == 0) {
-          return
-        }
-
-        let alerts = this.alerts.contents.concat(pushs)
-
-        for (let i in alerts) {
-          if (alerts[i].due < new Date().getTime()) {
-            alerts.splice(i, 1)
-            i--
-          }
-        }
-
-        this.alerts.contents = alerts.sort(a => {
-          if (a.kind == 'emerg') return -1
-          if (a.kind == 'danger') return 0
-          if (a.kind == 'warning') return 1
-          if (a.kind == 'success') return 2
-          if (a.kind == 'alert') return 3
-        })
-
-        this.resizeAlerts()
-      })
-
-      socket.on('push:error', e => {
-        console.log(e)
-        alert('통신 중 오류가 발생하였습니다. 채널톡으로 문의해 주세요.')
-      })
-
-      socket.emit('push:load', {
-        guild: this.$route.query.id,
-        access_token: localStorage.getItem('access_token'),
-      })
-
-      this.alerts.interval = setInterval(() => {
-        socket.emit('push:check', {
-          guild: this.$route.query.id,
-          access_token: localStorage.getItem('access_token'),
-          already: this.alerts.contents.map(alert => alert.id),
-        })
-
-        //사용자 입력 없을시 소리 재생 안함
-        // new Audio('/audio/alarm.mp3').play()
-      }, 2000)
-
-      this.summary = (
-        await this.$axios.$get('/dashboard/summary?id=' + this.$route.query.id, {
-          headers: {
-            access_token: localStorage.getItem('access_token'),
-          },
-        })
-      ).data
-
-      setTimeout(initChart(), 10)
-
-      this.connState = 1
-    } catch (e) {
-      console.log("🚀 > mounted > e", e);
-      
-      if (e.response) {
-        if (e.response.data.message == 'Missing Access') {
-          alert('로그인 세션이 만료되었습니다.')
-          this.$router.push(`/${this.$i18n.locale}/servers`)
-        }
-      }
-
-      catchNetworkError(e)
-      this.connState = 2
-    }
-  },
-  destroyed() {
-    window.removeEventListener('resize', this.resizeAlerts)
-
-    clearInterval(this.alerts.interval)
-    this.alerts.interval = null
-  },
-  directives: {
-    clickOutside: vClickOutside.directive,
-  },
-  methods: {
-    isMobile() {
-      return window.innerWidth <= 660
-    },
-    resizeAlerts() {
-      try {
-        if (!this.alerts.isOpened) {
-          this.alertCenterHeight = document.querySelectorAll('.card.alert')[0].offsetHeight + 'px'
-        } else {
-          this.alertCenterHeight = 'auto'
-        }
-      } catch (e) {}
-    },
-    setAlertsIsOpened() {
-      this.alerts.isOpened = !this.alerts.isOpened
-      this.resizeAlerts()
-    },
   },
 }
 </script>
