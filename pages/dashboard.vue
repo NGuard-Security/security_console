@@ -95,6 +95,10 @@ main {
         }
       }
     }
+
+    .btn-save {
+      font-size: 18px !important;
+    }
   }
 
   @media (max-width: 767px) {
@@ -397,6 +401,23 @@ main {
 
     svg {
       fill: $color-gray;
+    }
+  }
+
+  .btn-save {
+    margin-top: 20px;
+    padding: 10px;
+    background: $color-highlight;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    &:hover {
+      background: darken($color-highlight, 7%);
     }
   }
 

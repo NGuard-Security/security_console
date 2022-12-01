@@ -160,26 +160,6 @@
   }
 }
 
-.btn-save {
-  @media (max-width: 660px) {
-    font-size: 18px !important;
-  }
-
-  margin-top: 20px;
-  padding: 10px;
-  background: $color-highlight;
-  border-radius: 10px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-
-  &:hover {
-    background: darken($color-highlight, 7%);
-  }
-}
-
 .modal {
   .vm--overlay {
     background: rgba(0, 0, 0, 0.7) !important;
