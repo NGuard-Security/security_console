@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- 모바일 검은 배경 -->
     <transition appear name="bg" mode="out-in">
       <div
         v-if="showNav && isMobile"
@@ -8,9 +9,12 @@
       ></div>
     </transition>
 
+    <!-- navBar -->
     <div style="background: #151720" class="navbarWrap fixed z-20">
       <div class="navbar flex flex-col shrink-0 w-40 lg:w-64 md:w-56 ml-0 lg:ml-36 p-4 select-none">
         <div class="navMob flex items-center justify-between mb-5 pl-2">
+          
+          <!-- 모바일 왼쪽 메뉴 버튼 -->
           <div @click="showNav = !showNav" class="menuIcon cursor-pointer shrink-0">
             <svg
               v-if="!showNav"
@@ -40,24 +44,36 @@
               />
             </svg>
           </div>
+
+          <!-- 서버 선택 드롭다운 -->
           <div v-click-outside="clickServerMenu" class="serverSelect relative min-w-0 w-full" @click="closeNav">
+            
+            <!-- 서버 선택 드롭다운의 버튼 -->
             <div
               @click="showServerMenu = !showServerMenu"
               :class="{ on: showServerMenu }"
               class="serverBtn flex items-center px-2 py-2 w-full border border-slate-700/[.2] rounded-lg cursor-pointer"
             >
-              <nuxt-img
-                v-if="server[0].id"
-                :src="'https://cdn.discordapp.com/icons/' + server[0].id + '/' + server[0].icon + '.png?size=128'"
-                alt="server logo"
-                class="w-8 mr-2 rounded-lg"
-              />
-              <nuxt-img v-else :src="`img/${server[0].icon}`" alt="server logo" class="w-8 mr-2 rounded-lg" />
-              <span class="mr-auto text-sm text-gray-300 text-ellipsis whitespace-nowrap overflow-hidden">
+              <div class="w-8 h-8 mr-2 rounded-lg overflow-hidden shrink-0">
+                <div v-if="!server[0].id">
+                </div>
+                <nuxt-img
+                  v-else-if="server[0].icon"
+                  :src="'https://cdn.discordapp.com/icons/' + server[0].id + '/' + server[0].icon + '.png?size=64'"
+                  alt="server logo"
+                  class="w-full h-full"
+                />
+                <div v-else class="w-full h-full flex items-center justify-center text-white" style="background: #37383d">
+                  <span>{{ server[0].name.substr(0, 1) }}</span>
+                </div>
+              </div>
+              
+              
+              <span class="serverBtn_name mr-auto text-sm text-gray-300 text-ellipsis whitespace-nowrap overflow-hidden">
                 {{ server[0].name }}
               </span>
               <svg
-                class="w-6 ml-1 fill-gray-500"
+                class="w-6 ml-1 fill-gray-500 shrink-0"
                 clip-rule="evenodd"
                 fill-rule="evenodd"
                 stroke-linejoin="round"
@@ -71,6 +87,7 @@
               </svg>
             </div>
 
+            <!-- 서버 선택 드롭다운의 메뉴 -->
             <transition appear name="fade" mode="out-in">
               <div
                 v-if="showServerMenu"
@@ -78,25 +95,23 @@
               >
                 <div v-for="server in server">
                   <NuxtLink
-                    :to="'/' + $i18n.locale + '/bridge?id=' + server.id"
+                    :to="'/' + $i18n.locale + '/' + (server.now ? 'dashboard' : 'bridge') + '?id=' + server.id"
                     class="dropdownMenu"
-                    v-if="!server.now"
                   >
-                    <nuxt-img
-                      v-if="server.id"
-                      :src="'https://cdn.discordapp.com/icons/' + server.id + '/' + server.icon + '.png?size=128'"
-                      alt="server logo"
-                    />
-                    <nuxt-img v-else :src="`img/${server.icon}`" alt="server logo" />
-                    <span>{{ server.name }}</span>
-                  </NuxtLink>
-                  <NuxtLink :to="'/' + $i18n.locale + '/dashboard?id=' + server.id" class="dropdownMenu" v-else>
-                    <nuxt-img
-                      v-if="server.id"
-                      :src="'https://cdn.discordapp.com/icons/' + server.id + '/' + server.icon + '.png?size=128'"
-                      alt="server logo"
-                    />
-                    <nuxt-img v-else :src="`img/${server.icon}`" alt="server logo" />
+                    <div class="dropdownMenu_img overflow-hidden">
+                      <div v-if="!server.id">
+                      </div>
+                      <nuxt-img
+                        v-else-if="server.icon"
+                        :src="'https://cdn.discordapp.com/icons/' + server.id + '/' + server.icon + '.png?size=64'"
+                        alt="server logo"
+                        class="w-full h-full"
+                      />
+                      <div v-else class="w-full h-full flex items-center justify-center text-white" style="background: #37383d">
+                        <span>{{ server.name.substr(0, 1) }}</span>
+                      </div>
+                    </div>
+                    
                     <span>{{ server.name }}</span>
                   </NuxtLink>
                 </div>
@@ -105,6 +120,7 @@
           </div>
         </div>
 
+        <!-- 네비게이션 메뉴 -->
         <transition appear name="nav" mode="out-in">
           <nav v-if="showNav" style="background: #151720" class="flex flex-col text-gray-400 text-sm gap-1 lg:gap-1.5">
             <NuxtLink :to="'/' + $i18n.locale + '/dashboard?id=' + this.$route.query.id" class="nav_item">
@@ -324,7 +340,7 @@ export default {
           height: 100%;
         }
 
-        span {
+        .serverBtn_name {
           font-size: 1.2rem;
         }
       }
@@ -343,7 +359,7 @@ export default {
           padding: 1.2rem 0 1.2rem 1.5rem !important;
           font-size: 20px;
 
-          img {
+          .dropdownMenu_img {
             width: 2.4rem;
             height: 2.4rem;
           }
@@ -372,7 +388,7 @@ export default {
         margin-right: 8px;
       }
 
-      span {
+      .serverBtn_name {
         display: none;
       }
 
@@ -408,7 +424,7 @@ export default {
     background: $color-white-transparent;
   }
 
-  img {
+  .dropdownMenu_img {
     width: 1.4rem;
     height: 1.4rem;
     margin-right: 10px;

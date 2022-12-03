@@ -17,10 +17,26 @@
             class="server flex flex-col gap-1 p-3 text-white items-center rounded-xl mx-auto"
           >
             <div class="flex justify-between w-full gap-4 mb-3">
-              <nuxt-img
+              
+              
+              <!-- <nuxt-img
                 :src="'https://cdn.discordapp.com/icons/' + server.id + '/' + server.icon + '.png?size=128'"
                 class="w-14 rounded-xl shrink-0"
-              />
+              /> -->
+
+              <div class="w-14 h-14 rounded-xl overflow-hidden shrink-0">
+                <div v-if="!server.id">
+                </div>
+                <nuxt-img
+                  v-else-if="server.icon"
+                  :src="'https://cdn.discordapp.com/icons/' + server.id + '/' + server.icon + '.png?size=128'"
+                  alt="server logo"
+                  class="w-full h-full"
+                />
+                <div v-else class="w-full h-full text-2xl flex items-center justify-center text-white" style="background: #37383d">
+                  <span>{{ server.name.substr(0, 1) }}</span>
+                </div>
+              </div>
 
               <h3 class="w-full h-fit my-auto font-bold leading-6 overflow-hidden text-ellipsis">
                 {{ server.name }}
