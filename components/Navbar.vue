@@ -13,7 +13,6 @@
     <div style="background: #151720" class="navbarWrap fixed z-20">
       <div class="navbar flex flex-col shrink-0 w-40 lg:w-64 md:w-56 ml-0 lg:ml-36 p-4 select-none">
         <div class="navMob flex items-center justify-between mb-5 pl-2">
-          
           <!-- 모바일 왼쪽 메뉴 버튼 -->
           <div @click="showNav = !showNav" class="menuIcon cursor-pointer shrink-0">
             <svg
@@ -47,7 +46,6 @@
 
           <!-- 서버 선택 드롭다운 -->
           <div v-click-outside="clickServerMenu" class="serverSelect relative min-w-0 w-full" @click="closeNav">
-            
             <!-- 서버 선택 드롭다운의 버튼 -->
             <div
               @click="showServerMenu = !showServerMenu"
@@ -55,21 +53,25 @@
               class="serverBtn flex items-center px-2 py-2 w-full border border-slate-700/[.2] rounded-lg cursor-pointer"
             >
               <div class="w-8 h-8 mr-2 rounded-lg overflow-hidden shrink-0">
-                <div v-if="!server[0].id">
-                </div>
+                <div v-if="!server[0].id"></div>
                 <nuxt-img
                   v-else-if="server[0].icon"
                   :src="'https://cdn.discordapp.com/icons/' + server[0].id + '/' + server[0].icon + '.png?size=64'"
                   alt="server logo"
                   class="w-full h-full"
                 />
-                <div v-else class="w-full h-full flex items-center justify-center text-white" style="background: #37383d">
+                <div
+                  v-else
+                  class="w-full h-full flex items-center justify-center text-white"
+                  style="background: #37383d"
+                >
                   <span>{{ server[0].name.substr(0, 1) }}</span>
                 </div>
               </div>
-              
-              
-              <span class="serverBtn_name mr-auto text-sm text-gray-300 text-ellipsis whitespace-nowrap overflow-hidden">
+
+              <span
+                class="serverBtn_name mr-auto text-sm text-gray-300 text-ellipsis whitespace-nowrap overflow-hidden"
+              >
                 {{ server[0].name }}
               </span>
               <svg
@@ -99,19 +101,22 @@
                     class="dropdownMenu"
                   >
                     <div class="dropdownMenu_img overflow-hidden">
-                      <div v-if="!server.id">
-                      </div>
+                      <div v-if="!server.id"></div>
                       <nuxt-img
                         v-else-if="server.icon"
                         :src="'https://cdn.discordapp.com/icons/' + server.id + '/' + server.icon + '.png?size=64'"
                         alt="server logo"
                         class="w-full h-full"
                       />
-                      <div v-else class="w-full h-full flex items-center justify-center text-white" style="background: #37383d">
+                      <div
+                        v-else
+                        class="w-full h-full flex items-center justify-center text-white"
+                        style="background: #37383d"
+                      >
                         <span>{{ server.name.substr(0, 1) }}</span>
                       </div>
                     </div>
-                    
+
                     <span>{{ server.name }}</span>
                   </NuxtLink>
                 </div>

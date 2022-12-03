@@ -97,9 +97,7 @@
             {{ $t('summary.alarms.title') }}
           </h2>
           <div class="alertCenter p-4 rounded-lg">
-            <div v-if="(alerts.contents.length < 1)" class="alert_none">
-              알림이 없습니다.
-            </div>
+            <div v-if="alerts.contents.length < 1" class="alert_none">알림이 없습니다.</div>
             <div
               v-else
               :style="{ height: alertCenterHeight }"
@@ -300,7 +298,7 @@
 
 .alertCenter {
   background-color: $color-wrap;
-  
+
   .alert_none {
     padding-top: 3.5rem;
     padding-bottom: 3.5rem;
@@ -473,7 +471,7 @@ export default {
         }
       }
 
-      if(alerts_new.length > 0) {
+      if (alerts_new.length > 0) {
         new Audio('/audio/alarm.mp3').play()
       }
 
