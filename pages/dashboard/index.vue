@@ -464,25 +464,11 @@ export default {
     socket.on('push:check', pushs => {
       let alerts_new = pushs
 
-      for (let i = 0; i < alerts_new.length; i++) {
-        if (Number(alerts_new[i].due) < new Date().getTime()) {
-          alerts_new.splice(i, 1)
-          i--
-        }
-      }
-
       if (alerts_new.length > 0) {
         new Audio('/audio/alarm.mp3').play()
       }
 
       let alerts = this.alerts.contents
-
-      for (let i = 0; i < alerts.length; i++) {
-        if (Number(alerts[i].due) < new Date().getTime()) {
-          alerts.splice(i, 1)
-          i--
-        }
-      }
 
       alerts = [].concat(alerts, pushs)
 
