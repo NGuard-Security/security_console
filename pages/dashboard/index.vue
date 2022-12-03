@@ -464,7 +464,20 @@ export default {
     })
 
     socket.on('push:check', pushs => {
-      let alerts = [].concat(this.alerts.contents, pushs)
+      let alerts_new = pushs
+
+      for (let i = 0; i < alerts_new.length; i++) {
+        if (Number(alerts_new[i].due) < new Date().getTime()) {
+          alerts_new.splice(i, 1)
+          i--
+        }
+      }
+
+      if(alerts_new.length > 0) {
+        new Audio('/audio/alarm.mp3').play()
+      }
+
+      let alerts = this.alerts.contents
 
       for (let i = 0; i < alerts.length; i++) {
         if (Number(alerts[i].due) < new Date().getTime()) {
@@ -472,6 +485,8 @@ export default {
           i--
         }
       }
+
+      alerts = [].concat(alerts, pushs)
 
       this.alerts.contents = alerts.sort(a => {
         if (a.kind == 'emerg') return -1
@@ -500,8 +515,6 @@ export default {
         access_token: localStorage.getItem('access_token'),
         already: this.alerts.contents.map(alert => alert.id),
       })
-
-      new Audio('/audio/alarm.mp3').play()
     }, 5000)
 
     try {
