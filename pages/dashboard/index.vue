@@ -468,18 +468,7 @@ export default {
         new Audio('/audio/alarm.mp3').play()
       }
 
-      let alerts = this.alerts.contents
-
-      alerts = [].concat(alerts, pushs)
-
-      this.alerts.contents = alerts.sort(a => {
-        if (a.kind == 'emerg') return -1
-        if (a.kind == 'danger') return 0
-        if (a.kind == 'warning') return 1
-        if (a.kind == 'success') return 2
-        if (a.kind == 'alert') return 3
-      })
-
+      this.alerts.contents = [].concat(this.alerts.contents, pushs)
       this.resizeAlerts()
     })
 
