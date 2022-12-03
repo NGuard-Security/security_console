@@ -452,7 +452,7 @@ export default {
     socket.on('push:check', pushs => {
       let alerts = [].concat(this.alerts.contents, pushs)
 
-      for (let i=0; i < alerts.length; i++) {
+      for (let i = 0; i < alerts.length; i++) {
         if (Number(alerts[i].due) < new Date().getTime()) {
           alerts.splice(i, 1)
           i--
@@ -466,7 +466,7 @@ export default {
         if (a.kind == 'success') return 2
         if (a.kind == 'alert') return 3
       })
-      
+
       this.resizeAlerts()
     })
 
@@ -586,7 +586,7 @@ export default {
           },
         },
       })
-    }
+    },
   },
 }
 </script>

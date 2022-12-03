@@ -68,7 +68,7 @@
         <transition appear name="fade" mode="out-in">
           <div
             v-if="showMenu"
-            v-click-outside="(this.showMenu = false)"
+            v-click-outside="closeMenu"
             class="userMenu absolute flex flex-col left-0 mt-5 w-36 p-1.5 bg-black/[.8] rounded-lg backdrop-blur-sm z-40"
           >
             <NuxtLink :to="'/' + $i18n.locale + '/auth/logout'" class="dropdownMenu text-red-500 font-semibold">
@@ -221,6 +221,11 @@ export default {
     closeNav() {
       if (this.isMobile) {
         this.showNav = false
+      }
+    },
+    closeMenu() {
+      if (this.showMenu == true) {
+        this.showMenu = false
       }
     },
     windowResize() {
