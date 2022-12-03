@@ -91,13 +91,17 @@
 
         <div class="blank"></div>
 
-        <div v-if="alerts.contents.length > 0">
+        <div>
           <h2>
             <!-- 알림 목록 -->
             {{ $t('summary.alarms.title') }}
           </h2>
           <div class="alertCenter p-4 rounded-lg">
+            <div v-if="(alerts.contents.length < 1)" class="alert_none">
+              알림이 없습니다.
+            </div>
             <div
+              v-else
               :style="{ height: alertCenterHeight }"
               class="cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 overflow-hidden"
             >
@@ -296,6 +300,16 @@
 
 .alertCenter {
   background-color: $color-wrap;
+  
+  .alert_none {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    color: $color-gray;
+    font-size: 0.85rem;
+  }
 
   .alert {
     padding: 15px 20px !important;
