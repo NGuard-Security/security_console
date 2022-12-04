@@ -39,6 +39,7 @@ body {
 .ko {
   /* Korean Fonts */
   font-family: 'Pretendard Variable' !important;
+  font-feature-settings: 'ss05';
 }
 
 .en,
