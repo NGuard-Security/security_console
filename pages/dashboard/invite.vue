@@ -115,7 +115,7 @@
             <!-- 성공적으로 저장했습니다! -->
             {{ $t('common.modal.saved') }}
           </h2>
-          <div class="text-gray-400 pt-5">
+          <div class="flex flex-col text-gray-400 pt-3 gap-2">
             <span v-if="switch_.invite">
               <!-- 초대링크가 적용되었습니다. -->
               {{ $t('invite.modal.created') }}
@@ -125,7 +125,7 @@
               {{ $t('invite.modal.deleted') }}
             </span>
 
-            <br /><br />
+            <br />
 
             <!-- ℹ️ 이 창은 3초 후 자동으로 닫힙니다. -->
             {{ $t('common.modal.closeInfo') }}
@@ -138,10 +138,13 @@
             <!-- 저장 중 오류가 발생했습니다. -->
             {{ $t('common.errorModal.title') }}
           </h2>
-          <div class="text-gray-400 pt-5">
+          <div class="flex flex-col text-gray-400 pt-3 gap-2">
             <!-- ⚠️ 계속 오류가 발생하는 경우, 채널톡으로 문의 주시기 바랍니다.<br /><br />
             ℹ️ 이 창은 3초 후 자동으로 닫힙니다. -->
-            {{ $t('common.errorModal.description') }}<br /><br />
+            <span>{{ $t('common.errorModal.description') }}</span>
+
+            <br />
+            
             {{ $t('common.modal.closeInfo') }}
           </div>
           <div class="btns"></div>
