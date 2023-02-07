@@ -52,7 +52,7 @@
               <!-- 관리 -->
               {{ $t('servers.manageButton') }}
             </NuxtLink>
-            <a :href="'https://nguard.xyz/bot/invite?id=' + server.id" @click="openInvite" v-else>
+            <a :href="'/bot/invite?id=' + server.id" @click="openInvite" v-else>
               <!-- 초대하기 -->
               {{ $t('servers.inviteButton') }}
             </a>
