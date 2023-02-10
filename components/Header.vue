@@ -4,7 +4,7 @@
       <!-- 왼쪽 로고 -->
       <div style="height: 40px" class="logoImg mr-auto md:mr-0">
         <a href="https://nguard.xyz">
-          <nuxt-img src="/img/logo1.png" alt="NGuard logo" class="h-full" />
+          <img src="https://cdn.nguard.dev/assets/images/logo.png" alt="NGuard logo" class="h-full" />
         </a>
       </div>
 

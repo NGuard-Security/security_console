@@ -465,7 +465,7 @@ export default {
       let alerts_new = pushs
 
       if (alerts_new.length > 0) {
-        new Audio('/audio/alarm.mp3').play()
+        new Audio('https://cdn.nguard.dev/files/audio/console_alarm.mp3').play()
       }
 
       this.alerts.contents = [].concat(this.alerts.contents, pushs)
