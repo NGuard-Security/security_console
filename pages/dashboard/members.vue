@@ -108,9 +108,9 @@
         <!-- ⚠️ 계속 오류가 발생하는 경우, 채널톡으로 문의 주시기 바랍니다.<br /><br />
     ℹ️ 이 창은 3초 후 자동으로 닫힙니다. -->
         <span>{{ $t('common.errorModal.description') }}</span>
-        
+
         <br />
-        
+
         {{ $t('common.modal.closeInfo') }}
       </div>
       <div class="btns"></div>

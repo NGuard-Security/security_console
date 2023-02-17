@@ -1,7 +1,7 @@
 <template></template>
 
 <script>
-import { authEndpoint } from "@/config.json"
+import { authEndpoint } from '@/config.json'
 
 export default {
   mounted() {

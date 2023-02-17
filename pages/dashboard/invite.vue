@@ -144,7 +144,7 @@
             <span>{{ $t('common.errorModal.description') }}</span>
 
             <br />
-            
+
             {{ $t('common.modal.closeInfo') }}
           </div>
           <div class="btns"></div>

@@ -1,5 +1,5 @@
 <template>
-  <header class="fixed w-full text-sm bg-black z-30">
+  <header class="fixed w-full text-sm z-30">
     <div class="headerContent flex items-center lg:justify-between max-w-screen-xl mx-auto p-4 text-gray-200">
       <!-- 왼쪽 로고 -->
       <div style="height: 40px" class="logoImg mr-auto md:mr-0">
@@ -12,7 +12,7 @@
       <transition appear name="nav" mode="out-in">
         <div
           v-if="showNav"
-          class="headerNav absolute md:static flex flex-col md:flex-row items-center md:gap-3 top-full left-0 w-full md:w-auto m-0 md:ml-6 mr-auto lg:mr-0 py-2 md:p-0 bg-black"
+          class="headerNav absolute md:static flex flex-col md:flex-row items-center md:gap-3 top-full left-0 w-full md:w-auto m-0 md:ml-6 mr-auto lg:mr-0 py-2 md:p-0"
         >
           <a href="https://nguard.xyz" class="nav_item">
             <!-- 홈 -->
@@ -258,6 +258,10 @@ export default {
 .nav-enter,
 .nav-leave-to {
   opacity: 0;
+}
+
+header {
+  background: rgb(15, 16, 22);
 }
 
 @media (max-width: 660px) {

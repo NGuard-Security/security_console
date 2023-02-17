@@ -1,4 +1,4 @@
 {
   "apiEndpoint": "https://api.nguard.xyz",
-  "authEndpoint": "http://oracle1.sskate.me:3333"
+  "authEndpoint": "https://test3.nguard.dev"
 }
