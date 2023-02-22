@@ -352,6 +352,7 @@ export default {
       .serverMenu {
         position: absolute;
         width: calc(100vw - 0.625rem * 2);
+        border-radius: 20px;
 
         max-height: calc((2.4rem + 2.4rem + 0.125rem) * 5 + 0.5rem);
 
@@ -362,6 +363,7 @@ export default {
         .dropdownMenu {
           padding: 1.2rem 0 1.2rem 1.5rem !important;
           font-size: 20px;
+          border-radius: 15px;
 
           .dropdownMenu_img {
             width: 2.4rem;
@@ -445,6 +447,7 @@ export default {
   align-items: center;
   padding: 0.7rem;
   border-radius: 0.5rem;
+  width: 100%;
   display: flex;
   flex-shrink: 0;
   cursor: pointer;

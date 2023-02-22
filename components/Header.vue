@@ -12,7 +12,8 @@
       <transition appear name="nav" mode="out-in">
         <div
           v-if="showNav"
-          class="headerNav absolute md:static flex flex-col md:flex-row items-center md:gap-3 top-full left-0 w-full md:w-auto m-0 md:ml-6 mr-auto lg:mr-0 py-2 md:p-0"
+          v-click-outside="closeNav"
+          class="headerNav absolute md:static flex flex-col md:flex-row items-center md:gap-3 top-0 left-0 w-full md:w-auto m-0 md:mt-0 mt-16 md:ml-6 mr-auto lg:mr-0 p-2 md:p-0"
         >
           <a href="https://nguard.xyz" class="nav_item">
             <!-- 홈 -->
@@ -39,11 +40,11 @@
         {{ $t('navbar.login') }}
       </NuxtLink>
 
-      <!-- 유저 요소 -->
-      <div v-else class="userBtn-wrap relative">
+      <!-- 유저 요소 v-else -->
+      <div v-else v-click-outside="closeMenu" class="userBtn-wrap relative">
         <!-- 유저 버튼 -->
         <div
-          @click="showMenu = true"
+          @click="showMenu = !showMenu"
           :class="{ on: showMenu }"
           class="userBtn nav_item flex items-center gap-2 hover:bg-zinc-900 cursor-pointer"
         >
@@ -68,7 +69,6 @@
         <transition appear name="fade" mode="out-in">
           <div
             v-if="showMenu"
-            v-click-outside="closeMenu"
             class="userMenu absolute flex flex-col left-0 mt-5 w-36 p-1.5 bg-black/[.8] rounded-lg backdrop-blur-sm z-40"
           >
             <NuxtLink :to="'/' + $i18n.locale + '/auth/logout'" class="dropdownMenu text-red-500 font-semibold">
@@ -120,11 +120,7 @@
       </div>
 
       <!-- 모바일 메뉴 버튼 -->
-      <div
-        @click="showNav = !showNav"
-        v-click-outside="closeNav"
-        class="menuBtn md:hidden w-7 h-7 p-1.5 box-content fill-white cursor-pointer"
-      >
+      <div @click="showNav = !showNav" class="menuBtn md:hidden w-7 h-7 p-1.5 box-content fill-white cursor-pointer">
         <svg
           v-if="!showNav"
           clip-rule="evenodd"
@@ -211,7 +207,10 @@ export default {
       //   name: '라비 lavi#2253',
       //   icon: 'img/test.png'
       // },
-      user: {},
+      user: {
+        name: '_',
+        icon: '',
+      },
     }
   },
   directives: {
@@ -314,11 +313,17 @@ header {
   }
 }
 
-.headerNav .nav_item {
-  @media (max-width: 768px) {
+@media (max-width: 768px) {
+  .headerNav .nav_item {
     width: 100%;
     height: 100%;
     padding: 0.9rem 0 0.9rem 4rem !important;
+    margin: 0px 25px;
+  }
+  .headerNav {
+    background: rgba(15, 16, 22, 0.9);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 0px 0px 20px 20px;
   }
 }
 
@@ -326,6 +331,10 @@ header {
   //<모바일시> '헤더'와 '유저'의 (메뉴)의 패딩 통일
   .headerNav .nav_item {
     padding: 1.5rem 0 1.5rem 4rem !important;
+  }
+
+  .userMenu {
+    border-radius: 20px;
   }
 
   .userMenu .dropdownMenu {
@@ -339,6 +348,7 @@ header {
   @media (max-width: 660px) {
     //<모바일시> '헤더'와 '유저 드롭다운'의 (메뉴 아이템)의 폰트 크기 같게
     font-size: 18px;
+    border-radius: 15px;
   }
 
   &:hover {
