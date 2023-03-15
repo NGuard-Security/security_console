@@ -547,15 +547,20 @@ export default {
       // let ctx = document.getElementById('myChart').getContext('2d')
       let ctx = this.$refs.myChart.getContext('2d')
 
-      let labels = Array(12).fill().map((v, i) => i + 1).splice(new Date().getMonth() + 1)
-      let currentMonth = Array(new Date().getMonth() + 1).fill().map((v, i) => i + 1)
+      let labels = Array(12)
+        .fill()
+        .map((v, i) => i + 1)
+        .splice(new Date().getMonth() + 1)
+      let currentMonth = Array(new Date().getMonth() + 1)
+        .fill()
+        .map((v, i) => i + 1)
 
       for (let i in labels) {
-        labels[i] = `${(new Date().getFullYear() - 1).toString().substring(2,4)}년 ${labels[i]}월`
+        labels[i] = `${(new Date().getFullYear() - 1).toString().substring(2, 4)}년 ${labels[i]}월`
       }
-          
+
       for (let i in currentMonth) {
-        labels.push(`${(new Date().getFullYear().toString()).substring(2,4)}년 ${currentMonth[i]}월`)
+        labels.push(`${new Date().getFullYear().toString().substring(2, 4)}년 ${currentMonth[i]}월`)
       }
 
       let originalChartData = this.summary.chart_data

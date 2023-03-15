@@ -93,8 +93,7 @@
           한디리에서 NGuard Security 봇을 추천해 주시거나,<br />
           유료 플랜에 가입하셔야 합니다.<br /><br />
           한디리 추천은 12시간 마다 다시 추천 가능합니다. -->
-          <div class="text-gray-400 pt-5 pb-8" v-html="$t('invite.permissionModal.description')">
-          </div>
+          <div class="text-gray-400 pt-5 pb-8" v-html="$t('invite.permissionModal.description')"></div>
           <div class="btns flex items-center justify-around gap-2">
             <a href="https://koreanbots.dev/bots/937636597040570388/vote" target="_blank" class="btn-vote">
               <!-- 추천하기 -->

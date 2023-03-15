@@ -60,10 +60,7 @@
                   alt="server logo"
                   class="w-full h-full"
                 />
-                <div
-                  v-else
-                  class="w-full h-full flex items-center justify-center text-white bg-[#37383d]"
-                >
+                <div v-else class="w-full h-full flex items-center justify-center text-white bg-[#37383d]">
                   <span>{{ server[0].name.substr(0, 1) }}</span>
                 </div>
               </div>
@@ -107,10 +104,7 @@
                         alt="server logo"
                         class="w-full h-full"
                       />
-                      <div
-                        v-else
-                        class="w-full h-full flex items-center justify-center text-white bg-[#37383d]"
-                      >
+                      <div v-else class="w-full h-full flex items-center justify-center text-white bg-[#37383d]">
                         <span>{{ server.name.substr(0, 1) }}</span>
                       </div>
                     </div>
