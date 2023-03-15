@@ -2,7 +2,7 @@
   <header class="fixed w-full text-sm z-30">
     <div class="headerContent flex items-center lg:justify-between max-w-screen-xl mx-auto p-4 text-gray-200">
       <!-- 왼쪽 로고 -->
-      <div style="height: 40px" class="logoImg mr-auto md:mr-0">
+      <div class="logoImg mr-auto md:mr-0 h-[40px]">
         <a href="https://nguard.xyz">
           <img src="https://cdn.nguard.dev/assets/images/logo.png" alt="NGuard logo" class="h-full" />
         </a>

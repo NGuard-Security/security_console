@@ -48,6 +48,7 @@
             <ul class="list-l" v-if="list.method.show">
               <li
                 v-for="(name, index) in list.method.list"
+                v-bind:key="index"
                 @click="
                   select.method.index = index
                   select.method.isActive = false
@@ -88,11 +89,11 @@
             <!-- 한디리에서 봇을 추천해주세요 -->
             {{ $t('invite.permissionModal.title') }}
           </h2>
+          <!-- 초대 링크를 커스텀하려면<br />
+          한디리에서 NGuard Security 봇을 추천해 주시거나,<br />
+          유료 플랜에 가입하셔야 합니다.<br /><br />
+          한디리 추천은 12시간 마다 다시 추천 가능합니다. -->
           <div class="text-gray-400 pt-5 pb-8" v-html="$t('invite.permissionModal.description')">
-            <!-- 초대 링크를 커스텀하려면<br />
-            한디리에서 NGuard Security 봇을 추천해 주시거나,<br />
-            유료 플랜에 가입하셔야 합니다.<br /><br />
-            한디리 추천은 12시간 마다 다시 추천 가능합니다. -->
           </div>
           <div class="btns flex items-center justify-around gap-2">
             <a href="https://koreanbots.dev/bots/937636597040570388/vote" target="_blank" class="btn-vote">

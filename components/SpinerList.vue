@@ -8,7 +8,7 @@
       <div v-if="state == 0" class="state_wrap">
         <div class="state">
           <div class="spinner1"></div>
-          <p class="text-base pt-5" style="color: rgb(153, 153, 153)">
+          <p class="text-base pt-5 text-[#999999]">
             <!-- 서버 목록을 가져오고 있습니다... -->
             {{ $t('servers.loadingServer') }}
           </p>

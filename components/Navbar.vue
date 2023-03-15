@@ -10,7 +10,7 @@
     </transition>
 
     <!-- navBar -->
-    <div style="background: #151720" class="navbarWrap fixed z-20">
+    <div class="navbarWrap fixed z-20 bg-[#151720]">
       <div class="navbar flex flex-col shrink-0 w-40 lg:w-64 md:w-56 ml-0 lg:ml-36 p-4 select-none">
         <div class="navMob flex items-center justify-between mb-5 pl-2">
           <!-- 모바일 왼쪽 메뉴 버튼 -->
@@ -62,8 +62,7 @@
                 />
                 <div
                   v-else
-                  class="w-full h-full flex items-center justify-center text-white"
-                  style="background: #37383d"
+                  class="w-full h-full flex items-center justify-center text-white bg-[#37383d]"
                 >
                   <span>{{ server[0].name.substr(0, 1) }}</span>
                 </div>
@@ -95,7 +94,7 @@
                 v-if="showServerMenu"
                 class="serverMenu absolute flex flex-col mt-3 w-full p-1 rounded-lg backdrop-blur-md text-white text-sm border border-slate-700/[.2] gap-0.5 overflow-y-scroll"
               >
-                <div v-for="server in server">
+                <div v-for="(server, index) in server" v-bind:key="index">
                   <NuxtLink
                     :to="'/' + $i18n.locale + '/' + (server.now ? 'dashboard' : 'bridge') + '?id=' + server.id"
                     class="dropdownMenu"
@@ -110,8 +109,7 @@
                       />
                       <div
                         v-else
-                        class="w-full h-full flex items-center justify-center text-white"
-                        style="background: #37383d"
+                        class="w-full h-full flex items-center justify-center text-white bg-[#37383d]"
                       >
                         <span>{{ server.name.substr(0, 1) }}</span>
                       </div>
@@ -127,7 +125,7 @@
 
         <!-- 네비게이션 메뉴 -->
         <transition appear name="nav" mode="out-in">
-          <nav v-if="showNav" style="background: #151720" class="flex flex-col text-gray-400 text-sm gap-1 lg:gap-1.5">
+          <nav v-if="showNav" class="bg-[#151720] flex flex-col text-gray-400 text-sm gap-1 lg:gap-1.5">
             <NuxtLink :to="'/' + $i18n.locale + '/dashboard?id=' + this.$route.query.id" class="nav_item">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <path

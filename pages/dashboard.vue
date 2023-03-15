@@ -188,7 +188,7 @@ main {
     font-weight: 600;
     font-size: 1.4rem;
     line-height: 2rem;
-    margin-bottom: 0.4rem;
+    margin-bottom: 1rem;
   }
 
   > p {

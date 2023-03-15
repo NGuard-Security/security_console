@@ -22,7 +22,8 @@
         </p>
         <ul class="flex flex-col gap-4 h-full overflow-y-scroll">
           <li
-            v-for="member in memberList"
+            v-for="(member, index) in memberList"
+            v-bind:key="index"
             class="flex items-center shrink-0 rounded-lg px-3 py-3 text-ellipsis whitespace-nowrap overflow-hidden box-content"
           >
             <!-- <nuxt-img src="img/test.png" alt="user_logo" class="h-8 mr-2 rounded-lg" /> -->
@@ -43,8 +44,7 @@
             </button>
             <button
               v-else
-              class="text-sm text-red-500 p-1.5 rounded-lg ml-auto"
-              style="background: rgb(56, 23, 23)"
+              class="text-sm text-red-500 p-1.5 rounded-lg ml-auto bg-[#381717]"
               @click="sureRemoveBlackList(member.id, member.nickName)"
             >
               <!-- 블랙리스트 해제 -->
@@ -62,10 +62,9 @@
         <!-- {{ processBlackList.nickName }}님을 블랙리스트에 등록하시겠어요? -->
         {{ $t('members.modal1.title').replace('{Place}', processBlackList.nickName) }}
       </h2>
-      <div class="text-gray-400 pt-5 pb-8" v-html="$t('members.modal1.description')">
-        <!-- ⚠️ 블랙리스트 등록 후 일정 기간 동안은 등록을 취소 할 수 있으나,<br />
-        일정 기간이 지나면 등록을 취소 할 수 없습니다.<br /> -->
-      </div>
+      <!-- ⚠️ 블랙리스트 등록 후 일정 기간 동안은 등록을 취소 할 수 있으나,<br />
+      일정 기간이 지나면 등록을 취소 할 수 없습니다.<br /> -->
+      <div class="text-gray-400 pt-5 pb-8" v-html="$t('members.modal1.description')"></div>
       <div class="btns flex items-center justify-around gap-2">
         <a @click="setBlackList()" class="btn-vote">
           <!-- 확인 -->

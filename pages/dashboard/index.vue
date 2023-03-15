@@ -104,7 +104,8 @@
               class="cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 overflow-hidden"
             >
               <div
-                v-for="item in !alerts.isOpened ? alerts.contents.slice(0, 4) : alerts.contents"
+                v-for="(item, index) in !alerts.isOpened ? alerts.contents.slice(0, 4) : alerts.contents"
+                v-bind:key="index"
                 class="card alert"
                 :class="'card_' + [item.kind]"
               >
@@ -546,13 +547,31 @@ export default {
       // let ctx = document.getElementById('myChart').getContext('2d')
       let ctx = this.$refs.myChart.getContext('2d')
 
+      let labels = Array(12).fill().map((v, i) => i + 1).splice(new Date().getMonth() + 1)
+      let currentMonth = Array(new Date().getMonth() + 1).fill().map((v, i) => i + 1)
+
+      for (let i in labels) {
+        labels[i] = `${(new Date().getFullYear() - 1).toString().substring(2,4)}년 ${labels[i]}월`
+      }
+          
+      for (let i in currentMonth) {
+        labels.push(`${(new Date().getFullYear().toString()).substring(2,4)}년 ${currentMonth[i]}월`)
+      }
+
+      let originalChartData = this.summary.chart_data
+      let chartData = originalChartData.splice(new Date().getMonth() + 1)
+      chartData = chartData.concat(originalChartData.slice(0, new Date().getMonth() + 1))
+
+      console.log(labels)
+      console.log(chartData)
+
       new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+          labels: labels,
           datasets: [
             {
-              data: this.summary.chart_data,
+              data: chartData,
               borderColor: 'rgb(33, 100, 226)',
               backgroundColor: 'rgb(33, 100, 226)',
               borderWidth: 3,

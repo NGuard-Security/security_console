@@ -13,7 +13,7 @@
         <div id="loading" class="absolute mx-auto">
           <div class="text-center">
             <div class="spinner"></div>
-            <h4 class="text-base pt-5" style="color: rgb(153, 153, 153)">
+            <h4 class="text-base pt-5 text-[#999999]">
               <!-- 로그아웃 중입니다... -->
               {{ $t('common.auth.logout.loading') }}
             </h4>

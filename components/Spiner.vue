@@ -6,7 +6,7 @@
   <div class="absolute left-0 top-5 items-center w-full flex justify-center">
     <transition name="spiner">
       <div v-if="state == 0" class="state_wrap">
-        <div style="height: 500px" class="state">
+        <div class="state h-[500px]">
           <h3 class="pb-8 text-2xl font-semibold">
             <!-- 불러오는 중 -->
             {{ $t('common.loading') }}
@@ -18,7 +18,7 @@
 
     <transition name="connErr">
       <div v-if="state == 2" class="state_wrap">
-        <div class="state" style="height: 500px">
+        <div class="state h-[500px]">
           <h4>
             <!-- 현재 응답이 지연되고 있습니다. -->
             {{ $t('common.ratelimit') }}

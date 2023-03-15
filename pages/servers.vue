@@ -7,13 +7,14 @@
       {{ $t('servers.selectServer') }}
     </h1>
 
-    <div style="min-height: 100px" class="relative w-full flex justify-center mb-20">
+    <div class="relative w-full flex justify-center mb-20 min-h-[100px]">
       <SpinerList :type="1" :state="connState" />
 
       <transition name="serverList">
         <div v-if="connState == 1" class="servers grid gap-8">
           <div
-            v-for="server in serverList"
+            v-for="(server, index) in serverList"
+            v-bind:key="index"
             class="server flex flex-col gap-1 p-3 text-white items-center rounded-xl mx-auto"
           >
             <div class="flex justify-between w-full gap-4 mb-3">
@@ -32,10 +33,9 @@
                 />
                 <div
                   v-else
-                  class="w-full h-full text-2xl flex items-center justify-center text-white"
-                  style="background: #37383d"
+                  class="w-full h-full text-2xl flex items-center justify-center bg-[#37383d] text-white select-none"
                 >
-                  <span>{{ server.name.substr(0, 1) }}</span>
+                  <span>{{ server.name.substring(0, 1) }}</span>
                 </div>
               </div>
 
