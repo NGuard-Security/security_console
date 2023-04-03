@@ -44,7 +44,7 @@ export default {
     '@nuxt/image',
 
     [
-      'nuxt-i18n',
+      '@nuxtjs/i18n',
       {
         locales: [
           { code: 'ko', iso: 'ko-KR', file: 'ko/index.js' },

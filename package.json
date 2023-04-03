@@ -21,6 +21,7 @@
   "dependencies": {
     "@nuxt/image": "^0.7.1",
     "@nuxtjs/axios": "^5.13.6",
+    "@nuxtjs/i18n": "^7.3.1",
     "@nuxtjs/pwa": "^3.3.5",
     "@nuxtjs/style-resources": "^1.2.1",
     "chart.js": "^3.9.1",
@@ -30,7 +31,6 @@
     "lodash.escaperegexp": "^4.1.2",
     "nuxt": "^2.15.8",
     "nuxt-google-sheets-parser": "^1.2.4",
-    "nuxt-i18n": "^6.28.1",
     "public-google-sheets-parser": "^1.2.6",
     "socket.io-client": "^4.5.4",
     "v-click-outside": "^3.2.0",
