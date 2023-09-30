@@ -372,7 +372,6 @@ export default {
       padding: 8px;
       width: 220px;
       height: 100vh;
-      font-size: 1.05rem;
 
       a {
         padding: 14px;

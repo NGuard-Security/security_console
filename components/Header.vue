@@ -49,7 +49,9 @@
           class="userBtn nav_item flex items-center gap-2 hover:bg-zinc-900 cursor-pointer"
         >
           <nuxt-img :src="user.icon" alt="user_logo" class="h-5 rounded-full" />
-          <span class="hidden lg:inline">{{ user.name }}</span>
+          <span class="hidden lg:inline">{{
+            user.discriminator == '0' ? user.global_name || user.username : user.name
+          }}</span>
           <svg
             class="w-5 fill-gray-500"
             clip-rule="evenodd"

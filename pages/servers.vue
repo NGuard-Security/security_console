@@ -186,7 +186,14 @@ export default {
         this.serverList = serverList.sort((a, b) => (a.isInvited ? -1 : 1))
         this.connState = 1
       } catch (e) {
-        this.connState = 2
+        console.log(e.response)
+        if (e.response?.status == 429) {
+          setTimeout(() => {
+            window.location.reload()
+          }, e.response?.data.error.retry_after * 1000)
+        } else {
+          this.connState = 2
+        }
       }
       return
     } else {

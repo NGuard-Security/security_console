@@ -456,7 +456,7 @@ export default {
   async mounted() {
     window.addEventListener('resize', this.resizeAlerts)
 
-    const socket = io('https://api.nguard.xyz/')
+    const socket = io('https://api-v2test.nguard.dev/')
 
     socket.on('push:load', pushs => {
       this.alerts.contents = pushs

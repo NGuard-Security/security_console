@@ -3,7 +3,7 @@
     state: 로딩중: 0, 응답지연: 2, 초대 필요: 3
   -->
 
-  <div class="absolute left-0 top-5 items-center w-full flex justify-center">
+  <div class="items-center w-full flex justify-center">
     <transition name="spiner">
       <div v-if="state == 0" class="state_wrap">
         <div class="state h-[500px]">

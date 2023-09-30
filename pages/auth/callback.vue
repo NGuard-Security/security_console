@@ -53,7 +53,7 @@ export default {
       return
     } else {
       try {
-        const login = await this.$axios.$post('/auth/callback', {
+        const login = await this.$axios.$post('/dashboard/auth/callback', {
           code: this.$route.query.code,
         })
 

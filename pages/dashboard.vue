@@ -24,6 +24,14 @@
 </style>
 
 <style lang="scss">
+.nuxt-progress {
+  background-color: #ff734c !important;
+}
+
+.nuxt-progress-failed {
+  background-color: red !important;
+}
+
 main {
   @media (max-width: 1023px) {
     padding: calc(2rem + 72px) 4rem 2rem 3rem;
@@ -38,16 +46,7 @@ main {
     }
 
     h2 {
-      font-size: 1.5rem !important;
       margin-bottom: 0.1rem !important;
-    }
-
-    label {
-      font-size: 1.3rem !important;
-    }
-
-    p {
-      font-size: 1rem !important;
     }
 
     input,
@@ -59,24 +58,6 @@ main {
         width: 2rem !important;
         height: 2rem !important;
       }
-    }
-
-    .switch {
-      &.switch_on {
-        &:before {
-          left: 30px !important;
-        }
-      }
-
-      &:before {
-        top: 2px !important;
-        left: 2px !important;
-        width: 36px !important;
-        height: 36px !important;
-      }
-
-      width: 70px !important;
-      height: 40px !important;
     }
 
     ul {
@@ -121,7 +102,6 @@ main {
 
       div {
         display: flex;
-        flex-direction: column;
         align-items: flex-start !important;
         gap: 5px;
       }
