@@ -1,7 +1,7 @@
 const fs = require('node:fs')
 const lodash = require('lodash')
 const PublicGoogleSheetsParser = require('public-google-sheets-parser')
-const { color } = require('../functions/console')
+const { color } = require('../util/console')
 
 try {
   // https://docs.google.com/spreadsheets/d/1SHdSfnQsP1RMNW1emxeexZKSJ3AXppQhH71MnHf42rw/edit?usp=sharing
