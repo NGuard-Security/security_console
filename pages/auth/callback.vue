@@ -57,14 +57,14 @@ export default {
       localStorage.setItem('access_token', login.access_token)
 
       setTimeout(() => {
-        location.replace(`/${this.$route.query.state || this.$i18n.locale || 'ko'}/servers`)
+        this.$router.push(`/${this.$route.query.state || this.$i18n.locale || 'ko'}/servers`)
       }, 1000)
     } catch (e) {
       if (e.response.status == 400) {
-        this.$router.push(`/${this.$i18n.locale}/auth/login`)
+        this.$router.push(`/${this.$route.query.state || this.$i18n.locale || 'ko'}/auth/login`)
       } else {
         alert(e.response.data.error.error_description || e)
-        this.$router.push(`/${this.$i18n.locale}/auth/login`)
+        this.$router.push(`/${this.$route.query.state || this.$i18n.locale || 'ko'}/auth/login`)
       }
     }
   },

@@ -173,7 +173,7 @@ export default {
       this.isMobile = true
     }
 
-    if (this.$route.path != '/auth/callback') {
+    if (!this.$route.path.includes('/auth/callback')) {
       try {
         if (localStorage.getItem('access_token')) {
           this.user = await this.$axios.$get('https://discord.com/api/v10/users/@me', {

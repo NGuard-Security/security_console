@@ -11,7 +11,7 @@ export default {
       opener.load_servers()
       window.close()
     } catch (e) {
-      location.replace('/servers')
+      this.$router.push('/servers')
     }
   },
 }

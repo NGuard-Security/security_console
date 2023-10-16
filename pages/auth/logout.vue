@@ -82,7 +82,7 @@ export default {
             }),
           )
 
-          location.replace(`/${this.$i18n.locale}/auth/login`)
+          this.$router.push(`/${this.$i18n.locale}/auth/login`)
         } else {
           alert($t('common.auth.logout.success'))
           location.replace('https://nguard.xyz/')
