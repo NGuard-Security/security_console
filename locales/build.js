@@ -1,4 +1,6 @@
 const fs = require('node:fs')
+const path = require('node:path')
+
 const lodash = require('lodash')
 const PublicGoogleSheetsParser = require('public-google-sheets-parser')
 const { color } = require('../util/console')
@@ -37,7 +39,8 @@ try {
       targetLanguages.forEach(lang => {
         console.log(`${color('green', '[Dictionary] ')} Creating ${lang} dictionary file...`)
 
-        fs.writeFileSync(`${__dirname}/${lang}/fallback.json`, JSON.stringify(dictionary[lang]))
+        fs.existsSync(path.join(__dirname, lang)) || fs.mkdirSync(path.join(__dirname, lang))
+        fs.writeFileSync(path.join(__dirname, lang, 'translation.json'), JSON.stringify(dictionary[lang]))
 
         console.log(`${color('green', '[Dictionary] ')} Created ${lang} dictionary file.`)
       })

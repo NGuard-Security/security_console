@@ -50,14 +50,14 @@ export default {
       '@nuxtjs/i18n',
       {
         locales: [
-          { code: 'ko', iso: 'ko-KR', file: 'ko/index.js' },
-          { code: 'en', iso: 'en-US', file: 'en/index.js' },
-          { code: 'en', iso: 'en-GB', file: 'en/index.js' },
-          { code: 'ja', iso: 'ja-JP', file: 'ja/index.js' },
-          { code: 'vi', iso: 'vi-VN', file: 'vi/index.js' },
+          { code: 'ko', iso: 'ko-KR', file: 'ko/translation' },
+          { code: 'en', iso: 'en-US', file: 'en/translation' },
+          { code: 'en', iso: 'en-GB', file: 'en/translation' },
+          { code: 'ja', iso: 'ja-JP', file: 'ja/translation' },
+          { code: 'vi', iso: 'vi-VN', file: 'vi/translation' },
         ],
         langDir: 'locales/',
-        lazy: false,
+        lazy: true,
         defaultLocale: 'ko',
         strategy: 'prefix_and_default',
         vuex: {
