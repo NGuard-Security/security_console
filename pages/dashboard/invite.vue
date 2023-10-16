@@ -198,7 +198,12 @@
               <!-- 취소 -->
               {{ $t('common.modal.btns.cancel') }}
             </a>
-            <a @click="$modal.hide('custom_domain'); saveSettings()">
+            <a
+              @click="
+                $modal.hide('custom_domain')
+                saveSettings()
+              "
+            >
               <!-- 확인 -->
               {{ $t('common.modal.btns.confirm') }}
             </a>
