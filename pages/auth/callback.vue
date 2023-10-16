@@ -55,6 +55,7 @@ export default {
       try {
         const login = await this.$axios.$post('/dashboard/auth/callback', {
           code: this.$route.query.code,
+          staging: Boolean(window.location.origin.includes('https://console-v2stg.nguard.dev'))
         })
 
         localStorage.setItem('access_token', login.access_token)

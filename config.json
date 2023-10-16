@@ -1,4 +1,3 @@
 {
-  "apiEndpoint": "https://api-v2test.nguard.dev",
-  "authEndpoint": "https://console-v2test.nguard.dev"
+  "apiEndpoint": "https://api-v2test.nguard.dev"
 }
