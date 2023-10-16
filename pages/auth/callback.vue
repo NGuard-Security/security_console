@@ -48,28 +48,23 @@
 <script>
 export default {
   async mounted() {
-    if (!['ko', 'en', 'ja', 'vi'].includes(location.pathname.split('/')[1])) {
-      this.$router.push(`/${this.$route.query.state}/auth/callback?code=${this.$route.query.code}`)
-      return
-    } else {
-      try {
-        const login = await this.$axios.$post('/dashboard/auth/callback', {
-          code: this.$route.query.code,
-          staging: Boolean(window.location.origin.includes('https://console-v2stg.nguard.dev'))
-        })
+    try {
+      const login = await this.$axios.$post('/dashboard/auth/callback', {
+        code: this.$route.query.code,
+        staging: Boolean(window.location.origin.includes('https://console-v2stg.nguard.dev'))
+      })
 
-        localStorage.setItem('access_token', login.access_token)
+      localStorage.setItem('access_token', login.access_token)
 
-        setTimeout(() => {
-          location.replace(`/${this.$i18n.locale}/servers`)
-        }, 1000)
-      } catch (e) {
-        if (e.response.status == 400) {
-          this.$router.push(`/${this.$i18n.locale}/auth/login`)
-        } else {
-          alert(e.response.data.error.error_description || e)
-          this.$router.push(`/${this.$i18n.locale}/auth/login`)
-        }
+      setTimeout(() => {
+        location.replace(`/${this.$route.query.state || this.$i18n.locale || 'ko'}/servers`)
+      }, 1000)
+    } catch (e) {
+      if (e.response.status == 400) {
+        this.$router.push(`/${this.$i18n.locale}/auth/login`)
+      } else {
+        alert(e.response.data.error.error_description || e)
+        this.$router.push(`/${this.$i18n.locale}/auth/login`)
       }
     }
   },
