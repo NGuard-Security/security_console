@@ -60,12 +60,11 @@ export default {
         this.$router.push(`/${this.$route.query.state || this.$i18n.locale || 'ko'}/servers`)
       }, 1000)
     } catch (e) {
-      if (e.response.status == 400) {
-        this.$router.push(`/${this.$route.query.state || this.$i18n.locale || 'ko'}/auth/login`)
-      } else {
+      if (e.response.status != 400 && e.response.status != 429) {
         alert(e.response.data.error.error_description || e)
-        this.$router.push(`/${this.$route.query.state || this.$i18n.locale || 'ko'}/auth/login`)
       }
+
+      this.$router.push(`/${this.$route.query.state || this.$i18n.locale || 'ko'}/auth/login`)
     }
   },
 }
