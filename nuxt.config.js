@@ -52,11 +52,12 @@ export default {
         locales: [
           { code: 'ko', iso: 'ko-KR', file: 'ko/index.js' },
           { code: 'en', iso: 'en-US', file: 'en/index.js' },
+          { code: 'en', iso: 'en-GB', file: 'en/index.js' },
           { code: 'ja', iso: 'ja-JP', file: 'ja/index.js' },
           { code: 'vi', iso: 'vi-VN', file: 'vi/index.js' },
         ],
         langDir: 'locales/',
-        lazy: true,
+        lazy: false,
         defaultLocale: 'ko',
         strategy: 'prefix_and_default',
         vuex: {
