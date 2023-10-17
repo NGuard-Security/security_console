@@ -30,7 +30,10 @@ export default {
   components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [],
+  buildModules: [
+    // https://go.nuxtjs.dev/tailwindcss
+    '@nuxtjs/tailwindcss',
+  ],
 
   // Build target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -41,7 +44,6 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
-    '@nuxtjs/tailwindcss',
     '@nuxtjs/style-resources',
 
     '@nuxt/image',
