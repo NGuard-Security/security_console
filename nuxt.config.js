@@ -51,7 +51,7 @@ export default {
   ],
 
   // The target property: https://go.nuxtjs.dev/config-target
-  target: 'static',
+  target: 'server',
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
