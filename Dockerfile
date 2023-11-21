@@ -1,9 +1,15 @@
-FROM node:18
+FROM node:18 as build
 
 WORKDIR /usr/src/app
 
-COPY . .
+COPY .yarn ./.yarn
+COPY package.json ./
+COPY yarn.lock ./
+COPY .yarnrc.yml ./
 
+RUN yarn install --immutable
+
+COPY . .
 RUN yarn build
 
 EXPOSE 3000
