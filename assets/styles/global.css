@@ -1,7 +1,3 @@
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable-dynamic-subset.css');
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable-std-dynamic-subset.css');
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable-jp-dynamic-subset.css');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -42,17 +38,21 @@ body {
 
 .ko {
   /* Korean Fonts */
-  font-family: 'Pretendard Variable' !important;
+  font-family: 'Wanted Sans Variable' !important;
   font-feature-settings: 'ss05';
 }
 
-.en,
-.vi {
-  /* English / Vietnamese (Latin) Fonts */
-  font-family: 'Pretendard Std Variable' !important;
+.en {
+  /* English (Latin) Fonts */
+  font-family: 'Wanted Sans Std Variable' !important;
 }
 
 .ja {
   /* Japanese Fonts */
   font-family: 'Pretendard JP Variable' !important;
+}
+
+.vi {
+  /* Vietnamese Fonts */
+  font-family: 'Be Vietnam Pro' !important;
 }
