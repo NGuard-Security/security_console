@@ -89,8 +89,9 @@
             <transition appear name="fade" mode="out-in">
               <div
                 v-if="showServerMenu"
-                class="serverMenu absolute flex flex-col mt-3 w-full p-1 rounded-lg backdrop-blur-md text-white text-sm border border-slate-700/[.2] gap-0.5 overflow-y-scroll"
+                class="serverMenu absolute flex flex-col mt-3 w-full p-1 rounded-lg bg-zinc-950 bg-opacity-60 text-white text-sm border border-slate-700/[.2] gap-0.5 overflow-y-scroll"
               >
+                <!-- backdrop-blur-md   ->   bg-zinc-950 bg-opacity-60 -->
                 <div v-for="(server, index) in server" v-bind:key="index">
                   <NuxtLink
                     :to="'/' + $i18n.locale + '/' + (server.now ? 'dashboard' : 'bridge') + '?id=' + server.id"
