@@ -436,13 +436,13 @@ export default {
   }
 
   display: flex;
-  align-items: center;
-  padding: 0.7rem;
-  border-radius: 0.5rem;
-  width: 100%;
-  display: flex;
   flex-shrink: 0;
+  align-items: center;
+  
+  width: 100%;
+  padding: 0.7rem;
   cursor: pointer;
+  border-radius: 0.5rem;
 }
 
 .nuxt-link-exact-active {
