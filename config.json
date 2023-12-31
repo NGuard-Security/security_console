@@ -1,3 +1,4 @@
 {
-  "apiEndpoint": "https://api-v2test.nguard.dev"
+  "apiEndpoint": "https://api.nguard.xyz",
+  "apiTestEndpoint": "https://api-v2test.nguard.dev"
 }
