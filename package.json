@@ -50,5 +50,5 @@
       "pre-commit": "yarn format"
     }
   },
-  "packageManager": "yarn@4.0.0-rc.53"
+  "packageManager": "yarn@4.0.2"
 }
