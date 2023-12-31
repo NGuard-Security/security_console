@@ -207,6 +207,12 @@ export default {
         })
       ).data
     } catch (e) {
+      if (e.response?.status === 429) {
+        setTimeout(() => {
+          window.location.reload()
+        }, e.response?.data.error.retry_after * 1000)
+      }
+
       catchNetworkError(e)
     }
   },
@@ -216,7 +222,7 @@ export default {
   data() {
     return {
       showServerMenu: false,
-      server: [{ name: this.$t('sidebar.loading'), icon: 'test.png' }],
+      server: [{ id: this.$route.query.id, name: this.$t('sidebar.loading'), icon: 'test.png' }],
       showNav: true,
       isMobile: false,
     }
