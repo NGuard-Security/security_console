@@ -11,7 +11,7 @@
     </h1>
 
     <transition name="contents">
-      <div v-if="connState == 1">
+      <div v-if="connState === 1">
         <div class="cards grid grid-cols-4 gap-3">
           <div class="card">
             <div class="card_content">
@@ -112,7 +112,7 @@
                 <div class="card_content alert_content">
                   <div class="alert_title flex items-center mb-3 text-xl" :class="'title_' + [item.kind]">
                     <svg
-                      v-if="item.kind == 'alert'"
+                      v-if="item.kind === 'alert'"
                       clip-rule="evenodd"
                       fill-rule="evenodd"
                       stroke-linejoin="round"
@@ -126,7 +126,7 @@
                       />
                     </svg>
                     <svg
-                      v-if="item.kind == 'success'"
+                      v-if="item.kind === 'success'"
                       clip-rule="evenodd"
                       fill-rule="evenodd"
                       stroke-linejoin="round"
@@ -140,7 +140,7 @@
                       />
                     </svg>
                     <svg
-                      v-if="item.kind == 'warning'"
+                      v-if="item.kind === 'warning'"
                       clip-rule="evenodd"
                       fill-rule="evenodd"
                       stroke-linejoin="round"
@@ -154,7 +154,7 @@
                       />
                     </svg>
                     <svg
-                      v-if="item.kind == 'danger'"
+                      v-if="item.kind === 'danger'"
                       clip-rule="evenodd"
                       fill-rule="evenodd"
                       stroke-linejoin="round"
@@ -168,7 +168,7 @@
                       />
                     </svg>
                     <svg
-                      v-if="item.kind == 'emerg'"
+                      v-if="item.kind === 'emerg'"
                       clip-rule="evenodd"
                       fill-rule="evenodd"
                       stroke-linejoin="round"
@@ -508,7 +508,10 @@ export default {
       this.connState = 1
     } catch (e) {
       if (e.response) {
-        if (e.response.data.message == 'Missing Access') {
+        if (e.response.status === 401) {
+          window.localStorage.removeItem('access_token')
+          this.$router.push(`/${this.$i18n.locale}/auth/login`)
+        } else if (e.response.data.message === 'Missing Access') {
           this.$router.push(`/${this.$i18n.locale}/servers`)
         }
       }

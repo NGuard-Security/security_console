@@ -21,7 +21,7 @@
     </h1>
 
     <transition name="contents">
-      <div v-if="connState == 1">
+      <div v-if="connState === 1">
         <h2>
           <!-- 커맨드 인증 설정 -->
           {{ $t('verify.category1.title') }}
@@ -55,7 +55,7 @@
               :placeholder="$t('verify.category1.rolePlaceholder')"
             />
             <ul class="list-l" v-if="list.role.show">
-              <li v-for="(role, index) in list.role.list" @click="input.role = role">
+              <li v-for="(role, index) in list.role.list" @click="input.role = role" v-bind:key="index">
                 {{ role?.name }}
               </li>
             </ul>
@@ -158,7 +158,10 @@ export default {
       this.connState = 1
     } catch (e) {
       if (e.response) {
-        if (e.response.data.message == 'Missing Access') {
+        if (e.response.status === 401) {
+          window.localStorage.removeItem('access_token')
+          this.$router.push(`/${this.$i18n.locale}/auth/login`)
+        } else if (e.response.data.message === 'Missing Access') {
           this.$router.push(`/${this.$i18n.locale}/servers`)
         }
       }

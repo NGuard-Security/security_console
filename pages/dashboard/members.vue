@@ -10,7 +10,7 @@
       {{ $t('members.title') }}
     </h1>
     <transition name="contents">
-      <div v-if="connState == 1">
+      <div v-if="connState === 1">
         <input
           :placeholder="$t('members.searchPlaceholder')"
           class="mb-4 shrink-0"
@@ -200,7 +200,10 @@ export default {
       this.connState = 1
     } catch (e) {
       if (e.response) {
-        if (e.response.data.message == 'Missing Access') {
+        if (e.response.status === 401) {
+          window.localStorage.removeItem('access_token')
+          this.$router.push(`/${this.$i18n.locale}/auth/login`)
+        } else if (e.response.data.message === 'Missing Access') {
           this.$router.push(`/${this.$i18n.locale}/servers`)
         }
       }

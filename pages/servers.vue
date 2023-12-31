@@ -11,7 +11,7 @@
       <SpinerList :type="1" :state="connState" />
 
       <transition name="serverList">
-        <div v-if="connState == 1" class="servers grid gap-8">
+        <div v-if="connState === 1" class="servers grid gap-8">
           <div
             v-for="(server, index) in serverList"
             v-bind:key="index"
@@ -187,14 +187,18 @@ export default {
         this.connState = 1
       } catch (e) {
         console.log(e.response)
-        if (e.response?.status == 429) {
+        if (e.response?.status === 429) {
           setTimeout(() => {
             window.location.reload()
           }, e.response?.data.error.retry_after * 1000)
+        } else if (e.response?.status === 401) {
+          window.localStorage.removeItem('access_token')
+          this.$router.push(`/${this.$i18n.locale}/auth/login`)
         } else {
           this.connState = 2
         }
       }
+
       return
     } else {
       this.$router.push(`/${this.$i18n.locale}/auth/login`)

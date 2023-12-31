@@ -10,7 +10,7 @@
       {{ $t('invite.title') }}
     </h1>
     <transition name="contents">
-      <div v-if="connState == 1">
+      <div v-if="connState === 1">
         <div class="mb-6">
           <h2>
             <!-- 보안 초대링크 -->
@@ -350,7 +350,7 @@ export default {
       ).data
 
       this.isPermission = settings.koreanbots.data.voted
-      this.isEnterprise = settings.payData?.type == 'ENTERPRISE' && new Date().getTime() < settings.payData?.expire
+      this.isEnterprise = settings.payData?.type === 'ENTERPRISE' && new Date().getTime() < settings.payData?.expire
 
       if (settings.settings) {
         if (settings.settings.status != 0) {
@@ -377,7 +377,10 @@ export default {
       this.connState = 1
     } catch (e) {
       if (e.response) {
-        if (e.response.data.message == 'Missing Access') {
+        if (e.response.status === 401) {
+          window.localStorage.removeItem('access_token')
+          this.$router.push(`/${this.$i18n.locale}/auth/login`)
+        } else if (e.response.data.message === 'Missing Access') {
           this.$router.push(`/${this.$i18n.locale}/servers`)
         }
       }
