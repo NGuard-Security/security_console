@@ -4,7 +4,7 @@
       <!-- 왼쪽 로고 -->
       <div class="logoImg mr-auto md:mr-0 h-[40px]">
         <a href="https://nguard.xyz">
-          <img src="https://cdn.nguard.dev/assets/images/logo.png" alt="NGuard logo" class="h-full" />
+          <img src="https://cdn.nguard.dev/assets/common/images/logo.png" alt="NGuard logo" class="h-full" />
         </a>
       </div>
 
@@ -27,10 +27,10 @@
             <!-- 서포트 서버 -->
             {{ $t('navbar.support') }}
           </a>
-          <a href="https://nguard.xyz/upgrade" class="nav_item">
-            <!-- NGuard 유료 플랜 -->
-            {{ $t('navbar.upgrade') }}
-          </a>
+          <!-- <a href="https://nguard.xyz/upgrade" class="nav_item"> -->
+            <!-- NGuard 프리미어 플랜 -->
+            <!-- {{ $t('navbar.upgrade') }} -->
+          <!-- </a> -->
         </div>
       </transition>
 
