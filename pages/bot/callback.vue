@@ -8,7 +8,7 @@ export default {
     }
 
     try {
-      opener.load_servers()
+      opener.location.reload(true)
       window.close()
     } catch (e) {
       this.$router.push('/servers')

@@ -54,14 +54,14 @@ export default {
         staging: Boolean(window.location.origin == 'https://console-v2stg.nguard.dev'),
       })
 
-      localStorage.setItem('access_token', login.access_token)
+      localStorage.setItem('access_token', login.data.access_token)
 
       setTimeout(() => {
         this.$router.push(`/${this.$route.query.state || this.$i18n.locale || 'ko'}/servers`)
       }, 1000)
     } catch (e) {
       if (e.response.status != 400 && e.response.status != 429) {
-        alert(e.response.data.error.error_description || e)
+        alert(e.response.data.message || e)
       }
 
       this.$router.push(`/${this.$route.query.state || this.$i18n.locale || 'ko'}/auth/login`)
