@@ -1,4 +1,5 @@
-import { apiEndpoint } from './config.json'
+import { apiEndpoint, apiTestEndpoint } from './config.json'
+const { NODE_ENV } = process.env
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -17,17 +18,29 @@ export default {
       { rel: 'icon', href: '/favicon.ico' },
 
       /* Preconnect CDNs */
-      { rel: 'preconnect', href:'https://cdn.jsdelivr.net', crossorigin: 'anonymous' },
-      { rel: 'preconnect', href:'https://fonts.googleapis.com', crossorigin: 'anonymous' },
-      { rel: 'preconnect', href:'https://fonts.gstatic.com', crossorigin: 'anonymous' },
+      { rel: 'preconnect', href: 'https://cdn.jsdelivr.net', crossorigin: 'anonymous' },
+      { rel: 'preconnect', href: 'https://fonts.googleapis.com', crossorigin: 'anonymous' },
+      { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'anonymous' },
 
       /* Import Pretendard & Pretendard-Like font familes */
-      { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css' },
-      { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.0/packages/wanted-sans-std/fonts/webfonts/variable/split/WantedSansStdVariable.min.css' },
-      { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard-jp/dist/web/variable/pretendardvariable-jp-dynamic-subset.min.css' },
+      {
+        rel: 'stylesheet',
+        href: 'https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.0/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css',
+      },
+      {
+        rel: 'stylesheet',
+        href: 'https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.0/packages/wanted-sans-std/fonts/webfonts/variable/split/WantedSansStdVariable.min.css',
+      },
+      {
+        rel: 'stylesheet',
+        href: 'https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard-jp/dist/web/variable/pretendardvariable-jp-dynamic-subset.min.css',
+      },
 
       /* Import Be Vietnam Pro for support Vietnamese */
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap' },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap',
+      },
     ],
   },
 
@@ -92,7 +105,7 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: apiEndpoint || '/',
+    baseURL: (NODE_ENV === 'production' ? apiEndpoint : apiTestEndpoint) || '/',
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
