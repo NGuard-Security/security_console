@@ -81,51 +81,51 @@
           </form>
         </div>
 
-        <div class="mb-6">
-          <h2>
+        <!-- <div class="mb-6"> -->
+          <!-- <h2> -->
             <!-- 커스텀 초대링크 -->
-            {{ $t('invite.category2.title') }}
-          </h2>
-          <p>
+            <!-- {{ $t('invite.category2.title') }} -->
+          <!-- </h2> -->
+          <!-- <p> -->
             <!-- 소유하고 계신 도메인에 NGuard 초대링크를 설정할 수 있습니다. -->
-            {{ $t('invite.category2.description') }}
-          </p>
-          <form>
-            <div>
-              <label>
+            <!-- {{ $t('invite.category2.description') }} -->
+          <!-- </p> -->
+          <!-- <form> -->
+            <!-- <div> -->
+              <!-- <label> -->
                 <!-- 커스텀 초대링크 -->
-                {{ $t('invite.category2.toggle') }}
-              </label>
-              <div @click="inputSwitch('domain')" :class="{ switch_on: switch_.domain }" class="switch"></div>
-            </div>
+                <!-- {{ $t('invite.category2.toggle') }} -->
+              <!-- </label> -->
+              <!-- <div @click="inputSwitch('domain')" :class="{ switch_on: switch_.domain }" class="switch"></div> -->
+            <!-- </div> -->
 
-            <div class="vert" v-if="switch_.domain">
-              <p>
+            <!-- <div class="vert" v-if="switch_.domain"> -->
+              <!-- <p> -->
                 <!-- 도메인 설정 -->
-                {{ $t('invite.category2.link') }}
-              </p>
-              <div class="flex items-center">
-                <input
-                  class="input-m"
-                  id="inviteDomain_input"
-                  type="text"
-                  placeholder="도메인 입력"
-                  v-model="select.domain"
-                  v-bind:readonly="!isEnterprise"
-                  @click="clickCustomDomain()"
-                />
-              </div>
-            </div>
+                <!-- {{ $t('invite.category2.link') }} -->
+              <!-- </p> -->
+              <!-- <div class="flex items-center"> -->
+                <!-- <input -->
+                  <!-- class="input-m" -->
+                  <!-- id="inviteDomain_input" -->
+                  <!-- type="text" -->
+                  <!-- placeholder="도메인 입력" -->
+                  <!-- v-model="select.domain" -->
+                  <!-- v-bind:readonly="!isEnterprise" -->
+                  <!-- @click="clickCustomDomain()" -->
+                <!-- /> -->
+              <!-- </div> -->
+            <!-- </div> -->
 
-            <div class="flex" v-if="switch_.domain">
-              <label>
+            <!-- <div class="flex" v-if="switch_.domain"> -->
+              <!-- <label> -->
                 <!-- SSL 설정 -->
-                {{ $t('invite.category2.ssl') }}
-              </label>
-              <div @click="inputSwitch('domain_ssl')" :class="{ switch_on: switch_.domain_ssl }" class="switch"></div>
-            </div>
-          </form>
-        </div>
+                <!-- {{ $t('invite.category2.ssl') }} -->
+              <!-- </label> -->
+              <!-- <div @click="inputSwitch('domain_ssl')" :class="{ switch_on: switch_.domain_ssl }" class="switch"></div> -->
+            <!-- </div> -->
+          <!-- </form> -->
+        <!-- </div> -->
 
         <button class="btn-save" @click="checkSaveSettings()">
           <!-- 저장하기 -->
@@ -349,7 +349,7 @@ export default {
         })
       ).data
 
-      this.isPermission = settings.koreanbots.data.voted
+      this.isPermission = settings.koreanbots.voted
       this.isEnterprise = settings.payData?.type === 'ENTERPRISE' && new Date().getTime() < settings.payData?.expire
 
       if (settings.settings) {

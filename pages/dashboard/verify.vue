@@ -73,11 +73,13 @@
             <!-- 성공적으로 저장했습니다! -->
           </h2>
           <div class="flex flex-col text-gray-400 pt-3 gap-2">
-            <span v-if="switch_.confirm" v-html="$t('verify.modal.applied')">
+            <span v-if="switch_.confirm">
               <!-- 새로운 유저가 <code>/verify</code> 명령어로 인증할 수 있습니다. -->
+              {{ $t('verify.modal.applied') }}
             </span>
-            <span v-else v-html="$t('verify.modal.deleted')">
+            <span v-else>
               <!-- 새로운 유저는 더 이상 <code>/verify</code> 명령어로 인증할 수 없습니다. -->
+              {{ $t('verify.modal.deleted') }}
             </span>
 
             <br />
