@@ -480,13 +480,13 @@ export default {
 
     socket.emit('push:load', {
       guild: this.$route.query.id,
-      Authorization: "Bearer " + localStorage.getItem('access_token'),
+      access_token: localStorage.getItem('access_token'),
     })
 
     this.alerts.interval = setInterval(() => {
       socket.emit('push:check', {
         guild: this.$route.query.id,
-        Authorization: "Bearer " + localStorage.getItem('access_token'),
+        access_token: localStorage.getItem('access_token'),
         already: this.alerts.contents.map(alert => alert.id),
       })
     }, 5000)
