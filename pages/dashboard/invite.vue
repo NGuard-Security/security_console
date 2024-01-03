@@ -380,7 +380,7 @@ export default {
         if (e.response.status === 401) {
           window.localStorage.removeItem('access_token')
           this.$router.push(`/${this.$i18n.locale}/auth/login`)
-        } else if (e.response.data.message === 'Missing Access') {
+        } else if (e.response.status === 404) {
           this.$router.push(`/${this.$i18n.locale}/servers`)
         }
       }
