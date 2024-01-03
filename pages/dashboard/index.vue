@@ -480,13 +480,13 @@ export default {
 
     socket.emit('push:load', {
       guild: this.$route.query.id,
-      access_token: localStorage.getItem('access_token'),
+      Authorization: "Bearer " + localStorage.getItem('access_token'),
     })
 
     this.alerts.interval = setInterval(() => {
       socket.emit('push:check', {
         guild: this.$route.query.id,
-        access_token: localStorage.getItem('access_token'),
+        Authorization: "Bearer " + localStorage.getItem('access_token'),
         already: this.alerts.contents.map(alert => alert.id),
       })
     }, 5000)
@@ -495,7 +495,7 @@ export default {
       this.summary = (
         await this.$axios.$get('/dashboard/summary?id=' + this.$route.query.id, {
           headers: {
-            access_token: localStorage.getItem('access_token'),
+            Authorization: "Bearer " + localStorage.getItem('access_token'),
           },
         })
       ).data

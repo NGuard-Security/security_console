@@ -202,7 +202,7 @@ export default {
       this.server = (
         await this.$axios.$get('/dashboard/servers?id=' + this.$route.query.id, {
           headers: {
-            access_token: localStorage.getItem('access_token'),
+            Authorization: "Bearer " + localStorage.getItem('access_token'),
           },
         })
       ).data

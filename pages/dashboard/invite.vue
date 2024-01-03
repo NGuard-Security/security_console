@@ -344,7 +344,7 @@ export default {
       const settings = (
         await this.$axios.$get('/dashboard/invite?id=' + this.$route.query.id, {
           headers: {
-            access_token: localStorage.getItem('access_token'),
+            Authorization: "Bearer " + localStorage.getItem('access_token'),
           },
         })
       ).data
@@ -439,7 +439,7 @@ export default {
           },
           {
             headers: {
-              access_token: localStorage.getItem('access_token'),
+              Authorization: "Bearer " + localStorage.getItem('access_token'),
             },
           },
         )
