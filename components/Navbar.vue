@@ -210,7 +210,7 @@ export default {
       if (e.response?.status === 429) {
         setTimeout(() => {
           window.location.reload()
-        }, e.response?.data.error.retry_after * 1000)
+        }, e.response?.data.data.retry_after * 1000)
       }
 
       catchNetworkError(e)

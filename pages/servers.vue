@@ -190,7 +190,7 @@ export default {
         if (e.response?.status === 429) {
           setTimeout(() => {
             window.location.reload()
-          }, e.response?.data.error.retry_after * 1000)
+          }, e.response?.data.data.retry_after * 1000)
         } else if (e.response?.status === 401) {
           window.localStorage.removeItem('access_token')
           this.$router.push(`/${this.$i18n.locale}/auth/login`)
