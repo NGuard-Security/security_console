@@ -1,0 +1,54 @@
+{
+  "name": "security_dashboard",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "yarn lint && yarn dict && cross-env NODE_ENV=development nuxt",
+    "dev:host": "yarn lint && yarn dict && cross-env NODE_ENV=development nuxt --hostname 0.0.0.0 --port 3333",
+    "build": "yarn dict && nuxt build",
+    "generate": "yarn dict && nuxt generate",
+    "start": "cross-env NODE_ENV=production nuxt start",
+    "dict": "node locales/build.js",
+    "lint:prettier": "prettier --check .",
+    "lint": "yarn lintfix && yarn lint:prettier",
+    "lintfix": "prettier --write --list-different ."
+  },
+  "author": "Ayaan_ <minsu_kim@hanarin.uk>",
+  "dependencies": {
+    "@nuxt/image": "^0.7.1",
+    "@nuxtjs/axios": "^5.13.6",
+    "@nuxtjs/i18n": "^7.3.1",
+    "@nuxtjs/pwa": "^3.3.5",
+    "@nuxtjs/style-resources": "^1.2.1",
+    "chart.js": "^3.9.1",
+    "core-js": "^3.19.3",
+    "cross-env": "^7.0.3",
+    "lodash": "^4.17.21",
+    "lodash.escaperegexp": "^4.1.2",
+    "nuxt": "^2.15.8",
+    "nuxt-google-sheets-parser": "^1.2.4",
+    "public-google-sheets-parser": "^1.2.6",
+    "socket.io-client": "^4.5.4",
+    "v-click-outside": "^3.2.0",
+    "vercel": "^32.4.1",
+    "vue": "^2.6.14",
+    "vue-chartjs": "^4.1.1",
+    "vue-js-modal": "^2.0.1",
+    "vue-server-renderer": "^2.6.14",
+    "vue-template-compiler": "^2.6.14",
+    "webpack": "^4.46.0"
+  },
+  "devDependencies": {
+    "@nuxtjs/tailwindcss": "^5.3.1",
+    "eslint-config-prettier": "^8.3.0",
+    "prettier": "^2.5.1",
+    "sass": "^1.54.3",
+    "sass-loader": "10.1.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn format"
+    }
+  },
+  "packageManager": "yarn@4.0.2"
+}

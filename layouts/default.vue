@@ -1,6 +1,10 @@
+<script setup lang="ts">
+const i18n = useI18n();
+</script>
+
 <template>
-  <div :class="this.$i18n.locale">
-    <Header />
-    <Nuxt />
-  </div>
+	<div :class="'i18n_' + $i18n.locale">
+		<AppHeader />
+		<slot />
+	</div>
 </template>

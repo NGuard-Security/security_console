@@ -1,1 +1,139 @@
-{"common":{"loading":"Loading...","ratelimit":"The response is currently delayed.","tryagain":"Please try again in a few minutes.","save":"Save","alert":"Alert","modal":{"saved":"Successfully Saved!","btns":{"confirm":"Confirm","cancel":"Cancel"},"closeInfo":"ℹ️ This window will automatically close after 3 seconds."},"errorModal":{"title":"An error occurred during save.","description":"⚠️ If an error continues to occur, please contact us with channel.io."},"auth":{"login":{"title":"Sign in","loading":"Loading data..."},"logout":{"title":"Sign Out","loading":"Signing Out...","success":"You have been logged out."}}},"navbar":{"home":"Home","dashboard":"Dashboard","support":"Support server","upgrade":"NGuard Premiere Plan","login":"Sign in","logout":"Sign out"},"servers":{"selectServer":"Select the server","loadingServer":"Loading a list of servers...","manageButton":"Manage","inviteButton":"Invite"},"sidebar":{"loading":"Loading...","main":"Main","members":"Member Setting","invite":"Invitation link Setting","verify":"Verification Command"},"summary":{"title":"Main dashboard","totalMembers":"Total members","totalBots":"Total bots","newMembers":"New Members","totalBlacklists":"Blacklisted Members","peoplesTemplate":"n person","alarms":{"title":"Notification list","more":"View more","notfound":"There are no notifications."},"graph":{"title":"User graph using invitation link"}},"members":{"title":"Member setting","searchPlaceholder":"Search by name (nickname)","peoplesTemplate":"n member","registerBlacklist":"Blacklist registration","unregisterBlacklist":"Blacklist remove","modal1":{"title":"Would you like to register {Place} on a blacklist?","description":"⚠️ You can cancel your registration for a certain period of time after registering a blacklist, but <br />\nAfter a certain period of time, the registration cannot be canceled. <br />"},"modal2":{"title":"Would you like to delete {Place} from the blacklist?","description":"⚠️The blacklist immediately can use all the features."}},"invite":{"title":"Invitation link setting","category1":{"title":"Security invitation link","description":"It offers an invitation link with additional security.","toggle":"Security invitation link","type":{"title":"Security invitation method","option1":"ReCaptcha (recommended)","option2":"ReCaptcha + Social Login Verify","option3":"ReCaptcha + Multiple Verify (Best Security)"},"link":"Invitation link setting"},"category2":{"title":"Custom invitation link","description":"You can set the NGuard invitation link to your domain.","toggle":"Custom invitation link","link":"Domain setting","ssl":"SSL setup"},"permissionModal":{"title":"Please recommend a bot in Koreanlist","description":"To customize the invitation link, <br />\nVote NGuard Security Bot in Koreanlist, or <br />\nYou must join the premiere plan. <br /> <br />\nKoreanlist vote can be vote again every 12 hours.","btns":{"goVote":"Vote now","goUpgrade":"Paid plan"}},"premiereOnlyModal":{"title":"It is only available in the \"Enterprise\" Plan.","description":"This feature is provided by the \"Enterprise\" Plan.","btns":{"goUpgrade":"Paid plan"}},"customDomainModal":{"title":"Did you complete the DNS setting?","description":"Please refer to the link below to complete the DNS settings before pressing the 'Save' button. <br />\nSave without completing the DNS settings, the site may not work normally.","btns":{"goDocs":"See docs"}},"modal":{"created":"The invitation link has been applied.","deleted":"The invitation link has been deleted."}},"verify":{"title":"Command verification","category1":{"title":"Command verification setting","description":"The verification is carried out by the command within the server.","toggle":"Command verification","role":"Roles to be given after verification","rolePlaceholder":"Choose a role."},"modal":{"applied":"New users can be verificationed with commands <code>/verify </code> command.","deleted":"New users can no longer be verificationed by the <code>/verify </code> command."}}}
+{
+	"common": {
+		"loading": "Loading...",
+		"ratelimit": "The response is currently delayed.",
+		"tryagain": "Please try again in a few minutes.",
+		"save": "Save",
+		"alert": "Alert",
+		"modal": {
+			"saved": "Successfully Saved!",
+			"btns": { "confirm": "Confirm", "cancel": "Cancel" },
+			"closeInfo": "ℹ️ This window will automatically close after 3 seconds."
+		},
+		"errorModal": {
+			"title": "An error occurred during save.",
+			"description": "⚠️ If an error continues to occur, please contact us with channel.io."
+		},
+		"auth": {
+			"login": { "title": "Sign in", "loading": "Loading data..." },
+			"logout": {
+				"title": "Sign Out",
+				"loading": "Signing Out...",
+				"success": "You have been logged out."
+			}
+		}
+	},
+	"navbar": {
+		"home": "Home",
+		"dashboard": "Dashboard",
+		"support": "Support server",
+		"upgrade": "NGuard Premiere Plan",
+		"login": "Sign in",
+		"logout": "Sign out"
+	},
+	"servers": {
+		"selectServer": "Select the server",
+		"loadingServer": "Loading a list of servers...",
+		"manageButton": "Manage",
+		"inviteButton": "Invite"
+	},
+	"sidebar": {
+		"loading": "Loading...",
+		"main": "Main",
+		"members": "Member Setting",
+		"invite": "Invitation link Setting",
+		"verify": "Verification Command"
+	},
+	"summary": {
+		"title": "Main dashboard",
+		"totalMembers": "Total members",
+		"totalBots": "Total bots",
+		"newMembers": "New Members",
+		"totalBlacklists": "Blacklisted Members",
+		"peoplesTemplate": "n person",
+		"alarms": {
+			"title": "Notification list",
+			"more": "View more",
+			"notfound": "There are no notifications."
+		},
+		"graph": { "title": "User graph using invitation link" }
+	},
+	"members": {
+		"title": "Member setting",
+		"searchPlaceholder": "Search by name (nickname)",
+		"peoplesTemplate": "n member",
+		"registerBlacklist": "Blacklist registration",
+		"unregisterBlacklist": "Blacklist remove",
+		"modal1": {
+			"title": "Would you like to register {Place} on a blacklist?",
+			"description": "⚠️ You can cancel your registration for a certain period of time after registering a blacklist, but\nAfter a certain period of time, the registration cannot be canceled."
+		},
+		"modal2": {
+			"title": "Would you like to delete {Place} from the blacklist?",
+			"description": "⚠️The blacklist immediately can use all the features."
+		}
+	},
+	"invite": {
+		"title": "Invitation link setting",
+		"category1": {
+			"title": "Security invitation link",
+			"description": "It offers an invitation link with additional security.",
+			"toggle": "Security invitation link",
+			"type": {
+				"title": "Security invitation method",
+				"option1": "ReCaptcha (recommended)",
+				"option2": "ReCaptcha + Social Login Verify",
+				"option3": "ReCaptcha + Multiple Verify (Best Security)"
+			},
+			"link": "Invitation link setting"
+		},
+		"category2": {
+			"title": "Custom invitation link",
+			"description": "You can set the NGuard invitation link to your domain.",
+			"toggle": "Custom invitation link",
+			"link": "Domain setting",
+			"ssl": "SSL setup"
+		},
+		"permissionModal": {
+			"title": "Please recommend a bot in Koreanlist",
+			"description": "To customize the invitation link,\nVote NGuard Security Bot in Koreanlist, or\nYou must join the premiere plan.\nKoreanlist vote can be vote again every 12 hours.",
+			"btns": { "goVote": "Vote now", "goUpgrade": "Paid plan" }
+		},
+		"premiereOnlyModal": {
+			"title": "It is only available in the \"Enterprise\" Plan.",
+			"description": "This feature is provided by the \"Enterprise\" Plan.",
+			"btns": { "goUpgrade": "Paid plan" }
+		},
+		"customDomainModal": {
+			"title": "Did you complete the DNS setting?",
+			"description": "Please refer to the link below to complete the DNS settings before pressing the 'Save' button.\nSave without completing the DNS settings, the site may not work normally.",
+			"btns": { "goDocs": "See docs" }
+		},
+		"modal": {
+			"created": "The invitation link has been applied.",
+			"deleted": "The invitation link has been deleted."
+		}
+	},
+	"verify": {
+		"title": "Command verification",
+		"category1": {
+			"title": "Command verification setting",
+			"description": "The verification is carried out by the command within the server.",
+			"toggle": "Command verification",
+			"role": "Roles to be given after verification",
+			"rolePlaceholder": "Choose a role."
+		},
+		"modal": {
+			"applied": [
+				"New users can be verificationed with commands ",
+				"/verify",
+				" command."
+			],
+			"deleted": [
+				"New users can no longer be verificationed by the ",
+				"/verify",
+				" command."
+			]
+		}
+	}
+}

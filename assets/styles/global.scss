@@ -1,0 +1,54 @@
+* {
+  margin: 0;
+
+  &::-webkit-scrollbar {
+    width: 9px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgb(149, 149, 149);
+    background-clip: padding-box;
+    border-top: 12px;
+    border-bottom: 12px;
+    border-left: 3px;
+    border-right: 4px;
+    border-style: solid;
+    border-color: transparent;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+}
+
+body {
+  height: 100vh;
+  background: $color-bg;
+}
+
+#__nuxt,
+#__layout {
+  width: 100%;
+  height: 100%;
+}
+
+.i18n_ko {
+  /* Korean Fonts */
+  font-family: 'Wanted Sans Variable' !important;
+  font-feature-settings: 'ss05';
+}
+
+.i18n_en {
+  /* English (Latin) Fonts */
+  font-family: 'Wanted Sans Std Variable' !important;
+}
+
+.i18n_ja {
+  /* Japanese Fonts */
+  font-family: 'Pretendard JP Variable' !important;
+}
+
+.i18n_vi {
+  /* Vietnamese Fonts */
+  font-family: 'Be Vietnam Pro' !important;
+}
