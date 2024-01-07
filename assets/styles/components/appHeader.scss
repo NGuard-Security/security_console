@@ -1,0 +1,118 @@
+.nav-enter-active,
+.nav-leave-active {
+  transition: opacity 0.1s cubic-bezier(0.17, 0.84, 0.44, 1);
+}
+
+.nav-enter,
+.nav-leave-to {
+  opacity: 0;
+}
+
+header {
+  background: rgb(15, 16, 22);
+}
+
+@media (max-width: 660px) {
+  .headerContent {
+    padding: 0.8rem 1.2rem 0.8rem 2rem;
+  }
+
+  .logoImg {
+    height: 36px !important;
+  }
+
+  .menuBtn {
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+  }
+
+  .userBtn-wrap {
+    margin-right: 0.4rem !important;
+
+    .userBtn img {
+      height: 1.8rem !important;
+    }
+  }
+}
+
+.userBtn {
+  svg {
+    transition: transform 0.2s ease;
+  }
+
+  &.on svg {
+    transform: rotate(180deg);
+  }
+}
+
+@media (max-width: 660px) {
+  .userBtn-wrap {
+    position: static;
+  }
+
+  .userMenu {
+    width: calc(100vw - 20px);
+    left: 10px !important;
+  }
+}
+
+.userMenu {
+  @media (max-width: 1024px) {
+    left: calc(-100% - 20px);
+  }
+}
+
+@media (max-width: 768px) {
+  .headerNav .nav_item {
+    width: 100%;
+    height: 100%;
+    padding: 0.9rem 0 0.9rem 4rem !important;
+    margin: 0px 25px;
+  }
+
+  .headerNav {
+    background: rgba(15, 16, 22, 0.9);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 0px 0px 20px 20px;
+  }
+}
+
+@media (max-width: 660px) {
+
+  //<모바일시> '헤더'와 '유저'의 (메뉴)의 패딩 통일
+  .headerNav .nav_item {
+    padding: 1.5rem 0 1.5rem 4rem !important;
+  }
+
+  .userMenu {
+    border-radius: 20px;
+  }
+
+  .userMenu .dropdownMenu {
+    padding: 1.2rem 0 1.2rem 1.5rem !important;
+  }
+}
+
+.nav_item,
+.dropdownMenu {
+
+  //'헤더'와 '유저 드롭다운'의 (메뉴 아이템)의 호버시 배경 모양을 같게
+  @media (max-width: 660px) {
+    //<모바일시> '헤더'와 '유저 드롭다운'의 (메뉴 아이템)의 폰트 크기 같게
+    font-size: 18px;
+    border-radius: 15px;
+  }
+
+  &:hover {
+    background: $color-white-transparent;
+  }
+
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+}

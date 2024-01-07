@@ -1,6 +1,6 @@
 <script setup lang="ts">
-const routeUtils = useRouteUtils()
-routeUtils.moveToAccuratePath()
+const pathUtils = usePathUtils()
+// pathUtils.moveToAccuratePath()
 </script>
 
 <template>

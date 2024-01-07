@@ -1,25 +1,158 @@
 <script setup lang="ts">
 const { isMobile, isShowNav } = useMediaCheck()
-const routeUtils = useRouteUtils()
-const accountStore = useAccountStore()
-const userData = useState<UserData>('userData')
+
+const isShowServerMenu = useState<boolean>('isShowServerMenu', () => false)
+const serverData = useState('serverData')
+
+const clickServerMenu = () => {
+  isShowServerMenu.value = false
+}
+const closeNav = () => {
+  if (isMobile.value) {
+    isShowNav.value = false
+  }
+}
 
 onMounted(async () => {
-  if (routeUtils.isCallbackRoute || !accountStore.accessToken) return
-
   try {
-    userData.value = await getDiscordAPIUserData()
+    serverData.value = await getAPIServers()
   } catch (e: any) {
     if (e.response?.status === 429) {
-      location.reload()
-      return
+      setTimeout(() => {
+        window.location.reload()
+      }, e.response?.data.data.retry_after * 1000)
     }
 
-    catchNetworkErr(e, true)
+    catchNetworkErr(e)
   }
 })
 </script>
 
+<style scoped>
+@import url('~/assets/styles/components/appNavBar.scss');
+</style>
+
 <template>
-  <div></div>
+  <div>
+    <!-- 모바일 검은 배경 -->
+    <transition appear name="bg" mode="out-in">
+      <div
+        v-if="isShowNav && isMobile"
+        @click="closeNav"
+        class="fixed top-0 left-0 w-full h-full bg-black/[0.5] z-10"
+      ></div>
+    </transition>
+
+    <!-- navBar -->
+    <div class="navbarWrap fixed z-20 bg-[#151720]">
+      <div class="navbar flex flex-col shrink-0 w-40 lg:w-64 md:w-56 ml-0 lg:ml-36 p-4 select-none">
+        <div class="navMob flex items-center justify-between mb-5 pl-2">
+          <!-- 모바일 왼쪽 메뉴 버튼 -->
+          <div @click="isShowNav = !isShowNav" class="menuIcon cursor-pointer shrink-0">
+            <SvgIcon v-if="!isShowNav" name="sidemenu" />
+            <SvgIcon v-else name="close" />
+          </div>
+
+          <!-- 서버 선택 드롭다운 -->
+          <div v-click-outside="clickServerMenu" class="serverSelect relative min-w-0 w-full" @click="closeNav">
+            <!-- 서버 선택 드롭다운의 버튼 -->
+            <div
+              @click="isShowServerMenu = !isShowServerMenu"
+              :class="{ on: isShowServerMenu }"
+              class="serverBtn flex items-center px-2 py-2 w-full border border-slate-700/[.2] rounded-lg cursor-pointer"
+            >
+              <div class="w-8 h-8 mr-2 rounded-lg overflow-hidden shrink-0">
+                <div v-if="!serverData[0].id"></div>
+                <nuxt-img
+                  v-else-if="serverData[0].icon"
+                  :src="
+                    'https://cdn.discordapp.com/icons/' + serverData[0].id + '/' + serverData[0].icon + '.png?size=64'
+                  "
+                  alt="server logo"
+                  class="w-full h-full"
+                />
+                <div v-else class="w-full h-full flex items-center justify-center text-white bg-[#37383d]">
+                  <span>{{ serverData[0].name.substr(0, 1) }}</span>
+                </div>
+              </div>
+
+              <span
+                class="serverBtn_name mr-auto text-sm text-gray-300 text-ellipsis whitespace-nowrap overflow-hidden"
+              >
+                {{ serverData[0].name }}
+              </span>
+              <SvgIcon name="arrowDown" />
+            </div>
+
+            <!-- 서버 선택 드롭다운의 메뉴 -->
+            <transition appear name="fade" mode="out-in">
+              <div
+                v-if="isShowServerMenu"
+                class="serverMenu absolute flex flex-col mt-3 w-full p-1 rounded-lg bg-zinc-950 bg-opacity-60 text-white text-sm border border-slate-700/[.2] gap-0.5 overflow-y-scroll"
+              >
+                <!-- backdrop-blur-md   ->   bg-zinc-950 bg-opacity-60 -->
+                <div v-for="(serverData, index) in serverData" v-bind:key="index">
+                  <NuxtLink
+                    :to="'/' + $i18n.locale + '/' + (serverData.now ? 'dashboard' : 'bridge') + '?id=' + serverData.id"
+                    class="dropdownMenu"
+                  >
+                    <div class="dropdownMenu_img overflow-hidden">
+                      <div v-if="!serverData.id"></div>
+                      <nuxt-img
+                        v-else-if="serverData.icon"
+                        :src="
+                          'https://cdn.discordapp.com/icons/' + serverData.id + '/' + serverData.icon + '.png?size=64'
+                        "
+                        alt="server logo"
+                        class="w-full h-full"
+                      />
+                      <div v-else class="w-full h-full flex items-center justify-center text-white bg-[#37383d]">
+                        <span>{{ serverData.name.substr(0, 1) }}</span>
+                      </div>
+                    </div>
+
+                    <span>{{ serverData.name }}</span>
+                  </NuxtLink>
+                </div>
+              </div>
+            </transition>
+          </div>
+        </div>
+
+        <!-- 네비게이션 메뉴 -->
+        <transition appear name="nav" mode="out-in">
+          <nav v-if="isShowNav" class="bg-[#151720] flex flex-col text-gray-400 text-sm gap-1 lg:gap-1.5">
+            <NuxtLink :to="'/' + $i18n.locale + '/dashboard?id=' + $route.query.id" class="nav_item">
+              <SvgIcon name="navbar/main" />
+              <!-- 메인 -->
+              {{ $t('sidebar.main') }}
+            </NuxtLink>
+            <NuxtLink :to="'/' + $i18n.locale + '/dashboard/members?id=' + $route.query.id" class="nav_item">
+              <SvgIcon name="navbar/member" />
+              <!-- 멤버 설정 -->
+              {{ $t('sidebar.members') }}
+            </NuxtLink>
+            <NuxtLink :to="'/' + $i18n.locale + '/dashboard/invite?id=' + $route.query.id" class="nav_item">
+              <SvgIcon name="navbar/invite" />
+              <!-- 초대링크 설정 -->
+              {{ $t('sidebar.invite') }}
+            </NuxtLink>
+            <NuxtLink :to="'/' + $i18n.locale + '/dashboard/verify?id=' + $route.query.id" class="nav_item">
+              <SvgIcon name="navbar/verify" />
+              <!-- 커맨드 인증 -->
+              {{ $t('sidebar.verify') }}
+            </NuxtLink>
+            <hr class="mx-2.5 my-2 border-zinc-700" />
+            <!-- <a href="https://nguard.xyz/upgrade" target="_blank" class="nav_item nav_item_premium"> -->
+            <!-- <img src="https://cdn.nguard.dev/assets/dashboard/images/gold_logo.webp" alt="NGuard logo" /> -->
+            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-2.995 2.995-7.486 4-11 4 0 8.583 5.068 16.097 11 20 5.932-3.903 11-11.417 11-20-3.514 0-8.005-1.005-11-4z"/></svg> -->
+            <!-- NGuard 유료 플랜 -->
+            <!-- {{ $t('navbar.upgrade') }} -->
+            <!-- navbar 소스 재활용 -->
+            <!-- </a> -->
+          </nav>
+        </transition>
+      </div>
+    </div>
+  </div>
 </template>

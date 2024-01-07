@@ -1,0 +1,246 @@
+.bg-enter-active,
+.bg-leave-active {
+  transition: opacity 0.25s ease;
+}
+
+.bg-enter,
+.bg-leave-to {
+  opacity: 0;
+}
+
+.nav-enter-active,
+.nav-leave-active {
+  transition: transform 0.25s ease;
+}
+
+.nav-enter,
+.nav-leave-to {
+  transform: translateX(-100%);
+}
+
+.navbarWrap {
+  padding-top: 72px;
+  height: 100%;
+  position: static;
+
+  @media (max-width: 660px) {
+    width: 100%;
+    padding-top: 77.6px;
+    height: auto;
+    position: fixed;
+  }
+}
+
+.menuIcon {
+  display: none;
+  box-sizing: content-box;
+  width: 30px;
+  height: 30px;
+  padding: 8px;
+  fill: $color-white;
+}
+
+.navbar {
+  position: relative;
+
+  @media (max-width: 1279px) and (min-width: 1024px) {
+    margin-left: 4rem !important;
+  }
+
+  @media (max-width: 660px) {
+    width: 100%;
+    padding: 0.4rem 1rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    .navMob {
+      width: 100%;
+      margin-bottom: 0px;
+    }
+
+    .menuIcon {
+      display: block;
+      width: 2.5rem !important;
+      height: 2.5rem !important;
+    }
+
+    .serverSelect {
+      margin-bottom: 0px !important;
+      min-width: 0px;
+      width: fit-content;
+      height: 50px;
+
+      .serverBtn {
+        padding: 6px;
+        max-width: 300px;
+        height: 100%;
+
+        img {
+          width: auto;
+          height: 100%;
+        }
+
+        .serverBtn_name {
+          font-size: 1.2rem;
+        }
+      }
+
+      .serverMenu {
+        position: absolute;
+        width: calc(100vw - 0.625rem * 2);
+        border-radius: 20px;
+
+        max-height: calc((2.4rem + 2.4rem + 0.125rem) * 5 + 0.5rem);
+
+        right: 0px;
+        margin-top: 1.5rem;
+        font-size: 1rem;
+
+        .dropdownMenu {
+          padding: 1.2rem 0 1.2rem 1.5rem !important;
+          font-size: 20px;
+          border-radius: 15px;
+
+          .dropdownMenu_img {
+            width: 2.4rem;
+            height: 2.4rem;
+          }
+        }
+      }
+    }
+
+    nav {
+      position: absolute;
+      left: 0px;
+      top: 100%;
+      padding: 8px;
+      width: 220px;
+      height: 100vh;
+
+      a {
+        padding: 14px;
+      }
+    }
+  }
+
+  @media (max-width: 420px) {
+    .serverSelect .serverBtn {
+      img {
+        margin-right: 8px;
+      }
+
+      .serverBtn_name {
+        display: none;
+      }
+
+      svg {
+        margin: 0px;
+      }
+    }
+  }
+}
+
+.serverBtn {
+  &:hover {
+    background-color: $color-white-transparent;
+  }
+
+  svg {
+    transition: transform 0.2s ease;
+  }
+
+  &.on svg {
+    transform: rotate(180deg);
+  }
+
+  .serverMenu {
+    background: #15172033;
+    max-height: calc(5.6rem + 4rem + 0.5rem + 0.375rem);
+  }
+
+  transition: background 0.05s cubic-bezier(0.17, 0.84, 0.44, 1);
+}
+
+.dropdownMenu {
+  &:hover {
+    background: $color-white-transparent;
+  }
+
+  .dropdownMenu_img {
+    width: 1.4rem;
+    height: 1.4rem;
+    margin-right: 10px;
+    border-radius: 100px;
+  }
+
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+
+  width: 100%;
+  padding: 0.7rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+}
+
+.nuxt-link-exact-active {
+  background-color: $color-white-transparent;
+}
+
+.nav_item {
+  &:hover {
+    svg {
+      fill: $color-nav-active;
+    }
+
+    color: $color-nav-active;
+  }
+
+  &.nav_item_premium {
+    &:hover {
+      svg {
+        fill: $color-nav-premium-active;
+      }
+
+      color: $color-nav-premium-active;
+    }
+
+    svg {
+      fill: $color-nav-premium;
+    }
+
+    color: $color-nav-premium;
+  }
+
+  svg,
+  img {
+    display: inline-block;
+    width: 18px;
+    margin-right: 12px;
+    fill: $color-nav;
+  }
+
+  @media (max-width: 1024px) {
+    padding: 7px 10px;
+  }
+
+  // @media (max-width: 768px) {
+  //   padding: 2rem 2rem 0 2rem;
+
+  //   h2 {
+  //   }
+  // }
+
+  padding: 7px 10px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  transition: color 0.08s ease;
+}
