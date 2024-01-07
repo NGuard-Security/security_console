@@ -3,7 +3,7 @@ const path = require('node:path')
 
 const lodash = require('lodash')
 const PublicGoogleSheetsParser = require('public-google-sheets-parser')
-const { color } = require('../util/console')
+const { color } = require('../util_old/console')
 
 try {
   // https://docs.google.com/spreadsheets/d/1SHdSfnQsP1RMNW1emxeexZKSJ3AXppQhH71MnHf42rw/edit?usp=sharing

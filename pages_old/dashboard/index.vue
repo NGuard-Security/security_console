@@ -495,7 +495,7 @@ export default {
       this.summary = (
         await this.$axios.$get('/dashboard/summary?id=' + this.$route.query.id, {
           headers: {
-            Authorization: "Bearer " + localStorage.getItem('access_token'),
+            Authorization: 'Bearer ' + localStorage.getItem('access_token'),
           },
         })
       ).data

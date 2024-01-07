@@ -1,5 +1,8 @@
+<script setup lang="ts">
+const routeUtils = useRouteUtils()
+routeUtils.moveToAccuratePath()
+</script>
+
 <template>
-	<NuxtLayout>
-		<div></div>
-	</NuxtLayout>
+  <NuxtLayout></NuxtLayout>
 </template>

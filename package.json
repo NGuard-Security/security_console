@@ -12,6 +12,7 @@
 	},
 	"devDependencies": {
 		"@nuxtjs/i18n": "^8.0.0",
+		"@pinia/nuxt": "^0.5.1",
 		"cross-env": "^7.0.3",
 		"nuxt": "^3.9.0",
 		"typescript": "^5.3.3",
