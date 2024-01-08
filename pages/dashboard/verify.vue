@@ -191,8 +191,8 @@ export default {
           await this.$axios.$post(
             '/dashboard/verify?id=' + this.$route.query.id,
             {
-                status: this.switch_.confirm,
-                role: this.input.role,
+              status: this.switch_.confirm,
+              role: this.input.role,
             },
             {
               headers: {

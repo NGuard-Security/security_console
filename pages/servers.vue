@@ -179,7 +179,7 @@ export default {
         const serverList = (
           await this.$axios.$get('/dashboard/servers', {
             headers: {
-              Authorization: "Bearer " + localStorage.getItem('access_token'),
+              Authorization: 'Bearer ' + localStorage.getItem('access_token'),
             },
           })
         ).data

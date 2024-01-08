@@ -28,8 +28,8 @@
             {{ $t('navbar.support') }}
           </a>
           <!-- <a href="https://nguard.xyz/upgrade" class="nav_item"> -->
-            <!-- NGuard 프리미어 플랜 -->
-            <!-- {{ $t('navbar.upgrade') }} -->
+          <!-- NGuard 프리미어 플랜 -->
+          <!-- {{ $t('navbar.upgrade') }} -->
           <!-- </a> -->
         </div>
       </transition>

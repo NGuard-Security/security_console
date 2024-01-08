@@ -189,7 +189,7 @@ export default {
       const memberList = (
         await this.$axios.$get('/dashboard/members?id=' + this.$route.query.id, {
           headers: {
-            Authorization: "Bearer " + localStorage.getItem('access_token'),
+            Authorization: 'Bearer ' + localStorage.getItem('access_token'),
           },
         })
       ).data
@@ -238,7 +238,7 @@ export default {
           },
           {
             headers: {
-              Authorization: "Bearer " + localStorage.getItem('access_token'),
+              Authorization: 'Bearer ' + localStorage.getItem('access_token'),
             },
           },
         )

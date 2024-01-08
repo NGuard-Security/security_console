@@ -169,11 +169,11 @@
             </NuxtLink>
             <hr class="mx-2.5 my-2 border-zinc-700" />
             <!-- <a href="https://nguard.xyz/upgrade" target="_blank" class="nav_item nav_item_premium"> -->
-              <!-- <img src="https://cdn.nguard.dev/assets/dashboard/images/gold_logo.webp" alt="NGuard logo" /> -->
-              <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-2.995 2.995-7.486 4-11 4 0 8.583 5.068 16.097 11 20 5.932-3.903 11-11.417 11-20-3.514 0-8.005-1.005-11-4z"/></svg> -->
-              <!-- NGuard 유료 플랜 -->
-              <!-- {{ $t('navbar.upgrade') }} -->
-              <!-- navbar 소스 재활용 -->
+            <!-- <img src="https://cdn.nguard.dev/assets/dashboard/images/gold_logo.webp" alt="NGuard logo" /> -->
+            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-2.995 2.995-7.486 4-11 4 0 8.583 5.068 16.097 11 20 5.932-3.903 11-11.417 11-20-3.514 0-8.005-1.005-11-4z"/></svg> -->
+            <!-- NGuard 유료 플랜 -->
+            <!-- {{ $t('navbar.upgrade') }} -->
+            <!-- navbar 소스 재활용 -->
             <!-- </a> -->
           </nav>
         </transition>
@@ -202,7 +202,7 @@ export default {
       this.server = (
         await this.$axios.$get('/dashboard/servers?now=' + this.$route.query.id, {
           headers: {
-            Authorization: "Bearer " + localStorage.getItem('access_token'),
+            Authorization: 'Bearer ' + localStorage.getItem('access_token'),
           },
         })
       ).data
@@ -444,7 +444,7 @@ export default {
   display: flex;
   flex-shrink: 0;
   align-items: center;
-  
+
   width: 100%;
   padding: 0.7rem;
   cursor: pointer;
