@@ -44,21 +44,22 @@
               {{ $t('verify.category1.role') }}
               <!-- 인증 시 지급될 역할 -->
             </p>
-            <input
-              class="input-l"
-              id="role_input"
-              :value="input.role?.name"
-              @click="list.role.show = true"
-              readonly
-              v-click-outside="onClickOutside"
-              type="text"
-              :placeholder="$t('verify.category1.rolePlaceholder')"
-            />
-            <ul class="list-l" v-if="list.role.show">
-              <li v-for="(role, index) in list.role.list" @click="input.role = role" v-bind:key="index">
-                {{ role?.name }}
-              </li>
-            </ul>
+            <div class="flex-col" v-click-outside="onClickOutside">
+              <input
+                class="input-l"
+                id="role_input"
+                :value="input.role?.name"
+                @click="list.role.show = true"
+                readonly
+                type="text"
+                :placeholder="$t('verify.category1.rolePlaceholder')"
+              />
+              <ul class="list-l" v-if="list.role.show">
+                <li v-for="(role, index) in list.role.list" @click="onClickRole(role)" v-bind:key="index">
+                  {{ role?.name }}
+                </li>
+              </ul>
+            </div>
           </div>
         </form>
 
@@ -141,7 +142,7 @@ export default {
       const settings = (
         await this.$axios.$get('/dashboard/verify?id=' + this.$route.query.id, {
           headers: {
-            Authorization: "Bearer " + localStorage.getItem('access_token'),
+            Authorization: 'Bearer ' + localStorage.getItem('access_token'),
           },
         })
       ).data
@@ -182,6 +183,10 @@ export default {
     onClickOutside() {
       this.list.role.show = false
     },
+    onClickRole(roleName) {
+      this.input.role = roleName
+      this.list.role.show = false
+    },
     async saveSettings() {
       try {
         await this.$axios.$post(
@@ -192,7 +197,7 @@ export default {
           },
           {
             headers: {
-              Authorization: "Bearer " + localStorage.getItem('access_token'),
+              Authorization: 'Bearer ' + localStorage.getItem('access_token'),
             },
           },
         )

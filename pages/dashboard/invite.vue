@@ -34,30 +34,33 @@
                 <!-- 보안 초대 방식 -->
                 {{ $t('invite.category1.type.title') }}
               </p>
-              <div
-                class="select select-l"
-                :class="{ active: select.method.isActive }"
-                @click="
-                  list.method.show = true
-                  select.method.isActive = true
-                "
-                v-click-outside="onClickOutside"
-              >
-                {{ list.method.list[select.method.index] }}
-              </div>
 
-              <ul class="list-l" v-if="list.method.show">
-                <li
-                  v-for="(name, index) in list.method.list"
-                  v-bind:key="index"
+              <div class="flex-col w-full" v-click-outside="onClickOutside">
+                <div
+                  class="select select-l"
+                  :class="{ active: select.method.isActive }"
                   @click="
-                    select.method.index = index
-                    select.method.isActive = false
+                    list.method.show = true
+                    select.method.isActive = true
                   "
                 >
-                  {{ name }}
-                </li>
-              </ul>
+                  {{ list.method.list[select.method.index] }}
+                </div>
+
+                <ul class="list-l" v-if="list.method.show">
+                  <li
+                    v-for="(name, index) in list.method.list"
+                    v-bind:key="index"
+                    @click="
+                      select.method.index = index
+                      select.method.isActive = false
+                      list.method.show = false
+                    "
+                  >
+                    {{ name }}
+                  </li>
+                </ul>
+              </div>
             </div>
 
             <div class="vert" v-if="switch_.invite">
@@ -82,49 +85,49 @@
         </div>
 
         <!-- <div class="mb-6"> -->
-          <!-- <h2> -->
-            <!-- 커스텀 초대링크 -->
-            <!-- {{ $t('invite.category2.title') }} -->
-          <!-- </h2> -->
-          <!-- <p> -->
-            <!-- 소유하고 계신 도메인에 NGuard 초대링크를 설정할 수 있습니다. -->
-            <!-- {{ $t('invite.category2.description') }} -->
-          <!-- </p> -->
-          <!-- <form> -->
-            <!-- <div> -->
-              <!-- <label> -->
-                <!-- 커스텀 초대링크 -->
-                <!-- {{ $t('invite.category2.toggle') }} -->
-              <!-- </label> -->
-              <!-- <div @click="inputSwitch('domain')" :class="{ switch_on: switch_.domain }" class="switch"></div> -->
-            <!-- </div> -->
+        <!-- <h2> -->
+        <!-- 커스텀 초대링크 -->
+        <!-- {{ $t('invite.category2.title') }} -->
+        <!-- </h2> -->
+        <!-- <p> -->
+        <!-- 소유하고 계신 도메인에 NGuard 초대링크를 설정할 수 있습니다. -->
+        <!-- {{ $t('invite.category2.description') }} -->
+        <!-- </p> -->
+        <!-- <form> -->
+        <!-- <div> -->
+        <!-- <label> -->
+        <!-- 커스텀 초대링크 -->
+        <!-- {{ $t('invite.category2.toggle') }} -->
+        <!-- </label> -->
+        <!-- <div @click="inputSwitch('domain')" :class="{ switch_on: switch_.domain }" class="switch"></div> -->
+        <!-- </div> -->
 
-            <!-- <div class="vert" v-if="switch_.domain"> -->
-              <!-- <p> -->
-                <!-- 도메인 설정 -->
-                <!-- {{ $t('invite.category2.link') }} -->
-              <!-- </p> -->
-              <!-- <div class="flex items-center"> -->
-                <!-- <input -->
-                  <!-- class="input-m" -->
-                  <!-- id="inviteDomain_input" -->
-                  <!-- type="text" -->
-                  <!-- placeholder="도메인 입력" -->
-                  <!-- v-model="select.domain" -->
-                  <!-- v-bind:readonly="!isEnterprise" -->
-                  <!-- @click="clickCustomDomain()" -->
-                <!-- /> -->
-              <!-- </div> -->
-            <!-- </div> -->
+        <!-- <div class="vert" v-if="switch_.domain"> -->
+        <!-- <p> -->
+        <!-- 도메인 설정 -->
+        <!-- {{ $t('invite.category2.link') }} -->
+        <!-- </p> -->
+        <!-- <div class="flex items-center"> -->
+        <!-- <input -->
+        <!-- class="input-m" -->
+        <!-- id="inviteDomain_input" -->
+        <!-- type="text" -->
+        <!-- placeholder="도메인 입력" -->
+        <!-- v-model="select.domain" -->
+        <!-- v-bind:readonly="!isEnterprise" -->
+        <!-- @click="clickCustomDomain()" -->
+        <!-- /> -->
+        <!-- </div> -->
+        <!-- </div> -->
 
-            <!-- <div class="flex" v-if="switch_.domain"> -->
-              <!-- <label> -->
-                <!-- SSL 설정 -->
-                <!-- {{ $t('invite.category2.ssl') }} -->
-              <!-- </label> -->
-              <!-- <div @click="inputSwitch('domain_ssl')" :class="{ switch_on: switch_.domain_ssl }" class="switch"></div> -->
-            <!-- </div> -->
-          <!-- </form> -->
+        <!-- <div class="flex" v-if="switch_.domain"> -->
+        <!-- <label> -->
+        <!-- SSL 설정 -->
+        <!-- {{ $t('invite.category2.ssl') }} -->
+        <!-- </label> -->
+        <!-- <div @click="inputSwitch('domain_ssl')" :class="{ switch_on: switch_.domain_ssl }" class="switch"></div> -->
+        <!-- </div> -->
+        <!-- </form> -->
         <!-- </div> -->
 
         <button class="btn-save" @click="checkSaveSettings()">
@@ -344,7 +347,7 @@ export default {
       const settings = (
         await this.$axios.$get('/dashboard/invite?id=' + this.$route.query.id, {
           headers: {
-            Authorization: "Bearer " + localStorage.getItem('access_token'),
+            Authorization: 'Bearer ' + localStorage.getItem('access_token'),
           },
         })
       ).data
@@ -439,7 +442,7 @@ export default {
           },
           {
             headers: {
-              Authorization: "Bearer " + localStorage.getItem('access_token'),
+              Authorization: 'Bearer ' + localStorage.getItem('access_token'),
             },
           },
         )
