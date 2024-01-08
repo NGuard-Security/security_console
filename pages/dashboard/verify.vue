@@ -189,18 +189,22 @@ export default {
     },
     async saveSettings() {
       try {
-        await this.$axios.$post(
-          '/dashboard/verify?id=' + this.$route.query.id,
-          {
-            status: this.switch_.confirm,
-            role: this.input.role,
-          },
-          {
-            headers: {
-              Authorization: 'Bearer ' + localStorage.getItem('access_token'),
+        if (this.roleList.length > 0) {
+          await this.$axios.$post(
+            '/dashboard/verify?id=' + this.$route.query.id,
+            {
+                status: this.switch_.confirm,
+                role: this.input.role,
             },
-          },
-        )
+            {
+              headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('access_token'),
+              },
+            },
+          )
+        } else {
+          this.switch_.confirm = false
+        }
 
         this.$modal.show('success')
         setTimeout(() => {
