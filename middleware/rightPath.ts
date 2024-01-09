@@ -1,4 +1,6 @@
 export default defineNuxtRouteMiddleware((to, from) => {
+  if (process.server) return
+
   const { $i18n } = useNuxtApp()
   const router = useRouter()
 
