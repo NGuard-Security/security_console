@@ -97,7 +97,6 @@ export default defineNuxtConfig({
         },
       },
     ],
-    '@pinia/nuxt',
     '@vueuse/nuxt',
     '@nuxt/image',
     '@nuxtjs/svg-sprite',
@@ -110,7 +109,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      API_BASE_URL: isDev ? CONFIG.apiEndpoint : CONFIG.apiTestEndpoint,
+      API_BASE_URL: isDev ? CONFIG.apiTestEndpoint : CONFIG.apiEndpoint,
     },
   },
   alias: {},

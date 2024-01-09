@@ -9,14 +9,24 @@ export interface UserData {
   username: string
 }
 
-const getDiscordAPIUserData = async () => {
-  const accountStore = useAccountStore()
+const discordCDNUrl = 'https://cdn.discordapp.com'
 
-  if (!accountStore.accessToken) throw new Error('Access token does not exist')
+const getUserIcon = (userData: any) => {
+  return userData.avatar
+    ? `${discordCDNUrl}/avatars/${userData.id}/${userData.avatar}.png`
+    : `${discordCDNUrl}/embed/avatars/${userData.discriminator % 5}.png`
+}
+
+const getUsernameWithDiscriminator = (userData: any) => {
+  return userData.username + '#' + userData.discriminator
+}
+
+const getDiscordAPIUserData = async () => {
+  if (!getAccessToken()) throw new Error('Access token does not exist')
 
   const res = await axios.get('https://discord.com/api/v10/users/@me', {
     headers: {
-      Authorization: 'Bearer ' + accountStore.accessToken,
+      Authorization: 'Bearer ' + getAccessToken(),
     },
   })
 

@@ -1,6 +1,7 @@
 <script setup lang="ts">
-const pathUtils = usePathUtils()
-// pathUtils.moveToAccuratePath()
+definePageMeta({
+  middleware: 'right-path',
+})
 </script>
 
 <template>

@@ -1,0 +1,67 @@
+.spiner-enter-active,
+.spiner-leave-active,
+.connErr-enter-active,
+.connErr-leave-active {
+  transition: opacity 0.3s;
+}
+
+.spiner-enter,
+.spiner-leave-to,
+.connErr-enter,
+.connErr-leave-to {
+  opacity: 0;
+}
+
+.spinner1 {
+  color: $color-gray;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  vertical-align: -0.125em;
+  border: 0.25em solid;
+  border-right: 0.25em solid transparent;
+  border-radius: 50%;
+  -webkit-animation: spinner 0.75s linear infinite;
+  animation: spinner 0.75s linear infinite;
+}
+
+.spinner2 {
+  color: $color-white;
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  vertical-align: -0.125em;
+  border: 0.25em solid;
+  border-right: 0.25em solid transparent;
+  border-radius: 50%;
+  -webkit-animation: spinner 0.75s linear infinite;
+  animation: spinner 0.75s linear infinite;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.state_wrap {
+  position: absolute;
+  width: 100%;
+}
+
+.state {
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+h4 {
+  font-size: 1.1rem;
+  line-height: 1.75rem;
+  padding-top: 1.25rem;
+  color: $color-white;
+}

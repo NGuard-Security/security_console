@@ -1,7 +1,6 @@
 <script setup lang="ts">
 const { isMobile, isShowNav } = useMediaCheck()
-const { currentPathWithoutLocale, pathWithLocale, isCurrentPathCallback } = usePathUtils()
-const accountStore = useAccountStore()
+const { currentPathWithoutLocale, pathWithLocale, isCallbackPath } = usePathUtils()
 
 const isShowMenu = useState<boolean>('isShowMenu', () => false)
 const userData = useState<UserData>('userData', () => {
@@ -24,7 +23,7 @@ onClickOutside(navEl, closeNav)
 onClickOutside(userEl, closeMenu)
 
 onMounted(async () => {
-  if (isCurrentPathCallback.value || !accountStore.accessToken) return
+  if (isCallbackPath.value || !getAccessToken()) return
 
   try {
     userData.value = await getDiscordAPIUserData()
@@ -129,11 +128,6 @@ onMounted(async () => {
             <NuxtLink :to="`/vi${currentPathWithoutLocale}`" class="dropdownMenu vi" v-if="$i18n.locale != 'vi'">
               Tiếng Việt
             </NuxtLink>
-
-            <!-- <hr class="mx-2.5 my-2 border-zinc-800" />
-            <div class="dropdownMenu">메뉴1</div>
-            <div class="dropdownMenu">메뉴2</div>
-            <div class="dropdownMenu">메뉴3</div> -->
           </div>
         </transition>
       </div>

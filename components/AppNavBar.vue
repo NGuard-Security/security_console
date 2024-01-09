@@ -1,8 +1,11 @@
 <script setup lang="ts">
 const { isMobile, isShowNav } = useMediaCheck()
+const { pathWithLocale } = usePathUtils()
+const { getAPIServers } = useAPI()
+const route = useRoute()
 
 const isShowServerMenu = useState<boolean>('isShowServerMenu', () => false)
-const serverData = useState('serverData')
+const serverData = useState<APIServer[]>('serverData')
 
 const clickServerMenu = () => {
   isShowServerMenu.value = false
@@ -13,18 +16,12 @@ const closeNav = () => {
   }
 }
 
-onMounted(async () => {
-  try {
-    serverData.value = await getAPIServers()
-  } catch (e: any) {
-    if (e.response?.status === 429) {
-      setTimeout(() => {
-        window.location.reload()
-      }, e.response?.data.data.retry_after * 1000)
-    }
+const getNavPath = (path: string) => {
+  return pathWithLocale(`/dashboard${path}?id=${route.query.id}`)
+}
 
-    catchNetworkErr(e)
-  }
+onMounted(async () => {
+  serverData.value = await getAPIServers(Number(route.query.id))
 })
 </script>
 
@@ -72,7 +69,7 @@ onMounted(async () => {
                   class="w-full h-full"
                 />
                 <div v-else class="w-full h-full flex items-center justify-center text-white bg-[#37383d]">
-                  <span>{{ serverData[0].name.substr(0, 1) }}</span>
+                  <span>{{ serverData[0].name.substring(0, 1) }}</span>
                 </div>
               </div>
 
@@ -91,27 +88,25 @@ onMounted(async () => {
                 class="serverMenu absolute flex flex-col mt-3 w-full p-1 rounded-lg bg-zinc-950 bg-opacity-60 text-white text-sm border border-slate-700/[.2] gap-0.5 overflow-y-scroll"
               >
                 <!-- backdrop-blur-md   ->   bg-zinc-950 bg-opacity-60 -->
-                <div v-for="(serverData, index) in serverData" v-bind:key="index">
+                <div v-for="(data, index) in serverData" v-bind:key="index">
                   <NuxtLink
-                    :to="'/' + $i18n.locale + '/' + (serverData.now ? 'dashboard' : 'bridge') + '?id=' + serverData.id"
+                    :to="pathWithLocale(`/${data.now ? 'dashboard' : 'bridge'}?id=${data.id}`)"
                     class="dropdownMenu"
                   >
                     <div class="dropdownMenu_img overflow-hidden">
-                      <div v-if="!serverData.id"></div>
+                      <div v-if="!data.id"></div>
                       <nuxt-img
-                        v-else-if="serverData.icon"
-                        :src="
-                          'https://cdn.discordapp.com/icons/' + serverData.id + '/' + serverData.icon + '.png?size=64'
-                        "
+                        v-else-if="data.icon"
+                        :src="`https://cdn.discordapp.com/icons/${data.id}/${data.icon}.png?size=64`"
                         alt="server logo"
                         class="w-full h-full"
                       />
                       <div v-else class="w-full h-full flex items-center justify-center text-white bg-[#37383d]">
-                        <span>{{ serverData.name.substr(0, 1) }}</span>
+                        <span>{{ data.name.substr(0, 1) }}</span>
                       </div>
                     </div>
 
-                    <span>{{ serverData.name }}</span>
+                    <span>{{ data.name }}</span>
                   </NuxtLink>
                 </div>
               </div>
@@ -122,22 +117,22 @@ onMounted(async () => {
         <!-- 네비게이션 메뉴 -->
         <transition appear name="nav" mode="out-in">
           <nav v-if="isShowNav" class="bg-[#151720] flex flex-col text-gray-400 text-sm gap-1 lg:gap-1.5">
-            <NuxtLink :to="'/' + $i18n.locale + '/dashboard?id=' + $route.query.id" class="nav_item">
+            <NuxtLink :to="getNavPath('')" class="nav_item">
               <SvgIcon name="navbar/main" />
               <!-- 메인 -->
               {{ $t('sidebar.main') }}
             </NuxtLink>
-            <NuxtLink :to="'/' + $i18n.locale + '/dashboard/members?id=' + $route.query.id" class="nav_item">
+            <NuxtLink :to="getNavPath('/members')" class="nav_item">
               <SvgIcon name="navbar/member" />
               <!-- 멤버 설정 -->
               {{ $t('sidebar.members') }}
             </NuxtLink>
-            <NuxtLink :to="'/' + $i18n.locale + '/dashboard/invite?id=' + $route.query.id" class="nav_item">
+            <NuxtLink :to="getNavPath('/invite')" class="nav_item">
               <SvgIcon name="navbar/invite" />
               <!-- 초대링크 설정 -->
               {{ $t('sidebar.invite') }}
             </NuxtLink>
-            <NuxtLink :to="'/' + $i18n.locale + '/dashboard/verify?id=' + $route.query.id" class="nav_item">
+            <NuxtLink :to="getNavPath('/verify')" class="nav_item">
               <SvgIcon name="navbar/verify" />
               <!-- 커맨드 인증 -->
               {{ $t('sidebar.verify') }}
