@@ -6,7 +6,7 @@
       {{ $t('summary.title') }}
     </h1>
 
-    <NuxtLayout name="spiner-provider">
+    <NuxtLayout name="spiner-wrap">
       <div class="cards grid grid-cols-4 gap-3">
         <div class="card">
           <div class="card_content">
@@ -147,7 +147,6 @@
 import { ALERT, LOADING_STATE } from '#imports'
 
 definePageMeta({
-  layout: 'dashboard',
   // middleware: ['auth', 'guild-id'],
 })
 
@@ -182,21 +181,17 @@ const resizeAlerts = () => {
 
 onMounted(async () => {
   try {
-    summaryData.value = await getAPISummary(Number(route.query.id))
-
-    loadPush(Number(route.query.id))
-
-    onPushCheck(resizeAlerts)
-
-    alertInterval.value = setInterval(() => {
-      checkPush(Number(route.query.id))
-    }, 5000)
-
-    setTimeout(() => {
-      initChartEvent.emit()
-      resizeAlerts()
-      loadingState.value = LOADING_STATE.Success
-    }, 100)
+    // summaryData.value = await getAPISummary(Number(route.query.id))
+    // loadPush(Number(route.query.id))
+    // onPushCheck(resizeAlerts)
+    // alertInterval.value = setInterval(() => {
+    //   checkPush(Number(route.query.id))
+    // }, 5000)
+    // setTimeout(() => {
+    //   initChartEvent.emit()
+    //   resizeAlerts()
+    loadingState.value = LOADING_STATE.Success
+    // }, 100)
   } catch (e) {}
 })
 

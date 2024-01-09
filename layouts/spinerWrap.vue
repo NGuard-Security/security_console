@@ -4,8 +4,8 @@ import { LOADING_STATE } from '#imports'
 const loadingState = useState<LOADING_STATE>('loadingState', () => LOADING_STATE.Connecting)
 </script>
 
-<style>
-@import url('~/assets/styles/layouts/LoadingSpinerProvider.scss');
+<style lang="scss">
+@import url('~/assets/styles/layouts/spinerProvider.scss');
 </style>
 
 <template>
