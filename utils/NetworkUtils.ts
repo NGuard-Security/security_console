@@ -1,12 +1,17 @@
 const catchNetworkErr = (e: any, doAlert?: boolean) => {
+  if (e.config?.url) console.error('NetworkErrorURL: ' + e.config.url)
+
   if (e.response) {
-    console.log(e.response.data)
-    console.log(e.response.status)
-    console.log(e.response.headers)
+    console.error('NetworkError: Response received')
+    console.error(e.response.data)
+    console.error(e.response.status)
+    console.error(e.response.headers)
   } else if (e.request) {
-    console.log(e.request)
+    console.error('NetworkError: Response not received, could be CORS issue')
+    console.error(e.request)
   } else {
-    console.log(e.message)
+    console.error('NetworkError: Request not made')
+    console.error(e.message)
   }
 
   if (doAlert) alert('통신 중 오류가 발생하였습니다. 채널톡으로 문의해 주세요.')

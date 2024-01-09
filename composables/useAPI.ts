@@ -63,6 +63,7 @@ export default () => {
 
             case HttpStatusCode.TooManyRequests:
               setTimeout(() => {
+                //TODO - 요청 다시 한번 하는거로
                 window.location.reload()
               }, err.response?.data.data.retry_after * 1000)
               break
@@ -70,7 +71,7 @@ export default () => {
         }
 
         catchNetworkErr(err)
-        return err
+        throw err
       },
     )
 
@@ -106,6 +107,7 @@ export default () => {
             case HttpStatusCode.TooManyRequests:
               setTimeout(() => {
                 window.location.reload()
+                //TODO - 요청 다시 한번 하는거로
               }, err.response?.data.data.retry_after * 1000)
               break
           }
@@ -113,7 +115,7 @@ export default () => {
 
         loadingState.value = LOADING_STATE.Failed
         catchNetworkErr(err, true)
-        return err
+        throw err
       },
     )
 

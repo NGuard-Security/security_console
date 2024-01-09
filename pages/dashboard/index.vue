@@ -147,7 +147,8 @@
 import { ALERT, LOADING_STATE } from '#imports'
 
 definePageMeta({
-  middleware: ['auth', 'guild-id'],
+  layout: 'dashboard',
+  // middleware: ['auth', 'guild-id'],
 })
 
 const initChartEvent = useEventBus('initInviteURLUsageChart')
@@ -180,20 +181,23 @@ const resizeAlerts = () => {
 }
 
 onMounted(async () => {
-  summaryData.value = await getAPISummary(Number(route.query.id))
-  loadPush(Number(route.query.id))
+  try {
+    summaryData.value = await getAPISummary(Number(route.query.id))
 
-  onPushCheck(resizeAlerts)
+    loadPush(Number(route.query.id))
 
-  alertInterval.value = setInterval(() => {
-    checkPush(Number(route.query.id))
-  }, 5000)
+    onPushCheck(resizeAlerts)
 
-  setTimeout(() => {
-    initChartEvent.emit()
-    resizeAlerts()
-    loadingState.value = LOADING_STATE.Success
-  }, 100)
+    alertInterval.value = setInterval(() => {
+      checkPush(Number(route.query.id))
+    }, 5000)
+
+    setTimeout(() => {
+      initChartEvent.emit()
+      resizeAlerts()
+      loadingState.value = LOADING_STATE.Success
+    }, 100)
+  } catch (e) {}
 })
 
 onUnmounted(() => {
