@@ -1912,6 +1912,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash.escaperegexp@npm:^4.1.9":
+  version: 4.1.9
+  resolution: "@types/lodash.escaperegexp@npm:4.1.9"
+  dependencies:
+    "@types/lodash": "npm:*"
+  checksum: ff457cacac0fed3e199fa56e44930ce8e57edaa5706d14b3d1c8b13bf6cfbac2bcc629d68f7922cb20965ac6550616c59de9b5c747cdde0f169963377b49cb18
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:*":
+  version: 4.14.202
+  resolution: "@types/lodash@npm:4.14.202"
+  checksum: 6064d43c8f454170841bd67c8266cc9069d9e570a72ca63f06bceb484cb4a3ee60c9c1f305c1b9e3a87826049fd41124b8ef265c4dd08b00f6766609c7fe9973
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:*":
   version: 20.10.6
   resolution: "@types/node@npm:20.10.6"
@@ -5362,6 +5378,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash.escaperegexp@npm:^4.1.2":
+  version: 4.1.2
+  resolution: "lodash.escaperegexp@npm:4.1.2"
+  checksum: 484ad4067fa9119bb0f7c19a36ab143d0173a081314993fe977bd00cf2a3c6a487ce417a10f6bac598d968364f992153315f0dbe25c9e38e3eb7581dd333e087
+  languageName: node
+  linkType: hard
+
 "lodash.isarguments@npm:^3.1.0":
   version: 3.1.0
   resolution: "lodash.isarguments@npm:3.1.0"
@@ -6203,11 +6226,13 @@ __metadata:
     "@nuxtjs/i18n": "npm:^8.0.0"
     "@nuxtjs/svg-sprite": "npm:^1.0.2"
     "@nuxtjs/tailwindcss": "npm:^6.10.3"
+    "@types/lodash.escaperegexp": "npm:^4.1.9"
     "@vueuse/core": "npm:^10.7.1"
     "@vueuse/nuxt": "npm:^10.7.1"
     axios: "npm:^1.6.5"
     chart.js: "npm:^4.4.1"
     cross-env: "npm:^7.0.3"
+    lodash.escaperegexp: "npm:^4.1.2"
     nuxt: "npm:^3.9.0"
     sass: "npm:^1.69.7"
     socket.io-client: "npm:^4.7.3"

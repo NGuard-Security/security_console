@@ -2,12 +2,12 @@
 
 import escapeRegExp from 'lodash.escaperegexp'
 
-export default function createFuzzyMatcher(input) {
+export default function createFuzzyMatcher(input: string) {
   const pattern = input.split('').map(ch2pattern).join('.*?')
   return new RegExp(pattern)
 }
 
-function ch2pattern(ch) {
+function ch2pattern(ch: string) {
   const offset = 44032
   if (/[가-힣]/.test(ch)) {
     const chCode = ch.charCodeAt(0) - offset
@@ -31,7 +31,7 @@ function ch2pattern(ch) {
       ㅃ: '빠'.charCodeAt(0),
       ㅅ: '사'.charCodeAt(0),
     }
-    const begin = con2syl[ch] || (ch.charCodeAt(0) - 12613) * 588 + con2syl['ㅅ']
+    const begin = con2syl[ch as keyof typeof con2syl] || (ch.charCodeAt(0) - 12613) * 588 + con2syl['ㅅ']
     const end = begin + 587
     return `[${ch}\\u${begin.toString(16)}-\\u${end.toString(16)}]`
   }
