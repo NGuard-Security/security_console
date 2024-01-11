@@ -1,6 +1,5 @@
 export default () => {
   const route = useRoute()
-  const router = useRouter()
   const i18n = useI18n()
 
   const isCallbackPath = useState<boolean>('isCurrentPathCallback')

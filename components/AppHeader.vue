@@ -3,9 +3,7 @@ const { isMobile, isShowNav } = useMediaCheck()
 const { currentPathWithoutLocale, pathWithLocale, isCallbackPath } = usePathUtils()
 
 const isShowMenu = useState<boolean>('isShowMenu', () => false)
-const userData = useState<UserData>('userData', () => {
-  return { name: '', icon: '', id: 0, discriminator: '', global_name: '', username: '' }
-})
+const userData = useState<UserData | null>('userData', () => null)
 
 const navEl = ref()
 const userEl = ref()
@@ -80,7 +78,7 @@ onMounted(async () => {
 
       <!-- 오른쪽 유저 요소 -->
       <!-- 로그인 버튼 -->
-      <NuxtLink v-if="userData.id == 0" :to="pathWithLocale('/auth/login')" class="nav_item">
+      <NuxtLink v-if="userData === null" :to="pathWithLocale('/auth/login')" class="nav_item">
         {{ $t('navbar.login') }}
       </NuxtLink>
 

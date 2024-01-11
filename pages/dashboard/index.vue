@@ -16,7 +16,11 @@
             </p>
             <span>
               <!-- {{ summary.user }}명 -->
-              {{ $t('summary.peoplesTemplate').toLowerCase().replace('n', String(summaryData.user)) }}
+              {{
+                $t('summary.peoplesTemplate')
+                  .toLowerCase()
+                  .replace('n', String(summaryData?.user || '0'))
+              }}
             </span>
           </div>
           <SvgIcon name="navBar/member" />
@@ -29,7 +33,11 @@
             </p>
             <span>
               <!-- {{ summary.bot }}명 -->
-              {{ $t('summary.peoplesTemplate').toLowerCase().replace('n', String(summaryData.bot)) }}
+              {{
+                $t('summary.peoplesTemplate')
+                  .toLowerCase()
+                  .replace('n', String(summaryData?.bot || '0'))
+              }}
             </span>
           </div>
           <SvgIcon name="robot" />
@@ -42,7 +50,11 @@
             </p>
             <span>
               <!-- {{ summary.new_user }}명 -->
-              {{ $t('summary.peoplesTemplate').toLowerCase().replace('n', String(summaryData.new_user)) }}
+              {{
+                $t('summary.peoplesTemplate')
+                  .toLowerCase()
+                  .replace('n', String(summaryData?.new_user || '0'))
+              }}
             </span>
           </div>
           <SvgIcon name="userAdd" />
@@ -55,7 +67,11 @@
             </p>
             <span>
               <!-- {{ summary.black_user }}명 -->
-              {{ $t('summary.peoplesTemplate').toLowerCase().replace('n', String(summaryData.black_user)) }}
+              {{
+                $t('summary.peoplesTemplate')
+                  .toLowerCase()
+                  .replace('n', String(summaryData?.black_user || '0'))
+              }}
             </span>
           </div>
           <SvgIcon name="noSign" />
@@ -133,7 +149,7 @@
         {{ $t('summary.graph.title') }}
       </h2>
       <div class="userGraph w-full p-4 rounded-lg">
-        <DashboardInviteURLUsageChart :data="summaryData.summary" />
+        <DashboardInviteURLUsageChart v-if="summaryData" :data="summaryData.summary" />
       </div>
     </NuxtLayout>
   </main>
@@ -144,7 +160,7 @@
 </style>
 
 <script setup lang="ts">
-import { ALERT, LOADING_STATE } from '#imports'
+import { ALERT } from '#imports'
 
 definePageMeta({
   // middleware: ['auth', 'guild-id'],
@@ -152,18 +168,15 @@ definePageMeta({
 
 const initChartEvent = useEventBus('initInviteURLUsageChart')
 const route = useRoute()
-const { getAPISummary } = useAPI()
+const API = useAPI()
 const { alertsData, loadPush, checkPush, onPushCheck } = useSocketAlert()
-
-const loadingState = useState<LOADING_STATE>('loadingState', () => LOADING_STATE.Connecting)
-
-const summaryData = useState<APISummary>('summaryData', () => {
-  return { user: 0, bot: 0, new_user: 0, black_user: 0, summary: [] }
-})
+const { loadingSuccess } = useLoadingState()
 
 const alertCenterHeight = useState('alertCenterHeight', () => 'auto')
 const alertInterval = useState<NodeJS.Timeout | null>('alertInterval', () => null)
 const isAlertOpened = useState<boolean>('isAlertOpened', () => false)
+
+const summaryData = useState<APISummary | null>('summaryData', () => null)
 
 const setAlertsIsOpened = () => {
   isAlertOpened.value = !isAlertOpened.value
@@ -181,7 +194,7 @@ const resizeAlerts = () => {
 
 onMounted(async () => {
   try {
-    // summaryData.value = await getAPISummary(Number(route.query.id))
+    // summaryData.value = await API.getSummary(Number(route.query.id))
     // loadPush(Number(route.query.id))
     // onPushCheck(resizeAlerts)
     // alertInterval.value = setInterval(() => {
@@ -190,7 +203,7 @@ onMounted(async () => {
     // setTimeout(() => {
     //   initChartEvent.emit()
     //   resizeAlerts()
-    loadingState.value = LOADING_STATE.Success
+    loadingSuccess()
     // }, 100)
   } catch (e) {}
 })

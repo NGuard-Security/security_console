@@ -2,7 +2,7 @@
 
 import escapeRegExp from 'lodash.escaperegexp'
 
-export default function createFuzzyMatcher(input: string) {
+function createFuzzyMatcher(input: string) {
   const pattern = input.split('').map(ch2pattern).join('.*?')
   return new RegExp(pattern)
 }
@@ -37,3 +37,5 @@ function ch2pattern(ch: string) {
   }
   return escapeRegExp(ch)
 }
+
+export { createFuzzyMatcher }

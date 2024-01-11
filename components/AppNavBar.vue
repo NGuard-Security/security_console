@@ -1,11 +1,14 @@
 <script setup lang="ts">
 const { isMobile, isShowNav } = useMediaCheck()
 const { pathWithLocale } = usePathUtils()
-const { getAPIServers } = useAPI()
+const API = useAPI()
 const route = useRoute()
 
 const isShowServerMenu = useState<boolean>('isShowServerMenu', () => false)
-const serverData = useState<APIServer[]>('serverData')
+const serverData = useState<APIServer[] | null>('serverData', () => null)
+const currentServerData = useState<APIServer | null>('serverData', () => null)
+
+const serverSelectEl = ref()
 
 const clickServerMenu = () => {
   isShowServerMenu.value = false
@@ -20,12 +23,17 @@ const getNavPath = (path: string) => {
   return pathWithLocale(`/dashboard${path}?id=${route.query.id}`)
 }
 
+onClickOutside(serverSelectEl, clickServerMenu)
+
 onMounted(async () => {
-  serverData.value = await getAPIServers(Number(route.query.id))
+  try {
+    serverData.value = await API.getServers(Number(route.query.id))
+    currentServerData.value = serverData.value[0]
+  } catch (e) {}
 })
 </script>
 
-<style scoped>
+<style lang="scss">
 @import url('~/assets/styles/components/appNavBar.scss');
 </style>
 
@@ -51,7 +59,7 @@ onMounted(async () => {
           </div>
 
           <!-- 서버 선택 드롭다운 -->
-          <div v-click-outside="clickServerMenu" class="serverSelect relative min-w-0 w-full" @click="closeNav">
+          <div ref="serverSelectEl" class="serverSelect relative min-w-0 w-full" @click="closeNav">
             <!-- 서버 선택 드롭다운의 버튼 -->
             <div
               @click="isShowServerMenu = !isShowServerMenu"
@@ -59,24 +67,28 @@ onMounted(async () => {
               class="serverBtn flex items-center px-2 py-2 w-full border border-slate-700/[.2] rounded-lg cursor-pointer"
             >
               <div class="w-8 h-8 mr-2 rounded-lg overflow-hidden shrink-0">
-                <div v-if="!serverData[0].id"></div>
+                <div v-if="!currentServerData"></div>
                 <nuxt-img
-                  v-else-if="serverData[0].icon"
+                  v-else-if="currentServerData.icon"
                   :src="
-                    'https://cdn.discordapp.com/icons/' + serverData[0].id + '/' + serverData[0].icon + '.png?size=64'
+                    'https://cdn.discordapp.com/icons/' +
+                    currentServerData.id +
+                    '/' +
+                    currentServerData.icon +
+                    '.png?size=64'
                   "
                   alt="server logo"
                   class="w-full h-full"
                 />
                 <div v-else class="w-full h-full flex items-center justify-center text-white bg-[#37383d]">
-                  <span>{{ serverData[0].name.substring(0, 1) }}</span>
+                  <span>{{ currentServerData.name.substring(0, 1) }}</span>
                 </div>
               </div>
 
               <span
                 class="serverBtn_name mr-auto text-sm text-gray-300 text-ellipsis whitespace-nowrap overflow-hidden"
               >
-                {{ serverData[0].name }}
+                {{ currentServerData?.name || '' }}
               </span>
               <SvgIcon name="arrowDown" />
             </div>

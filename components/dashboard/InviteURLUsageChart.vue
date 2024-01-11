@@ -17,6 +17,8 @@ initChartEvent.on(() => {
 
   if (!ctx) return
 
+  //TODO - 리팩토링 필요
+
   let labelNumber = Array(12)
     .fill(undefined)
     .map((v, i) => i + 1)
