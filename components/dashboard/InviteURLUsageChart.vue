@@ -4,6 +4,7 @@
 
 <script setup lang="ts">
 import Chart from 'chart.js/auto'
+import moment from 'moment'
 
 const props = defineProps<{ data: number[] }>()
 
@@ -13,39 +14,32 @@ const chartEl = ref<HTMLCanvasElement>()
 initChartEvent.on(() => {
   if (!chartEl.value) return
 
-  let ctx = chartEl.value.getContext('2d')
+  const ctx = chartEl.value.getContext('2d')
 
   if (!ctx) return
 
-  //TODO - 리팩토링 필요
+  const labels: string[] = []
+  const currentMonth = moment().month()
+  const monthStart = (currentMonth % 12) + 1
 
-  let labelNumber = Array(12)
-    .fill(undefined)
-    .map((v, i) => i + 1)
-    .splice(new Date().getMonth() + 1)
+  for (let i = 0; i < 12; i++) {
+    const month = ((monthStart - 1 + i) % 12) + 1
+    const isThisYear = i > 12 - currentMonth - 1
 
-  let currentMonth = Array(new Date().getMonth() + 1)
-    .fill(undefined)
-    .map((v, i) => i + 1)
-
-  let labels: string[] = []
-
-  for (let i in labelNumber) {
-    labels[i] = `${(new Date().getFullYear() - 1).toString().substring(2, 4)}년 ${labelNumber[i]}월`
+    if (isThisYear) {
+      labels.push(`${moment().format('YY')}년 ${month}월`)
+    } else {
+      labels.push(`${moment().subtract(1, 'years').format('YY')}년 ${month}월`)
+    }
   }
 
-  for (let i in currentMonth) {
-    labels.push(`${new Date().getFullYear().toString().substring(2, 4)}년 ${currentMonth[i]}월`)
-  }
-
-  let originalChartData = props.data
-  let chartData = originalChartData.splice(new Date().getMonth() + 1)
-  chartData = chartData.concat(originalChartData.slice(0, new Date().getMonth() + 1))
+  const originalData = props.data
+  const chartData = originalData.splice(currentMonth).concat(originalData.slice(0, currentMonth))
 
   new Chart(ctx, {
     type: 'line',
     data: {
-      labels: labels,
+      labels,
       datasets: [
         {
           data: chartData,

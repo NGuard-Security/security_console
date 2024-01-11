@@ -258,6 +258,8 @@
 </style>
 
 <script setup lang="ts">
+import moment from 'moment'
+
 definePageMeta({
   // middleware: ['auth', 'guild-id'],
 })
@@ -359,7 +361,7 @@ onMounted(async () => {
 
     isPermission.value = res.koreanbots.voted
     //TODO - 이런거 전부다 Enum 형식으로 만들어야됨, 백엔드 코드 참조 필요
-    isEnterprise.value = res.payData?.type === 'ENTERPRISE' && new Date().getTime() < res.payData?.expire
+    isEnterprise.value = res.payData?.type === 'ENTERPRISE' && moment().valueOf() < Number(res.payData?.expire)
 
     if (res.settings?.status != 0) {
       settingData.value.invite = Boolean(res.settings.status)
