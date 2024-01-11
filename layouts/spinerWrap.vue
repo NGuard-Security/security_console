@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { LOADING_STATE } from '#imports'
-
-const loadingState = useState<LOADING_STATE>('loadingState', () => LOADING_STATE.Connecting)
+const { loadingState } = useLoadingState()
 </script>
 
 <style lang="scss">
