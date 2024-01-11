@@ -62,3 +62,43 @@ body {
 .page-leave-to {
   opacity: 0;
 }
+
+.modal {
+  .vm--overlay {
+    background: rgba(0, 0, 0, 0.7) !important;
+  }
+
+  .vm--modal {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    line-height: 2rem;
+
+    .btns a {
+      @media (max-width: 660px) {
+        font-size: 18px !important;
+      }
+
+      padding: 10px;
+      background: $color-bg;
+      border-radius: 10px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+
+      &:hover {
+        background: darken($color-bg, 3%);
+      }
+
+      &.btn-highlight {
+        background: $color-highlight;
+
+        &:hover {
+          background: darken($color-highlight, 7%);
+        }
+      }
+    }
+  }
+}
