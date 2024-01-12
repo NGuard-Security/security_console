@@ -1,4 +1,4 @@
-const catchNetworkErr = (e: any, doAlert?: boolean) => {
+const catchNetworkErr = (e: any, doAlert: boolean = false) => {
   if (e.config?.url) console.error('NetworkErrorURL: ' + e.config.url)
 
   if (e.response) {

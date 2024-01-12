@@ -107,62 +107,19 @@ export default () => {
   const { pathWithLocale } = usePathUtils()
   const { loadingFailed } = useLoadingState()
 
-  const createAppAPI = () => {
+  const createDashboardAPI = (isShowError: boolean = true) => {
     const headers = getAccessToken()
       ? {
           Authorization: 'Bearer ' + getAccessToken(),
         }
       : undefined
 
-    const appAPIBase = axios.create({
-      baseURL: config.public.API_BASE_URL as string,
+    const res = axios.create({
+      baseURL: (config.public.API_BASE_URL as string) + '/dashboard',
       headers,
     })
 
-    appAPIBase.interceptors.response.use(
-      res => res,
-      err => {
-        if (err.response) {
-          switch (err.response.status) {
-            case HttpStatusCode.Unauthorized:
-              window.localStorage.removeItem('access_token')
-              router.push(pathWithLocale('/auth/login'))
-              break
-
-            case HttpStatusCode.NotFound:
-              router.push(pathWithLocale('/servers'))
-              break
-
-            case HttpStatusCode.TooManyRequests:
-              setTimeout(() => {
-                //TODO - 요청 다시 한번 하는거로
-                window.location.reload()
-              }, err.response?.data.data.retry_after * 1000)
-              break
-          }
-        }
-
-        catchNetworkErr(err)
-        throw err
-      },
-    )
-
-    return appAPIBase
-  }
-
-  const createDashboardAPI = () => {
-    const headers = getAccessToken()
-      ? {
-          Authorization: 'Bearer ' + getAccessToken(),
-        }
-      : undefined
-
-    const appDashboardAPI = axios.create({
-      baseURL: config.public.API_BASE_URL as string,
-      headers,
-    })
-
-    appDashboardAPI.interceptors.response.use(
+    res.interceptors.response.use(
       res => res,
       err => {
         if (err.response) {
@@ -185,90 +142,82 @@ export default () => {
           }
         }
 
-        loadingFailed()
-        catchNetworkErr(err, true)
+        if (isShowError) loadingFailed()
+        catchNetworkErr(err, isShowError)
         throw err
       },
     )
 
-    return appDashboardAPI
+    return res
   }
 
   //TODO - stateless하게 한답시고 serverId를 인자로 받아왔는데, 그냥 생략할까?
-  const getServers = async (nowGuildId: number) => {
-    if (isNaN(nowGuildId)) throw new Error("invaild 'nowGuildId' prop")
 
-    const res = await createAppAPI().get<APIServer[]>(`/dashboard/servers?now=${nowGuildId}`)
-    return res.data
+  const get = {
+    servers: async (nowGuildId: number) => {
+      if (isNaN(nowGuildId)) throw new Error("invaild 'nowGuildId' prop")
+
+      const res = await createDashboardAPI(false).get<APIServer[]>(`/servers?now=${nowGuildId}`)
+      return res.data
+    },
+    summary: async (serverId: number) => {
+      if (isNaN(serverId)) throw new Error("invaild 'ServerId' prop")
+
+      const res = await createDashboardAPI().get<APISummary>(`/summary?id=${serverId}`)
+      return res.data
+    },
+    invite: async (serverId: number) => {
+      if (isNaN(serverId)) throw new Error("invaild 'ServerId' prop")
+
+      const res = await createDashboardAPI().get<APIInvite>(`/invite?id=${serverId}`)
+      return res.data
+    },
+    members: async (serverId: number) => {
+      if (isNaN(serverId)) throw new Error("invaild 'ServerId' prop")
+
+      const res = await createDashboardAPI().get<APIMember[]>(`/members?id=${serverId}`)
+      return res.data
+    },
+    verify: async (serverId: number) => {
+      if (isNaN(serverId)) throw new Error("invaild 'ServerId' prop")
+
+      const res = await createDashboardAPI().get<APIVerify>(`/verify?id=${serverId}`)
+      return res.data
+    },
   }
 
-  const getSummary = async (serverId: number) => {
-    if (isNaN(serverId)) throw new Error("invaild 'ServerId' prop")
+  const post = {
+    invite: async (serverId: number, body: APIInviteBody) => {
+      if (isNaN(serverId)) throw new Error("invaild 'ServerId' prop")
 
-    const res = await createDashboardAPI().get<APISummary>(`/dashboard/summary?id=${serverId}`)
-    return res.data
-  }
+      const res = await createDashboardAPI().post(`/invite?id=${serverId}`, body)
+      return
+    },
+    members: async (serverId: number, memberId: string) => {
+      if (isNaN(serverId)) throw new Error("invaild 'ServerId' prop")
 
-  const getInvite = async (serverId: number) => {
-    if (isNaN(serverId)) throw new Error("invaild 'ServerId' prop")
+      const res = await createDashboardAPI().post(`/members?id=${serverId}`, { member: memberId })
+      return
+    },
+    verify: async (serverId: number, body: APIVerifyBody) => {
+      if (isNaN(serverId)) throw new Error("invaild 'ServerId' prop")
 
-    const res = await createDashboardAPI().get<APIInvite>(`/dashboard/invite?id=${serverId}`)
-    return res.data
-  }
+      const res = await createDashboardAPI().post(`/verify?id=${serverId}`, body)
+      return
+    },
+    authCallback: async (code: string, isStaging: boolean) => {
+      //FIXME - staging ??
 
-  const postInvite = async (serverId: number, body: APIInviteBody) => {
-    if (isNaN(serverId)) throw new Error("invaild 'ServerId' prop")
-
-    const res = await createDashboardAPI().post(`/dashboard/invite?id=${serverId}`, body)
-    return
-  }
-
-  const getMembers = async (serverId: number) => {
-    if (isNaN(serverId)) throw new Error("invaild 'ServerId' prop")
-
-    const res = await createDashboardAPI().get<APIMember[]>(`/dashboard/members?id=${serverId}`)
-    return res.data
-  }
-
-  const postMembers = async (serverId: number, memberId: string) => {
-    if (isNaN(serverId)) throw new Error("invaild 'ServerId' prop")
-
-    const res = await createDashboardAPI().post(`/dashboard/members?id=${serverId}`, { member: memberId })
-    return
-  }
-
-  const getVerify = async (serverId: number) => {
-    if (isNaN(serverId)) throw new Error("invaild 'ServerId' prop")
-
-    const res = await createDashboardAPI().get<APIVerify>(`/dashboard/verify?id=${serverId}`)
-    return res.data
-  }
-
-  const postVerify = async (serverId: number, body: APIVerifyBody) => {
-    if (isNaN(serverId)) throw new Error("invaild 'ServerId' prop")
-
-    const res = await createDashboardAPI().post(`/dashboard/verify?id=${serverId}`, body)
-    return
-  }
-
-  //FIXME - staging ??
-  const postAuthCallback = async (code: string, isStaging: boolean) => {
-    const res = await createDashboardAPI().post(`/dashboard/auth/callback`, {
-      code,
-      // staging: isStaging,
-    })
-    return
+      const res = await createDashboardAPI().post(`/auth/callback`, {
+        code,
+        // staging: isStaging,
+      })
+      return
+    },
   }
 
   return {
-    getServers,
-    getSummary,
-    getInvite,
-    postInvite,
-    getMembers,
-    postMembers,
-    getVerify,
-    postVerify,
-    postAuthCallback,
+    get,
+    post,
   }
 }

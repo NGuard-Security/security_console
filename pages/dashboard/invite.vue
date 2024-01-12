@@ -334,7 +334,7 @@ const checkSaveSettings = async () => {
 }
 const saveSettings = async () => {
   // try {
-  //   await API.postInvite(Number(route.query.id), {
+  //   await API.post.invite(Number(route.query.id), {
   //     settings: this.select.method.index + 2,
   //     status: this.switch_.invite,
   //     link: this.select.link,
@@ -357,7 +357,7 @@ const saveSettings = async () => {
 
 onMounted(async () => {
   try {
-    const res = await API.getInvite(Number(route.query.id))
+    const res = await API.get.invite(Number(route.query.id))
 
     isPermission.value = res.koreanbots.voted
     //TODO - 이런거 전부다 Enum 형식으로 만들어야됨, 백엔드 코드 참조 필요

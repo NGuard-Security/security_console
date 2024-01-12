@@ -161,7 +161,9 @@
 
 <script setup lang="ts">
 const { loadingSuccess } = useLoadingState()
-const { getAPIServers } = useAPI()
+const API = useAPI()
+const i18n = useI18n()
+const router = useRouter()
 const serverData = useState<any[]>('serverData', () => [])
 
 const openInvite = e => {
@@ -173,14 +175,14 @@ onMounted(async () => {
   if (getAccessToken()) {
     try {
       //TODO - now props 가 없어도 되게 해야하나
-      const res = await getAPIServers()
+      const res = await API.get.servers()
 
-      this.serverList = res.sort((a, b) => (a.isInvited ? -1 : 1))
+      serverData.value = res.sort((a, b) => (a.isInvited ? -1 : 1))
 
       loadingSuccess()
     } catch (e) {}
   } else {
-    this.$router.push(`/${this.$i18n.locale}/auth/login`)
+    router.push(`/${i18n.locale}/auth/login`)
     return
   }
 })

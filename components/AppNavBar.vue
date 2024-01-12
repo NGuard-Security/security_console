@@ -27,7 +27,7 @@ onClickOutside(serverSelectEl, clickServerMenu)
 
 onMounted(async () => {
   try {
-    serverData.value = await API.getServers(Number(route.query.id))
+    serverData.value = await API.get.servers(Number(route.query.id))
     currentServerData.value = serverData.value[0]
   } catch (e) {}
 })
@@ -70,13 +70,7 @@ onMounted(async () => {
                 <div v-if="!currentServerData"></div>
                 <nuxt-img
                   v-else-if="currentServerData.icon"
-                  :src="
-                    'https://cdn.discordapp.com/icons/' +
-                    currentServerData.id +
-                    '/' +
-                    currentServerData.icon +
-                    '.png?size=64'
-                  "
+                  :src="`https://cdn.discordapp.com/icons/${currentServerData.id}/${currentServerData.icon}.png?size=64`"
                   alt="server logo"
                   class="w-full h-full"
                 />

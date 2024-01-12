@@ -133,7 +133,7 @@ const onClickOutside = () => {
 }
 const saveSettings = async () => {
   try {
-    // await API.postVerify(Number(route.query.id), {
+    // await API.post.verify(Number(route.query.id), {
     //   status: this.switch_.confirm,
     //   role: this.input.role,
     // })
@@ -152,7 +152,7 @@ const saveSettings = async () => {
 
 onMounted(async () => {
   try {
-    const res = await API.getVerify(Number(route.query.id))
+    const res = await API.get.verify(Number(route.query.id))
 
     //TODO - 이거 settings만 조건부로 나오는건가?
     if (res.settings) {

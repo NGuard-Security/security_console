@@ -158,7 +158,7 @@ const setBlackList = async () => {
   $modal.hide('sureRemoveBlackList')
 
   try {
-    await API.postMembers(Number(route.query.id), targetId)
+    await API.post.members(Number(route.query.id), targetId)
 
     const member = memberMap.value[targetId]
     member.isBlackList = !member.isBlackList
@@ -190,7 +190,7 @@ const searchMember = (id: string) => {
 
 onMounted(async () => {
   try {
-    const res = await API.getMembers(Number(route.query.id))
+    const res = await API.get.members(Number(route.query.id))
 
     res.forEach(({ id, ...data }) => {
       memberMap.value[id] = data

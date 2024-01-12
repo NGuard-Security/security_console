@@ -184,9 +184,11 @@ const setAlertsIsOpened = () => {
 }
 
 const resizeAlerts = () => {
+  if (!process.client) return
+
   if (!isAlertOpened.value) {
     //FIXME - Uncaught TypeError: document.querySelectorAll(...)[0] is undefined
-    // alertCenterHeight.value = `${(document.querySelectorAll('.card.alert')[0] as HTMLDivElement).offsetHeight}px`
+    alertCenterHeight.value = `${(document.querySelectorAll('.card.alert')[0] as HTMLDivElement).offsetHeight}px`
   } else {
     alertCenterHeight.value = 'auto'
   }
@@ -194,7 +196,7 @@ const resizeAlerts = () => {
 
 onMounted(async () => {
   try {
-    // summaryData.value = await API.getSummary(Number(route.query.id))
+    // summaryData.value = await API.get.summary(Number(route.query.id))
     // loadPush(Number(route.query.id))
     // onPushCheck(resizeAlerts)
     // alertInterval.value = setInterval(() => {
