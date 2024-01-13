@@ -128,7 +128,6 @@ definePageMeta({
 
 const { $modal } = useNuxtApp()
 const API = useAPI()
-const route = useRoute()
 const { loadingSuccess } = useLoadingState()
 
 const memberList = useState<string[]>('memberList', () => [])
@@ -158,18 +157,19 @@ const setBlackList = async () => {
   $modal.hide('sureRemoveBlackList')
 
   try {
-    await API.post.members(Number(route.query.id), targetId)
+    await API.post.members(targetId)
 
     const member = memberMap.value[targetId]
     member.isBlackList = !member.isBlackList
   } catch (e) {
     $modal.show('fail')
-    setTimeout(() => {
-      $modal.hide('fail')
-      setTimeout(() => {
-        // location.reload()
-      }, 1000)
-    }, 3000)
+    await wait(3000)
+
+    $modal.hide('fail')
+    await wait(1000)
+
+    // location.reload()
+    // TODO - 요청 다시하는걸로 해야하려나
   }
 }
 
@@ -190,7 +190,7 @@ const searchMember = (id: string) => {
 
 onMounted(async () => {
   try {
-    const res = await API.get.members(Number(route.query.id))
+    const res = await API.get.members()
 
     res.forEach(({ id, ...data }) => {
       memberMap.value[id] = data

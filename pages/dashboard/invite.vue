@@ -258,7 +258,6 @@
 </style>
 
 <script setup lang="ts">
-import moment from 'moment'
 import { APIPremiumType } from '~/utils/enums'
 
 definePageMeta({
@@ -267,7 +266,6 @@ definePageMeta({
 
 const { $modal } = useNuxtApp()
 const API = useAPI()
-const route = useRoute()
 const { loadingSuccess } = useLoadingState()
 
 const isPermission = useState('isPermission', () => false)
@@ -345,15 +343,15 @@ const saveSettings = async () => {
       },
     })
 
-    this.$modal.show('success')
-    setTimeout(() => {
-      this.$modal.hide('success')
-    }, 3000)
+    $modal.show('success')
+    await wait(3000)
+
+    $modal.hide('success')
   } catch (e) {
-    this.$modal.show('fail')
-    setTimeout(() => {
-      this.$modal.hide('fail')
-    }, 3000)
+    $modal.show('fail')
+    await wait(3000)
+
+    $modal.hide('fail')
   }
 }
 

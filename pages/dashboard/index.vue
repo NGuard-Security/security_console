@@ -53,7 +53,7 @@
               {{
                 $t('summary.peoplesTemplate')
                   .toLowerCase()
-                  .replace('n', String(summaryData?.new_user || '0'))
+                  .replace('n', String(summaryData?.newUser || '0'))
               }}
             </span>
           </div>
@@ -70,7 +70,7 @@
               {{
                 $t('summary.peoplesTemplate')
                   .toLowerCase()
-                  .replace('n', String(summaryData?.black_user || '0'))
+                  .replace('n', String(summaryData?.blackUser || '0'))
               }}
             </span>
           </div>
@@ -206,11 +206,11 @@ onMounted(async () => {
       checkPush(Number(route.query.id))
     }, 5000)
 
-    setTimeout(() => {
-      initChartEvent.emit()
-      resizeAlerts()
-      loadingSuccess()
-    }, 100)
+    await wait(100)
+
+    initChartEvent.emit()
+    resizeAlerts()
+    loadingSuccess()
   } catch (e) {}
 })
 

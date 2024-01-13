@@ -133,35 +133,35 @@ const onClickOutside = () => {
 }
 const saveSettings = async () => {
   try {
-    // await API.post.verify(Number(route.query.id), {
-    //   status: this.switch_.confirm,
-    //   role: this.input.role,
-    // })
+    await API.post.verify({
+      status: this.switch_.confirm,
+      role: this.input.role,
+    })
 
     $modal.show('success')
-    setTimeout(() => {
-      $modal.hide('success')
-    }, 3000)
+    await wait(3000)
+
+    $modal.hide('success')
   } catch (e) {
     $modal.show('fail')
-    setTimeout(() => {
-      $modal.hide('fail')
-    }, 3000)
+    await wait(3000)
+
+    $modal.hide('fail')
   }
 }
 
 onMounted(async () => {
   try {
-    const res = await API.get.verify(Number(route.query.id))
+    const res = await API.get.verify()
 
     if (res.settings) {
-      // this.switch_.confirm = true
-      // this.list.role.list = res.guild.roles
-      // this.roleList = res.guild.roles
-      // this.input.role = res.settings.role ? res.settings.role : res.guild.roles[0]
+      this.switch_.confirm = true
+      this.list.role.list = res.guild.roles
+      this.roleList = res.guild.roles
+      this.input.role = res.settings.role ? res.settings.role : res.guild.roles[0]
     } else {
-      // this.list.role.list = res.guild.roles
-      // this.input.role = res.guild.roles[0]
+      this.list.role.list = res.guild.roles
+      this.input.role = res.guild.roles[0]
     }
 
     loadingSuccess()

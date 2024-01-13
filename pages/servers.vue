@@ -16,7 +16,6 @@ const openInvite = (e: any) => {
 onMounted(async () => {
   try {
     const res = await API.get.servers()
-    // TODO - server에 id 값이 없으면 버리는 로직 작성
     serverData.value = res.sort((a, b) => (a.isInvited ? -1 : 1))
 
     loadingSuccess()
