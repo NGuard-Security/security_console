@@ -259,6 +259,7 @@
 
 <script setup lang="ts">
 import moment from 'moment'
+import { APIPremiumType } from '~/utils/enums'
 
 definePageMeta({
   // middleware: ['auth', 'guild-id'],
@@ -272,33 +273,33 @@ const { loadingSuccess } = useLoadingState()
 const isPermission = useState('isPermission', () => false)
 const isEnterprise = useState('isEnterprise', () => false)
 
-const settingData = useState(undefined, () => {
-  return { invite: false, domain: false, domainSSL: true, method: { index: 0, isActive: false }, link: '' }
-
-  // select: {
-  //   method: {
-  //     index: 0,
-  //     isActive: false,
-  //   },
-  //   link: '',
-  //   domain: '',
-  // },
-  // switch_: {
-  //   invite: false,
-  //   domain: false,
-  //   domain_ssl: true,
-  // },
-  // list: {
-  //   method: {
-  //     show: false,
-  //     list: [
-  //       this.$t('invite.category1.type.option1'),
-  //       this.$t('invite.category1.type.option2'),
-  //       this.$t('invite.category1.type.option3'),
-  //     ],
-  //   },
-  // },
+//FIXME - 어케할꺼임
+const settingData = useState<{} | null>(undefined, () => {
+  return {}
 })
+// select: {
+//   method: {
+//     index: 0,
+//     isActive: false,
+//   },
+//   link: '',
+//   domain: '',
+// },
+// switch_: {
+//   invite: false,
+//   domain: false,
+//   domain_ssl: true,
+// },
+// list: {
+//   method: {
+//     show: false,
+//     list: [
+//       this.$t('invite.category1.type.option1'),
+//       this.$t('invite.category1.type.option2'),
+//       this.$t('invite.category1.type.option3'),
+//     ],
+//   },
+// },
 
 const generateRandom = () => {
   return Math.random().toString(32).substring(2, 8)
@@ -333,40 +334,40 @@ const checkSaveSettings = async () => {
   // }
 }
 const saveSettings = async () => {
-  // try {
-  //   await API.post.invite(Number(route.query.id), {
-  //     settings: this.select.method.index + 2,
-  //     status: this.switch_.invite,
-  //     link: this.select.link,
-  //     domain: {
-  //       domain: this.switch_.domain ? this.select.domain : '',
-  //       ssl: this.switch_.domain ? this.switch_.domain_ssl : null,
-  //     },
-  //   })
-  //   this.$modal.show('success')
-  //   setTimeout(() => {
-  //     this.$modal.hide('success')
-  //   }, 3000)
-  // } catch (e) {
-  //   this.$modal.show('fail')
-  //   setTimeout(() => {
-  //     this.$modal.hide('fail')
-  //   }, 3000)
-  // }
+  try {
+    await API.post.invite({
+      settings: this.select.method.index + 2,
+      status: this.switch_.invite,
+      link: this.select.link,
+      domain: {
+        domain: this.switch_.domain ? this.select.domain : '',
+        ssl: this.switch_.domain ? this.switch_.domain_ssl : null,
+      },
+    })
+
+    this.$modal.show('success')
+    setTimeout(() => {
+      this.$modal.hide('success')
+    }, 3000)
+  } catch (e) {
+    this.$modal.show('fail')
+    setTimeout(() => {
+      this.$modal.hide('fail')
+    }, 3000)
+  }
 }
 
 onMounted(async () => {
   try {
-    const res = await API.get.invite(Number(route.query.id))
+    const res = await API.get.invite()
 
     isPermission.value = res.koreanbots.voted
-    //TODO - 이런거 전부다 Enum 형식으로 만들어야됨, 백엔드 코드 참조 필요
-    isEnterprise.value = res.payData?.type === 'ENTERPRISE' && moment().valueOf() < Number(res.payData?.expire)
+    isEnterprise.value = res.premiumType > APIPremiumType.FREE
 
-    if (res.settings?.status != 0) {
+    if (res.settings) {
       settingData.value.invite = Boolean(res.settings.status)
-      settingData.value.domain = Boolean(res.domain?.domain)
-      settingData.value.domainSSL = Boolean(res.domain?.ssl || true)
+      settingData.value.domain = Boolean(res.domain.domain)
+      settingData.value.domainSSL = res.domain.ssl
       settingData.value.method.index = res.settings.settings - 2
       settingData.value.link = res.settings.link ? res.settings.link : generateRandom()
     } else {

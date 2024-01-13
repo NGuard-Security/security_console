@@ -1,8 +1,6 @@
-import axios, { HttpStatusCode } from 'axios'
-import { ALERT } from '~/utils/enums'
-import { LOADING_STATE } from '#imports'
+import axios, { AxiosError, HttpStatusCode, type InternalAxiosRequestConfig } from 'axios'
+import { ALERT, APIInviteType, APIPremiumType } from '~/utils/enums'
 
-//TODO - any로 공구리 친거 전부 명시 해야됨
 export interface APIAlert {
   kind: ALERT
   title: string
@@ -15,7 +13,7 @@ export interface APIAlert {
 }
 
 export interface APIServer {
-  id: any
+  id: string
   icon: string
   name: string
   now: boolean
@@ -25,9 +23,9 @@ export interface APIServer {
 export interface APISummary {
   user: number
   bot: number
-  new_user: number
-  black_user: number
-  summary: number[]
+  newUser: number
+  blackUser: number
+  chartData: number[]
 }
 
 export interface APIInvite {
@@ -35,75 +33,76 @@ export interface APIInvite {
     voted: boolean
     lastVote: number
   }
-  payData: {
-    type: any
-    expire: string
-  }
+  premiumType: APIPremiumType
   domain: {
     guild: string
     domain: string
     ssl: boolean
   }
-  settings: {
-    status: number
-    link: any
-    settings: any
+  settings?: {
+    status: 1
+    link: string
+    settings: APIInviteType
+    guild: string
+  }
+}
+
+export interface APIInviteBody {
+  status: boolean // 사용 여부
+  settings: APIInviteType
+  link: string // 끝의 커스텀 링크 값
+  domain: {
+    domain: string // 다음 버전에 쓴다함, 커스텀 도메인
+    ssl: boolean // ssl 다는지 여부
   }
 }
 
 export interface APIMemberBase {
-  discriminator: string
   userName: string
-  global_name: string
-  avatar: string
-  bot: boolean
-  system: boolean
-  mfa_enabled: boolean
-  banner: string
-  accent_color: number
-  locale: string
-  verified: boolean
-  email: string
-  flags: number
-  premium_type: number
-  public_flags: number
-  avatar_decoration: string
-  // nickName: string
-  // icon: string
-  // isBlackList: boolean
+  nickName: string // 주된 user이름으로 사용
+  icon: string
+  isBlackList: boolean
+  accent_color?: number
+  flags?: number
+  premium_type?: number
+  avatar_decoration_data?: string
 }
 
 export interface APIMember extends APIMemberBase {
   id: string
 }
 
-export interface APIInviteBody {
-  status: boolean
-  settings: number
-  link: string
-  domain: {
-    domain: string
-    ssl: boolean
-  }
+export interface APIRole {
+  id: string
+  name: string
 }
 
 export interface APIVerifyBody {
   status: boolean
-  role: any
+  role: APIRole
 }
 
 export interface APIVerify {
-  settings: {
-    role: any
+  settings?: {
+    role: APIRole
   }
   guild: {
-    roles: any[]
+    roles: APIRole[]
   }
+}
+
+interface instanceConfig extends InternalAxiosRequestConfig {
+  retryCount: 0
+}
+
+interface instanceError extends AxiosError<any, any> {
+  config?: instanceConfig
 }
 
 export default () => {
   const config = useRuntimeConfig()
   const router = useRouter()
+  const route = useRoute()
   const { pathWithLocale } = usePathUtils()
   const { loadingFailed } = useLoadingState()
 
@@ -114,104 +113,93 @@ export default () => {
         }
       : undefined
 
-    const res = axios.create({
+    const instance = axios.create({
       baseURL: (config.public.API_BASE_URL as string) + '/dashboard',
       headers,
-    })
+      retryCount: 0,
+    } as instanceConfig)
 
-    res.interceptors.response.use(
-      res => res,
-      err => {
-        if (err.response) {
-          switch (err.response.status) {
-            case HttpStatusCode.Unauthorized:
-              window.localStorage.removeItem('access_token')
-              router.push(pathWithLocale('/auth/login'))
-              break
+    const retry = (config: InternalAxiosRequestConfig, retryAfterSec: number) => {
+      return new Promise(resolve => {
+        setTimeout(async () => {
+          console.log('Retrying request..')
 
-            case HttpStatusCode.NotFound:
-              router.push(pathWithLocale('/servers'))
-              break
+          // 여기서의 instance에서도 동일하게 interceptor 들이 적용됩니다
+          const retryRes = await instance.request(config)
+          resolve(retryRes)
+        }, retryAfterSec * 1000)
+      })
+    }
 
-            case HttpStatusCode.TooManyRequests:
-              setTimeout(() => {
-                window.location.reload()
-                //TODO - 요청 다시 한번 하는거로
-              }, err.response?.data.data.retry_after * 1000)
-              break
-          }
-        }
+    const onRejected = async (err: instanceError) => {
+      switch (err.response?.status) {
+        case HttpStatusCode.Unauthorized:
+          window.localStorage.removeItem('access_token')
+          router.push(pathWithLocale('/auth/login'))
+          break
 
-        if (isShowError) loadingFailed()
-        catchNetworkErr(err, isShowError)
-        throw err
-      },
-    )
+        case HttpStatusCode.NotFound:
+          router.push(pathWithLocale('/servers'))
+          break
 
-    return res
+        case HttpStatusCode.TooManyRequests:
+          if (!err.response?.data.data.retry_after || !err.config) break
+          if (err.config.retryCount > 3) break
+
+          err.config.retryCount++
+
+          // Promise를 return 할 경우엔, 아래의 에러 로깅 로직을 거치지 않고 Promise 로직만 실행합니다
+          return retry(err.config, err.response.data.data.retry_after)
+      }
+
+      if (isShowError) loadingFailed()
+      catchNetworkErr(err, isShowError)
+      return Promise.reject(err)
+    }
+
+    instance.interceptors.response.use(undefined, onRejected)
+
+    return instance
   }
 
-  //TODO - stateless하게 한답시고 serverId를 인자로 받아왔는데, 그냥 생략할까?
-
   const get = {
-    servers: async (nowGuildId: number) => {
-      if (isNaN(nowGuildId)) throw new Error("invaild 'nowGuildId' prop")
-
-      const res = await createDashboardAPI(false).get<APIServer[]>(`/servers?now=${nowGuildId}`)
+    servers: async (isShowError: boolean = true) => {
+      const res = await createDashboardAPI(isShowError).get<APIServer[]>(`/servers?now=${route.query.id}`)
       return res.data
     },
-    summary: async (serverId: number) => {
-      if (isNaN(serverId)) throw new Error("invaild 'ServerId' prop")
-
-      const res = await createDashboardAPI().get<APISummary>(`/summary?id=${serverId}`)
+    summary: async (isShowError: boolean = true) => {
+      const res = await createDashboardAPI(isShowError).get<APISummary>(`/summary?id=${route.query.id}`)
       return res.data
     },
-    invite: async (serverId: number) => {
-      if (isNaN(serverId)) throw new Error("invaild 'ServerId' prop")
-
-      const res = await createDashboardAPI().get<APIInvite>(`/invite?id=${serverId}`)
+    invite: async (isShowError: boolean = true) => {
+      const res = await createDashboardAPI(isShowError).get<APIInvite>(`/invite?id=${route.query.id}`)
       return res.data
     },
-    members: async (serverId: number) => {
-      if (isNaN(serverId)) throw new Error("invaild 'ServerId' prop")
-
-      const res = await createDashboardAPI().get<APIMember[]>(`/members?id=${serverId}`)
+    members: async (isShowError: boolean = true) => {
+      const res = await createDashboardAPI(isShowError).get<APIMember[]>(`/members?id=${route.query.id}`)
       return res.data
     },
-    verify: async (serverId: number) => {
-      if (isNaN(serverId)) throw new Error("invaild 'ServerId' prop")
-
-      const res = await createDashboardAPI().get<APIVerify>(`/verify?id=${serverId}`)
+    verify: async (isShowError: boolean = true) => {
+      const res = await createDashboardAPI(isShowError).get<APIVerify>(`/verify?id=${route.query.id}`)
       return res.data
     },
   }
 
   const post = {
-    invite: async (serverId: number, body: APIInviteBody) => {
-      if (isNaN(serverId)) throw new Error("invaild 'ServerId' prop")
-
-      const res = await createDashboardAPI().post(`/invite?id=${serverId}`, body)
+    invite: async (body: APIInviteBody, isShowError: boolean = true) => {
+      const res = await createDashboardAPI(isShowError).post(`/invite?id=${route.query.id}`, body)
       return
     },
-    members: async (serverId: number, memberId: string) => {
-      if (isNaN(serverId)) throw new Error("invaild 'ServerId' prop")
-
-      const res = await createDashboardAPI().post(`/members?id=${serverId}`, { member: memberId })
+    members: async (memberId: string, isShowError: boolean = true) => {
+      const res = await createDashboardAPI(isShowError).post(`/members?id=${route.query.id}`, { member: memberId })
       return
     },
-    verify: async (serverId: number, body: APIVerifyBody) => {
-      if (isNaN(serverId)) throw new Error("invaild 'ServerId' prop")
-
-      const res = await createDashboardAPI().post(`/verify?id=${serverId}`, body)
+    verify: async (body: APIVerifyBody, isShowError: boolean = true) => {
+      const res = await createDashboardAPI(isShowError).post(`/verify?id=${route.query.id}`, body)
       return
     },
-    authCallback: async (code: string, isStaging: boolean) => {
-      //FIXME - staging ??
-
-      const res = await createDashboardAPI().post(`/auth/callback`, {
-        code,
-        // staging: isStaging,
-      })
+    authCallback: async (code: string, isShowError: boolean = true) => {
+      const res = await createDashboardAPI(isShowError).post(`/auth/callback`, { code })
       return
     },
   }

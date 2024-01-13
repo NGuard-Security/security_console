@@ -149,7 +149,7 @@
         {{ $t('summary.graph.title') }}
       </h2>
       <div class="userGraph w-full p-4 rounded-lg">
-        <DashboardInviteURLUsageChart v-if="summaryData" :data="summaryData.summary" />
+        <DashboardInviteURLUsageChart v-if="summaryData" :data="summaryData.chartData" />
       </div>
     </NuxtLayout>
   </main>
@@ -196,17 +196,21 @@ const resizeAlerts = () => {
 
 onMounted(async () => {
   try {
-    // summaryData.value = await API.get.summary(Number(route.query.id))
-    // loadPush(Number(route.query.id))
-    // onPushCheck(resizeAlerts)
-    // alertInterval.value = setInterval(() => {
-    //   checkPush(Number(route.query.id))
-    // }, 5000)
-    // setTimeout(() => {
-    //   initChartEvent.emit()
-    //   resizeAlerts()
-    loadingSuccess()
-    // }, 100)
+    summaryData.value = await API.get.summary()
+
+    loadPush(Number(route.query.id))
+
+    onPushCheck(resizeAlerts)
+
+    alertInterval.value = setInterval(() => {
+      checkPush(Number(route.query.id))
+    }, 5000)
+
+    setTimeout(() => {
+      initChartEvent.emit()
+      resizeAlerts()
+      loadingSuccess()
+    }, 100)
   } catch (e) {}
 })
 
