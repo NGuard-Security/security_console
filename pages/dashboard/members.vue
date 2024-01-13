@@ -174,7 +174,7 @@ const setBlackList = async () => {
 }
 
 const searchMember = (id: string) => {
-  //TODO - 스크롤시 추가적으로 로딩 되는것으로 변경
+  //TODO - 페이지 형식 적용?
 
   memberList.value = []
   const matcher = createFuzzyMatcher(id)

@@ -39,4 +39,4 @@ const getDiscordAPIUserData = async () => {
   return userData
 }
 
-export { getDiscordAPIUserData }
+export { discordCDNUrl, getDiscordAPIUserData }

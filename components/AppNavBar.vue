@@ -27,7 +27,7 @@ onClickOutside(serverSelectEl, clickServerMenu)
 
 onMounted(async () => {
   try {
-    serverData.value = await API.get.servers(Number(route.query.id))
+    serverData.value = await API.get.servers(false)
     currentServerData.value = serverData.value[0]
   } catch (e) {}
 })

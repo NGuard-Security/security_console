@@ -154,7 +154,6 @@ onMounted(async () => {
   try {
     const res = await API.get.verify(Number(route.query.id))
 
-    //TODO - 이거 settings만 조건부로 나오는건가?
     if (res.settings) {
       // this.switch_.confirm = true
       // this.list.role.list = res.guild.roles
