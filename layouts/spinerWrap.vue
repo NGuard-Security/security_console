@@ -18,7 +18,8 @@ const { loadingState } = useLoadingState()
           <!-- 불러오는 중 -->
           {{ $t('common.loading') }}
         </h3>
-        <div class="spinner2"></div>
+
+        <LoadingSpinner :type="2" />
       </div>
     </div>
 
