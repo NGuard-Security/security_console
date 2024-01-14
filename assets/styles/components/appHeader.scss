@@ -10,21 +10,26 @@
 
 header {
   background: rgb(15, 16, 22);
+  height: 40px;
 }
 
 @media (max-width: 660px) {
   .headerContent {
-    padding: 0.8rem 1.2rem 0.8rem 2rem;
+    padding: 0.8rem 1.2rem;
   }
 
   .logoImg {
     height: 36px !important;
   }
 
-  .menuBtn {
-    width: 2.5rem !important;
-    height: 2.5rem !important;
+  header {
+    padding: 0.8rem 1.2rem;
   }
+
+  // .menuBtn {
+  //   width: 2.5rem !important;
+  //   height: 2.5rem !important;
+  // }
 
   .userBtn-wrap {
     margin-right: 0.4rem !important;
