@@ -41,8 +41,8 @@ onMounted(async () => {
 </style>
 
 <template>
-  <header class="fixed w-full text-sm z-30">
-    <div class="headerContent flex items-center lg:justify-between max-w-screen-xl mx-auto p-4 text-gray-200">
+  <header class="w-full text-sm z-30 text-gray-200" ref="navEl">
+    <div class="headerContent flex items-center lg:justify-between max-w-screen-xl mx-auto p-4">
       <!-- 왼쪽 로고 -->
       <div class="logoImg mr-auto md:mr-0 h-[40px]">
         <a href="https://nguard.xyz">
@@ -53,9 +53,9 @@ onMounted(async () => {
       <!-- 중앙 네비게이션 -->
       <transition appear name="nav" mode="out-in">
         <div
-          v-if="isShowNav"
+          v-if="!isMobile"
           ref="navEl"
-          class="headerNav absolute md:static flex flex-col md:flex-row items-center md:gap-3 top-0 left-0 w-full md:w-auto m-0 md:mt-0 mt-16 md:ml-6 mr-auto lg:mr-0 p-2 md:p-0"
+          class="headerNav static flex flex-row items-center gap-3 top-0 left-0 w-auto m-0 mt-0 ml-6 mr-auto lg:mx-0 p-0"
         >
           <a href="https://nguard.xyz" class="nav_item">
             <!-- 홈 -->
@@ -135,9 +135,33 @@ onMounted(async () => {
         @click="isShowNav = !isShowNav"
         class="menuBtn md:hidden w-7 h-7 p-1.5 box-content fill-white cursor-pointer"
       >
-        <svg-icon v-if="!isShowNav" name="menu" />
-        <svg-icon v-else name="close" />
+        <SvgIcon v-if="!isShowNav" name="menu" />
+        <SvgIcon v-else name="close" />
       </div>
     </div>
+
+    <transition appear name="nav" mode="out-in">
+      <div
+        v-if="isMobile && isShowNav"
+        class="headerNav flex flex-col items-center top-0 left-0 w-full m-0 mr-auto p-2"
+      >
+        <a href="https://nguard.xyz" class="nav_item">
+          <!-- 홈 -->
+          {{ $t('navbar.home') }}
+        </a>
+        <NuxtLink :to="pathWithLocale('/servers')" class="nav_item">
+          <!-- 대시보드 -->
+          {{ $t('navbar.dashboard') }}
+        </NuxtLink>
+        <a href="https://nguard.xyz/invite/nguard" class="nav_item">
+          <!-- 서포트 서버 -->
+          {{ $t('navbar.support') }}
+        </a>
+        <!-- <a href="https://nguard.xyz/upgrade" class="nav_item"> -->
+        <!-- NGuard 프리미어 플랜 -->
+        <!-- {{ $t('navbar.upgrade') }} -->
+        <!-- </a> -->
+      </div>
+    </transition>
   </header>
 </template>

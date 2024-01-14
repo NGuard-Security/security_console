@@ -35,6 +35,11 @@ header {
   }
 }
 
+.menuBtn svg {
+  width: 100%;
+  height: 100%;
+}
+
 .userBtn {
   svg {
     transition: transform 0.2s ease;
