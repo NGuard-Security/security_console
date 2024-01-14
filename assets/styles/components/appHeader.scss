@@ -3,7 +3,7 @@
   transition: opacity 0.1s cubic-bezier(0.17, 0.84, 0.44, 1);
 }
 
-.nav-enter,
+.nav-enter-from,
 .nav-leave-to {
   opacity: 0;
 }
