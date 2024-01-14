@@ -200,7 +200,7 @@ export default () => {
     },
     authCallback: async (code: string, isShowError: boolean = true) => {
       const res = await createDashboardAPI(isShowError).post(`/auth/callback`, { code })
-      return
+      return res.data
     },
   }
 

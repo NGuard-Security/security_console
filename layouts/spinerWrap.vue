@@ -14,7 +14,7 @@ const { loadingState } = useLoadingState()
 
     <div v-else-if="loadingState === LOADING_STATE.Connecting" class="state_wrap">
       <div class="state h-[500px]">
-        <h3 class="pb-8 text-2xl font-semibold">
+        <h3 class="pb-8 text-2xl">
           <!-- 불러오는 중 -->
           {{ $t('common.loading') }}
         </h3>

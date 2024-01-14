@@ -23,7 +23,7 @@ onMounted(async () => {
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import url('~/assets/styles/pages/servers.scss');
 </style>
 

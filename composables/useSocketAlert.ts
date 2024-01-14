@@ -7,7 +7,6 @@ export default () => {
   const alertsData = useState<APIAlert[]>('alertsData', () => [])
 
   onMounted(() => {
-    return
     //config.public.API_BASE_URL as string
     connection.value = io('https://ws-api.nguard.xyz/').connect()
 
