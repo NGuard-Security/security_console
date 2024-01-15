@@ -46,29 +46,31 @@
 </style>
 
 <script setup lang="ts">
-const { postAPIAuthCallback } = useAPI()
+const API = useAPI()
 const route = useRoute()
 const router = useRouter()
 const i18n = useI18n()
 
 onMounted(async () => {
   try {
-    const res = await postAPIAuthCallback(
-      Number(route.query.code),
+    if (typeof route.query.code !== 'string') {
+      return
+    }
+
+    const res = await API.post.authCallback(
+      route.query.code,
       window.location.origin == 'https://console-v2stg.nguard.dev',
     )
 
-    setAccessToken(res.data.access_token)
+    setAccessToken(res.access_token)
 
-    setTimeout(() => {
-      router.push(`/${route.query.state || i18n.locale || 'ko'}/servers`)
-    }, 1000)
+    router.push(`/${route.query.state || i18n.locale || 'ko'}/servers`)
   } catch (e: any) {
     if (e.response.status != 400 && e.response.status != 429) {
       alert(e.response.data.message || e)
     }
 
-    router.push(`/${route.query.state || i18n.locale || 'ko'}/auth/login`)
+    router.push(`/${route.query.state || i18n.locale || 'ko'}/login`)
   }
 })
 </script>
