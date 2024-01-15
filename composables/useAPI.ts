@@ -135,7 +135,7 @@ export default () => {
       switch (err.response?.status) {
         case HttpStatusCode.Unauthorized:
           window.localStorage.removeItem('access_token')
-          router.push(pathWithLocale('/auth/login'))
+          router.push(pathWithLocale('/login'))
           break
 
         case HttpStatusCode.NotFound:
@@ -164,22 +164,122 @@ export default () => {
 
   const get = {
     servers: async (isShowError: boolean = true) => {
+      if (config.public.IS_TEST) {
+        return new Promise<APIServer[]>(resolve => {
+          resolve([
+            {
+              id: '1',
+              icon: 'tesst',
+              name: 'test1',
+              now: true,
+              isInvited: true,
+            },
+            {
+              id: '2',
+              icon: 'tesst',
+              name: 'test2___________________________________________0',
+              now: false,
+              isInvited: true,
+            },
+            {
+              id: '3',
+              icon: 'tesst',
+              name: 'test3',
+              now: false,
+              isInvited: false,
+            },
+          ])
+        })
+      }
+
       const res = await createDashboardAPI(isShowError).get<APIServer[]>(`/servers?now=${route.query.id}`)
       return res.data
     },
     summary: async (isShowError: boolean = true) => {
+      if (config.public.IS_TEST) {
+        return new Promise<APISummary>(resolve => {
+          resolve({
+            user: 1234567890,
+            bot: 1234567890,
+            newUser: 1234567890,
+            blackUser: 1234567890,
+            chartData: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+          })
+        })
+      }
+
       const res = await createDashboardAPI(isShowError).get<APISummary>(`/summary?id=${route.query.id}`)
       return res.data
     },
     invite: async (isShowError: boolean = true) => {
+      if (config.public.IS_TEST) {
+        return new Promise<APIInvite>(resolve => {
+          resolve({
+            koreanbots: {
+              voted: false,
+              lastVote: 0,
+            },
+            premiumType: APIPremiumType.FREE,
+            domain: {
+              guild: 'test',
+              domain: 'test',
+              ssl: false,
+            },
+            settings: {
+              status: 1,
+              link: 'test',
+              settings: APIInviteType.RECAPTCHA,
+              guild: 'test',
+            },
+          })
+        })
+      }
+
       const res = await createDashboardAPI(isShowError).get<APIInvite>(`/invite?id=${route.query.id}`)
       return res.data
     },
     members: async (isShowError: boolean = true) => {
+      if (config.public.IS_TEST) {
+        return new Promise<APIMember[]>(resolve => {
+          resolve([
+            {
+              id: '1',
+              userName: 'test1',
+              nickName: 'test1',
+              icon: '...',
+              isBlackList: false,
+            },
+            {
+              id: '2',
+              userName: 'test2',
+              nickName: 'test2',
+              icon: '...',
+              isBlackList: true,
+            },
+          ])
+        })
+      }
+
       const res = await createDashboardAPI(isShowError).get<APIMember[]>(`/members?id=${route.query.id}`)
       return res.data
     },
     verify: async (isShowError: boolean = true) => {
+      if (config.public.IS_TEST) {
+        return new Promise<APIVerify>(resolve => {
+          resolve({
+            settings: {
+              role: { id: '1234', name: 'test' },
+            },
+            guild: {
+              roles: [
+                { id: '1234', name: 'test1' },
+                { id: '12345', name: 'test2' },
+              ],
+            },
+          })
+        })
+      }
+
       const res = await createDashboardAPI(isShowError).get<APIVerify>(`/verify?id=${route.query.id}`)
       return res.data
     },

@@ -1,5 +1,6 @@
 import CONFIG from './config.json'
 const isDev = process.env.NODE_ENV === 'development'
+const isTest = process.env.IS_TEST === 'true'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -110,6 +111,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       API_BASE_URL: isDev ? CONFIG.apiTestEndpoint : CONFIG.apiEndpoint,
+      IS_TEST: isTest,
     },
   },
   alias: {},
