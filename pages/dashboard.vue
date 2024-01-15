@@ -4,9 +4,9 @@ const i18n = useI18n()
 
 <template>
   <NuxtLayout>
-    <div :class="`i18n_${i18n.locale.value}`">
+    <div :class="`i18n i18n_${i18n.locale.value}`">
       <AppHeader />
-      <div class="dashboard-wrap bottom_content flex w-full min-h-screen">
+      <div class="bottom_content flex w-full h-full">
         <AppNavBar />
 
         <NuxtPage />

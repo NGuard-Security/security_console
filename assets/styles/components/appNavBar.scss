@@ -19,7 +19,7 @@
 }
 
 .navbarWrap {
-  padding-top: 72px;
+  // padding-top: 72px;
   height: 100%;
   position: static;
 
@@ -223,6 +223,7 @@
   img {
     display: inline-block;
     width: 18px;
+    height: 18px;
     margin-right: 12px;
     fill: $color-nav;
   }
