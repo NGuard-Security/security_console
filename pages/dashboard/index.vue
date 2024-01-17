@@ -7,7 +7,7 @@
     </h1>
 
     <NuxtLayout name="spiner-wrap">
-      <div class="cards grid grid-cols-4 gap-3">
+      <div class="cards grid gap-3">
         <div class="card">
           <div class="card_content">
             <p>

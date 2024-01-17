@@ -41,7 +41,7 @@
                 <!-- 초대 링크 설정 -->
                 {{ $t('invite.category1.link') }}
               </p>
-              <div class="flex flex-col md:flex-row items-center">
+              <div class="flex flex-col md:flex-row md:items-center items-start">
                 <label>https://nguard.xyz/invite/</label>
                 <input
                   class="input-m"

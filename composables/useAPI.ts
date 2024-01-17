@@ -199,10 +199,10 @@ export default () => {
       if (config.public.IS_TEST) {
         return new Promise<APISummary>(resolve => {
           resolve({
-            user: 1234567890,
-            bot: 1234567890,
-            newUser: 1234567890,
-            blackUser: 1234567890,
+            user: 1234567,
+            bot: 1234567,
+            newUser: 1234567,
+            blackUser: 1234567,
             chartData: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           })
         })

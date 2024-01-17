@@ -1,31 +1,29 @@
 .bg-enter-active,
 .bg-leave-active {
-  transition: opacity 0.25s ease;
+  transition: opacity 0.15s ease;
 }
 
-.bg-enter,
+.bg-enter-from,
 .bg-leave-to {
   opacity: 0;
 }
 
 .nav-enter-active,
 .nav-leave-active {
-  transition: transform 0.25s ease;
+  transition: transform 0.15s ease;
 }
 
-.nav-enter,
+.nav-enter-from,
 .nav-leave-to {
   transform: translateX(-100%);
 }
 
 .navbarWrap {
-  // padding-top: 72px;
   height: 100%;
   position: static;
 
-  @media (max-width: 660px) {
+  @media (max-width: 768px) {
     width: 100%;
-    padding-top: 77.6px;
     height: auto;
     position: fixed;
   }
@@ -47,7 +45,7 @@
     margin-left: 4rem !important;
   }
 
-  @media (max-width: 660px) {
+  @media (max-width: 768px) {
     width: 100%;
     padding: 0.4rem 1rem;
     flex-direction: row;
@@ -61,15 +59,21 @@
 
     .menuIcon {
       display: block;
-      width: 2.5rem !important;
-      height: 2.5rem !important;
+      width: 1.9rem !important;
+      height: 1.9rem !important;
+      padding: 0.375rem;
+
+      svg {
+        width: 100%;
+        height: 100%;
+      }
     }
 
     .serverSelect {
       margin-bottom: 0px !important;
       min-width: 0px;
       width: fit-content;
-      height: 50px;
+      height: 45px;
 
       .serverBtn {
         padding: 6px;
@@ -82,7 +86,7 @@
         }
 
         .serverBtn_name {
-          font-size: 1.2rem;
+          font-size: 1rem;
         }
       }
 
@@ -148,6 +152,7 @@
 
   svg {
     transition: transform 0.2s ease;
+    fill: $color-gray;
   }
 
   &.on svg {
@@ -172,6 +177,7 @@
     height: 1.4rem;
     margin-right: 10px;
     border-radius: 100px;
+    flex-shrink: 0;
   }
 
   span {

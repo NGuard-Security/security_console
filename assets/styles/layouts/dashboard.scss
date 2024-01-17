@@ -79,12 +79,6 @@ main {
     form {
       margin: 15px 0 !important;
       padding: 1px 0 1px 18px !important;
-
-      div {
-        display: flex;
-        align-items: flex-start !important;
-        gap: 5px;
-      }
     }
 
     input {
@@ -103,19 +97,30 @@ main {
   }
 
   color: $color-white;
-  padding: 2rem 2rem 2rem 6rem;
-  width: 700px;
-  // width: 100%;
+  padding: 2rem 0px 2rem 6rem;
+  width: 100%;
   box-sizing: content-box;
   overflow-y: auto;
   position: relative;
+
+  padding-right: 9rem;
+
+  @media (max-width: 1279px) and (min-width: 1024px) {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+
+  @media (max-width: 1024px) {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
 
   .contents-enter-active,
   .contents-leave-active {
     transition: opacity 0.3s;
   }
 
-  .contents-enter,
+  .contents-enter-from,
   .contents-leave-to {
     opacity: 0;
   }
@@ -358,6 +363,11 @@ main {
 
     svg {
       fill: $color-gray;
+      width: 30px;
+      height: 30px;
+      padding-left: 17px;
+      box-sizing: content-box;
+      flex-shrink: 0;
     }
   }
 

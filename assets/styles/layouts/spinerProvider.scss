@@ -5,9 +5,9 @@
   transition: opacity 0.3s;
 }
 
-.spiner-enter,
+.spiner-enter-from,
 .spiner-leave-to,
-.connErr-enter,
+.connErr-enter-from,
 .connErr-leave-to {
   opacity: 0;
 }

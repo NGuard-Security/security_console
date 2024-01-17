@@ -1,24 +1,24 @@
 <script setup lang="ts">
-const { isMobile, isShowNav } = useMediaCheck()
+const { isMobile } = useMediaCheck()
 const { currentPathWithoutLocale, pathWithLocale, isCallbackPath } = usePathUtils()
 
-const isShowMenu = useState<boolean>('isShowMenu', () => false)
+const isShowUserMenu = useState<boolean>('isShowUserMenu', () => false)
+const isShowMobileMenu = useState<boolean>('isShowMobileMenu', () => false)
 const userData = useState<UserData>()
 
-const navEl = ref()
 const userEl = ref()
+const mobileMenuEl = ref()
 
-const closeNav = () => {
-  if (!isMobile.value) return
-  isShowNav.value = false
-}
-const closeMenu = () => {
-  if (!isShowMenu.value) return
-  isShowMenu.value = false
+const closeUserMenu = () => {
+  isShowUserMenu.value = false
 }
 
-onClickOutside(navEl, closeNav)
-onClickOutside(userEl, closeMenu)
+const closeMobileMenu = () => {
+  isShowMobileMenu.value = false
+}
+
+onClickOutside(userEl, closeUserMenu)
+onClickOutside(mobileMenuEl, closeMobileMenu)
 
 onMounted(async () => {
   if (isCallbackPath.value || !getAccessToken()) return
@@ -42,7 +42,7 @@ onMounted(async () => {
 
 <template>
   <header class="w-auto text-sm z-30 text-gray-200 p-4 shrink-0 box-content">
-    <div ref="navEl" class="absolute w-full left-0 top-0">
+    <div ref="mobileMenuEl" class="absolute w-full left-0 top-0">
       <div class="headerContent flex items-center lg:justify-between max-w-screen-xl mx-auto p-4">
         <!-- 왼쪽 로고 -->
         <div class="logoImg mr-auto md:mr-0 h-[40px]">
@@ -55,7 +55,6 @@ onMounted(async () => {
         <transition appear name="nav" mode="out-in">
           <div
             v-if="!isMobile"
-            ref="navEl"
             class="headerNav static flex flex-row items-center gap-3 top-0 left-0 w-auto m-0 mt-0 ml-6 mr-auto lg:mx-0 p-0"
           >
             <a href="https://nguard.xyz" class="nav_item">
@@ -87,8 +86,8 @@ onMounted(async () => {
         <div v-else ref="userEl" class="userBtn-wrap relative">
           <!-- 유저 버튼 -->
           <div
-            @click="isShowMenu = !isShowMenu"
-            :class="{ on: isShowMenu }"
+            @click="isShowUserMenu = !isShowUserMenu"
+            :class="{ on: isShowUserMenu }"
             class="userBtn nav_item flex items-center gap-2 hover:bg-zinc-900 cursor-pointer"
           >
             <nuxt-img :src="userData.icon" alt="user_logo" class="h-5 rounded-full" />
@@ -101,7 +100,7 @@ onMounted(async () => {
           <!-- 유저 메뉴 -->
           <transition appear name="fade" mode="out-in">
             <div
-              v-if="isShowMenu"
+              v-if="isShowUserMenu"
               class="userMenu absolute flex flex-col left-0 mt-5 w-36 p-1.5 bg-black/[.8] rounded-lg backdrop-blur-sm z-40"
             >
               <NuxtLink :to="pathWithLocale('/auth/logout')" class="dropdownMenu text-red-500 font-semibold">
@@ -133,17 +132,17 @@ onMounted(async () => {
 
         <!-- 모바일 메뉴 버튼 -->
         <div
-          @click="isShowNav = !isShowNav"
+          @click="isShowMobileMenu = !isShowMobileMenu"
           class="menuBtn md:hidden w-7 h-7 p-1.5 box-content fill-white cursor-pointer"
         >
-          <SvgIcon v-if="!isShowNav" name="menu" />
+          <SvgIcon v-if="!isShowMobileMenu" name="menu" />
           <SvgIcon v-else name="close" />
         </div>
       </div>
 
       <transition appear name="nav" mode="out-in">
         <div
-          v-if="isMobile && isShowNav"
+          v-if="isMobile && isShowMobileMenu"
           class="headerNav flex flex-col items-center top-0 left-0 w-full m-0 mr-auto p-2"
         >
           <a href="https://nguard.xyz" class="nav_item">

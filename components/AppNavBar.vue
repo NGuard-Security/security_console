@@ -1,10 +1,11 @@
 <script setup lang="ts">
-const { isMobile, isShowNav } = useMediaCheck()
+const { isMobile } = useMediaCheck()
 const { pathWithLocale } = usePathUtils()
 const API = useAPI()
 const route = useRoute()
 
 const isShowServerMenu = useState<boolean>('isShowServerMenu', () => false)
+const isShowMobileNav = useState<boolean>('isShowMobileNav', () => false)
 const serverData = useState<APIServer[]>()
 const currentServerData = useState<APIServer>()
 
@@ -15,7 +16,7 @@ const clickServerMenu = () => {
 }
 const closeNav = () => {
   if (isMobile.value) {
-    isShowNav.value = false
+    isShowMobileNav.value = false
   }
 }
 
@@ -41,7 +42,7 @@ onMounted(async () => {
   <!-- 모바일 검은 배경 -->
   <transition appear name="bg" mode="out-in">
     <div
-      v-if="isShowNav && isMobile"
+      v-if="isShowMobileNav && isMobile"
       @click="closeNav"
       class="fixed top-0 left-0 w-full h-full bg-black/[0.5] z-10"
     ></div>
@@ -50,10 +51,10 @@ onMounted(async () => {
   <!-- navBar -->
   <div class="navbarWrap z-20 bg-[#151720]">
     <div class="navbar flex flex-col shrink-0 w-40 lg:w-64 md:w-56 ml-0 lg:ml-36 p-4 select-none">
-      <div class="navMob flex items-center justify-between mb-5 pl-2">
+      <div class="navMob flex items-center justify-between mb-5">
         <!-- 모바일 왼쪽 메뉴 버튼 -->
-        <div @click="isShowNav = !isShowNav" class="menuIcon cursor-pointer shrink-0">
-          <SvgIcon v-if="!isShowNav" name="sidemenu" />
+        <div @click="isShowMobileNav = !isShowMobileNav" class="menuIcon cursor-pointer shrink-0">
+          <SvgIcon v-if="!(isShowMobileNav || !isMobile)" name="sidemenu" />
           <SvgIcon v-else name="close" />
         </div>
 
@@ -81,7 +82,7 @@ onMounted(async () => {
             <span class="serverBtn_name mr-auto text-sm text-gray-300 text-ellipsis whitespace-nowrap overflow-hidden">
               {{ currentServerData?.name || '' }}
             </span>
-            <SvgIcon name="arrowDown" class="w-6 h-6" />
+            <SvgIcon name="arrowDown" class="w-5 h-5" />
           </div>
 
           <!-- 서버 선택 드롭다운의 메뉴 -->
@@ -119,7 +120,10 @@ onMounted(async () => {
 
       <!-- 네비게이션 메뉴 -->
       <transition appear name="nav" mode="out-in">
-        <nav v-if="isShowNav" class="bg-[#151720] flex flex-col text-gray-400 text-sm gap-1 lg:gap-1.5">
+        <nav
+          v-if="isShowMobileNav || !isMobile"
+          class="bg-[#151720] flex flex-col text-gray-400 text-sm gap-1 lg:gap-1.5"
+        >
           <NuxtLink :to="getNavPath('')" class="nav_item">
             <SvgIcon name="navBar/main" />
             <!-- 메인 -->

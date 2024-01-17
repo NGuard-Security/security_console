@@ -1,5 +1,5 @@
 <template>
-  <main class="max-w-6xl flex flex-col">
+  <main>
     <h1>
       <SvgIcon name="navBar/member" />
       <!-- 멤버 설정 -->
