@@ -6246,7 +6246,6 @@ __metadata:
     socket.io-client: "npm:^4.7.3"
     typescript: "npm:^5.3.3"
     vue: "npm:^3.4.5"
-    vue-js-modal: "npm:^2.0.1"
     vue-router: "npm:^4.2.5"
     vue-tsc: "npm:^1.8.27"
   languageName: unknown
@@ -7343,13 +7342,6 @@ __metadata:
   version: 2.1.1
   resolution: "require-directory@npm:2.1.1"
   checksum: 83aa76a7bc1531f68d92c75a2ca2f54f1b01463cb566cf3fbc787d0de8be30c9dbc211d1d46be3497dac5785fe296f2dd11d531945ac29730643357978966e99
-  languageName: node
-  linkType: hard
-
-"resize-observer-polyfill@npm:^1.5.1":
-  version: 1.5.1
-  resolution: "resize-observer-polyfill@npm:1.5.1"
-  checksum: 5e882475067f0b97dc07e0f37c3e335ac5bc3520d463f777cec7e894bb273eddbfecb857ae668e6fb6881fd6f6bb7148246967172139302da50fa12ea3a15d95
   languageName: node
   linkType: hard
 
@@ -9053,17 +9045,6 @@ __metadata:
   peerDependencies:
     vue: ^3.0.0
   checksum: da111f980d9df5023f83891fd9f78cad08f9cbbf86fc5f2a0f758a74e8393d19993b25d7b53c704375f365078e689d4efa682dae82b229f22ec0af8b82f7b6c0
-  languageName: node
-  linkType: hard
-
-"vue-js-modal@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "vue-js-modal@npm:2.0.1"
-  dependencies:
-    resize-observer-polyfill: "npm:^1.5.1"
-  peerDependencies:
-    vue: ^2.6.11
-  checksum: 0e23b73dad30348e2adf5e2cc775134c4aae1bdfd9173cb35f5098d4d1c6ec151c4974e9a077790f81e876ef168f45a12d55f4847d25cee8d8bfb4c8b2d911d2
   languageName: node
   linkType: hard
 
