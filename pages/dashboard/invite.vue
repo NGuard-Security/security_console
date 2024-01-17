@@ -32,7 +32,7 @@
           <CompDropdown
             :data="setting.inviteLink.settings.inviteMethod"
             :name="$t('invite.category1.type.title')"
-            @menu-select="index => (setting.inviteLink.settings.inviteMethod.index = index)"
+            @menu-select="(index: number) => (setting.inviteLink.settings.inviteMethod.index = index)"
           />
 
           <div v-if="setting.inviteLink.enabled">
@@ -108,141 +108,128 @@
         <!-- 저장하기 -->
         {{ $t('common.save') }}
       </button>
+    </NuxtLayout>
 
-      <modal class="modal" name="permission" width="620">
-        <h2>
-          <!-- 한디리에서 봇을 추천해주세요 -->
-          {{ $t('invite.permissionModal.title') }}
-        </h2>
-        <!-- 초대 링크를 커스텀하려면<br />
+    <NuxtLayout name="modal" :isShow="isShowModals.permission" @close="isShowModals.permission = false">
+      <h2>
+        <!-- 한디리에서 봇을 추천해주세요 -->
+        {{ $t('invite.permissionModal.title') }}
+      </h2>
+      <!-- 초대 링크를 커스텀하려면<br />
           한디리에서 NGuard Security 봇을 추천해 주시거나,<br />
           유료 플랜에 가입하셔야 합니다.<br /><br />
           한디리 추천은 12시간 마다 다시 추천 가능합니다. -->
-        <div class="text-gray-400 pt-5 pb-8" v-html="$t('invite.permissionModal.description')"></div>
-        <div class="btns flex items-center justify-around gap-2">
-          <a href="https://koreanbots.dev/bots/937636597040570388/vote" target="_blank" class="btn-highlight">
-            <!-- 추천하기 -->
-            {{ $t('invite.permissionModal.btns.goVote') }}
-          </a>
-          <a href="https://nguard.xyz/upgrade/detail" target="_blank">
-            <!-- 유료 플랜 -->
-            {{ $t('invite.permissionModal.btns.goUpgrade') }}
-          </a>
-          <a @click="checkVote()">
-            <!-- 확인 -->
-            {{ $t('common.modal.btns.confirm') }}
-          </a>
-        </div>
-      </modal>
+      <div class="text-gray-400 pt-5 pb-8" v-html="$t('invite.permissionModal.description')"></div>
+      <div class="btns flex items-center justify-around gap-2">
+        <a href="https://koreanbots.dev/bots/937636597040570388/vote" target="_blank" class="btn-highlight">
+          <!-- 추천하기 -->
+          {{ $t('invite.permissionModal.btns.goVote') }}
+        </a>
+        <a href="https://nguard.xyz/upgrade/detail" target="_blank">
+          <!-- 유료 플랜 -->
+          {{ $t('invite.permissionModal.btns.goUpgrade') }}
+        </a>
+        <a @click="isShowModals.permission = false">
+          <!-- 확인 -->
+          {{ $t('common.modal.btns.confirm') }}
+        </a>
+      </div>
+    </NuxtLayout>
 
-      <modal class="modal" name="premiere_only" width="620">
-        <h2>
-          <!-- 프리미어 플랜에서만 이용하실 수 있습니다. -->
-          {{ $t('invite.premiereOnlyModal.title') }}
-        </h2>
-        <!-- 이 기능은 프리미어 플랜에서 제공되는 기능입니다. -->
-        <div class="text-gray-400 pt-5 pb-8" v-html="$t('invite.premiereOnlyModal.description')"></div>
-        <div class="btns flex items-center justify-around gap-2">
-          <a href="https://nguard.xyz/upgrade/detail" target="_blank" class="btn-highlight">
-            <!-- 유료 플랜 -->
-            {{ $t('invite.premiereOnlyModal.btns.goUpgrade') }}
-          </a>
-          <!-- $modal.hide('premiere_only') -->
-          <a @click="">
-            <!-- 확인 -->
-            {{ $t('common.modal.btns.confirm') }}
-          </a>
-        </div>
-      </modal>
+    <NuxtLayout name="modal" :isShow="isShowModals.premiere_only" @close="isShowModals.premiere_only = false">
+      <h2>
+        <!-- 프리미어 플랜에서만 이용하실 수 있습니다. -->
+        {{ $t('invite.premiereOnlyModal.title') }}
+      </h2>
+      <!-- 이 기능은 프리미어 플랜에서 제공되는 기능입니다. -->
+      <div class="text-gray-400 pt-5 pb-8" v-html="$t('invite.premiereOnlyModal.description')"></div>
+      <div class="btns flex items-center justify-around gap-2">
+        <a href="https://nguard.xyz/upgrade/detail" target="_blank" class="btn-highlight">
+          <!-- 유료 플랜 -->
+          {{ $t('invite.premiereOnlyModal.btns.goUpgrade') }}
+        </a>
+        <a @click="isShowModals.premiere_only = false">
+          <!-- 확인 -->
+          {{ $t('common.modal.btns.confirm') }}
+        </a>
+      </div>
+    </NuxtLayout>
 
-      <modal class="modal" name="custom_domain" width="620">
-        <h2>
-          <!-- DNS 설정을 완료하셨나요? -->
-          {{ $t('invite.customDomainModal.title') }}
-        </h2>
-        <!-- "저장' 버튼을 누르시기 전, 아래 링크를 참고하여 DNS 설정을 완료해 주세요.<br />
+    <NuxtLayout name="modal" :isShow="isShowModals.custom_domain" @close="isShowModals.custom_domain = false">
+      <h2>
+        <!-- DNS 설정을 완료하셨나요? -->
+        {{ $t('invite.customDomainModal.title') }}
+      </h2>
+      <!-- "저장' 버튼을 누르시기 전, 아래 링크를 참고하여 DNS 설정을 완료해 주세요.<br />
           DNS 설정을 완료하지 않고 저장하시면 사이트가 정상적으로 작동하지 않을 수 있습니다." -->
-        <div class="text-gray-400 pt-5 pb-8" v-html="$t('invite.customDomainModal.description')"></div>
-        <div class="btns flex items-center justify-around gap-2">
-          <a
-            :href="`https://kms0219kms.gitbook.io/nguard-docs/${$i18n.locale}/custom-domain-setup`"
-            target="_blank"
-            class="btn-highlight"
-          >
-            <!-- 설정방법 확인 -->
-            {{ $t('invite.customDomainModal.btns.goDocs') }}
-          </a>
-          <!-- $modal.hide('custom_domain') -->
-          <a @click="">
-            <!-- 취소 -->
-            {{ $t('common.modal.btns.cancel') }}
-          </a>
-          <!-- $modal.hide('custom_domain') -->
-          <a @click="saveSettings()">
-            <!-- 확인 -->
-            {{ $t('common.modal.btns.confirm') }}
-          </a>
-        </div>
-      </modal>
+      <div class="text-gray-400 pt-5 pb-8" v-html="$t('invite.customDomainModal.description')"></div>
+      <div class="btns flex items-center justify-around gap-2">
+        <a
+          :href="`https://kms0219kms.gitbook.io/nguard-docs/${$i18n.locale}/custom-domain-setup`"
+          target="_blank"
+          class="btn-highlight"
+        >
+          <!-- 설정방법 확인 -->
+          {{ $t('invite.customDomainModal.btns.goDocs') }}
+        </a>
+        <a @click="isShowModals.custom_domain = false">
+          <!-- 취소 -->
+          {{ $t('common.modal.btns.cancel') }}
+        </a>
+        <a @click="isShowModals.custom_domain = false">
+          <!-- 확인 -->
+          {{ $t('common.modal.btns.confirm') }}
+        </a>
+      </div>
+    </NuxtLayout>
 
-      <modal class="modal" name="success" width="620">
-        <h2>
-          <!-- 성공적으로 저장했습니다! -->
-          {{ $t('common.modal.saved') }}
-        </h2>
-        <div class="flex flex-col text-gray-400 pt-3 gap-2">
-          <span v-if="setting.inviteLink.enabled">
-            <!-- 초대링크가 적용되었습니다. -->
-            {{ $t('invite.modal.created') }}
-          </span>
-          <span v-else>
-            <!-- 초대링크가 삭제되었습니다. -->
-            {{ $t('invite.modal.deleted') }}
-          </span>
+    <NuxtLayout name="modal" :isShow="isShowModals.success" @close="isShowModals.success = false">
+      <h2>
+        <!-- 성공적으로 저장했습니다! -->
+        {{ $t('common.modal.saved') }}
+      </h2>
+      <div class="flex flex-col text-gray-400 pt-3 gap-2">
+        <span v-if="setting.inviteLink.enabled">
+          <!-- 초대링크가 적용되었습니다. -->
+          {{ $t('invite.modal.created') }}
+        </span>
+        <span v-else>
+          <!-- 초대링크가 삭제되었습니다. -->
+          {{ $t('invite.modal.deleted') }}
+        </span>
 
-          <br />
+        <br />
 
-          <!-- ℹ️ 이 창은 3초 후 자동으로 닫힙니다. -->
-          {{ $t('common.modal.closeInfo') }}
-        </div>
-        <div class="btns"></div>
-      </modal>
+        <!-- ℹ️ 이 창은 3초 후 자동으로 닫힙니다. -->
+        {{ $t('common.modal.closeInfo') }}
+      </div>
+      <div class="btns"></div>
+    </NuxtLayout>
 
-      <modal class="modal" name="fail" width="620">
-        <h2>
-          <!-- 저장 중 오류가 발생했습니다. -->
-          {{ $t('common.errorModal.title') }}
-        </h2>
-        <div class="flex flex-col text-gray-400 pt-3 gap-2">
-          <!-- ⚠️ 계속 오류가 발생하는 경우, 채널톡으로 문의 주시기 바랍니다.<br /><br />
+    <NuxtLayout name="modal" :isShow="isShowModals.fail" @close="isShowModals.fail = false">
+      <h2>
+        <!-- 저장 중 오류가 발생했습니다. -->
+        {{ $t('common.errorModal.title') }}
+      </h2>
+      <div class="flex flex-col text-gray-400 pt-3 gap-2">
+        <!-- ⚠️ 계속 오류가 발생하는 경우, 채널톡으로 문의 주시기 바랍니다.<br /><br />
             ℹ️ 이 창은 3초 후 자동으로 닫힙니다. -->
-          <span>{{ $t('common.errorModal.description') }}</span>
+        <span>{{ $t('common.errorModal.description') }}</span>
 
-          <br />
+        <br />
 
-          {{ $t('common.modal.closeInfo') }}
-        </div>
-        <div class="btns"></div>
-      </modal>
+        {{ $t('common.modal.closeInfo') }}
+      </div>
+      <div class="btns"></div>
     </NuxtLayout>
   </main>
 </template>
-
-<!-- TODO - 왜 이거만 따로 빠져 있는거야 -->
-<style lang="scss">
-@media (max-width: 767px) {
-  .btns {
-    flex-direction: column;
-  }
-}
-</style>
 
 <script setup lang="ts">
 definePageMeta({
   middleware: ['auth', 'guild-id'],
 })
 
-// const { $modal } = useNuxtApp()
 const API = useAPI()
 const { loadingSuccess } = useLoadingState()
 const i18n = useI18n()
@@ -253,6 +240,16 @@ const generateRandom = () => {
 
 const hasPermission = useState('hasPermission', () => false)
 const isEnterprise = useState('isEnterprise', () => false)
+
+const isShowModals = useState('inviteModals', () => {
+  return {
+    permission: false,
+    premiere_only: false,
+    custom_domain: false,
+    success: false,
+    fail: false,
+  }
+})
 
 const setting = useState('inviteSetting', () => {
   return {
@@ -288,25 +285,25 @@ const setting = useState('inviteSetting', () => {
 // }
 
 const clickInviteLink = () => {
-  if (!hasPermission.value) {
-    // $modal.show('permission')
-  }
+  if (hasPermission.value) return
+
+  isShowModals.value.permission = true
 }
 const clickCustomDomain = () => {
-  if (!isEnterprise.value) {
-    // $modal.show('premiere_only')
-  }
+  if (isEnterprise.value) return
+
+  isShowModals.value.premiere_only = true
 }
 const checkVote = () => {
   // this.connState = 0
   // location.reload()
 }
 const reconfirmSaveSettings = async () => {
-  // if (this.switch_.domain && this.select.domain != '') {
-  //   return this.$modal.show('custom_domain')
-  // } else {
-  //   return await this.saveSettings()
-  // }
+  if (setting.value.inviteLink.enabled && setting.value.inviteLink.settings.inviteURL.value != '') {
+    isShowModals.value.custom_domain = true
+  } else {
+    saveSettings()
+  }
 }
 const saveSettings = async () => {
   // try {

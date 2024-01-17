@@ -35,8 +35,8 @@
             :data="setting.cmdVerify.settings.verifyRole"
             :readonly="false"
             :placeholder="$t('verify.category1.rolePlaceholder')"
-            @menu-select="index => setInputMenuIndex(index)"
-            @input="value => doinputInputMenu(value)"
+            @menu-select="(index: string) => setInputMenuIndex(index)"
+            @input="(value: string) => doinputInputMenu(value)"
           />
         </div>
       </form>
@@ -45,48 +45,48 @@
         {{ $t('common.save') }}
         <!-- 저장하기 -->
       </button>
+    </NuxtLayout>
 
-      <modal class="modal" name="success" width="500">
-        <h2>
-          {{ $t('common.modal.saved') }}
-          <!-- 성공적으로 저장했습니다! -->
-        </h2>
-        <div class="flex flex-col text-gray-400 pt-3 gap-2">
-          <span v-if="setting.cmdVerify.enabled">
-            <!-- 새로운 유저가 <code>/verify</code> 명령어로 인증할 수 있습니다. -->
-            <!-- FIXME - [intlify] Not found 'verify.modal.applied' key in 'ko' locale messages. -->
-            <!-- {{ $t('verify.modal.applied') }} -->
-          </span>
-          <span v-else>
-            <!-- 새로운 유저는 더 이상 <code>/verify</code> 명령어로 인증할 수 없습니다. -->
-            <!-- FIXME - [intlify] Not found 'verify.modal.deleted' key in 'ko' locale messages. -->
-            <!-- {{ $t('verify.modal.deleted') }} -->
-          </span>
+    <NuxtLayout name="modal" :isShow="isShowModals.success" @close="isShowModals.success = false">
+      <h2>
+        {{ $t('common.modal.saved') }}
+        <!-- 성공적으로 저장했습니다! -->
+      </h2>
+      <div class="flex flex-col text-gray-400 pt-3 gap-2">
+        <span v-if="setting.cmdVerify.enabled">
+          <!-- 새로운 유저가 <code>/verify</code> 명령어로 인증할 수 있습니다. -->
+          <!-- FIXME - [intlify] Not found 'verify.modal.applied' key in 'ko' locale messages. -->
+          <!-- {{ $t('verify.modal.applied') }} -->
+        </span>
+        <span v-else>
+          <!-- 새로운 유저는 더 이상 <code>/verify</code> 명령어로 인증할 수 없습니다. -->
+          <!-- FIXME - [intlify] Not found 'verify.modal.deleted' key in 'ko' locale messages. -->
+          <!-- {{ $t('verify.modal.deleted') }} -->
+        </span>
 
-          <br />
+        <br />
 
-          <!-- ℹ️ 이 창은 3초 후 자동으로 닫힙니다. -->
-          {{ $t('common.modal.closeInfo') }}
-        </div>
-        <div class="btns"></div>
-      </modal>
+        <!-- ℹ️ 이 창은 3초 후 자동으로 닫힙니다. -->
+        {{ $t('common.modal.closeInfo') }}
+      </div>
+      <div class="btns"></div>
+    </NuxtLayout>
 
-      <modal class="modal" name="fail" width="500">
-        <h2>
-          <!-- 저장 중 오류가 발생했습니다. -->
-          {{ $t('common.errorModal.title') }}
-        </h2>
-        <div class="flex flex-col text-gray-400 pt-3 gap-2">
-          <!-- ⚠️ 계속 오류가 발생하는 경우, 채널톡으로 문의 주시기 바랍니다.<br /><br />
+    <NuxtLayout name="modal" :isShow="isShowModals.fail" @close="isShowModals.fail = false">
+      <h2>
+        <!-- 저장 중 오류가 발생했습니다. -->
+        {{ $t('common.errorModal.title') }}
+      </h2>
+      <div class="flex flex-col text-gray-400 pt-3 gap-2">
+        <!-- ⚠️ 계속 오류가 발생하는 경우, 채널톡으로 문의 주시기 바랍니다.<br /><br />
     ℹ️ 이 창은 3초 후 자동으로 닫힙니다. -->
-          <span>{{ $t('common.errorModal.description') }}</span>
+        <span>{{ $t('common.errorModal.description') }}</span>
 
-          <br />
+        <br />
 
-          {{ $t('common.modal.closeInfo') }}
-        </div>
-        <div class="btns"></div>
-      </modal>
+        {{ $t('common.modal.closeInfo') }}
+      </div>
+      <div class="btns"></div>
     </NuxtLayout>
   </main>
 </template>
@@ -96,9 +96,15 @@ definePageMeta({
   middleware: ['auth', 'guild-id'],
 })
 
-// const { $modal } = useNuxtApp()
 const API = useAPI()
 const { loadingSuccess } = useLoadingState()
+
+const isShowModals = useState('verifyModals', () => {
+  return {
+    success: false,
+    fail: false,
+  }
+})
 
 const setting = useState('verifySetting', () => {
   return {
@@ -162,34 +168,29 @@ onMounted(async () => {
   try {
     const res = await API.get.verify()
 
-    if (res.settings) {
+    {
       const { cmdVerify } = setting.value
 
-      {
-        const tmp = res.guild.roles.map(role => {
-          return { index: role.id, name: role.name, data: role }
-        })
+      const tmp = res.guild.roles.map(role => {
+        return { index: role.id, name: role.name, data: role }
+      })
 
-        const createVerifyRole = new createInputMenuComp<APIRole>(tmp)
+      const createVerifyRole = new createInputMenuComp<APIRole>(tmp)
 
-        if (res.settings) {
-          createVerifyRole.setIndex(res.settings.role.id)
-        } else {
-          createVerifyRole.setIndex(res.guild.roles[0].id)
-        }
-
-        cmdVerify.enabled = true
-        cmdVerify.settings.verifyRole = createVerifyRole.toObject()
+      if (res.settings) {
+        createVerifyRole.setIndex(res.settings.role.id)
+      } else {
+        createVerifyRole.setIndex(res.guild.roles[0].id)
       }
 
-      // this.switch_.confirm = true
-      // this.list.role.list = res.guild.roles
-      // this.roleList = res.guild.roles
-      // this.input.role = res.settings.role ? res.settings.role : res.guild.roles[0]
-    } else {
-      // this.list.role.list = res.guild.roles
-      // this.input.role = res.guild.roles[0]
+      cmdVerify.enabled = true
+      cmdVerify.settings.verifyRole = createVerifyRole.toObject()
     }
+
+    // this.switch_.confirm = true
+    // this.list.role.list = res.guild.roles
+    // this.roleList = res.guild.roles
+    // this.input.role = res.settings.role ? res.settings.role : res.guild.roles[0]
 
     loadingSuccess()
   } catch (e) {}

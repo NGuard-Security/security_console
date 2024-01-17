@@ -49,7 +49,7 @@
       </ul>
     </NuxtLayout>
 
-    <modal class="modal sureBlackList" name="sureBlackList" width="500">
+    <NuxtLayout name="modal" :isShow="isShowModals.reconfirmBlackList" @close="isShowModals.reconfirmBlackList = false">
       <h2 v-if="tempBlockUserId">
         <!-- {{ processBlackList.nickName }}님을 블랙리스트에 등록하시겠어요? -->
         {{ $t('members.modal1.title').replace('{Place}', memberMap[tempBlockUserId].nickName) }}
@@ -68,9 +68,13 @@
           {{ $t('common.modal.btns.cancel') }}
         </a>
       </div>
-    </modal>
+    </NuxtLayout>
 
-    <modal class="modal sureRemoveBlackList" name="sureRemoveBlackList" width="500">
+    <NuxtLayout
+      name="modal"
+      :isShow="isShowModals.reconfirmRemoveBlackList"
+      @close="isShowModals.reconfirmRemoveBlackList = false"
+    >
       <h2 v-if="tempBlockUserId">
         <!-- {{ processBlackList.nickName }}님을 블랙리스트에서 삭제하시겠어요? -->
         {{ $t('members.modal2.title').replace('{Place}', memberMap[tempBlockUserId].nickName) }}
@@ -90,9 +94,9 @@
           {{ $t('common.modal.btns.cancel') }}
         </a>
       </div>
-    </modal>
+    </NuxtLayout>
 
-    <modal class="modal" name="fail" width="500">
+    <NuxtLayout name="modal" :isShow="isShowModals.fail" @close="isShowModals.fail = false">
       <h2>
         <!-- 저장 중 오류가 발생했습니다. -->
         {{ $t('common.errorModal.title') }}
@@ -107,19 +111,13 @@
         {{ $t('common.modal.closeInfo') }}
       </div>
       <div class="btns"></div>
-    </modal>
+    </NuxtLayout>
   </main>
 </template>
 
 <style lang="scss" scoped>
 li {
   background: $color-ui;
-}
-
-@media (max-width: 767px) {
-  .btns {
-    flex-direction: column;
-  }
 }
 </style>
 
@@ -128,14 +126,19 @@ definePageMeta({
   middleware: ['auth', 'guild-id'],
 })
 
-//FIXME - Failed to resolve component: modal, If this is a native custom element, make sure to exclude it from component resolution via compilerOptions.isCustomElement.
-
-// const { $modal } = useNuxtApp()
 const API = useAPI()
 const { loadingSuccess } = useLoadingState()
 
 const memberList = useState<string[]>()
 const tempBlockUserId = useState<string | null>()
+
+const isShowModals = useState('membersModals', () => {
+  return {
+    reconfirmBlackList: false,
+    reconfirmRemoveBlackList: false,
+    fail: false,
+  }
+})
 
 const memberMap = useState<Record<string, APIMemberBase>>('memberMap', () => {
   return {}
@@ -143,12 +146,12 @@ const memberMap = useState<Record<string, APIMemberBase>>('memberMap', () => {
 
 const reconfirmAddBlackList = (id: string) => {
   tempBlockUserId.value = id
-  // $modal.show('sureBlackList')
+  isShowModals.value.reconfirmBlackList = true
 }
 
 const reconfirmRemoveBlackList = (id: string) => {
   tempBlockUserId.value = id
-  // $modal.show('sureRemoveBlackList')
+  isShowModals.value.reconfirmRemoveBlackList = true
 }
 
 const setBlackList = async () => {
@@ -157,8 +160,8 @@ const setBlackList = async () => {
 
   tempBlockUserId.value = null
 
-  // $modal.hide('sureBlackList')
-  // $modal.hide('sureRemoveBlackList')
+  isShowModals.value.reconfirmBlackList = false
+  isShowModals.value.reconfirmRemoveBlackList = false
 
   try {
     await API.post.members(targetId)
@@ -166,10 +169,10 @@ const setBlackList = async () => {
     const member = memberMap.value[targetId]
     member.isBlackList = !member.isBlackList
   } catch (e) {
-    // $modal.show('fail')
+    isShowModals.value.fail = true
     await wait(3000)
 
-    // $modal.hide('fail')
+    isShowModals.value.fail = false
     await wait(1000)
 
     // location.reload()
