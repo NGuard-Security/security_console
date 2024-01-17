@@ -5,7 +5,7 @@
       <!-- 초대링크 설정 -->
       {{ $t('invite.title') }}
     </h1>
-    <NuxtLayout name="spiner-wrap">
+    <NuxtLayout name="spiner-wrap" v-if="setting">
       <div class="mb-6">
         <h2>
           <!-- 보안 초대링크 -->
@@ -21,56 +21,38 @@
               <!-- 보안 초대링크 -->
               {{ $t('invite.category1.toggle') }}
             </label>
-            <div @click="inputSwitch('invite')" :class="{ switch_on: switch_.invite }" class="switch"></div>
-          </div>
-
-          <div class="vert" v-if="switch_.invite">
-            <p>
-              <!-- 보안 초대 방식 -->
-              {{ $t('invite.category1.type.title') }}
-            </p>
             <div
-              class="select select-l"
-              :class="{ active: select.method.isActive }"
-              @click="
-                list.method.show = true
-                select.method.isActive = true
-              "
-              v-click-outside="onClickOutside"
-            >
-              {{ list.method.list[select.method.index] }}
-            </div>
-
-            <ul class="list-l" v-if="list.method.show">
-              <li
-                v-for="(name, index) in list.method.list"
-                v-bind:key="index"
-                @click="
-                  select.method.index = index
-                  select.method.isActive = false
-                "
-              >
-                {{ name }}
-              </li>
-            </ul>
+              @click="setting.inviteLink.enabled = !setting.inviteLink.enabled"
+              :class="{ switch_on: setting.inviteLink.enabled }"
+              class="switch"
+            ></div>
           </div>
 
-          <div class="vert" v-if="switch_.invite">
-            <p>
-              <!-- 초대 링크 설정 -->
-              {{ $t('invite.category1.link') }}
-            </p>
-            <div class="flex flex-col md:flex-row items-center">
-              <label>https://nguard.xyz/invite/</label>
-              <input
-                class="input-m"
-                id="inviteLink_input"
-                type="text"
-                placeholder="초대 링크"
-                v-model="select.link"
-                v-bind:readonly="!isPermission"
-                @click="clickInviteLink()"
-              />
+          <!-- 보안 초대 방식 -->
+          <CompDropdown
+            :data="setting.inviteLink.settings.inviteMethod"
+            :name="$t('invite.category1.type.title')"
+            @menu-select="index => (setting.inviteLink.settings.inviteMethod.index = index)"
+          />
+
+          <div v-if="setting.inviteLink.enabled">
+            <div class="vert">
+              <p>
+                <!-- 초대 링크 설정 -->
+                {{ $t('invite.category1.link') }}
+              </p>
+              <div class="flex flex-col md:flex-row items-center">
+                <label>https://nguard.xyz/invite/</label>
+                <input
+                  class="input-m"
+                  id="inviteLink_input"
+                  type="text"
+                  placeholder="초대 링크"
+                  v-model="setting.inviteLink.settings.inviteURL.value"
+                  v-bind:readonly="!hasPermission"
+                  @click="clickInviteLink()"
+                />
+              </div>
             </div>
           </div>
         </form>
@@ -122,7 +104,7 @@
       <!-- </form> -->
       <!-- </div> -->
 
-      <button class="btn-save" @click="checkSaveSettings()">
+      <button class="btn-save" @click="reconfirmSaveSettings()">
         <!-- 저장하기 -->
         {{ $t('common.save') }}
       </button>
@@ -165,7 +147,8 @@
             <!-- 유료 플랜 -->
             {{ $t('invite.premiereOnlyModal.btns.goUpgrade') }}
           </a>
-          <a @click="$modal.hide('premiere_only')">
+          <!-- $modal.hide('premiere_only') -->
+          <a @click="">
             <!-- 확인 -->
             {{ $t('common.modal.btns.confirm') }}
           </a>
@@ -189,16 +172,13 @@
             <!-- 설정방법 확인 -->
             {{ $t('invite.customDomainModal.btns.goDocs') }}
           </a>
-          <a @click="$modal.hide('custom_domain')">
+          <!-- $modal.hide('custom_domain') -->
+          <a @click="">
             <!-- 취소 -->
             {{ $t('common.modal.btns.cancel') }}
           </a>
-          <a
-            @click="
-              $modal.hide('custom_domain')
-              saveSettings()
-            "
-          >
+          <!-- $modal.hide('custom_domain') -->
+          <a @click="saveSettings()">
             <!-- 확인 -->
             {{ $t('common.modal.btns.confirm') }}
           </a>
@@ -211,7 +191,7 @@
           {{ $t('common.modal.saved') }}
         </h2>
         <div class="flex flex-col text-gray-400 pt-3 gap-2">
-          <span v-if="switch_.invite">
+          <span v-if="setting.inviteLink.enabled">
             <!-- 초대링크가 적용되었습니다. -->
             {{ $t('invite.modal.created') }}
           </span>
@@ -258,22 +238,36 @@
 </style>
 
 <script setup lang="ts">
-import { APIPremiumType } from '~/utils/enums'
-
 definePageMeta({
-  // middleware: ['auth', 'guild-id'],
+  middleware: ['auth', 'guild-id'],
 })
 
-const { $modal } = useNuxtApp()
+// const { $modal } = useNuxtApp()
 const API = useAPI()
 const { loadingSuccess } = useLoadingState()
+const i18n = useI18n()
 
-const isPermission = useState('isPermission', () => false)
+const generateRandom = () => {
+  return Math.random().toString(32).substring(2, 8)
+}
+
+const hasPermission = useState('hasPermission', () => false)
 const isEnterprise = useState('isEnterprise', () => false)
 
-//FIXME - 어케할꺼임
-const settingData = useState<{} | null>(undefined, () => {
-  return {}
+const setting = useState('inviteSetting', () => {
+  return {
+    inviteLink: {
+      enabled: false,
+      settings: {
+        inviteMethod: new createDropdownComp(0, [
+          i18n.t('invite.category1.type.option1'),
+          i18n.t('invite.category1.type.option2'),
+          i18n.t('invite.category1.type.option3'),
+        ]).toObject(),
+        inviteURL: new createInputComp(generateRandom()).toObject(),
+      },
+    },
+  }
 })
 // select: {
 //   method: {
@@ -288,30 +282,13 @@ const settingData = useState<{} | null>(undefined, () => {
 //   domain: false,
 //   domain_ssl: true,
 // },
-// list: {
-//   method: {
-//     show: false,
-//     list: [
-//       this.$t('invite.category1.type.option1'),
-//       this.$t('invite.category1.type.option2'),
-//       this.$t('invite.category1.type.option3'),
-//     ],
-//   },
-// },
 
-const generateRandom = () => {
-  return Math.random().toString(32).substring(2, 8)
-}
+// const inputSwitch = (name: string) => {
+// this.switch_[name] = !this.switch_[name]
+// }
 
-const inputSwitch = (name: string) => {
-  // this.switch_[name] = !this.switch_[name]
-}
-const onClickOutside = () => {
-  // this.list.method.show = false
-  // this.select.method.isActive = false
-}
 const clickInviteLink = () => {
-  if (!isPermission.value) {
+  if (!hasPermission.value) {
     // $modal.show('permission')
   }
 }
@@ -324,7 +301,7 @@ const checkVote = () => {
   // this.connState = 0
   // location.reload()
 }
-const checkSaveSettings = async () => {
+const reconfirmSaveSettings = async () => {
   // if (this.switch_.domain && this.select.domain != '') {
   //   return this.$modal.show('custom_domain')
   // } else {
@@ -332,44 +309,46 @@ const checkSaveSettings = async () => {
   // }
 }
 const saveSettings = async () => {
-  try {
-    await API.post.invite({
-      settings: this.select.method.index + 2,
-      status: this.switch_.invite,
-      link: this.select.link,
-      domain: {
-        domain: this.switch_.domain ? this.select.domain : '',
-        ssl: this.switch_.domain ? this.switch_.domain_ssl : null,
-      },
-    })
-
-    $modal.show('success')
-    await wait(3000)
-
-    $modal.hide('success')
-  } catch (e) {
-    $modal.show('fail')
-    await wait(3000)
-
-    $modal.hide('fail')
-  }
+  // try {
+  //   await API.post.invite({
+  //     settings: this.select.method.index + 2,
+  //     status: this.switch_.invite,
+  //     link: this.select.link,
+  //     domain: {
+  //       domain: this.switch_.domain ? this.select.domain : '',
+  //       ssl: this.switch_.domain ? this.switch_.domain_ssl : null,
+  //     },
+  //   })
+  //   $modal.show('success')settingp
+  //   await wait(3000)
+  //   $modal.hide('success')
+  // } catch (e) {
+  //   $modal.show('fail')
+  //   await wait(3000)
+  //   $modal.hide('fail')
+  // }
 }
 
 onMounted(async () => {
   try {
     const res = await API.get.invite()
 
-    isPermission.value = res.koreanbots.voted
+    hasPermission.value = res.koreanbots.voted
     isEnterprise.value = res.premiumType > APIPremiumType.FREE
 
     if (res.settings) {
-      settingData.value.invite = Boolean(res.settings.status)
-      settingData.value.domain = Boolean(res.domain.domain)
-      settingData.value.domainSSL = res.domain.ssl
-      settingData.value.method.index = res.settings.settings - 2
-      settingData.value.link = res.settings.link ? res.settings.link : generateRandom()
-    } else {
-      settingData.value.link = generateRandom()
+      const { inviteLink } = setting.value
+      inviteLink.enabled = true
+
+      {
+        const { inviteMethod, inviteURL } = inviteLink.settings
+        inviteMethod.index = res.settings.settings - 2
+        if (res.settings.link) inviteURL.value = res.settings.link
+      }
+
+      // setting.value.invite = Boolean(res.settings.status)
+      // setting.value.domain = Boolean(res.domain.domain)
+      // setting.value.domainSSL = res.domain.ssl
     }
 
     loadingSuccess()

@@ -1,50 +1,45 @@
 <script setup lang="ts">
-import { CompDropdown } from '~/utils/settingComps'
+import { type dropdownCompData } from '~/utils/settingComps'
 
-const { data } = defineProps<{ data: CompDropdown }>()
-const isExpanded = useState(undefined, () => false)
-const isActive = useState(undefined, () => false)
-
+const emit = defineEmits(['menuSelect'])
+const props = defineProps<{ data: dropdownCompData; name: string }>()
+const isExpanded = useState('dropdownIsExpanded', () => false)
 const wrapEl = ref()
 
-const closeList = () => {
-  isExpanded.value = false
-  isActive.value = false
+const openMenu = () => {
+  isExpanded.value = true
 }
 
-onClickOutside(wrapEl, closeList)
+const closeMenu = () => {
+  isExpanded.value = false
+}
+
+const onClickMenu = (index: number) => {
+  closeMenu()
+  emit('menuSelect', index)
+}
+
+onClickOutside(wrapEl, closeMenu)
 </script>
 
 <template>
-  <div class="vert" ref="wrapEl">
+  <div class="vert">
     <p>
-      <!-- 보안 초대 방식 -->
-      {{ $t('invite.category1.type.title') }}
+      {{ props.name }}
     </p>
-    <div
-      class="select select-l"
-      :class="{ active: isActive }"
-      @click="
-        isExpanded = true
-        isActive = true
-      "
-      v-click-outside="onClickOutside"
-    >
-      {{ data.list[data.index] }}
-    </div>
+    <div class="vert w-full" ref="wrapEl">
+      <div class="select select-l" :class="{ active: isExpanded }" @click="openMenu">
+        <span>
+          {{ props.data.list[props.data.index] }}
+        </span>
+      </div>
 
-    <ul class="list-l" v-if="isExpanded">
-      <li
-        v-for="(name, index) in data.list"
-        v-bind:key="index"
-        @click="
-          data.index = index
-          isActive = false
-        "
-      >
-        {{ name }}
-      </li>
-    </ul>
+      <ul class="list-l" v-if="isExpanded">
+        <li v-for="(name, index) in props.data.list" v-bind:key="index" @click="onClickMenu(index)">
+          {{ name }}
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 

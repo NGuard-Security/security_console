@@ -21,29 +21,23 @@
             <!-- 커맨드 인증 -->
             {{ $t('verify.category1.toggle') }}
           </label>
-          <div @click="inputSwitch('confirm')" :class="{ switch_on: switch_.confirm }" class="switch"></div>
+          <div
+            @click="setting.cmdVerify.enabled = !setting.cmdVerify.enabled"
+            :class="{ switch_on: setting.cmdVerify.enabled }"
+            class="switch"
+          ></div>
         </div>
 
-        <div class="vert" v-if="switch_.confirm">
-          <p>
-            {{ $t('verify.category1.role') }}
-            <!-- 인증 시 지급될 역할 -->
-          </p>
-          <input
-            class="input-l"
-            id="role_input"
-            :value="input.role?.name"
-            @click="list.role.show = true"
-            readonly
-            v-click-outside="onClickOutside"
-            type="text"
+        <div v-if="setting.cmdVerify.enabled">
+          <!-- 인증 시 지급될 역할 -->
+          <CompInputMenu
+            :name="$t('verify.category1.role')"
+            :data="setting.cmdVerify.settings.verifyRole"
+            :readonly="false"
             :placeholder="$t('verify.category1.rolePlaceholder')"
+            @menu-select="index => setInputMenuIndex(index)"
+            @input="value => doinputInputMenu(value)"
           />
-          <ul class="list-l" v-if="list.role.show">
-            <li v-for="(role, index) in list.role.list" @click="input.role = role" v-bind:key="index">
-              {{ role?.name }}
-            </li>
-          </ul>
         </div>
       </form>
 
@@ -58,13 +52,15 @@
           <!-- 성공적으로 저장했습니다! -->
         </h2>
         <div class="flex flex-col text-gray-400 pt-3 gap-2">
-          <span v-if="switch_.confirm">
+          <span v-if="setting.cmdVerify.enabled">
             <!-- 새로운 유저가 <code>/verify</code> 명령어로 인증할 수 있습니다. -->
-            {{ $t('verify.modal.applied') }}
+            <!-- FIXME - [intlify] Not found 'verify.modal.applied' key in 'ko' locale messages. -->
+            <!-- {{ $t('verify.modal.applied') }} -->
           </span>
           <span v-else>
             <!-- 새로운 유저는 더 이상 <code>/verify</code> 명령어로 인증할 수 없습니다. -->
-            {{ $t('verify.modal.deleted') }}
+            <!-- FIXME - [intlify] Not found 'verify.modal.deleted' key in 'ko' locale messages. -->
+            <!-- {{ $t('verify.modal.deleted') }} -->
           </span>
 
           <br />
@@ -97,15 +93,23 @@
 
 <script setup lang="ts">
 definePageMeta({
-  // middleware: ['auth', 'guild-id'],
+  middleware: ['auth', 'guild-id'],
 })
 
-const { $modal } = useNuxtApp()
+// const { $modal } = useNuxtApp()
 const API = useAPI()
-const route = useRoute()
 const { loadingSuccess } = useLoadingState()
 
-const resData = useState<APIVerify | null>('resData', () => null)
+const setting = useState('verifySetting', () => {
+  return {
+    cmdVerify: {
+      enabled: false,
+      settings: {
+        verifyRole: new createInputMenuComp<APIRole>([]).toObject(),
+      },
+    },
+  }
+})
 
 // return {
 //   connState: 0, //0: 연결중, 1: 성공, 2: 응답 지연
@@ -124,30 +128,34 @@ const resData = useState<APIVerify | null>('resData', () => null)
 //   roleList: [], // Read-only
 // }
 
-//TODO - Switch는 범용으로 이용하게 구성했는데, 다른 방법을 고안해야함
-const inputSwitch = (name: string) => {
-  // this.switch_[name] = !this.switch_[name]
+const doinputInputMenu = (value: string) => {
+  const Tlqkf = setting.value.cmdVerify.settings.verifyRole
+  Tlqkf.inputValue = value
+
+  Tlqkf.menuIndex = []
 }
-const onClickOutside = () => {
-  // this.list.role.show = false
+
+const setInputMenuIndex = (index: string) => {
+  const Tlqkf = setting.value.cmdVerify.settings.verifyRole
+  Tlqkf.index = index
+  Tlqkf.inputValue = Tlqkf.dataMap[index].name
+  Tlqkf.selectedData = Tlqkf.dataMap[index].data
 }
+
 const saveSettings = async () => {
-  try {
-    await API.post.verify({
-      status: this.switch_.confirm,
-      role: this.input.role,
-    })
-
-    $modal.show('success')
-    await wait(3000)
-
-    $modal.hide('success')
-  } catch (e) {
-    $modal.show('fail')
-    await wait(3000)
-
-    $modal.hide('fail')
-  }
+  // try {
+  //   await API.post.verify({
+  //     status: this.switch_.confirm,
+  //     role: this.input.role,
+  //   })
+  //   $modal.show('success')
+  //   await wait(3000)
+  //   $modal.hide('success')
+  // } catch (e) {
+  //   $modal.show('fail')
+  //   await wait(3000)
+  //   $modal.hide('fail')
+  // }
 }
 
 onMounted(async () => {
@@ -155,13 +163,32 @@ onMounted(async () => {
     const res = await API.get.verify()
 
     if (res.settings) {
-      this.switch_.confirm = true
-      this.list.role.list = res.guild.roles
-      this.roleList = res.guild.roles
-      this.input.role = res.settings.role ? res.settings.role : res.guild.roles[0]
+      const { cmdVerify } = setting.value
+
+      {
+        const tmp = res.guild.roles.map(role => {
+          return { index: role.id, name: role.name, data: role }
+        })
+
+        const createVerifyRole = new createInputMenuComp<APIRole>(tmp)
+
+        if (res.settings) {
+          createVerifyRole.setIndex(res.settings.role.id)
+        } else {
+          createVerifyRole.setIndex(res.guild.roles[0].id)
+        }
+
+        cmdVerify.enabled = true
+        cmdVerify.settings.verifyRole = createVerifyRole.toObject()
+      }
+
+      // this.switch_.confirm = true
+      // this.list.role.list = res.guild.roles
+      // this.roleList = res.guild.roles
+      // this.input.role = res.settings.role ? res.settings.role : res.guild.roles[0]
     } else {
-      this.list.role.list = res.guild.roles
-      this.input.role = res.guild.roles[0]
+      // this.list.role.list = res.guild.roles
+      // this.input.role = res.guild.roles[0]
     }
 
     loadingSuccess()

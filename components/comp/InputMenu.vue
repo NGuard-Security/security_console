@@ -1,10 +1,24 @@
 <script setup lang="ts">
-import { CompInputMenu } from '~/utils/settingComps'
+import { type inputMenuCompData } from '~/utils/settingComps'
 
-const { data } = defineProps<{ data: CompInputMenu }>()
-const isExpanded = useState(undefined, () => false)
-
+const emit = defineEmits(['menuSelect', 'input'])
+const props = defineProps<{ data: inputMenuCompData; name: string; readonly: boolean; placeholder: string }>()
+const isExpanded = useState('inputMenuIsExpanded', () => false)
 const wrapEl = ref()
+
+const onClickMenu = (index: string) => {
+  closeList()
+  emit('menuSelect', index)
+}
+
+const onInput = (value: string) => {
+  emit('input', value)
+}
+
+const ExpandList = () => {
+  if (props.readonly) return
+  isExpanded.value = true
+}
 
 const closeList = () => {
   isExpanded.value = false
@@ -16,21 +30,21 @@ onClickOutside(wrapEl, closeList)
 <template>
   <div class="vert" ref="wrapEl">
     <p>
-      {{ $t('verify.category1.role') }}
-      <!-- 인증 시 지급될 역할 -->
+      {{ props.name }}
     </p>
     <input
       class="input-l"
       id="role_input"
-      :value="data.inputValue"
-      @click="isExpanded = true"
-      readonly
+      :value="props.data.inputValue"
+      @click="ExpandList()"
+      @input="(e) => onInput((e.target as HTMLInputElement).value)"
+      :readonly="props.readonly"
       type="text"
-      :placeholder="$t('verify.category1.rolePlaceholder')"
+      :placeholder="props.placeholder"
     />
     <ul class="list-l" v-if="isExpanded">
-      <li v-for="(value, index) in data.list" @click="data.inputValue = value" v-bind:key="index">
-        {{ value }}
+      <li v-for="(value, index) in props.data.menuIndex" @click="onClickMenu(value.index)" v-bind:key="index">
+        {{ value.name }}
       </li>
     </ul>
   </div>
