@@ -1,13 +1,16 @@
 .servers-wrap {
   @media (max-width: 767px) {
-    padding-top: calc(2rem + 100px);
+    padding-top: 3rem;
+    padding-left: 1.8rem;
+    padding-right: 1.8rem;
+
   }
 
-  @media (max-width: 1028px) {
+  @media (max-width: 1280px) {
     display: block;
   }
 
-  padding-top: calc(3rem + 100px);
+  padding-top: 10rem;
   padding-bottom: 3rem;
 
   h1 {
@@ -16,7 +19,7 @@
 }
 
 .servers {
-  @media (max-width: 1028px) {
+  @media (max-width: 1280px) {
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     width: 100%;
     margin-bottom: 0;
@@ -28,7 +31,7 @@
 
   position: relative;
 
-  grid-template-columns: repeat(3, minmax(260px, 1fr));
+  grid-template-columns: repeat(4, minmax(260px, 1fr));
 
   .server {
     background: $color-navbar;

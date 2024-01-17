@@ -36,7 +36,7 @@ onMounted(async () => {
           {{ $t('servers.selectServer') }}
         </h1>
 
-        <div class="servers relative w-full flex justify-center mb-20 min-h-[100px]">
+        <div class="servers relative w-full grid gap-3 justify-center mb-20 min-h-[100px]">
           <div
             v-for="(server, index) in serverData"
             v-bind:key="index"
