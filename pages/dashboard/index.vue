@@ -86,7 +86,7 @@
           {{ $t('summary.alarms.title') }}
         </h2>
         <div class="alertCenter p-4 rounded-lg">
-          <div v-if="alertsData.length < 1" class="alert_none">알림이 없습니다.</div>
+          <div v-if="!alertsData || alertsData.length < 1" class="alert_none">알림이 없습니다.</div>
           <div
             v-else
             :style="{ height: alertCenterHeight }"
@@ -130,7 +130,7 @@
           </div>
 
           <button
-            v-if="alertsData.length > 1"
+            v-if="alertsData && alertsData.length > 1"
             class="foldBtn flex items-center justify-center mt-4 py-2 w-full rounded-lg"
             @click="setAlertsIsOpened()"
           >
@@ -160,16 +160,16 @@
 </style>
 
 <script setup lang="ts">
-import { ALERT } from '#imports'
-
 definePageMeta({
-  // middleware: ['auth', 'guild-id'],
+  middleware: ['auth', 'guild-id'],
 })
 
 const initChartEvent = useEventBus('initInviteURLUsageChart')
 const route = useRoute()
 const API = useAPI()
-const { alertsData, loadPush, checkPush, onPushCheck } = useSocketAlert()
+// const { alertsData, loadPush, checkPush, onPushCheck } = useSocketAlert()
+const alertsData = useState<APIAlert[]>()
+
 const { loadingSuccess } = useLoadingState()
 
 const alertCenterHeight = useState('alertCenterHeight', () => 'auto')
@@ -187,8 +187,10 @@ const resizeAlerts = () => {
   if (!process.client) return
 
   if (!isAlertOpened.value) {
-    //FIXME - Uncaught TypeError: document.querySelectorAll(...)[0] is undefined
-    alertCenterHeight.value = `${(document.querySelectorAll('.card.alert')[0] as HTMLDivElement).offsetHeight}px`
+    const el = document.querySelectorAll('.card.alert')[0] as HTMLDivElement
+    if (!el) return
+
+    alertCenterHeight.value = `${el.offsetHeight}px`
   } else {
     alertCenterHeight.value = 'auto'
   }
@@ -198,12 +200,12 @@ onMounted(async () => {
   try {
     summaryData.value = await API.get.summary()
 
-    loadPush(Number(route.query.id))
+    // loadPush(Number(route.query.id))
 
-    onPushCheck(resizeAlerts)
+    // onPushCheck(resizeAlerts)
 
     alertInterval.value = setInterval(() => {
-      checkPush(Number(route.query.id))
+      // checkPush(Number(route.query.id))
     }, 5000)
 
     await wait(100)
@@ -219,5 +221,6 @@ onUnmounted(() => {
 
   clearInterval(alertInterval.value)
   alertInterval.value = null
+  alertsData.value = []
 })
 </script>

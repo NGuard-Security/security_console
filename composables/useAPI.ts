@@ -92,7 +92,7 @@ export interface APIVerify {
 }
 
 interface instanceConfig extends InternalAxiosRequestConfig {
-  retryCount: 0
+  retryCount: number
 }
 
 interface instanceError extends AxiosError<any, any> {
@@ -246,14 +246,14 @@ export default () => {
               id: '1',
               userName: 'test1',
               nickName: 'test1',
-              icon: '...',
+              icon: 'tesst',
               isBlackList: false,
             },
             {
               id: '2',
               userName: 'test2',
               nickName: 'test2',
-              icon: '...',
+              icon: 'tesst',
               isBlackList: true,
             },
           ])

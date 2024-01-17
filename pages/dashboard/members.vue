@@ -11,7 +11,7 @@
         class="mb-4 shrink-0"
         @input="searchMember(($event.target as HTMLInputElement).value)"
       />
-      <p class="mb-2">
+      <p class="mb-2" v-if="memberList">
         <!-- 멤버 {{ memberList.length }}명 -->
         {{ $t('members.peoplesTemplate').toLowerCase().replace('n', String(memberList.length)) }}
       </p>
@@ -62,7 +62,8 @@
           <!-- 확인 -->
           {{ $t('common.modal.btns.confirm') }}
         </a>
-        <a @click="$modal.hide('sureBlackList')">
+        <!-- $modal.hide('sureBlackList') -->
+        <a @click="">
           <!-- 취소 -->
           {{ $t('common.modal.btns.cancel') }}
         </a>
@@ -83,7 +84,8 @@
           <!-- 확인 -->
           {{ $t('common.modal.btns.confirm') }}
         </a>
-        <a @click="$modal.hide('sureRemoveBlackList')">
+        <!-- $modal.hide('sureRemoveBlackList') -->
+        <a @click="">
           <!-- 취소 -->
           {{ $t('common.modal.btns.cancel') }}
         </a>
@@ -123,15 +125,17 @@ li {
 
 <script setup lang="ts">
 definePageMeta({
-  // middleware: ['auth', 'guild-id'],
+  middleware: ['auth', 'guild-id'],
 })
 
-const { $modal } = useNuxtApp()
+//FIXME - Failed to resolve component: modal, If this is a native custom element, make sure to exclude it from component resolution via compilerOptions.isCustomElement.
+
+// const { $modal } = useNuxtApp()
 const API = useAPI()
 const { loadingSuccess } = useLoadingState()
 
-const memberList = useState<string[]>('memberList', () => [])
-const tempBlockUserId = useState<string | null>('blacklistTempData', () => null)
+const memberList = useState<string[]>()
+const tempBlockUserId = useState<string | null>()
 
 const memberMap = useState<Record<string, APIMemberBase>>('memberMap', () => {
   return {}
@@ -139,12 +143,12 @@ const memberMap = useState<Record<string, APIMemberBase>>('memberMap', () => {
 
 const reconfirmAddBlackList = (id: string) => {
   tempBlockUserId.value = id
-  $modal.show('sureBlackList')
+  // $modal.show('sureBlackList')
 }
 
 const reconfirmRemoveBlackList = (id: string) => {
   tempBlockUserId.value = id
-  $modal.show('sureRemoveBlackList')
+  // $modal.show('sureRemoveBlackList')
 }
 
 const setBlackList = async () => {
@@ -153,8 +157,8 @@ const setBlackList = async () => {
 
   tempBlockUserId.value = null
 
-  $modal.hide('sureBlackList')
-  $modal.hide('sureRemoveBlackList')
+  // $modal.hide('sureBlackList')
+  // $modal.hide('sureRemoveBlackList')
 
   try {
     await API.post.members(targetId)
@@ -162,10 +166,10 @@ const setBlackList = async () => {
     const member = memberMap.value[targetId]
     member.isBlackList = !member.isBlackList
   } catch (e) {
-    $modal.show('fail')
+    // $modal.show('fail')
     await wait(3000)
 
-    $modal.hide('fail')
+    // $modal.hide('fail')
     await wait(1000)
 
     // location.reload()
@@ -192,12 +196,24 @@ onMounted(async () => {
   try {
     const res = await API.get.members()
 
+    const tmpMap: Record<string, APIMemberBase> = {}
+    const tmpList: string[] = []
+
     res.forEach(({ id, ...data }) => {
-      memberMap.value[id] = data
-      memberList.value.push(id)
+      tmpMap[id] = data
+      tmpList.push(id)
     })
+
+    memberMap.value = tmpMap
+    memberList.value = tmpList
 
     loadingSuccess()
   } catch (e) {}
+})
+
+onUnmounted(() => {
+  memberMap.value = {}
+  memberList.value = []
+  tempBlockUserId.value = null
 })
 </script>

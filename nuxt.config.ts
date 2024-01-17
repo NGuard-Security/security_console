@@ -110,7 +110,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      API_BASE_URL: isDev ? CONFIG.apiTestEndpoint : CONFIG.apiEndpoint,
+      API_BASE_URL: isTest ? CONFIG.apiLocalEndpoint : isDev ? CONFIG.apiTestEndpoint : CONFIG.apiEndpoint,
       IS_TEST: isTest,
     },
   },
