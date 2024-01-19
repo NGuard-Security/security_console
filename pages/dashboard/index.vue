@@ -164,7 +164,6 @@ definePageMeta({
   middleware: ['auth', 'guild-id'],
 })
 
-const initChartEvent = useEventBus('initInviteURLUsageChart')
 const route = useRoute()
 const API = useAPI()
 const { alertsData, loadPush, checkPush, onPushCheck } = useSocketAlert()
@@ -207,9 +206,8 @@ onMounted(async () => {
       checkPush(Number(route.query.id))
     }, 5000)
 
-    await wait(100)
+    await wait(200)
 
-    initChartEvent.emit()
     resizeAlerts()
     loadingSuccess()
   } catch (e) {}

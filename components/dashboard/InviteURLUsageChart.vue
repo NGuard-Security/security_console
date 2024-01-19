@@ -1,21 +1,19 @@
 <template>
-  <canvas ref="myChart"></canvas>
+  <canvas ref="chartEl"></canvas>
 </template>
 
 <script setup lang="ts">
 import Chart from 'chart.js/auto'
 import moment from 'moment'
 
+const emit = defineEmits(['initInviteURLUsageChart'])
 const props = defineProps<{ data: number[] }>()
-
-const initChartEvent = useEventBus('initInviteURLUsageChart')
 const chartEl = ref<HTMLCanvasElement>()
 
-initChartEvent.on(() => {
+onMounted(() => {
   if (!chartEl.value) return
 
   const ctx = chartEl.value.getContext('2d')
-
   if (!ctx) return
 
   const labels: string[] = []

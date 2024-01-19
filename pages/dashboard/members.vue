@@ -22,7 +22,11 @@
           class="flex items-center shrink-0 rounded-lg px-3 py-3 text-ellipsis whitespace-nowrap overflow-hidden box-content"
         >
           <!-- <nuxt-img src="img/test.png" alt="user_logo" class="h-8 mr-2 rounded-lg" /> -->
-          <nuxt-img :src="memberMap[member].icon + '?size=128'" alt="user_logo" class="h-8 mr-2 rounded-lg" />
+          <nuxt-img
+            :src="memberMap[member].icon + '?size=128'"
+            alt="user_logo"
+            class="w-8 h-8 mr-2 rounded-lg overflow-hidden"
+          />
 
           <span class="mr-1 text-lg min-w-0 overflow-hidden text-ellipsis">{{ memberMap[member].nickName }}</span>
           <p class="min-w-0 mr-4 overflow-hidden text-ellipsis text-gray-400">
@@ -163,7 +167,7 @@ const setBlackList = async () => {
     member.isBlackList = !member.isBlackList
   } catch (e) {
     await modalShowAndClose(MODAL.failed, 3000)
-    await wait(1000)
+    // await wait(1000)
 
     // location.reload()
     // TODO - 요청 다시하는걸로 해야하려나
