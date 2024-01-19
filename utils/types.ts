@@ -11,7 +11,7 @@ type ArrToEnum<T> = T extends readonly (infer Key)[]
 export const strArrToEnumObject = <T extends readonly string[]>(value: T): ArrToEnum<T> => {
   const tmpObj = value.reduce((prev, value) => {
     prev[value] = value
-    return {}
+    return prev
   }, {} as Record<string, string>)
 
   return tmpObj as ArrToEnum<T>
