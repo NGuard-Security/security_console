@@ -167,8 +167,7 @@ definePageMeta({
 const initChartEvent = useEventBus('initInviteURLUsageChart')
 const route = useRoute()
 const API = useAPI()
-// const { alertsData, loadPush, checkPush, onPushCheck } = useSocketAlert()
-const alertsData = useState<APIAlert[]>()
+const { alertsData, loadPush, checkPush, onPushCheck } = useSocketAlert()
 
 const { loadingSuccess } = useLoadingState()
 
@@ -200,12 +199,12 @@ onMounted(async () => {
   try {
     summaryData.value = await API.get.summary()
 
-    // loadPush(Number(route.query.id))
+    loadPush(Number(route.query.id))
 
-    // onPushCheck(resizeAlerts)
+    onPushCheck(resizeAlerts)
 
     alertInterval.value = setInterval(() => {
-      // checkPush(Number(route.query.id))
+      checkPush(Number(route.query.id))
     }, 5000)
 
     await wait(100)

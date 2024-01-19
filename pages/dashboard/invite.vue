@@ -226,6 +226,8 @@
 </template>
 
 <script setup lang="ts">
+import { APIInviteType } from '~/utils/enums'
+
 definePageMeta({
   middleware: ['auth', 'guild-id'],
 })
@@ -287,10 +289,10 @@ const clickCustomDomain = () => {
 
   modalShow(MODAL.premiereOnly)
 }
-const checkVote = () => {
-  // this.connState = 0
-  // location.reload()
-}
+// const checkVote = () => {
+// this.connState = 0
+// location.reload()
+// }
 const reconfirmSaveSettings = async () => {
   if (setting.value.inviteLink.enabled && setting.value.inviteLink.settings.inviteURL.value != '') {
     modalShow(MODAL.customDomain)
@@ -299,20 +301,24 @@ const reconfirmSaveSettings = async () => {
   }
 }
 const saveSettings = async () => {
-  // try {
-  //   await API.post.invite({
-  //     settings: this.select.method.index + 2,
-  //     status: this.switch_.invite,
-  //     link: this.select.link,
-  //     domain: {
-  //       domain: this.switch_.domain ? this.select.domain : '',
-  //       ssl: this.switch_.domain ? this.switch_.domain_ssl : null,
-  //     },
-  //   })
-  // modalShowAndClose(MODAL.success, 3000)
-  // } catch (e) {
-  // modalShowAndClose(MODAL.failed, 3000)
-  // }
+  try {
+    const { inviteLink } = setting.value
+
+    // await API.post.invite({
+    //   settings: (inviteLink.settings.inviteMethod.index + 2) as APIInviteType,
+    //   status: inviteLink.enabled,
+    //   link: inviteLink.settings.inviteURL.value,
+    //   domain: {
+    //     domain: this.switch_.domain ? this.select.domain : '',
+    //     ssl: this.switch_.domain ? this.switch_.domain_ssl : null,
+    //   },
+    // })
+    //FIXME - domain??
+
+    modalShowAndClose(MODAL.success, 3000)
+  } catch (e) {
+    modalShowAndClose(MODAL.failed, 3000)
+  }
 }
 
 onMounted(async () => {

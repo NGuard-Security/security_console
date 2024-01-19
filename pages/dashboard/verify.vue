@@ -146,15 +146,18 @@ const setInputMenuIndex = (index: string) => {
 }
 
 const saveSettings = async () => {
-  // try {
-  //   await API.post.verify({
-  //     status: this.switch_.confirm,
-  //     role: this.input.role,
-  //   })
-  // modalShowAndClose(MODAL.success, 3000)
-  // } catch (e) {
-  // modalShowAndClose(MODAL.failed, 3000)
-  // }
+  try {
+    const { cmdVerify } = setting.value
+
+    await API.post.verify({
+      status: cmdVerify.enabled,
+      role: cmdVerify.settings.verifyRole.selectedData,
+    })
+
+    modalShowAndClose(MODAL.success, 3000)
+  } catch (e) {
+    modalShowAndClose(MODAL.failed, 3000)
+  }
 }
 
 onMounted(async () => {
