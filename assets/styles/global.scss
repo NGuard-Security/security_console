@@ -22,8 +22,11 @@
 }
 
 body {
-  // TODO - 에러 확인
-  height: 100vh;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
   background: $color-bg;
 }
 
