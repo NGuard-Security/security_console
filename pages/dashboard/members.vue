@@ -49,7 +49,7 @@
       </ul>
     </NuxtLayout>
 
-    <NuxtLayout name="modal" :isShow="isShowModals.reconfirmBlackList" @close="isShowModals.reconfirmBlackList = false">
+    <NuxtLayout name="modal" :modalName="MODAL.reconfirmBlackList">
       <h2 v-if="tempBlockUserId">
         <!-- {{ processBlackList.nickName }}님을 블랙리스트에 등록하시겠어요? -->
         {{ $t('members.modal1.title').replace('{Place}', memberMap[tempBlockUserId].nickName) }}
@@ -70,11 +70,7 @@
       </div>
     </NuxtLayout>
 
-    <NuxtLayout
-      name="modal"
-      :isShow="isShowModals.reconfirmRemoveBlackList"
-      @close="isShowModals.reconfirmRemoveBlackList = false"
-    >
+    <NuxtLayout name="modal" :modalName="MODAL.reconfirmRemoveBlackList">
       <h2 v-if="tempBlockUserId">
         <!-- {{ processBlackList.nickName }}님을 블랙리스트에서 삭제하시겠어요? -->
         {{ $t('members.modal2.title').replace('{Place}', memberMap[tempBlockUserId].nickName) }}
@@ -96,7 +92,7 @@
       </div>
     </NuxtLayout>
 
-    <NuxtLayout name="modal" :isShow="isShowModals.fail" @close="isShowModals.fail = false">
+    <NuxtLayout name="modal" :modalName="MODAL.failed">
       <h2>
         <!-- 저장 중 오류가 발생했습니다. -->
         {{ $t('common.errorModal.title') }}
@@ -126,19 +122,14 @@ definePageMeta({
   middleware: ['auth', 'guild-id'],
 })
 
+const modalNames = ['reconfirmBlackList', 'reconfirmRemoveBlackList', 'failed'] as const
+const MODAL = strArrToEnumObject<typeof modalNames>(modalNames)
+const { modalShow, modalClose, modalShowAndClose } = useModal<typeof modalNames>(modalNames)
 const API = useAPI()
 const { loadingSuccess } = useLoadingState()
 
 const memberList = useState<string[]>()
 const tempBlockUserId = useState<string | null>()
-
-const isShowModals = useState('membersModals', () => {
-  return {
-    reconfirmBlackList: false,
-    reconfirmRemoveBlackList: false,
-    fail: false,
-  }
-})
 
 const memberMap = useState<Record<string, APIMemberBase>>('memberMap', () => {
   return {}
@@ -146,12 +137,14 @@ const memberMap = useState<Record<string, APIMemberBase>>('memberMap', () => {
 
 const reconfirmAddBlackList = (id: string) => {
   tempBlockUserId.value = id
-  isShowModals.value.reconfirmBlackList = true
+
+  modalShow(MODAL.reconfirmBlackList)
 }
 
 const reconfirmRemoveBlackList = (id: string) => {
   tempBlockUserId.value = id
-  isShowModals.value.reconfirmRemoveBlackList = true
+
+  modalShow(MODAL.reconfirmRemoveBlackList)
 }
 
 const setBlackList = async () => {
@@ -160,8 +153,8 @@ const setBlackList = async () => {
 
   tempBlockUserId.value = null
 
-  isShowModals.value.reconfirmBlackList = false
-  isShowModals.value.reconfirmRemoveBlackList = false
+  modalClose(MODAL.reconfirmBlackList)
+  modalClose(MODAL.reconfirmRemoveBlackList)
 
   try {
     await API.post.members(targetId)
@@ -169,10 +162,7 @@ const setBlackList = async () => {
     const member = memberMap.value[targetId]
     member.isBlackList = !member.isBlackList
   } catch (e) {
-    isShowModals.value.fail = true
-    await wait(3000)
-
-    isShowModals.value.fail = false
+    await modalShowAndClose(MODAL.failed, 3000)
     await wait(1000)
 
     // location.reload()

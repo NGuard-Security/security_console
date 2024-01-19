@@ -110,7 +110,7 @@
       </button>
     </NuxtLayout>
 
-    <NuxtLayout name="modal" :isShow="isShowModals.permission" @close="isShowModals.permission = false">
+    <NuxtLayout name="modal" :modalName="MODAL.permission">
       <h2>
         <!-- 한디리에서 봇을 추천해주세요 -->
         {{ $t('invite.permissionModal.title') }}
@@ -129,14 +129,14 @@
           <!-- 유료 플랜 -->
           {{ $t('invite.permissionModal.btns.goUpgrade') }}
         </a>
-        <a @click="isShowModals.permission = false">
+        <a @click="modalClose(MODAL.permission)">
           <!-- 확인 -->
           {{ $t('common.modal.btns.confirm') }}
         </a>
       </div>
     </NuxtLayout>
 
-    <NuxtLayout name="modal" :isShow="isShowModals.premiere_only" @close="isShowModals.premiere_only = false">
+    <NuxtLayout name="modal" :modalName="MODAL.premiereOnly">
       <h2>
         <!-- 프리미어 플랜에서만 이용하실 수 있습니다. -->
         {{ $t('invite.premiereOnlyModal.title') }}
@@ -148,14 +148,14 @@
           <!-- 유료 플랜 -->
           {{ $t('invite.premiereOnlyModal.btns.goUpgrade') }}
         </a>
-        <a @click="isShowModals.premiere_only = false">
+        <a @click="modalClose(MODAL.premiereOnly)">
           <!-- 확인 -->
           {{ $t('common.modal.btns.confirm') }}
         </a>
       </div>
     </NuxtLayout>
 
-    <NuxtLayout name="modal" :isShow="isShowModals.custom_domain" @close="isShowModals.custom_domain = false">
+    <NuxtLayout name="modal" :modalName="MODAL.customDomain">
       <h2>
         <!-- DNS 설정을 완료하셨나요? -->
         {{ $t('invite.customDomainModal.title') }}
@@ -172,18 +172,18 @@
           <!-- 설정방법 확인 -->
           {{ $t('invite.customDomainModal.btns.goDocs') }}
         </a>
-        <a @click="isShowModals.custom_domain = false">
+        <a @click="modalClose(MODAL.customDomain)">
           <!-- 취소 -->
           {{ $t('common.modal.btns.cancel') }}
         </a>
-        <a @click="isShowModals.custom_domain = false">
+        <a @click="modalClose(MODAL.customDomain)">
           <!-- 확인 -->
           {{ $t('common.modal.btns.confirm') }}
         </a>
       </div>
     </NuxtLayout>
 
-    <NuxtLayout name="modal" :isShow="isShowModals.success" @close="isShowModals.success = false">
+    <NuxtLayout name="modal" :modalName="MODAL.success">
       <h2>
         <!-- 성공적으로 저장했습니다! -->
         {{ $t('common.modal.saved') }}
@@ -206,7 +206,7 @@
       <div class="btns"></div>
     </NuxtLayout>
 
-    <NuxtLayout name="modal" :isShow="isShowModals.fail" @close="isShowModals.fail = false">
+    <NuxtLayout name="modal" :modalName="MODAL.failed">
       <h2>
         <!-- 저장 중 오류가 발생했습니다. -->
         {{ $t('common.errorModal.title') }}
@@ -230,6 +230,9 @@ definePageMeta({
   middleware: ['auth', 'guild-id'],
 })
 
+const modalNames = ['permission', 'premiereOnly', 'customDomain', 'success', 'failed'] as const
+const MODAL = strArrToEnumObject<typeof modalNames>(modalNames)
+const { modalShow, modalClose, modalShowAndClose } = useModal<typeof modalNames>(modalNames)
 const API = useAPI()
 const { loadingSuccess } = useLoadingState()
 const i18n = useI18n()
@@ -240,16 +243,6 @@ const generateRandom = () => {
 
 const hasPermission = useState('hasPermission', () => false)
 const isEnterprise = useState('isEnterprise', () => false)
-
-const isShowModals = useState('inviteModals', () => {
-  return {
-    permission: false,
-    premiere_only: false,
-    custom_domain: false,
-    success: false,
-    fail: false,
-  }
-})
 
 const setting = useState('inviteSetting', () => {
   return {
@@ -287,12 +280,12 @@ const setting = useState('inviteSetting', () => {
 const clickInviteLink = () => {
   if (hasPermission.value) return
 
-  isShowModals.value.permission = true
+  modalShow(MODAL.permission)
 }
 const clickCustomDomain = () => {
   if (isEnterprise.value) return
 
-  isShowModals.value.premiere_only = true
+  modalShow(MODAL.premiereOnly)
 }
 const checkVote = () => {
   // this.connState = 0
@@ -300,7 +293,7 @@ const checkVote = () => {
 }
 const reconfirmSaveSettings = async () => {
   if (setting.value.inviteLink.enabled && setting.value.inviteLink.settings.inviteURL.value != '') {
-    isShowModals.value.custom_domain = true
+    modalShow(MODAL.customDomain)
   } else {
     saveSettings()
   }
@@ -316,13 +309,9 @@ const saveSettings = async () => {
   //       ssl: this.switch_.domain ? this.switch_.domain_ssl : null,
   //     },
   //   })
-  //   $modal.show('success')settingp
-  //   await wait(3000)
-  //   $modal.hide('success')
+  // modalShowAndClose(MODAL.success, 3000)
   // } catch (e) {
-  //   $modal.show('fail')
-  //   await wait(3000)
-  //   $modal.hide('fail')
+  // modalShowAndClose(MODAL.failed, 3000)
   // }
 }
 

@@ -47,7 +47,7 @@
       </button>
     </NuxtLayout>
 
-    <NuxtLayout name="modal" :isShow="isShowModals.success" @close="isShowModals.success = false">
+    <NuxtLayout name="modal" :modalName="MODAL.success">
       <h2>
         {{ $t('common.modal.saved') }}
         <!-- 성공적으로 저장했습니다! -->
@@ -56,12 +56,12 @@
         <span v-if="setting.cmdVerify.enabled">
           <!-- 새로운 유저가 <code>/verify</code> 명령어로 인증할 수 있습니다. -->
           <!-- FIXME - [intlify] Not found 'verify.modal.applied' key in 'ko' locale messages. -->
-          <!-- {{ $t('verify.modal.applied') }} -->
+          {{ $t('verify.modal.applied') }}
         </span>
         <span v-else>
           <!-- 새로운 유저는 더 이상 <code>/verify</code> 명령어로 인증할 수 없습니다. -->
           <!-- FIXME - [intlify] Not found 'verify.modal.deleted' key in 'ko' locale messages. -->
-          <!-- {{ $t('verify.modal.deleted') }} -->
+          {{ $t('verify.modal.deleted') }}
         </span>
 
         <br />
@@ -72,7 +72,7 @@
       <div class="btns"></div>
     </NuxtLayout>
 
-    <NuxtLayout name="modal" :isShow="isShowModals.fail" @close="isShowModals.fail = false">
+    <NuxtLayout name="modal" :modalName="MODAL.failed">
       <h2>
         <!-- 저장 중 오류가 발생했습니다. -->
         {{ $t('common.errorModal.title') }}
@@ -96,15 +96,11 @@ definePageMeta({
   middleware: ['auth', 'guild-id'],
 })
 
+const modalNames = ['success', 'failed'] as const
+const MODAL = strArrToEnumObject<typeof modalNames>(modalNames)
+const { modalShow, modalClose, modalShowAndClose } = useModal<typeof modalNames>(modalNames)
 const API = useAPI()
 const { loadingSuccess } = useLoadingState()
-
-const isShowModals = useState('verifyModals', () => {
-  return {
-    success: false,
-    fail: false,
-  }
-})
 
 const setting = useState('verifySetting', () => {
   return {
@@ -136,13 +132,14 @@ const setting = useState('verifySetting', () => {
 
 const doinputInputMenu = (value: string) => {
   const Tlqkf = setting.value.cmdVerify.settings.verifyRole
-  Tlqkf.inputValue = value
 
+  Tlqkf.inputValue = value
   Tlqkf.menuIndex = []
 }
 
 const setInputMenuIndex = (index: string) => {
   const Tlqkf = setting.value.cmdVerify.settings.verifyRole
+
   Tlqkf.index = index
   Tlqkf.inputValue = Tlqkf.dataMap[index].name
   Tlqkf.selectedData = Tlqkf.dataMap[index].data
@@ -154,13 +151,9 @@ const saveSettings = async () => {
   //     status: this.switch_.confirm,
   //     role: this.input.role,
   //   })
-  //   $modal.show('success')
-  //   await wait(3000)
-  //   $modal.hide('success')
+  // modalShowAndClose(MODAL.success, 3000)
   // } catch (e) {
-  //   $modal.show('fail')
-  //   await wait(3000)
-  //   $modal.hide('fail')
+  // modalShowAndClose(MODAL.failed, 3000)
   // }
 }
 
