@@ -1,4 +1,4 @@
-import type { Cast, MyExtract, ArrayElement } from '~/utils/types'
+import type { ArrayElement } from '~/utils/types'
 
 export default <T extends readonly string[]>(modalNames: T) => {
   type ModalName = ArrayElement<T>
