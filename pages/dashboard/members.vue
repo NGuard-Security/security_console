@@ -49,7 +49,7 @@
       </ul>
     </NuxtLayout>
 
-    <NuxtLayout name="modal" :modalName="MODAL.reconfirmBlackList">
+    <Modal :modalName="MODAL.reconfirmBlackList">
       <h2 v-if="tempBlockUserId">
         <!-- {{ processBlackList.nickName }}님을 블랙리스트에 등록하시겠어요? -->
         {{ $t('members.modal1.title').replace('{Place}', memberMap[tempBlockUserId].nickName) }}
@@ -68,9 +68,9 @@
           {{ $t('common.modal.btns.cancel') }}
         </a>
       </div>
-    </NuxtLayout>
+    </Modal>
 
-    <NuxtLayout name="modal" :modalName="MODAL.reconfirmRemoveBlackList">
+    <Modal :modalName="MODAL.reconfirmRemoveBlackList">
       <h2 v-if="tempBlockUserId">
         <!-- {{ processBlackList.nickName }}님을 블랙리스트에서 삭제하시겠어요? -->
         {{ $t('members.modal2.title').replace('{Place}', memberMap[tempBlockUserId].nickName) }}
@@ -90,9 +90,9 @@
           {{ $t('common.modal.btns.cancel') }}
         </a>
       </div>
-    </NuxtLayout>
+    </Modal>
 
-    <NuxtLayout name="modal" :modalName="MODAL.failed">
+    <Modal :modalName="MODAL.failed">
       <h2>
         <!-- 저장 중 오류가 발생했습니다. -->
         {{ $t('common.errorModal.title') }}
@@ -107,7 +107,7 @@
         {{ $t('common.modal.closeInfo') }}
       </div>
       <div class="btns"></div>
-    </NuxtLayout>
+    </Modal>
   </main>
 </template>
 

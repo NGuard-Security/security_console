@@ -110,7 +110,7 @@
       </button>
     </NuxtLayout>
 
-    <NuxtLayout name="modal" :modalName="MODAL.permission">
+    <Modal :modalName="MODAL.permission">
       <h2>
         <!-- 한디리에서 봇을 추천해주세요 -->
         {{ $t('invite.permissionModal.title') }}
@@ -134,9 +134,9 @@
           {{ $t('common.modal.btns.confirm') }}
         </a>
       </div>
-    </NuxtLayout>
+    </Modal>
 
-    <NuxtLayout name="modal" :modalName="MODAL.premiereOnly">
+    <Modal :modalName="MODAL.premiereOnly">
       <h2>
         <!-- 프리미어 플랜에서만 이용하실 수 있습니다. -->
         {{ $t('invite.premiereOnlyModal.title') }}
@@ -153,9 +153,9 @@
           {{ $t('common.modal.btns.confirm') }}
         </a>
       </div>
-    </NuxtLayout>
+    </Modal>
 
-    <NuxtLayout name="modal" :modalName="MODAL.customDomain">
+    <Modal :modalName="MODAL.customDomain">
       <h2>
         <!-- DNS 설정을 완료하셨나요? -->
         {{ $t('invite.customDomainModal.title') }}
@@ -181,9 +181,9 @@
           {{ $t('common.modal.btns.confirm') }}
         </a>
       </div>
-    </NuxtLayout>
+    </Modal>
 
-    <NuxtLayout name="modal" :modalName="MODAL.success">
+    <Modal :modalName="MODAL.success">
       <h2>
         <!-- 성공적으로 저장했습니다! -->
         {{ $t('common.modal.saved') }}
@@ -204,9 +204,9 @@
         {{ $t('common.modal.closeInfo') }}
       </div>
       <div class="btns"></div>
-    </NuxtLayout>
+    </Modal>
 
-    <NuxtLayout name="modal" :modalName="MODAL.failed">
+    <Modal :modalName="MODAL.failed">
       <h2>
         <!-- 저장 중 오류가 발생했습니다. -->
         {{ $t('common.errorModal.title') }}
@@ -221,7 +221,7 @@
         {{ $t('common.modal.closeInfo') }}
       </div>
       <div class="btns"></div>
-    </NuxtLayout>
+    </Modal>
   </main>
 </template>
 

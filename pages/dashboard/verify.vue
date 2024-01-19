@@ -47,7 +47,7 @@
       </button>
     </NuxtLayout>
 
-    <NuxtLayout name="modal" :modalName="MODAL.success">
+    <Modal :modalName="MODAL.success">
       <h2>
         {{ $t('common.modal.saved') }}
         <!-- 성공적으로 저장했습니다! -->
@@ -70,9 +70,9 @@
         {{ $t('common.modal.closeInfo') }}
       </div>
       <div class="btns"></div>
-    </NuxtLayout>
+    </Modal>
 
-    <NuxtLayout name="modal" :modalName="MODAL.failed">
+    <Modal :modalName="MODAL.failed">
       <h2>
         <!-- 저장 중 오류가 발생했습니다. -->
         {{ $t('common.errorModal.title') }}
@@ -87,7 +87,7 @@
         {{ $t('common.modal.closeInfo') }}
       </div>
       <div class="btns"></div>
-    </NuxtLayout>
+    </Modal>
   </main>
 </template>
 
