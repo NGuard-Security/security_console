@@ -124,22 +124,22 @@ onMounted(async () => {
           v-if="isShowMobileNav || !isMobile"
           class="bg-[#151720] flex flex-col text-gray-400 text-sm gap-1 lg:gap-1.5"
         >
-          <NuxtLink :to="getNavPath('')" class="nav_item">
+          <NuxtLink :to="getNavPath('')" @click="closeNav" class="nav_item">
             <SvgIcon name="navBar/main" />
             <!-- 메인 -->
             {{ $t('sidebar.main') }}
           </NuxtLink>
-          <NuxtLink :to="getNavPath('/members')" class="nav_item">
+          <NuxtLink :to="getNavPath('/members')" @click="closeNav" class="nav_item">
             <SvgIcon name="navBar/member" />
             <!-- 멤버 설정 -->
             {{ $t('sidebar.members') }}
           </NuxtLink>
-          <NuxtLink :to="getNavPath('/invite')" class="nav_item">
+          <NuxtLink :to="getNavPath('/invite')" @click="closeNav" class="nav_item">
             <SvgIcon name="navBar/invite" />
             <!-- 초대링크 설정 -->
             {{ $t('sidebar.invite') }}
           </NuxtLink>
-          <NuxtLink :to="getNavPath('/verify')" class="nav_item">
+          <NuxtLink :to="getNavPath('/verify')" @click="closeNav" class="nav_item">
             <SvgIcon name="navBar/verify" />
             <!-- 커맨드 인증 -->
             {{ $t('sidebar.verify') }}
