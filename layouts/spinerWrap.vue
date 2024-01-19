@@ -13,7 +13,7 @@ const { loadingState } = useLoadingState()
     </div>
 
     <div v-else-if="loadingState === LOADING_STATE.Connecting" class="state_wrap">
-      <div class="state h-[500px]">
+      <div class="state">
         <h3 class="pb-8 text-2xl">
           <!-- 불러오는 중 -->
           {{ $t('common.loading') }}
@@ -24,7 +24,7 @@ const { loadingState } = useLoadingState()
     </div>
 
     <div v-else-if="loadingState === LOADING_STATE.Failed" class="state_wrap">
-      <div class="state h-[500px]">
+      <div class="state">
         <h4>
           <!-- 현재 응답이 지연되고 있습니다. -->
           {{ $t('common.ratelimit') }}

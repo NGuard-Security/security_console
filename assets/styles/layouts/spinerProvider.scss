@@ -9,14 +9,15 @@
 }
 
 .state_wrap {
-  // position: absolute;
-  width: 100%;
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  transform: translateX(-50%);
+
 }
 
 .state {
   width: 100%;
-  height: 100px;
-  // position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
