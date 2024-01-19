@@ -133,7 +133,7 @@ onMounted(async () => {
         <!-- 모바일 메뉴 버튼 -->
         <div
           @click="isShowMobileMenu = !isShowMobileMenu"
-          class="menuBtn md:hidden w-7 h-7 p-1.5 box-content fill-white cursor-pointer"
+          class="menuBtn md:hidden w-7 h-7 p-1 box-content fill-white cursor-pointer"
         >
           <SvgIcon v-if="!isShowMobileMenu" name="menu" />
           <SvgIcon v-else name="close" />

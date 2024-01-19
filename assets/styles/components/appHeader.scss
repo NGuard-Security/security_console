@@ -10,20 +10,21 @@
 
 header {
   background: rgb(15, 16, 22);
-  height: 40px;
+  height: 36px;
 }
 
-@media (max-width: 660px) {
-  .headerContent {
-    padding: 0.8rem 1.2rem;
-  }
-
+@media (max-width: 768px) {
   .logoImg {
-    height: 36px !important;
+    height: 34px !important;
   }
 
+  .headerContent,
   header {
-    padding: 0.8rem 1.2rem;
+    padding: 5px 1rem;
+  }
+
+  .headerContent {
+    gap: 5px;
   }
 
   // .menuBtn {
@@ -55,7 +56,7 @@ header {
   }
 }
 
-@media (max-width: 660px) {
+@media (max-width: 768px) {
   .userBtn-wrap {
     position: static;
   }
@@ -72,28 +73,34 @@ header {
   }
 }
 
-@media (max-width: 768px) {
-  .headerNav .nav_item {
-    width: 100%;
-    height: 100%;
-    padding: 0.9rem 0 0.9rem 4rem !important;
-    margin: 0px 25px;
-  }
+.nav_item {
+  border-radius: 0.5rem;
 
+  @media (max-width: 768px) {
+    padding: 0.5rem;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
   .headerNav {
     background: rgba(15, 16, 22, 0.9);
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 0px 0px 20px 20px;
+
+    a {
+      width: 100%;
+      height: 100%;
+      padding: 0.9rem 0 0.9rem 4rem !important;
+      margin: 0px 25px;
+    }
   }
+
+
+
 }
 
-@media (max-width: 660px) {
-
-  //<모바일시> '헤더'와 '유저'의 (메뉴)의 패딩 통일
-  .headerNav .nav_item {
-    padding: 1.5rem 0 1.5rem 4rem !important;
-  }
-
+@media (max-width: 768px) {
   .userMenu {
     border-radius: 20px;
   }
@@ -103,14 +110,12 @@ header {
   }
 }
 
-.nav_item,
 .dropdownMenu {
 
   //'헤더'와 '유저 드롭다운'의 (메뉴 아이템)의 호버시 배경 모양을 같게
-  @media (max-width: 660px) {
+  @media (max-width: 768px) {
     //<모바일시> '헤더'와 '유저 드롭다운'의 (메뉴 아이템)의 폰트 크기 같게
-    font-size: 18px;
-    border-radius: 15px;
+    // font-size: 18px;
   }
 
   &:hover {

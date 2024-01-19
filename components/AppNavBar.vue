@@ -66,7 +66,7 @@ onMounted(async () => {
             :class="{ on: isShowServerMenu }"
             class="serverBtn flex items-center px-2 py-2 w-full border border-slate-700/[.2] rounded-lg cursor-pointer"
           >
-            <div class="w-8 h-8 mr-2 rounded-lg overflow-hidden shrink-0">
+            <div class="w-7 h-7 mr-2 rounded-lg overflow-hidden shrink-0">
               <div v-if="!currentServerData"></div>
               <nuxt-img
                 v-else-if="currentServerData.icon"
@@ -82,7 +82,7 @@ onMounted(async () => {
             <span class="serverBtn_name mr-auto text-sm text-gray-300 text-ellipsis whitespace-nowrap overflow-hidden">
               {{ currentServerData?.name || '' }}
             </span>
-            <SvgIcon name="arrowDown" class="w-5 h-5" />
+            <SvgIcon name="arrowDown" class="w-4 h-4" />
           </div>
 
           <!-- 서버 선택 드롭다운의 메뉴 -->

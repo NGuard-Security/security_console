@@ -47,7 +47,7 @@
 
   @media (max-width: 768px) {
     width: 100%;
-    padding: 0.4rem 1rem;
+    padding: 6px 1rem;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -59,9 +59,9 @@
 
     .menuIcon {
       display: block;
-      width: 1.9rem !important;
-      height: 1.9rem !important;
-      padding: 0.375rem;
+      width: 1.75rem !important;
+      height: 1.75rem !important;
+      padding: 0.25rem;
 
       svg {
         width: 100%;
@@ -73,12 +73,15 @@
       margin-bottom: 0px !important;
       min-width: 0px;
       width: fit-content;
-      height: 45px;
+
+      &,
+      & .serverBtn {
+        height: 38px;
+      }
 
       .serverBtn {
-        padding: 6px;
+        padding: 3px 5px;
         max-width: 300px;
-        height: 100%;
 
         img {
           width: auto;
@@ -86,7 +89,7 @@
         }
 
         .serverBtn_name {
-          font-size: 1rem;
+          font-size: 15px;
         }
       }
 
