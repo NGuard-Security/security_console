@@ -357,18 +357,26 @@ export default () => {
 
   const post = {
     invite: async (body: APIInviteBody, isShowError: boolean = true) => {
+      if (config.public.IS_TEST) return
+
       const res = await createDashboardAPI(isShowError).post(`/invite?id=${route.query.id}`, body)
       return
     },
     members: async (memberId: string, isShowError: boolean = true) => {
+      if (config.public.IS_TEST) return
+
       const res = await createDashboardAPI(isShowError).post(`/members?id=${route.query.id}`, { member: memberId })
       return
     },
     verify: async (body: APIVerifyBody, isShowError: boolean = true) => {
+      if (config.public.IS_TEST) return
+
       const res = await createDashboardAPI(isShowError).post(`/verify?id=${route.query.id}`, body)
       return
     },
     authCallback: async (code: string, isShowError: boolean = true) => {
+      if (config.public.IS_TEST) return {}
+
       const res = await createDashboardAPI(isShowError).post(`/auth/callback`, { code })
       return res.data
     },

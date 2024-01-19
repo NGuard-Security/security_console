@@ -7,6 +7,8 @@ export default () => {
   const alertsData = useState<APIAlert[]>('alertsData', () => [])
 
   onMounted(() => {
+    if (config.public.IS_TEST) return
+
     //config.public.API_BASE_URL as string
     connection.value = io('https://ws-api.nguard.xyz/').connect()
 
@@ -38,6 +40,7 @@ export default () => {
 
   const loadPush = (guildId: number) => {
     if (!connection.value) return
+    if (config.public.IS_TEST) return
 
     connection.value.emit('push:load', {
       guild: String(guildId),
@@ -47,6 +50,7 @@ export default () => {
 
   const checkPush = (guildId: number) => {
     if (!connection.value) return
+    if (config.public.IS_TEST) return
 
     connection.value.emit('push:check', {
       guild: String(guildId),
@@ -57,6 +61,7 @@ export default () => {
 
   const onPushCheck = (callback: () => void) => {
     if (!connection.value) return
+    if (config.public.IS_TEST) return
 
     connection.value.on('push:check', pushs => {
       let alerts_new = pushs
