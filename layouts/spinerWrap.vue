@@ -7,7 +7,7 @@ const { loadingState } = useLoadingState()
 </style>
 
 <template>
-  <transition name="contents">
+  <transition name="spinner-contents">
     <div v-if="loadingState === LOADING_STATE.Success">
       <slot />
     </div>

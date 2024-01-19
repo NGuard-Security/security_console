@@ -1,17 +1,8 @@
-<script setup lang="ts">
-const i18n = useI18n()
-</script>
-
 <template>
-  <NuxtLayout>
-    <div :class="`i18n i18n_${i18n.locale.value}`">
-      <AppHeader />
-      <div class="flex w-full h-full min-h-0">
-        <AppNavBar />
+  <NuxtLayout name="app-base">
+    <AppNavBar />
 
-        <NuxtPage />
-      </div>
-    </div>
+    <NuxtPage />
   </NuxtLayout>
 </template>
 

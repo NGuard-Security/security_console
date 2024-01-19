@@ -1,14 +1,10 @@
-.spiner-enter-active,
-.spiner-leave-active,
-.connErr-enter-active,
-.connErr-leave-active {
-  transition: opacity 0.3s;
+.spinner-contents-enter-active,
+.spinner-contents-leave-active {
+  transition: opacity 0.15s;
 }
 
-.spiner-enter-from,
-.spiner-leave-to,
-.connErr-enter-from,
-.connErr-leave-to {
+.spinner-contents-enter-from,
+.spinner-contents-leave-to {
   opacity: 0;
 }
 
