@@ -4,6 +4,8 @@ const isTest = process.env.IS_TEST === 'true'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  devtools: { enabled: true },
+
   app: {
     head: {
       title: 'NGuard Console',
@@ -115,7 +117,6 @@ export default defineNuxtConfig({
     },
   },
   alias: {},
-  devtools: { enabled: true },
   css: ['~/assets/styles/global.scss'],
   typescript: {
     typeCheck: true,
