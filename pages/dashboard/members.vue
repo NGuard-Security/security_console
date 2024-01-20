@@ -166,7 +166,7 @@ const setBlackList = async () => {
     const member = memberMap.value[targetId]
     member.isBlackList = !member.isBlackList
   } catch (e) {
-    await modalShowAndClose(MODAL.failed, 3000)
+    modalShowAndClose(MODAL.failed, 3000)
   }
 }
 

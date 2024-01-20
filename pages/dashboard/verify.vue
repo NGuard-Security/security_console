@@ -219,11 +219,6 @@ onMounted(async () => {
       }
     }
 
-    // this.switch_.confirm = true
-    // this.list.role.list = res.guild.roles
-    // this.roleList = res.guild.roles
-    // this.input.role = res.settings.role ? res.settings.role : res.guild.roles[0]
-
     loadingSuccess()
   } catch (e) {}
 })

@@ -279,20 +279,23 @@ const setting = useState('inviteSetting', () => {
 // this.switch_[name] = !this.switch_[name]
 // }
 
+// const checkVote = () => {
+// this.connState = 0
+// location.reload()
+// }
+
 const clickInviteLink = () => {
   if (hasPermission.value) return
 
   modalShow(MODAL.permission)
 }
+
 const clickCustomDomain = () => {
   if (isEnterprise.value) return
 
   modalShow(MODAL.premiereOnly)
 }
-// const checkVote = () => {
-// this.connState = 0
-// location.reload()
-// }
+
 const reconfirmSaveSettings = async () => {
   if (setting.value.inviteLink.enabled && setting.value.inviteLink.settings.inviteURL.value != '') {
     modalShow(MODAL.customDomain)
@@ -300,6 +303,7 @@ const reconfirmSaveSettings = async () => {
     saveSettings()
   }
 }
+
 const saveSettings = async () => {
   try {
     const { inviteLink } = setting.value
@@ -338,6 +342,7 @@ onMounted(async () => {
         if (res.settings.link) inviteURL.value = res.settings.link
       }
 
+      //TODO - NGuard API v3 준비
       // setting.value.invite = Boolean(res.settings.status)
       // setting.value.domain = Boolean(res.domain.domain)
       // setting.value.domainSSL = res.domain.ssl
