@@ -110,6 +110,7 @@ export default defineNuxtConfig({
     '@nuxtjs/svg-sprite',
     '@nuxtjs/tailwindcss',
     '@zadigetvoltaire/nuxt-gtm',
+    '@nuxtjs/turnstile',
   ],
 
   gtm: {
@@ -131,6 +132,10 @@ export default defineNuxtConfig({
     // trackOnNextTick: false, // Whether or not call trackView in Vue.nextTick
     // devtools: true, // (optional)
   },
+
+  // turnstile: {
+  //   siteKey: '<your-site-key>',
+  // },
 
   svgSprite: {
     input: '~/assets/icons',
