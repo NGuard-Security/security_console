@@ -6355,6 +6355,7 @@ __metadata:
     socket.io-client: "npm:^4.7.3"
     typescript: "npm:^5.3.3"
     vue: "npm:^3.4.5"
+    vue-chartjs: "npm:^5.3.0"
     vue-router: "npm:^4.2.5"
     vue-tsc: "npm:^1.8.27"
   languageName: unknown
@@ -9102,6 +9103,16 @@ __metadata:
   dependencies:
     ufo: "npm:^1.2.0"
   checksum: 5d934be095334da4a415384e029302e499f7ba8ead552409ed7d59c342c61302197b8f2dbda428d6edc97a443102f1772ea440c31833587e54f2cba60b29c516
+  languageName: node
+  linkType: hard
+
+"vue-chartjs@npm:^5.3.0":
+  version: 5.3.0
+  resolution: "vue-chartjs@npm:5.3.0"
+  peerDependencies:
+    chart.js: ^4.1.1
+    vue: ^3.0.0-0 || ^2.7.0
+  checksum: c6aebc4434d329843fbb7c5209317fd44a5a1fb91c60b43c2e03bc999c2427c0787eb30458fa5575e26004a426b5f4c764a3bdc5c6f9793379fc7d039c0575ff
   languageName: node
   linkType: hard
 
