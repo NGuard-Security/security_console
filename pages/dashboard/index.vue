@@ -174,7 +174,7 @@ const alertCenterHeight = useState('alertCenterHeight', () => 'auto')
 const alertInterval = useState<NodeJS.Timeout | null>('alertInterval', () => null)
 const isAlertOpened = useState<boolean>('isAlertOpened', () => false)
 
-const summaryData = useState<APISummary | null>('summaryData', () => null)
+const summaryData = useState<APISummary>()
 
 const setAlertsIsOpened = () => {
   isAlertOpened.value = !isAlertOpened.value
@@ -199,14 +199,10 @@ onMounted(async () => {
     summaryData.value = await API.get.summary()
 
     loadPush(Number(route.query.id))
-
     onPushCheck(resizeAlerts)
-
     alertInterval.value = setInterval(() => {
       checkPush(Number(route.query.id))
     }, 5000)
-
-    wait(200)
 
     resizeAlerts()
     loadingSuccess()
