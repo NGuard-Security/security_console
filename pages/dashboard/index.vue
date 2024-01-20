@@ -206,6 +206,8 @@ onMounted(async () => {
       checkPush(Number(route.query.id))
     }, 5000)
 
+    wait(200)
+
     resizeAlerts()
     loadingSuccess()
   } catch (e) {}
