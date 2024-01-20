@@ -146,8 +146,6 @@ const setting = useState('verifySetting', () => {
 //   roleList: [], // Read-only
 // }
 
-const asdf = useI18n()
-
 const clickEnableSwitch = () => {
   if (!setting.value.cmdVerify.allowed) {
     modalShowAndClose(MODAL.notAllowed, 3000)
