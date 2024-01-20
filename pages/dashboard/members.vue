@@ -126,9 +126,11 @@ definePageMeta({
   middleware: ['auth', 'guild-id'],
 })
 
-const modalNames = ['reconfirmBlackList', 'reconfirmRemoveBlackList', 'failed'] as const
-const MODAL = strArrToEnumObject<typeof modalNames>(modalNames)
-const { modalShow, modalClose, modalShowAndClose } = useModal<typeof modalNames>(modalNames)
+const { modalShow, modalClose, modalShowAndClose, MODAL } = useModal([
+  'reconfirmBlackList',
+  'reconfirmRemoveBlackList',
+  'failed',
+] as const)
 const API = useAPI()
 const { loadingSuccess } = useLoadingState()
 

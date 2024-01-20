@@ -111,9 +111,7 @@ definePageMeta({
   middleware: ['auth', 'guild-id'],
 })
 
-const modalNames = ['success', 'failed', 'notAllowed'] as const
-const MODAL = strArrToEnumObject<typeof modalNames>(modalNames)
-const { modalShowAndClose } = useModal<typeof modalNames>(modalNames)
+const { modalShowAndClose, MODAL } = useModal(['success', 'failed', 'notAllowed'] as const)
 const API = useAPI()
 const { loadingSuccess } = useLoadingState()
 
