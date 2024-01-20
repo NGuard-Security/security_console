@@ -21,11 +21,7 @@
             <!-- 커맨드 인증 -->
             {{ $t('verify.category1.toggle') }}
           </label>
-          <div
-            @click="setting.cmdVerify.enabled = !setting.cmdVerify.enabled"
-            :class="{ switch_on: setting.cmdVerify.enabled }"
-            class="switch"
-          ></div>
+          <div @click="clickEnableSwitch" :class="{ switch_on: setting.cmdVerify.enabled }" class="switch"></div>
         </div>
 
         <div v-if="setting.cmdVerify.enabled">
@@ -41,7 +37,7 @@
         </div>
       </form>
 
-      <button class="btn-save" @click="saveSettings()">
+      <button class="btn-save" v-if="setting.cmdVerify.allowed" @click="saveSettings()">
         {{ $t('common.save') }}
         <!-- 저장하기 -->
       </button>
@@ -55,13 +51,15 @@
       <div class="flex flex-col text-gray-400 pt-3 gap-2">
         <span v-if="setting.cmdVerify.enabled">
           <!-- 새로운 유저가 <code>/verify</code> 명령어로 인증할 수 있습니다. -->
-          <!-- FIXME - [intlify] Not found 'verify.modal.applied' key in 'ko' locale messages. -->
-          {{ $t('verify.modal.applied') }}
+          {{ $t('verify.modal.applied[0]') }}
+          <code>{{ $t('verify.modal.applied[1]') }}</code>
+          {{ $t('verify.modal.applied[2]') }}
         </span>
         <span v-else>
           <!-- 새로운 유저는 더 이상 <code>/verify</code> 명령어로 인증할 수 없습니다. -->
-          <!-- FIXME - [intlify] Not found 'verify.modal.deleted' key in 'ko' locale messages. -->
-          {{ $t('verify.modal.deleted') }}
+          {{ $t('verify.modal.deleted[0]') }}
+          <code>{{ $t('verify.modal.applied[1]') }}</code>
+          {{ $t('verify.modal.applied[2]') }}
         </span>
 
         <br />
@@ -88,6 +86,23 @@
       </div>
       <div class="btns"></div>
     </Modal>
+
+    <Modal :modalName="MODAL.notAllowed">
+      <h2>
+        <!-- 기능을 사용할 수 없습니다. -->
+        {{ $t('verify.modal.notAllowed.title') }}
+      </h2>
+      <div class="flex flex-col text-gray-400 pt-3 gap-2">
+        <!-- 해당 기능을 사용하기 위해서는 서버에 최소 1개 이상의 역할이 존재하여야 합니다.<br /><br />
+    ℹ️ 이 창은 3초 후 자동으로 닫힙니다. -->
+        <span>{{ $t('verify.modal.notAllowed.description') }}</span>
+
+        <br />
+
+        {{ $t('common.modal.closeInfo') }}
+      </div>
+      <div class="btns"></div>
+    </Modal>
   </main>
 </template>
 
@@ -96,9 +111,9 @@ definePageMeta({
   middleware: ['auth', 'guild-id'],
 })
 
-const modalNames = ['success', 'failed'] as const
+const modalNames = ['success', 'failed', 'notAllowed'] as const
 const MODAL = strArrToEnumObject<typeof modalNames>(modalNames)
-const { modalShow, modalClose, modalShowAndClose } = useModal<typeof modalNames>(modalNames)
+const { modalShowAndClose } = useModal<typeof modalNames>(modalNames)
 const API = useAPI()
 const { loadingSuccess } = useLoadingState()
 
@@ -106,6 +121,7 @@ const setting = useState('verifySetting', () => {
   return {
     cmdVerify: {
       enabled: false,
+      allowed: false,
       settings: {
         verifyRole: new createInputMenuComp<APIRole>([]).toObject(),
       },
@@ -130,6 +146,17 @@ const setting = useState('verifySetting', () => {
 //   roleList: [], // Read-only
 // }
 
+const asdf = useI18n()
+
+const clickEnableSwitch = () => {
+  if (!setting.value.cmdVerify.allowed) {
+    modalShowAndClose(MODAL.notAllowed, 3000)
+    return
+  }
+
+  setting.value.cmdVerify.enabled = !setting.value.cmdVerify.enabled
+}
+
 const doinputInputMenu = (value: string) => {
   const Tlqkf = setting.value.cmdVerify.settings.verifyRole
 
@@ -148,6 +175,10 @@ const setInputMenuIndex = (index: string) => {
 const saveSettings = async () => {
   try {
     const { cmdVerify } = setting.value
+
+    if (cmdVerify.settings.verifyRole.menuIndex.length > 0) {
+      return
+    }
 
     await API.post.verify({
       status: cmdVerify.enabled,
@@ -171,16 +202,23 @@ onMounted(async () => {
         return { index: role.id, name: role.name, data: role }
       })
 
-      const createVerifyRole = new createInputMenuComp<APIRole>(tmp)
+      if (tmp.length > 0) {
+        cmdVerify.allowed = true
 
-      if (res.settings) {
-        createVerifyRole.setIndex(res.settings.role.id)
+        const createVerifyRole = new createInputMenuComp<APIRole>(tmp)
+
+        if (res.settings) {
+          createVerifyRole.setIndex(res.settings.role.id)
+        } else {
+          createVerifyRole.setIndex(res.guild.roles[0].id)
+        }
+
+        cmdVerify.enabled = true
+        cmdVerify.settings.verifyRole = createVerifyRole.toObject()
       } else {
-        createVerifyRole.setIndex(res.guild.roles[0].id)
+        cmdVerify.allowed = false
+        cmdVerify.enabled = false
       }
-
-      cmdVerify.enabled = true
-      cmdVerify.settings.verifyRole = createVerifyRole.toObject()
     }
 
     // this.switch_.confirm = true
