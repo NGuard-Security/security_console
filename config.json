@@ -1,5 +1,5 @@
 {
   "apiEndpoint": "https://api.nguard.xyz",
   "apiTestEndpoint": "https://api-v2stg.nguard.dev",
-  "apiLocalEndpoint": "localhost:4000"
+  "apiLocalEndpoint": "http://localhost:4000"
 }
