@@ -167,10 +167,6 @@ const setBlackList = async () => {
     member.isBlackList = !member.isBlackList
   } catch (e) {
     await modalShowAndClose(MODAL.failed, 3000)
-    // await wait(1000)
-
-    // location.reload()
-    // TODO - 요청 다시하는걸로 해야하려나
   }
 }
 
