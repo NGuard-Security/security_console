@@ -39,7 +39,9 @@ onMounted(() => {
 
   removeAccessToken()
 
+  // @ts-ignore
   if (window.ReactNativeWebView) {
+    // @ts-ignore
     window.ReactNativeWebView.postMessage(
       JSON.stringify({
         type: 'alert',

@@ -27,21 +27,14 @@
 
 <script setup lang="ts">
 const i18n = useI18n()
+const { discordPopup } = useDiscordPopup()
 
 onMounted(() => {
   if (!getAccessToken()) {
     const discordAuthURL = `https://discord.com/api/oauth2/authorize?client_id=937636597040570388&redirect_uri=${window.location.origin}/auth/callback&response_type=code&scope=identify guilds guilds.join email&state=${i18n.locale.value}`
-    const popupWidth = 450
-    const popupHeight = 940
-    const popupX = document.body.offsetWidth / 2 + window.screenX - popupWidth / 2
-    const popupY = document.body.offsetHeight / 2 + window.screenY - popupHeight / 2
 
     setTimeout(() => {
-      window.open(
-        discordAuthURL,
-        `${isMobileOrTablet() ? '_self' : '_blank'}`,
-        `width = ${popupWidth}, height = ${popupHeight}, top = ${popupY}, left = ${popupX}, location = no, toolbars = no, status = no`,
-      )
+      discordPopup(discordAuthURL)
     }, 1500)
   } else {
     history.go(-1)

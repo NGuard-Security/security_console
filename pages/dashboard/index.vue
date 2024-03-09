@@ -198,10 +198,10 @@ onMounted(async () => {
   try {
     summaryData.value = await API.get.summary()
 
-    loadPush(Number(route.query.id))
+    loadPush(route.query.id as string)
     onPushCheck(resizeAlerts)
     alertInterval.value = setInterval(() => {
-      checkPush(Number(route.query.id))
+      checkPush(route.query.id as string)
     }, 5000)
 
     resizeAlerts()

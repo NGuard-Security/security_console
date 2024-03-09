@@ -5,7 +5,10 @@ export interface APIAlert {
   kind: ALERT
   title: string
   content: string
-  id: number
+  id: string
+  date: Date
+  due: string
+  guild: string
   button: {
     href: string
     text: string

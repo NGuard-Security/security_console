@@ -9,23 +9,21 @@ export default () => {
   onMounted(() => {
     if (config.public.IS_TEST) return
 
-    //config.public.API_BASE_URL as string
-    connection.value = io('https://ws-api.nguard.xyz/').connect()
+    connection.value = io((config.public.API_BASE_URL as string) + '/dashboard/push').connect()
 
-    connection.value?.on('push:load', pushs => {
+    connection.value.on('push:load', (pushs: APIAlert[]) => {
       alertsData.value = pushs
     })
 
-    connection.value?.on('push:check', pushs => {
-      let alerts_new = pushs
-      if (alerts_new.length > 0) {
+    connection.value.on('push:check', (pushs: APIAlert[]) => {
+      if (pushs.length > 0) {
         new Audio('https://cdn.nguard.dev/assets/dashboard/audio/console_alarm.mp3').play()
       }
-      alertsData.value = [].concat(alertsData.value as any, pushs)
-      // this.resizeAlerts()
+
+      alertsData.value.push(...pushs)
     })
 
-    connection.value?.on('push:error', e => {
+    connection.value.on('push:error', e => {
       console.log(e)
       alert('통신 중 오류가 발생하였습니다. 채널톡으로 문의해 주세요.')
     })
@@ -38,40 +36,32 @@ export default () => {
     connection.value = null
   })
 
-  const loadPush = (guildId: number) => {
+  const loadPush = (guildId: string) => {
     if (!connection.value) return
     if (config.public.IS_TEST) return
 
     connection.value.emit('push:load', {
-      guild: String(guildId),
-      access_token: localStorage.getItem('access_token'),
+      accessToken: localStorage.getItem('access_token'),
+      guildId,
     })
   }
 
-  const checkPush = (guildId: number) => {
+  const checkPush = (guildId: string) => {
     if (!connection.value) return
     if (config.public.IS_TEST) return
 
     connection.value.emit('push:check', {
-      guild: String(guildId),
-      access_token: localStorage.getItem('access_token'),
-      already: alertsData.value.map(alert => alert.id),
+      accessToken: localStorage.getItem('access_token'),
+      guildId,
+      alreadyPushIdArray: alertsData.value.map(alert => alert.id),
     })
   }
 
-  const onPushCheck = (callback: () => void) => {
+  const onPushCheck = (callback: () => any) => {
     if (!connection.value) return
     if (config.public.IS_TEST) return
 
-    connection.value.on('push:check', pushs => {
-      let alerts_new = pushs
-      if (alerts_new.length > 0) {
-        new Audio('https://cdn.nguard.dev/assets/dashboard/audio/console_alarm.mp3').play()
-      }
-      alertsData.value = [].concat(alertsData.value as any, pushs)
-
-      callback()
-    })
+    connection.value.on('push:check', callback)
   }
 
   return { alertsData, loadPush, checkPush, onPushCheck }

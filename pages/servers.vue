@@ -7,11 +7,7 @@ const { loadingSuccess } = useLoadingState()
 const API = useAPI()
 const serverData = useState<APIServer[]>()
 const { pathWithLocale } = usePathUtils()
-
-const openInvite = (e: any) => {
-  e.preventDefault()
-  window.open(e.target.href, 'Invite', 'width=562px, height=972px, top=30px, left=675px, resizable=no')
-}
+const { discordPopup } = useDiscordPopup()
 
 onMounted(async () => {
   try {
@@ -67,7 +63,7 @@ onMounted(async () => {
               <!-- 관리 -->
               {{ $t('servers.manageButton') }}
             </NuxtLink>
-            <a :href="`/bot/invite?id=${server.id}`" @click="openInvite" v-else>
+            <a @click="discordPopup(`/bot/invite?id=${server.id}`, 'Invite')" v-else>
               <!-- 초대하기 -->
               {{ $t('servers.inviteButton') }}
             </a>

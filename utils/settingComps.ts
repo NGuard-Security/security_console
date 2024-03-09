@@ -63,9 +63,7 @@ export class createInputMenuComp<dataType = any> implements inputMenuCompData {
   public menuIndex: { name: string; index: string }[] = []
 
   constructor(data: { index: string; name: string; data: dataType }[]) {
-    if (data.length === 0) {
-      return
-    }
+    if (data.length === 0) return
 
     for (let i = 0; i < data.length; i++) {
       const item = data[i]
