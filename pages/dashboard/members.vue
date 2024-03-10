@@ -122,6 +122,8 @@ li {
 </style>
 
 <script setup lang="ts">
+import { hangulIncludes } from '@toss/hangul'
+
 definePageMeta({
   middleware: ['auth', 'guild-id'],
 })
@@ -176,14 +178,17 @@ const searchMember = (id: string) => {
   //TODO - 페이지 형식 적용?
 
   memberList.value = []
-  const matcher = createFuzzyMatcher(id)
 
-  Object.entries(memberMap.value).forEach(([key, value]) => {
-    if (!matcher.test(value.nickName) && !matcher.test(value.userName) && !matcher.test(key)) {
-      return
-    }
-
-    memberList.value.push(key)
+  Object.entries(memberMap.value).forEach(([key, { nickName, userName }]) => {
+    if (
+      key.includes(id) ||
+      nickName.includes(id) ||
+      userName.includes(id) ||
+      hangulIncludes(id, nickName) ||
+      hangulIncludes(id, userName) ||
+      hangulIncludes(id, key)
+    )
+      memberList.value.push(key)
   })
 }
 
