@@ -13108,9 +13108,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass-loader@npm:10.1.1":
-  version: 10.1.1
-  resolution: "sass-loader@npm:10.1.1"
+"sass-loader@npm:10.5.2":
+  version: 10.5.2
+  resolution: "sass-loader@npm:10.5.2"
   dependencies:
     klona: "npm:^2.0.4"
     loader-utils: "npm:^2.0.0"
@@ -13119,7 +13119,7 @@ __metadata:
     semver: "npm:^7.3.2"
   peerDependencies:
     fibers: ">= 3.1.0"
-    node-sass: ^4.0.0 || ^5.0.0
+    node-sass: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0
     sass: ^1.3.0
     webpack: ^4.36.0 || ^5.0.0
   peerDependenciesMeta:
@@ -13129,7 +13129,7 @@ __metadata:
       optional: true
     sass:
       optional: true
-  checksum: 6f25f03e9da863be876267002a232f45effd7741b7fb6839e37d02b41f3faeb6db4f861207fd7c5cf2606ff2caf453afebb1803724580207f827ef37b382c766
+  checksum: 27b85f852d270a5c84b95f8ba3fbc84e7cbb77a3481f3ff2b74d4ea87f2ad4cefcba70ba41412b80e62ba433c75994d4d12d323d39a24de5087b60b571a1a3c9
   languageName: node
   linkType: hard
 
@@ -13238,7 +13238,7 @@ __metadata:
     prettier: "npm:^2.5.1"
     public-google-sheets-parser: "npm:^1.2.6"
     sass: "npm:^1.54.3"
-    sass-loader: "npm:10.1.1"
+    sass-loader: "npm:10.5.2"
     socket.io-client: "npm:^4.5.4"
     v-click-outside: "npm:^3.2.0"
     vercel: "npm:^32.4.1"
