@@ -2664,13 +2664,13 @@ __metadata:
   linkType: hard
 
 "@nuxtjs/style-resources@npm:^1.2.1":
-  version: 1.2.1
-  resolution: "@nuxtjs/style-resources@npm:1.2.1"
+  version: 1.2.2
+  resolution: "@nuxtjs/style-resources@npm:1.2.2"
   dependencies:
-    consola: "npm:^2.15.3"
-    glob-all: "npm:^3.2.1"
-    sass-resources-loader: "npm:^2.2.4"
-  checksum: 41da586dcf621b5b5cc8862105b689447540cd990103ea65d73c62f17a9e93e8ccb149b7f827ed13ca48418a47f076b2eee6d2e6bcc5cdb0f8d495dba42d54aa
+    consola: "npm:^3.2.3"
+    glob-all: "npm:^3.3.1"
+    sass-resources-loader: "npm:^2.2.5"
+  checksum: 82d920d366915a21b41d59a1f3cce165c0d888ae3c73175d7574fd3e085b94fb1d4afd3efd2358343a286de7ff3cf92e26f0cf2a22a6008ab4a72658e8482419
   languageName: node
   linkType: hard
 
@@ -7547,7 +7547,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob-all@npm:^3.2.1":
+"glob-all@npm:^3.3.1":
   version: 3.3.1
   resolution: "glob-all@npm:3.3.1"
   dependencies:
@@ -13133,7 +13133,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass-resources-loader@npm:^2.2.4":
+"sass-resources-loader@npm:^2.2.5":
   version: 2.2.5
   resolution: "sass-resources-loader@npm:2.2.5"
   dependencies:
