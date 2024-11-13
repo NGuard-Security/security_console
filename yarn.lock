@@ -12498,9 +12498,9 @@ __metadata:
   linkType: hard
 
 "public-google-sheets-parser@npm:^1.2.6, public-google-sheets-parser@npm:^1.3.1":
-  version: 1.3.2
-  resolution: "public-google-sheets-parser@npm:1.3.2"
-  checksum: b7c494bf036d3bf227f2cd52dd05106dce3cb6fe081303e23bb6a3d133a3b37aeb862067f2b7eaffce6034012bab3fb1e57e32c2c8319ff629d39a52466240ee
+  version: 1.5.4
+  resolution: "public-google-sheets-parser@npm:1.5.4"
+  checksum: edffebbed7b834cc11e219b6b0674a709d3cdf6b0b1d5890a2d2fb6ba5593fb58935c99552ef8e74253fb1b31b622a9557be01b78516b342600b82fe17cfa5d6
   languageName: node
   linkType: hard
 
