@@ -10433,11 +10433,11 @@ __metadata:
   linkType: hard
 
 "nuxt-google-sheets-parser@npm:^1.2.4":
-  version: 1.3.1
-  resolution: "nuxt-google-sheets-parser@npm:1.3.1"
+  version: 1.3.4
+  resolution: "nuxt-google-sheets-parser@npm:1.3.4"
   dependencies:
-    public-google-sheets-parser: "npm:^1.3.1"
-  checksum: 67b3459b3d3d42870fb42c0b17fa23482b521cd5163dda7b0ca84f1049e42eb56e748e38e38a5770f367fe9a54903801a00328994dcee42ec2a1cbc59540e365
+    public-google-sheets-parser: "npm:^1.3.4"
+  checksum: 609fa8e3a8aea97fb336d5005052e9b83cd9d8cea984ba6fb6970198c019de0e6cfe1e3d6dd4784b855f4e2452a0ecbbf9560000230a84c39d21c257763cc01f
   languageName: node
   linkType: hard
 
@@ -12497,10 +12497,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"public-google-sheets-parser@npm:^1.2.6, public-google-sheets-parser@npm:^1.3.1":
+"public-google-sheets-parser@npm:^1.2.6":
   version: 1.3.2
   resolution: "public-google-sheets-parser@npm:1.3.2"
   checksum: b7c494bf036d3bf227f2cd52dd05106dce3cb6fe081303e23bb6a3d133a3b37aeb862067f2b7eaffce6034012bab3fb1e57e32c2c8319ff629d39a52466240ee
+  languageName: node
+  linkType: hard
+
+"public-google-sheets-parser@npm:^1.3.4":
+  version: 1.5.4
+  resolution: "public-google-sheets-parser@npm:1.5.4"
+  checksum: edffebbed7b834cc11e219b6b0674a709d3cdf6b0b1d5890a2d2fb6ba5593fb58935c99552ef8e74253fb1b31b622a9557be01b78516b342600b82fe17cfa5d6
   languageName: node
   linkType: hard
 
