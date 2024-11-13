@@ -15296,8 +15296,8 @@ __metadata:
   linkType: hard
 
 "vue-server-renderer@npm:^2.6.14, vue-server-renderer@npm:^2.7.14":
-  version: 2.7.14
-  resolution: "vue-server-renderer@npm:2.7.14"
+  version: 2.7.16
+  resolution: "vue-server-renderer@npm:2.7.16"
   dependencies:
     chalk: "npm:^4.1.2"
     hash-sum: "npm:^2.0.0"
@@ -15307,7 +15307,7 @@ __metadata:
     resolve: "npm:^1.22.0"
     serialize-javascript: "npm:^6.0.0"
     source-map: "npm:0.5.6"
-  checksum: f8144cbd2a4ead1b2b2b6815f61d6cdedb69aeb353da213e181e9b17cdbc12739d5dd0c0b5b4ad3a330eac1b6a73c17f74fa11401d8affdf23aea9bbedbd54f9
+  checksum: 9a29158c1473b42b97e48904bdabed86fc1a8bd84ca6986ed1b39a4c72f53fa02beb7516fe367db73b967836ad5173dc685650d01b061f2169715d05d68b85bc
   languageName: node
   linkType: hard
 
