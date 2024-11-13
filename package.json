@@ -25,7 +25,7 @@
     "cross-env": "^7.0.3",
     "lodash": "^4.17.21",
     "lodash.escaperegexp": "^4.1.2",
-    "nuxt": "^2.15.8",
+    "nuxt": "^3.0.0",
     "nuxt-google-sheets-parser": "^1.2.4",
     "public-google-sheets-parser": "^1.2.6",
     "socket.io-client": "^4.5.4",
