@@ -13243,7 +13243,7 @@ __metadata:
     v-click-outside: "npm:^3.2.0"
     vercel: "npm:^32.4.1"
     vue: "npm:^2.6.14"
-    vue-chartjs: "npm:^4.1.1"
+    vue-chartjs: "npm:^5.0.0"
     vue-js-modal: "npm:^2.0.1"
     vue-server-renderer: "npm:^2.6.14"
     vue-template-compiler: "npm:^2.6.14"
@@ -15207,13 +15207,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue-chartjs@npm:^4.1.1":
-  version: 4.1.2
-  resolution: "vue-chartjs@npm:4.1.2"
+"vue-chartjs@npm:^5.0.0":
+  version: 5.3.2
+  resolution: "vue-chartjs@npm:5.3.2"
   peerDependencies:
-    chart.js: ^3.7.0
-    vue: ^3.0.0-0 || ^2.6.0
-  checksum: 273f9ea7878575e6c7abdddbca2b088e7fa2585c58d1a8405ae7349fb8871766a24a8a4be433befca39dc64fb651b305beec49471c2e9e52b59f4492bcd33471
+    chart.js: ^4.1.1
+    vue: ^3.0.0-0 || ^2.7.0
+  checksum: 79bacb824bb49455e1c28e77b1b0da108cacd000a6287b328a0ebc5093817c43affa19da4b9a50b15e5a20bb7d0e470dcbc9b59268d3e2e5dd72ecc3f7fb8d3b
   languageName: node
   linkType: hard
 
