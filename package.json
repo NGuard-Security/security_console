@@ -20,7 +20,7 @@
     "@nuxtjs/i18n": "^7.3.1",
     "@nuxtjs/pwa": "^3.3.5",
     "@nuxtjs/style-resources": "^1.2.1",
-    "chart.js": "^3.9.1",
+    "chart.js": "^4.0.0",
     "core-js": "^3.19.3",
     "cross-env": "^7.0.3",
     "lodash": "^4.17.21",
