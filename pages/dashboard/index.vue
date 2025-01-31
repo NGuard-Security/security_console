@@ -55,7 +55,7 @@
               </p>
               <span>
                 <!-- {{ summary.new_user }}명 -->
-                {{ $t('summary.peoplesTemplate').toLowerCase().replace('n', summary.new_user) }}
+                {{ $t('summary.peoplesTemplate').toLowerCase().replace('n', summary.newUser) }}
               </span>
             </div>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -72,7 +72,7 @@
               </p>
               <span>
                 <!-- {{ summary.black_user }}명 -->
-                {{ $t('summary.peoplesTemplate').toLowerCase().replace('n', summary.black_user) }}
+                {{ $t('summary.peoplesTemplate').toLowerCase().replace('n', summary.blackUser) }}
               </span>
             </div>
             <svg
